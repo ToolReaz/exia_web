@@ -1,0 +1,111 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans|Roboto");
+.grid-container {
+  max-width: 1000px;
+  margin: auto;
+  padding: 10px; }
+
+.row {
+  width: 100%; }
+
+.row:after, .row:before {
+  content: "";
+  clear: both;
+  display: block; }
+
+.col-hide {
+  display: none; }
+
+/* 12 Columns Grid System */
+/* For mobile phones: */
+[class*="col-"] {
+  width: 100%;
+  float: left;
+  padding: 15px;
+  /* SHOW BORDERS HIT-BOX */
+  /* border: 1px solid red; */ }
+
+@media only screen and (min-width: 1300px) {
+  /* For desktop: */
+  .grid-container {
+    padding: 0; }
+
+  .col-1 {
+    width: 8.33%; }
+
+  .col-2 {
+    width: 16.66%; }
+
+  .col-3 {
+    width: 25%; }
+
+  .col-4 {
+    width: 33.33%; }
+
+  .col-5 {
+    width: 41.66%; }
+
+  .col-6 {
+    width: 50%; }
+
+  .col-7 {
+    width: 58.33%; }
+
+  .col-8 {
+    width: 66.66%; }
+
+  .col-9 {
+    width: 75%; }
+
+  .col-10 {
+    width: 83.33%; }
+
+  .col-11 {
+    width: 91.66%; }
+
+  .col-12 {
+    width: 100%; }
+
+  .center {
+    margin: auto;
+    text-align: center; }
+
+  .col-hide {
+    display: block; } }
+nav {
+  width: 100%;
+  height: 80px;
+  background-color: #C2242A; }
+
+.nav-item {
+  width: 100px;
+  height: 80px;
+  line-height: 80px;
+  float: left;
+  margin: 0 20px 0 20px; }
+
+.nav-item a {
+  color: #FFFFFF;
+  font-size: 18px;
+  padding: 8px;
+  border: 1px solid #FFFFFF;
+  border-radius: 3px; }
+
+@media only screen and (min-width: 1300px) {
+  /* For desktop: */ }
+/*
+
+    font-family: 'Roboto', sans-serif;
+
+    font-family: 'Open Sans', sans-serif;
+
+ */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif, 'Open Sans', sans-serif; }
+
+a {
+  text-decoration: none; }
+
+/*# sourceMappingURL=index.css.map */
