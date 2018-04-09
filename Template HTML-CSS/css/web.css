@@ -1,0 +1,37 @@
+nav{
+  width: 100%;
+  background-color: #c2242a;
+  color: white;
+  height: 20%;
+  margin: auto;
+
+}
+ nav img{
+   height: 100%;
+   width: 20%;
+   margin-left:30%
+ }
+ nav img:hover{
+   transform: scale(2);
+ }
+
+nav button{
+  transition-duration: 0.5s;
+  margin-top: 5%;
+  color: #c2242a;
+  background-color: white;
+  border: none;
+  border-radius: 15px;
+  height: 3.4em;
+}
+
+nav button:hover{
+  transition-duration: 0.5s;
+  background-color: #c2242a;
+  color: white;
+  border: 1px white solid
+}
+
+nav input{
+  margin-top: 8%;
+}
