@@ -1,8 +1,8 @@
-const db = require('../db');
+const DB = require('../model/DB');
 let bcrypt = require('bcrypt');
 
 module.exports = {
-
+/*
     connect: (req, res) => {
 
         let reqUsername = req.body.username;
@@ -12,7 +12,7 @@ module.exports = {
             console.log(req.body);
             res.json({'error': 'Pseudo ou mot de passe invalide !'});
         } else {
-            db.sequelize.model('Users').find({where:{username: reqUsername}}).then((result) => {
+            DB.sequelize.model('Users').find({where:{username: reqUsername}}).then((result) => {
                 console.log(result);
                 if (result!=null && result.dataValues!=null) {
                     let dbPassword = result.dataValues.password;
@@ -32,7 +32,7 @@ module.exports = {
                 }
             });
         }
-    },
+    },*/
 
 
     register: (req, res) => {
@@ -48,17 +48,14 @@ module.exports = {
         if (!reqFirstname || !reqLastname || !reqPassword || !reqPassword_bis || !reqEmail) {
             res.json({'error': 'Champs invalides !'});
         } else {
-            db.sequelize.model('Compte').find({where: {Adresse_Mail: reqEmail}}).then((result) => {
-                if (result == null) {
-                    bcrypt.hash(reqPassword, 10, (err, hashPassword) => {
-                        console.log(hashPassword);
-                        db.sequelize.model('Compte').create({Nom: reqLastname, Prenom: reqFirstname, Mot_de_passe: hashPassword, Adresse_Mail: reqEmail}).then(() => {
-                            res.json({'status': 'success', 'message': 'Votre compte à bien été créer ! Vérifier vos mails.'});
-                        })
-                    });
-                } else {
-                    res.json({'status': 'error', 'message': "Adress mail ou nom d'utilisateur déja pris !"});
-                }
+            bcrypt.hash(reqPassword, 10, (err, hashPassword) => {
+                DB.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname, (callback) =>  {
+                    if (callback) {
+                        res.json({'status': 'success', 'message': 'Votre compte à bien été créer ! Vérifier vos mails.'});
+                    } else {
+                        res.json({'status': 'error', 'message': "Adress mail ou nom d'utilisateur déja pris !"});
+                    }
+                });
             });
         }
     }
