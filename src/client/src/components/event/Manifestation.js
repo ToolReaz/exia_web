@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 
-class Event extends Component {
+class Manifestation extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
             error: null,
-            manifestations: {}
+            event: {},
+            name: '',
+            description: '',
+            imagePath: '',
+            date: '',
+            price: 0,
+            isPublic: true,
+            gap: ''
         };
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
-    getManifestations() {
+    getManifestation(id) {
         try {
-            $.get('/api/event', res => {
+            $.get('/api/event/' + id, res => {
                 console.log(res);
                 if (!res.error) {
-                    res.events.forEach((event) => {
-                        this.setState({events: this.state.events.append(event)});
-                    });
+                    this.setState({event: res.event});
                 }
             }, "json");
         } catch (e) {
@@ -32,14 +33,13 @@ class Event extends Component {
         }
     }
 
-
     render() {
         return (
             <div>
-                <h1>Events</h1>
+                <p>Manif</p>
             </div>
         )
     }
 }
 
-export default Event;
+export default Manifestation;
