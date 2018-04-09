@@ -9,7 +9,7 @@ const connection = new sql({
     port: '3306'
 });
 
-const Appartient =      require('./Models/Appartient.js')   (connection, sql);
+const Appartient =      require('./Models/Appartient')   (connection, sql);
 const Categorie =       require('./Models/Categorie')       (connection, sql);
 const Commente =        require('./Models/Commente')        (connection, sql);
 const Comprend =        require('./Models/Comprend')        (connection, sql);
