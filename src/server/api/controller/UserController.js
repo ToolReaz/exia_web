@@ -2,37 +2,35 @@ const DB = require('../model/DB');
 let bcrypt = require('bcrypt');
 
 module.exports = {
-/*
+
     connect: (req, res) => {
 
-        let reqUsername = req.body.username;
+        let reqEmail = req.body.email;""
         let reqPassword = req.body.password;
 
-        if (!reqUsername || !reqPassword) {
-            console.log(req.body);
+        if (!reqEmail || !reqPassword) {
             res.json({'error': 'Pseudo ou mot de passe invalide !'});
         } else {
-            DB.sequelize.model('Users').find({where:{username: reqUsername}}).then((result) => {
-                console.log(result);
+            DB.GetAccount(reqEmail, (result) => {
                 if (result!=null && result.dataValues!=null) {
-                    let dbPassword = result.dataValues.password;
+                    let dbPassword = result.dataValues.Mot_de_passe;
                     bcrypt.compare(reqPassword, dbPassword, (err, ok) => {
                         if (ok) {
                             let newToken = require('crypto').randomBytes(64).toString('hex');
-                            result.updateAttributes({token: newToken, online: true, last_login: Date.now()}).then(() => {
-                                req.session.token = newToken;
-                                res.json({status: 'connected', token: newToken, user: result.dataValues.username});
-                            });
+                            //result.updateAttributes({token: newToken, online: true, last_login: Date.now()}).then(() => {
+                                res.cookie('token', newToken);
+                                res.json({'error': null, 'token': newToken});
+                            //});
                         }  else {
-                            res.json({'status': 'error', 'message': "Nom d'utilisateur ou mot de passe incorrect !"});
+                            res.json({'error':  "Nom d'utilisateur ou mot de passe incorrect !"});
                         }
                     });
                 } else {
-                    res.json({'status': 'error', 'message': "Nom d'utilisateur ou mot de passe incorrect !"});
+                    res.json({'error': "Nom d'utilisateur ou mot de passe incorrect !"});
                 }
             });
         }
-    },*/
+    },
 
 
     register: (req, res) => {

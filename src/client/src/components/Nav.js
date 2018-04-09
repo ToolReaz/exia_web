@@ -26,7 +26,7 @@ class Nav extends Component {
                         <Link to="/user/register">Inscription</Link>
                     </div>
                     <div className="nav-item">
-                        <Link to="/user/register">Connexion</Link>
+                        <Link to="/user/connect">Connexion</Link>
                     </div>
                 </nav>
             </div>
