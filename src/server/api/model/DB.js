@@ -38,6 +38,12 @@ DataBase.CreateUser = (email, password, firstname, lastname, callback) => {
     });
 };
 
+DataBase.GetAccount = (email, callback) => {
+    Compte.findOne({ where: { Adresse_Mail: email }}).then(r => {
+        callback(r);
+    });
+}
+
 
 connection.sync().then(() => {
 
@@ -72,7 +78,7 @@ connection.sync().then(() => {
         }
     });
 
-    DataBase.CreateUser("test@test.com", "password", "firstname", "lastname");
+    DataBase.GetAccount("test@test.com");
 });
 
 module.exports = DataBase;
