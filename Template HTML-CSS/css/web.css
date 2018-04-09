@@ -1,19 +1,18 @@
-nav{
+nav, footer{
   width: 100%;
   background-color: #c2242a;
   color: white;
   height: 20%;
   margin: auto;
-
+  z-index: 1000;
 }
  nav img{
    height: 100%;
    width: 20%;
    margin-left:40%;
- }
- nav img:hover{
    transform: scale(2);
  }
+
 
 nav button{
   transition-duration: 0.5s;
@@ -36,10 +35,75 @@ nav input{
   margin-top: 8%;
 }
 
+.indexButton{
+  transition: 1s;
+  font-size: 2em;
+  border:1px white solid;
+  position: center;
+  height: 1.3em;
+  width: 4em;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 15px
+}
+
+.indexButton:hover{
+  transition: 1s;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+}
+
+.lire{
+  transition: 1s;
+  font-size: 2em;
+  position: center;
+  height: 1.3em;
+  width: 4em;
+  background-color: black;
+  color: white;
+  border:none;
+  text-align: center;
+  position:fixed;
+  left:47%;
+  bottom:20%;
+
+}
+
+.lire:hover{
+  transition: 1s;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .lire{
+    transition: 1s;
+    font-size: 2em;
+    position: center;
+    height: 1.3em;
+    width: 4em;
+    background-color: black;
+    color: white;
+    border:none;
+    text-align: center;
+    position:fixed;
+    left:43.5%;
+    bottom:20%;
+
+  }
+
+  .lire:hover{
+    transition: 1s;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+  }
+}
 /*=======================================================Carousel======================================================*/
-* {box-sizing: border-box}
-body {font-family: Verdana, sans-serif; margin:0}
-.mySlides {display: none}
+
 img {vertical-align: middle;}
 
 /* Slideshow container */
@@ -95,41 +159,45 @@ img {vertical-align: middle;}
   top: 0;
 }
 
-/* The dots/bullets/indicators */
-.dot {
-  cursor: pointer;
-  height: 15px;
-  width: 15px;
-  margin: 0 2px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  transition: background-color 0.6s ease;
-}
 
-.active, .dot:hover {
-  background-color: #717171;
-}
 
 /* Fading animation */
-.fade {
+/*.fade {
   -webkit-animation-name: fade;
   -webkit-animation-duration: 1.5s;
   animation-name: fade;
   animation-duration: 1.5s;
-}
+}*/
 
 @-webkit-keyframes fade {
-  from {opacity: .4}
+  from {opacity: .2}
   to {opacity: 1}
 }
 
 @keyframes fade {
-  from {opacity: .4}
+  from {opacity: .2}
   to {opacity: 1}
 }
 
 /* On smaller screens, decrease text size */
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
+}
+/*========================================================Carousel 2====================================================*/
+
+
+/*========================================================Parallax====================================================*/
+
+.parallax {
+    /* The image used */
+    background-image: url("https://scontent-mrs1-1.xx.fbcdn.net/v/t1.0-9/27857981_1654971007927148_3986739434826243721_n.jpg?_nc_cat=0&oh=f8ca60678cc53745f0c511137accbce0&oe=5B684096");
+
+    /* Set a specific height */
+    min-height: 900px;
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
