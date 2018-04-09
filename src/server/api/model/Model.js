@@ -32,9 +32,12 @@ const Vote =            require('./Models/Vote')            (connection, sql);
 
 var DataBase = {};
 
-DataBase.CreateUser = (email, password, firstname, lastname)=>{
-    
-}
+DataBase.CreateUser = (email, password, firstname, lastname, callback) => {
+    Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults:{Nom: lastname, Prenom: firstname, Mot_de_passe: password} }).then(r => {
+        callback(r[1]); // r[1] si l'utilisateur n'existe pas, !r[1] si il existe
+    });
+};
+
 
 connection.sync().then(() => {
 
@@ -57,10 +60,10 @@ connection.sync().then(() => {
     { Code_permission: "P_DELETE_SHOP" },       // Autorise l'utilisateur à supprimer des produits de la boutique
     { Code_permission: "P_PURCHASE_SHOP" }]     // Autorise l'utilisateur à ajouter des produits à son panier
         .forEach(element => {
-            Permission.model.findOrCreate({ where: element });
+            Permission.findOrCreate({ where: element });
         });
 
-    Compte.model.findOrCreate({
+    Compte.findOrCreate({
         where: {
             Adresse_Mail: 'admin@localhost',
             Nom: 'admin',
@@ -68,4 +71,8 @@ connection.sync().then(() => {
             Mot_de_passe: 'admin123'
         }
     });
+
+    DataBase.CreateUser("test@test.com", "password", "firstname", "lastname");
 });
+
+module.exports = DataBase;
