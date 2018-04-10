@@ -82,6 +82,8 @@ function Setup_Permissions() {
 
 var DataBase = {};
 
+/// DATA BASED OPERATIONS
+
 /**
  * Crée un utilisateur et l'insère dans la base de données
  * @param {string} email Adresse E-Mail de l'utilisateur dont il faut créer le compte
@@ -120,26 +122,7 @@ DataBase.CreateManifestation = (name, description, imagePath, date, interval_sec
     return { Nom: name, Description: description, Chemin_Image: imagePath, Quand: date, Intervale: interval_seconds, Prix: price, Public: false };
 };
 
-/**
- * Crée une idée et l'insère dans la base de données
- * @param {int} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées obtenu par GetAccount
- * @param {string} title Titre de l'idée
- * @param {string} text Texte/Description de l'idée
- * @param {array} manifestationArray Liste de manifestation obtenue par CreateManifestation
- * @param {callback} callback Callback (aucun param) retourné une fois l'insertion dans la base de données terminée
- */
-DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => {
-    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount } }).then(r => {
-        var idIdee = r[0].ID;
-        var done = [].fill(false, 0, manifestationArray.length);
-        for (let i = 0; i < manifestationArray.length; i++) {
-            Manifestation.findOrCreate({ where: manifestationArray[i] }).then(r => {
-                done[i] = true;
-                if (AND(done)) { callback(); }
-            });
-        }
-    });
-};
+/// TOKEN BASED OPERATIONS
 
 /**
  * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
@@ -162,6 +145,29 @@ DataBase.GetAccountFromToken = (token, callback) => {
 DataBase.GetTokenTime = (token, callback) => {
     Session.findOne({ where: { Token: token } }).then(r => {
         callback(r.Derniere_connexion);
+    });
+};
+
+/// ACCOUNT BASED OPERATIONS
+
+/**
+ * Crée une idée et l'insère dans la base de données
+ * @param {int} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées obtenu par GetAccount
+ * @param {string} title Titre de l'idée
+ * @param {string} text Texte/Description de l'idée
+ * @param {array} manifestationArray Liste de manifestation obtenue par CreateManifestation
+ * @param {callback} callback Callback (aucun param) retourné une fois l'insertion dans la base de données terminée
+ */
+DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => {
+    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount } }).then(r => {
+        var idIdee = r[0].ID;
+        var done = [].fill(false, 0, manifestationArray.length);
+        for (let i = 0; i < manifestationArray.length; i++) {
+            Manifestation.findOrCreate({ where: manifestationArray[i] }).then(r => {
+                done[i] = true;
+                if (AND(done)) { callback(); }
+            });
+        }
     });
 };
 

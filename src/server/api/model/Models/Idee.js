@@ -27,6 +27,10 @@ module.exports = function(sequelize, DataTypes) {
 				model: 'Compte',
 				key: 'ID'
 			}
+		},
+		Approuve: {
+			type: DataTypes.INTEGER(1),
+			allowNull: false
 		}
 	}, {
 		tableName: 'Idee'
