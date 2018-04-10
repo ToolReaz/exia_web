@@ -11,12 +11,12 @@ module.exports = function(sequelize,DataTypes) {
 				key: 'ID'
 			}
 		},
-		ID_Manifestation: {
+		ID_Photos: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
 			primaryKey: true,
 			references: {
-				model: 'Manifestation',
+				model: 'Photos',
 				key: 'ID'
 			}
 		}
