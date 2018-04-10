@@ -30,19 +30,80 @@ const Role =            require('./Models/Role')            (connection, sql);
 const Session =         require('./Models/Session')         (connection, sql);
 const Vote =            require('./Models/Vote')            (connection, sql);
 
+/**
+ * Calcule un ET logique sur un tableau
+ * @param {boolean[]} array Tableau de boolean dont il faut calculer le ET
+ */
+function AND(array){
+    var out = true;
+    array.forEach(element => {
+        out &= element;
+    });
+    return out;
+}
+
 var DataBase = {};
 
+/**
+ * Crée un utilisateur et l'insère dans la base de données
+ * @param {string} email Adresse E-Mail de l'utilisateur dont il faut créer le compte
+ * @param {string} password Mot de passe (haché) de l'utilisateur dont il faut créer le compte
+ * @param {string} firstname Prénom de l'utilisateur dont il faut créer le compte
+ * @param {string} lastname Nom de l'utilisateur dont il faut créer le compte
+ * @param {Callback} callback Callback selon si l'utilisateur existe (false) ou non (true)
+ */
 DataBase.CreateUser = (email, password, firstname, lastname, callback) => {
     Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults:{Nom: lastname, Prenom: firstname, Mot_de_passe: password} }).then(r => {
         callback(r[1]); // r[1] si l'utilisateur n'existe pas, !r[1] si il existe
     });
 };
 
+/**
+ * Crée un compte et l'insère dans la base de données
+ * @param {string} email Adresse E-Mail de la personne dont il faut récupérer le compte
+ * @param {delegate} callback Callback dont le premier parametre est la réponse de la base de données
+ */
 DataBase.GetAccount = (email, callback) => {
     Compte.findOne({ where: { Adresse_Mail: email }}).then(r => {
         callback(r);
     });
 };
+
+/**
+ * Crée une manifestation
+ * @param {string} name Nom de la manifestation à créer
+ * @param {string} description Description de la manifestation à créer
+ * @param {string} imagePath Chemin de l'image associée à la manifestation
+ * @param {Date} date Date de la première (ou seule) occurence de la manifestation
+ * @param {int} interval_seconds Interval en secondes entre deux occurences de la manifestation (0 = pas de répétition)
+ * @param {int} price Prix de participation à la manifestation
+ */
+DataBase.CreateManifestation = (name, description, imagePath, date, interval_seconds, price) => {
+    return {Nom: name, Description: description, Chemin_Image: imagePath, Quand: date, Intervale: interval_seconds, Prix: price, Public: false};
+};
+
+/**
+ * Crée une idée et l'insère dans la base de données
+ * @param {int} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées
+ * @param {string} title Titre de l'idée
+ * @param {string} text Texte/Description de l'idée
+ * @param {array} manifestationArray Liste de manifestation obtenue par CreateManifestation
+ * @param {callback} callback Callback (aucun param) retourné une fois l'insertion dans la base de données terminée
+ */
+DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => {
+    Idee.findOrCreate({where: {Titre: title, Texte: text}, defaults: {Soumis_le: Date.now(), ID_Compte: idAccount}}).then(r=>{
+        var idIdee = r[0].ID;
+        var done = [].fill(false, 0, manifestationArray.length);
+        for (let i = 0; i < manifestationArray.length; i++) {
+            Manifestation.findOrCreate({where: manifestationArray[i]}).then(r=>{
+                done[i] = true;
+                if(AND(done)){callback();}
+            });
+        }
+    });
+};
+
+DataBase.CreateIdea(1, "idea title", "idea text", [DataBase.CreateManifestation("manif1", "desc1", "/image1", Date.now(), 50, 200)], ()=>{});
 
 connection.sync().then(() => {
 
