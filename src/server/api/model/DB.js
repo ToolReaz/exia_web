@@ -163,9 +163,11 @@ DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => 
         var idIdee = r[0].ID;
         var done = [].fill(false, 0, manifestationArray.length);
         for (let i = 0; i < manifestationArray.length; i++) {
-            Manifestation.findOrCreate({ where: manifestationArray[i] }).then(r => {
-                done[i] = true;
-                if (AND(done)) { callback(); }
+            Manifestation.findOrCreate({ where: manifestationArray[i] }).then(s => {
+                Comprend.findOrCreate({where: {ID: r.ID, ID_Manifestation: s.ID}}).then(t=>{
+                    done[i] = true;
+                    if (AND(done)) { callback(); }
+                });
             });
         }
     });
