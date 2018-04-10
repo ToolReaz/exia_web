@@ -4,9 +4,12 @@ module.exports = {
 
     getAll: (req, res) => {
         DB.GetAllIdeas((result) => {
-            console.log(result);
-            res.json({'error': null, 'ideas': result.dataValues});
+            res.json({'error': null, 'ideas': result});
         });
-        res.json({'error': 'Impossible de récupérer les données sur le server !'});
+        //res.json({'error': 'Impossible de récupérer les données sur le server !'});
+    },
+
+    create: (req, res) => {
+        let reqName = req.body.name;
     }
 };

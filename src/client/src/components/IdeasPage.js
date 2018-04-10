@@ -13,20 +13,19 @@ class IdeasPage extends Component {
     }
 
     componentDidMount() {
-        console.log('didmount');
         this.getAllIdeas();
     }
 
 
     getAllIdeas() {
-        console.log('getallidea');
         try {
             $.get('/api/idea', res => {
-                console.log(res);
-                if (!res.error) {
+                if (res.error == null) {
+                    let tmp = this.state.ideas;
                     res.ideas.forEach((idea) => {
-                        this.setState({ideas: this.state.ideas.push(idea)});
+                        tmp.push(idea);
                     });
+                    this.setState({ideas: tmp});
                 }
             }, "json");
         } catch (e) {
@@ -40,16 +39,15 @@ class IdeasPage extends Component {
 
     render() {
         let indents = [];
-        indents.push(
+        indents[0] = (
             <div>
-                <h1>Liste des idées</h1>
+                <h1>Liste des idées</h1><br/>
             </div>
         );
-        this.state.ideas.map((item, index) =>  {
+        this.state.ideas.forEach((item) =>  {
             indents.push(
                 <div className="row">
-                    <p>Idée n° {index}</p>
-                    <Idea values={item} />
+                    <Idea minimized={true} values={item} /><br/>
                 </div>
             );
         });

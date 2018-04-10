@@ -8,8 +8,11 @@ router.post('/manifestation', (req, res, next) => {
 });
 
 router.get('/idea', (req, res, next) => {
-    console.log(('zegùmuhzeigeiug00'));
     IdeaController.getAll(req, res);
+});
+
+router.post('/idea', (req, res, next) => {
+    IdeaController.create(req, res);
 });
 
 module.exports = router;
