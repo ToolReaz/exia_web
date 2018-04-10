@@ -9,7 +9,7 @@ const connection = new sql({
     port: '3306'
 });
 
-const Appartient =      require('./Models/Appartient')   (connection, sql);
+const Appartient =      require('./Models/Appartient')      (connection, sql);
 const Categorie =       require('./Models/Categorie')       (connection, sql);
 const Commente =        require('./Models/Commente')        (connection, sql);
 const Comprend =        require('./Models/Comprend')        (connection, sql);
@@ -60,24 +60,24 @@ function SetPermissions(role, permission, callback) {
  * Met les permissions de base
  */
 function Setup_Permissions() {
-    SetPermissions("R_STUDENT", "P_CONNECT", () => { });
-    SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { });
-    SetPermissions("R_STUDENT", "P_LIST_ACTIVITE", () => { });
-    SetPermissions("R_STUDENT", "P_VOTE_IDEE", () => { });
-    SetPermissions("R_STUDENT", "P_ADD_PHOTO", () => { });
-    SetPermissions("R_STUDENT", "P_LIST_PHOTO", () => { });
-    SetPermissions("R_STUDENT", "P_LIKE_PHOTO", () => { });
-    SetPermissions("R_STUDENT", "P_COMMENT_PHOTO", () => { });
-    SetPermissions("R_STUDENT", "P_ADD_MANIF", () => { });
-    SetPermissions("R_BDE", "P_VALID_MANIF", () => { });
-    SetPermissions("R_BDE", "P_LISTE_INSCRITS", () => { });
-    SetPermissions("R_BDE", "P_COMMENT_LAST", () => { });
-    SetPermissions("R_BDE", "P_ADMIN_PHOTO", () => { });
-    SetPermissions("R_EXIA", "P_REPORT", () => { });
-    SetPermissions("R_EXIA", "P_DUMP_PHOTO", () => { });
-    SetPermissions("R_BDE", "P_ADD_SHOP", () => { });
-    SetPermissions("R_BDE", "P_DELETE_SHOP", () => { });
-    SetPermissions("R_STUDENT", "P_PURCHASE_SHOP", () => { });
+    SetPermissions("R_STUDENT"  , "P_CONNECT",          () => { });
+    SetPermissions("R_STUDENT"  , "P_ADD_ACTIVITE",     () => { });
+    SetPermissions("R_STUDENT"  , "P_LIST_ACTIVITE",    () => { });
+    SetPermissions("R_STUDENT"  , "P_VOTE_IDEE",        () => { });
+    SetPermissions("R_STUDENT"  , "P_ADD_PHOTO",        () => { });
+    SetPermissions("R_STUDENT"  , "P_LIST_PHOTO",       () => { });
+    SetPermissions("R_STUDENT"  , "P_LIKE_PHOTO",       () => { });
+    SetPermissions("R_STUDENT"  , "P_COMMENT_PHOTO",    () => { });
+    SetPermissions("R_STUDENT"  , "P_ADD_MANIF",        () => { });
+    SetPermissions("R_BDE"      , "P_VALID_MANIF",      () => { });
+    SetPermissions("R_BDE"      , "P_LISTE_INSCRITS",   () => { });
+    SetPermissions("R_BDE"      , "P_COMMENT_LAST",     () => { });
+    SetPermissions("R_BDE"      , "P_ADMIN_PHOTO",      () => { });
+    SetPermissions("R_EXIA"     , "P_REPORT",           () => { });
+    SetPermissions("R_EXIA"     , "P_DUMP_PHOTO",       () => { });
+    SetPermissions("R_BDE"      , "P_ADD_SHOP",         () => { });
+    SetPermissions("R_BDE"      , "P_DELETE_SHOP",      () => { });
+    SetPermissions("R_STUDENT"  , "P_PURCHASE_SHOP",    () => { });
 }
 
 var DataBase = {};
@@ -97,7 +97,7 @@ DataBase.CreateUser = (email, password, firstname, lastname, callback) => {
 };
 
 /**
- * Crée un compte et l'insère dans la base de données
+ * Récupère le compte (brut) d'une personne
  * @param {string} email Adresse E-Mail de la personne dont il faut récupérer le compte
  * @param {delegate} callback Callback dont le premier parametre est la réponse de la base de données
  */
@@ -144,12 +144,12 @@ DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => 
 /**
  * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
  * @param {string} token Token de connexion
- * @param {callback} callback Callback (param 1 : compte)
+ * @param {callback} callback Callback (param 1 : ID du compte)
  */
 DataBase.GetAccountFromToken = (token, callback) => {
     Session.findOne({ where: { Token: token } }).then(r => {
         Compte.findOne({ where: { ID: r.ID } }).then(c => {
-            callback(c);
+            callback(c.ID);
         });
     });
 };
@@ -174,6 +174,46 @@ DataBase.GetTokenTime = (token, callback) => {
 DataBase.SetToken = (idCompte, token, callback) => {
     Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idCompte } }).then(r => {
         callback(r[1]);
+    });
+};
+
+/**
+ * Crée une liaison entre un compte PayPal et un compte sur le site du BDE
+ * @param {int} idCompte ID du compte
+ * @param {string} paypalApiKey Clé de l'API PayPal
+ * @param {callback} callback Callback (true : succès, false : l'utilisateur n'existe pas)
+ */
+DataBase.SetPayPal = (idCompte, paypalApiKey, callback) => {
+    Compte.findOne({ where: { ID: idCompte } }).then(r => {
+        if (r) {
+            Compte_PayPal.findOrCreate({ where: { GUID: paypalApiKey, ID_Compte: r.ID } }).then(s => {
+                callback(true);
+            });
+        } else {
+            callback(false);
+        }
+    })
+};
+
+/**
+ * Récupère la clé de l'API de Paypal associée au compte
+ * @param {int} idCompte ID du compte
+ * @param {callback} callback Callback (param 1 : compte paypal)
+ */
+DataBase.GetPayPalFromAccount = (idCompte, callback) => {
+    Compte_PayPal.findOne({where: {ID_Compte: idCompte}}).then(r=>{
+        callback(r.GUID);
+    });
+};
+
+/**
+ * Récupère les données brutes liées au compte
+ * @param {int} idAccount ID du compte
+ * @param {callback} callback Callback (param 1 : compte)
+ */
+DataBase.GetAccountFromId = (idAccount, callback) => {
+    Compte.findOne({where: {ID: idAccount}}).then(r=>{
+        callback(r);
     });
 };
 
