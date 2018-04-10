@@ -102,6 +102,21 @@ nav input{
     border-radius: 5px;
   }
 }
+
+.membreBDE{
+  transition: 0.5s;
+  margin-top: 5%;
+  text-align:center;
+  border:1px black solid;
+  border-radius:15px;
+  box-shadow: 2px 2px 10px black;
+}
+
+.membreBDE:hover{
+  transition: 0.5s;
+  box-shadow: none;
+  transform: translateY(5px);
+}
 /*=======================================================Carousel======================================================*/
 
 img {vertical-align: middle;}
