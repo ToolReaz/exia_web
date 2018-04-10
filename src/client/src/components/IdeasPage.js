@@ -13,13 +13,15 @@ class IdeasPage extends Component {
     }
 
     componentDidMount() {
+        console.log('didmount');
         this.getAllIdeas();
     }
 
 
     getAllIdeas() {
+        console.log('getallidea');
         try {
-            $.get('/idea', res => {
+            $.get('/api/idea', res => {
                 console.log(res);
                 if (!res.error) {
                     res.ideas.forEach((idea) => {
@@ -28,6 +30,7 @@ class IdeasPage extends Component {
                 }
             }, "json");
         } catch (e) {
+            console.log(e);
             this.setState({
                 error: e
             });
@@ -48,7 +51,7 @@ class IdeasPage extends Component {
                     <p>Idée n° {index}</p>
                     <Idea values={item} />
                 </div>
-            )
+            );
         });
         return indents;
     }
