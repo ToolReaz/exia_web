@@ -34,12 +34,50 @@ const Vote =            require('./Models/Vote')            (connection, sql);
  * Calcule un ET logique sur un tableau
  * @param {boolean[]} array Tableau de boolean dont il faut calculer le ET
  */
-function AND(array){
+function AND(array) {
     var out = true;
     array.forEach(element => {
         out &= element;
     });
     return out;
+}
+
+/**
+ * Définit les permissions
+ * @param {string} role Nom du role
+ * @param {string} permission Nom de la permission
+ * @param {callback} callback Callback après la mise en place des permissions
+ */
+function SetPermissions(role, permission, callback) {
+    Role.findOrCreate({ where: { Nom_role: role } }).then(r => {
+        Permission.findOrCreate({ where: { Code_permission: permission } }).then(s => {
+            Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } }).then(callback());
+        });
+    });
+}
+
+/**
+ * Met les permissions de base
+ */
+function Setup_Permissions() {
+    SetPermissions("R_STUDENT", "P_CONNECT", () => { });
+    SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { });
+    SetPermissions("R_STUDENT", "P_LIST_ACTIVITE", () => { });
+    SetPermissions("R_STUDENT", "P_VOTE_IDEE", () => { });
+    SetPermissions("R_STUDENT", "P_ADD_PHOTO", () => { });
+    SetPermissions("R_STUDENT", "P_LIST_PHOTO", () => { });
+    SetPermissions("R_STUDENT", "P_LIKE_PHOTO", () => { });
+    SetPermissions("R_STUDENT", "P_COMMENT_PHOTO", () => { });
+    SetPermissions("R_STUDENT", "P_ADD_MANIF", () => { });
+    SetPermissions("R_BDE", "P_VALID_MANIF", () => { });
+    SetPermissions("R_BDE", "P_LISTE_INSCRITS", () => { });
+    SetPermissions("R_BDE", "P_COMMENT_LAST", () => { });
+    SetPermissions("R_BDE", "P_ADMIN_PHOTO", () => { });
+    SetPermissions("R_EXIA", "P_REPORT", () => { });
+    SetPermissions("R_EXIA", "P_DUMP_PHOTO", () => { });
+    SetPermissions("R_BDE", "P_ADD_SHOP", () => { });
+    SetPermissions("R_BDE", "P_DELETE_SHOP", () => { });
+    SetPermissions("R_STUDENT", "P_PURCHASE_SHOP", () => { });
 }
 
 var DataBase = {};
@@ -53,7 +91,7 @@ var DataBase = {};
  * @param {Callback} callback Callback selon si l'utilisateur existe (false) ou non (true)
  */
 DataBase.CreateUser = (email, password, firstname, lastname, callback) => {
-    Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults:{Nom: lastname, Prenom: firstname, Mot_de_passe: password} }).then(r => {
+    Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password } }).then(r => {
         callback(r[1]); // r[1] si l'utilisateur n'existe pas, !r[1] si il existe
     });
 };
@@ -64,7 +102,7 @@ DataBase.CreateUser = (email, password, firstname, lastname, callback) => {
  * @param {delegate} callback Callback dont le premier parametre est la réponse de la base de données
  */
 DataBase.GetAccount = (email, callback) => {
-    Compte.findOne({ where: { Adresse_Mail: email }}).then(r => {
+    Compte.findOne({ where: { Adresse_Mail: email } }).then(r => {
         callback(r);
     });
 };
@@ -79,7 +117,7 @@ DataBase.GetAccount = (email, callback) => {
  * @param {int} price Prix de participation à la manifestation
  */
 DataBase.CreateManifestation = (name, description, imagePath, date, interval_seconds, price) => {
-    return {Nom: name, Description: description, Chemin_Image: imagePath, Quand: date, Intervale: interval_seconds, Prix: price, Public: false};
+    return { Nom: name, Description: description, Chemin_Image: imagePath, Quand: date, Intervale: interval_seconds, Prix: price, Public: false };
 };
 
 /**
@@ -91,13 +129,13 @@ DataBase.CreateManifestation = (name, description, imagePath, date, interval_sec
  * @param {callback} callback Callback (aucun param) retourné une fois l'insertion dans la base de données terminée
  */
 DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => {
-    Idee.findOrCreate({where: {Titre: title, Texte: text}, defaults: {Soumis_le: Date.now(), ID_Compte: idAccount}}).then(r=>{
+    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount } }).then(r => {
         var idIdee = r[0].ID;
         var done = [].fill(false, 0, manifestationArray.length);
         for (let i = 0; i < manifestationArray.length; i++) {
-            Manifestation.findOrCreate({where: manifestationArray[i]}).then(r=>{
+            Manifestation.findOrCreate({ where: manifestationArray[i] }).then(r => {
                 done[i] = true;
-                if(AND(done)){callback();}
+                if (AND(done)) { callback(); }
             });
         }
     });
@@ -109,8 +147,8 @@ DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => 
  * @param {callback} callback Callback (param 1 : compte)
  */
 DataBase.GetAccountFromToken = (token, callback) => {
-    Session.findOne({where: {Token: token}}).then(r=>{
-        Compte.findOne({where: {ID: r.ID}}).then(c=>{
+    Session.findOne({ where: { Token: token } }).then(r => {
+        Compte.findOne({ where: { ID: r.ID } }).then(c => {
             callback(c);
         });
     });
@@ -122,7 +160,7 @@ DataBase.GetAccountFromToken = (token, callback) => {
  * @param {callback} callback Callback (param 1 : timestamp du token)
  */
 DataBase.GetTokenTime = (token, callback) => {
-    Session.findOne({where: {Token: token}}).then(r=>{
+    Session.findOne({ where: { Token: token } }).then(r => {
         callback(r.Derniere_connexion);
     });
 };
@@ -134,50 +172,15 @@ DataBase.GetTokenTime = (token, callback) => {
  * @param {callback} callback Callback (1 param : True si le token n'existait pas, False si le token existait déjà)
  */
 DataBase.SetToken = (idCompte, token, callback) => {
-    Session.findOrCreate({where: {Token: token}, defaults: {Derniere_connexion: Date.now(), ID_Compte: idCompte}}).then(r=>{
+    Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idCompte } }).then(r => {
         callback(r[1]);
     });
 };
 
 connection.sync().then(() => {
 
-    [{ Code_permission: "P_CONNECT" },          // Autorise la connexion
-    { Code_permission: "P_ADD_ACTIVITE" },      // Autorise l'utilisateur à ajouter une activité dans la boîte à idées
-    { Code_permission: "P_LIST_ACTIVITE" },     // Autorise l'utilisateur à lister les activitées disponibles
-    { Code_permission: "P_VOTE_IDEE" },         // Autorise l'utilisateur à voter pour une activité
-    { Code_permission: "P_ADD_PHOTO" },         // Autorise l'utilisateur à ajouter une photo pour une activité
-    { Code_permission: "P_LIST_PHOTO" },        // Autorise l'utilisateur à voir les photos pour les activités
-    { Code_permission: "P_LIKE_PHOTO" },        // Autorise l'utilisateur à liker des photos
-    { Code_permission: "P_COMMENT_PHOTO" },     // Autorise l'utilisateur à commenter des photos
-    { Code_permission: "P_ADD_MANIF" },         // Autorise l'utilisateur à ajouter une manifestation (activité autorisée)
-    { Code_permission: "P_VALID_MANIF" },       // Autorise l'utilisateur à valider une manifestation proposée par un P_ADD_ACTIVITE
-    { Code_permission: "P_LISTE_INSCRITS" },    // Autorise l'utilisateur à lister les personnes inscrite
-    { Code_permission: "P_COMMENT_LAST" },      // Autorise l'utilisateur à commenter les dernières activitées
-    { Code_permission: "P_ADMIN_PHOTO" },       // Autorise l'utilisateur à administrer la partie photo
-    { Code_permission: "P_REPORT" },            // Autorise l'utilisateur à signaler un contenu inaproprié au BDE
-    { Code_permission: "P_DUMP_PHOTO" },        // Autorise l'utilisateur à dumper les photos
-    { Code_permission: "P_ADD_SHOP" },          // Autorise l'utilisateur à ajouter des produits dans la boutique
-    { Code_permission: "P_DELETE_SHOP" },       // Autorise l'utilisateur à supprimer des produits de la boutique
-    { Code_permission: "P_PURCHASE_SHOP" }]     // Autorise l'utilisateur à ajouter des produits à son panier
-        .forEach(element => {
-            Permission.findOrCreate({ where: element });
-        });
+    Setup_Permissions();
 
-    [{ Nom_role: "R_STUDENT" },
-    { Nom_role: "R_BDE" },
-    { Nom_role: "R_EXIA" }]
-        .forEach(element=>{
-            Role.findOrCreate({ where: element });
-        });
-
-    Compte.findOrCreate({
-        where: {
-            Adresse_Mail: 'admin@localhost',
-            Nom: 'admin',
-            Prenom: 'admin',
-            Mot_de_passe: 'admin123'
-        }
-    });
 });
 
 module.exports = DataBase;

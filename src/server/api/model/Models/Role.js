@@ -10,7 +10,8 @@ module.exports = function(sequelize, DataTypes) {
 		},
 		Nom_role: {
 			type: DataTypes.STRING(25),
-			allowNull: false
+			allowNull: false,
+			unique: true
 		}
 	}, {
 		tableName: 'Role'
