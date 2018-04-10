@@ -184,7 +184,7 @@ DataBase.GetTokenTime = (token, callback) => {
  * @param {callback} callback Callback (aucun param) retourné une fois l'insertion dans la base de données terminée
  */
 DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => {
-    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount } }).then(r => {
+    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } }).then(r => {
         var idIdee = r[0].ID;
         var done = [].fill(false, 0, manifestationArray.length);
         for (let i = 0; i < manifestationArray.length; i++) {
