@@ -14,7 +14,7 @@ class Manifestation extends Component {
             date: '',
             price: 0,
             isPublic: true,
-            gap: ''
+            interval: 0
         };
     }
 

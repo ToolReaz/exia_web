@@ -20,13 +20,13 @@ class Nav extends Component {
                         <Link to="/">Boutique</Link>
                     </div>
                     <div className="nav-item">
-                        <img src="logobde.png" alt="Logo"/>
-                    </div>
-                    <div className="nav-item">
                         <Link to="/user/register">Inscription</Link>
                     </div>
                     <div className="nav-item">
                         <Link to="/user/connect">Connexion</Link>
+                    </div>
+                    <div className="nav-item">
+                        <Link to="/admin">Admin</Link>
                     </div>
                 </nav>
             </div>
