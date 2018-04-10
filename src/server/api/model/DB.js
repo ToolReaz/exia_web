@@ -201,7 +201,7 @@ DataBase.SetPayPal = (idCompte, paypalApiKey, callback) => {
  * @param {callback} callback Callback (param 1 : compte paypal)
  */
 DataBase.GetPayPalFromAccount = (idCompte, callback) => {
-    Compte_PayPal.findOne({where: {ID_Compte: idCompte}}).then(r=>{
+    Compte_PayPal.findOne({ where: { ID_Compte: idCompte } }).then(r => {
         callback(r.GUID);
     });
 };
@@ -212,7 +212,7 @@ DataBase.GetPayPalFromAccount = (idCompte, callback) => {
  * @param {callback} callback Callback (param 1 : compte)
  */
 DataBase.GetAccountFromId = (idAccount, callback) => {
-    Compte.findOne({where: {ID: idAccount}}).then(r=>{
+    Compte.findOne({ where: { ID: idAccount } }).then(r => {
         callback(r);
     });
 };
