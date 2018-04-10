@@ -42,6 +42,22 @@ function AND(array) {
     return out;
 }
 
+function CheckPermission(userID, permission){
+    var allowed = false;
+    Appartient.findAll({where: {ID: userID}}).then(r=>{
+        var done = [].fill(false, 0, r.length);
+        r.forEach(element => {
+            Possede.findAll({where: {ID_Role: element.ID}}).then(s=>{
+                s.forEach(permission => {
+                    Permission.findOne({where: {ID: permission.ID}}).then(t=>{
+                        allowed|=t.Code_permission==permission;
+                    });
+                });
+            });
+        });
+    });
+}
+
 /**
  * Définit les permissions
  * @param {string} role Nom du role
@@ -122,6 +138,12 @@ DataBase.CreateManifestation = (name, description, imagePath, date, interval_sec
     return { Nom: name, Description: description, Chemin_Image: imagePath, Quand: date, Intervale: interval_seconds, Prix: price, Public: false };
 };
 
+DataBase.GetAllIdeas = (callback) => {
+    Idee.findAll().then(r => { 
+        callback(r); 
+    });
+};
+
 /// TOKEN BASED OPERATIONS
 
 /**
@@ -164,7 +186,7 @@ DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => 
         var done = [].fill(false, 0, manifestationArray.length);
         for (let i = 0; i < manifestationArray.length; i++) {
             Manifestation.findOrCreate({ where: manifestationArray[i] }).then(s => {
-                Comprend.findOrCreate({where: {ID: r.ID, ID_Manifestation: s.ID}}).then(t=>{
+                Comprend.findOrCreate({ where: { ID: r.ID, ID_Manifestation: s.ID } }).then(t => {
                     done[i] = true;
                     if (AND(done)) { callback(); }
                 });
@@ -228,6 +250,19 @@ DataBase.GetAccountFromId = (idAccount, callback) => {
 connection.sync().then(() => {
 
     Setup_Permissions();
+
+   console.log();
+   console.log();
+   console.log();
+   console.log();
+   console.log();
+   console.log();
+    CheckPermission(2, "")
+    CheckPermission(2, "")
+    CheckPermission(2, "")
+    CheckPermission(1, "")
+    CheckPermission(1, "")
+    CheckPermission(1, "")
 
 });
 
