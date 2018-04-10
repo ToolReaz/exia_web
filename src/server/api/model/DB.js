@@ -227,22 +227,22 @@ function CreateIdea(idAccount, title, text, manifestationArray, callback){
  * @param {string} token Token à insérer pour l'utilisateur spécifié
  * @param {callback} callback Callback (1 param : True si le token n'existait pas, False si le token existait déjà)
  */
-DataBase.SetToken = (idCompte, token, callback) => {
-    FilterPermission(idAccount, "P_CONNECT", (ok)=>{if(ok)SetToken(idCompte, token, callback);});
+DataBase.SetToken = (idAccount, token, callback) => {
+    FilterPermission(idAccount, "P_CONNECT", (ok)=>{if(ok)SetToken(idAccount, token, callback);});
 };
-function SetToken(idCompte, token, callback){
-    Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idCompte } }).then(r => {
+function SetToken(idAccount, token, callback){
+    Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idAccount } }).then(r => {
         callback(r[1]);
     });
 }
 /**
  * Crée une liaison entre un compte PayPal et un compte sur le site du BDE
- * @param {int} idCompte ID du compte
+ * @param {int} idAccount ID du compte
  * @param {string} paypalApiKey Clé de l'API PayPal
  * @param {callback} callback Callback (true : succès, false : l'utilisateur n'existe pas)
  */
-DataBase.SetPayPal = (idCompte, paypalApiKey, callback) => {
-    Compte.findOne({ where: { ID: idCompte } }).then(r => {
+DataBase.SetPayPal = (idAccount, paypalApiKey, callback) => {
+    Compte.findOne({ where: { ID: idAccount } }).then(r => {
         if (r) {
             Compte_PayPal.findOrCreate({ where: { GUID: paypalApiKey, ID_Compte: r.ID } }).then(s => {
                 callback(true);
@@ -252,14 +252,34 @@ DataBase.SetPayPal = (idCompte, paypalApiKey, callback) => {
         }
     })
 };
+/**
+ * Vote pour une idée
+ * @param {int} idAccount ID du compte ayant voté
+ * @param {int} idIdea ID de l'idée votée
+ * @param {boolean} vote Valeur du vote
+ * @param {callback} callback Callback (pas de param)
+ */
+DataBase.VoteIdea = (idAccount, idIdea, vote, callback) => {
+    FilterPermission(idAccount, "P_VOTE_IDEE", (ok)=>{if(ok)VoteIdeaid(Account, idIdea, vote, callback);});
+}
+/**
+ * Vote pour une idée
+ * @param {int} idAccount ID du compte ayant voté
+ * @param {int} idIdea ID de l'idée votée
+ * @param {boolean} vote Valeur du vote
+ * @param {callback} callback Callback (pas de param)
+ */
+function VoteIdea(idAccount, idIdea, vote, callback){
+    Vote.findOrCreate({where: {ID: idAccount, ID_Idee: idIdea}, defaults: {Pour: vote}});
+}
 
 /**
  * Récupère la clé de l'API de Paypal associée au compte
- * @param {int} idCompte ID du compte
+ * @param {int} idAccount ID du compte
  * @param {callback} callback Callback (param 1 : compte paypal)
  */
-DataBase.GetPayPalFromAccount = (idCompte, callback) => {
-    Compte_PayPal.findOne({ where: { ID_Compte: idCompte } }).then(r => {
+DataBase.GetPayPalFromAccount = (idAccount, callback) => {
+    Compte_PayPal.findOne({ where: { ID_Compte: idAccount } }).then(r => {
         callback(r.GUID);
     });
 };
