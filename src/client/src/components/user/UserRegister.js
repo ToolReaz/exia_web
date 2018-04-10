@@ -83,6 +83,8 @@ class UserRegister extends Component {
                 break;
             case 'password_bis': this.setState({password_bis: e.target.value});
                 break;
+            default:
+                break;
         }
     }
 

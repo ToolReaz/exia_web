@@ -83,6 +83,8 @@ class AdminManifestation extends Component {
                 break;
             case 'free': this.setState({free: e.target.checked});
                 break;
+            default:
+                break;
         }
     }
 

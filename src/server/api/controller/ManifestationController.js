@@ -14,7 +14,7 @@ module.exports = {
         if (!reqName) {
             res.json({'error': 'Champs invalides !'});
         } else {
-
+            //DB.CreateManifestation
         }
     }
 };
