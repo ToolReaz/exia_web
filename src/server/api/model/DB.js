@@ -44,9 +44,6 @@ DataBase.GetAccount = (email, callback) => {
     });
 };
 
-
-
-
 connection.sync().then(() => {
 
     [{ Code_permission: "P_CONNECT" },          // Autorise la connexion
@@ -69,6 +66,13 @@ connection.sync().then(() => {
     { Code_permission: "P_PURCHASE_SHOP" }]     // Autorise l'utilisateur à ajouter des produits à son panier
         .forEach(element => {
             Permission.findOrCreate({ where: element });
+        });
+
+    [{ Nom_role: "R_STUDENT" },
+    { Nom_role: "R_BDE" },
+    { Nom_role: "R_EXIA" }]
+        .forEach(element=>{
+            Role.findOrCreate({ where: element });
         });
 
     Compte.findOrCreate({
