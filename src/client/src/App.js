@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Nav from "./components/Nav";
 import UserConnect from "./components/user/UserConnect";
 import Admin from "./components/admin/Admin";
+import IdeasPage from "./components/IdeasPage";
 
 class App extends Component {
   render() {
@@ -17,6 +18,7 @@ class App extends Component {
               <Route path="/user/register" component={UserRegister} />
               <Route path="/user/connect" component={UserConnect} />
               <Route path="/admin" component={Admin} />
+              <Route path="/idee" component={IdeasPage} />
           </Switch>
       </div>
     );
