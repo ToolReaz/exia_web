@@ -84,7 +84,7 @@ DataBase.CreateManifestation = (name, description, imagePath, date, interval_sec
 
 /**
  * Crée une idée et l'insère dans la base de données
- * @param {int} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées
+ * @param {int} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées obtenu par GetAccount
  * @param {string} title Titre de l'idée
  * @param {string} text Texte/Description de l'idée
  * @param {array} manifestationArray Liste de manifestation obtenue par CreateManifestation
@@ -103,7 +103,41 @@ DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => 
     });
 };
 
-DataBase.CreateIdea(1, "idea title", "idea text", [DataBase.CreateManifestation("manif1", "desc1", "/image1", Date.now(), 50, 200)], ()=>{});
+/**
+ * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
+ * @param {string} token Token de connexion
+ * @param {callback} callback Callback (param 1 : compte)
+ */
+DataBase.GetAccountFromToken = (token, callback) => {
+    Session.findOne({where: {Token: token}}).then(r=>{
+        Compte.findOne({where: {ID: r.ID}}).then(c=>{
+            callback(c);
+        });
+    });
+};
+
+/**
+ * Récupère le timestamp d'un token
+ * @param {string} token Token dont il faut récupérer le temps
+ * @param {callback} callback Callback (param 1 : timestamp du token)
+ */
+DataBase.GetTokenTime = (token, callback) => {
+    Session.findOne({where: {Token: token}}).then(r=>{
+        callback(r.Derniere_connexion);
+    });
+};
+
+/**
+ * Crée un token pour un utilisateur
+ * @param {int} idCompte ID du compte associé au token
+ * @param {string} token Token à insérer pour l'utilisateur spécifié
+ * @param {callback} callback Callback (1 param : True si le token n'existait pas, False si le token existait déjà)
+ */
+DataBase.SetToken = (idCompte, token, callback) => {
+    Session.findOrCreate({where: {Token: token}, defaults: {Derniere_connexion: Date.now(), ID_Compte: idCompte}}).then(r=>{
+        callback(r[1]);
+    });
+};
 
 connection.sync().then(() => {
 
