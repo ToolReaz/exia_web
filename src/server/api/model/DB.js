@@ -6,7 +6,8 @@ const connection = new sql({
     password: 'ingenieur123*',
     database: 'exia',
     host: 'toolreaz.space',
-    port: '3306'
+    port: '3306',
+    logging: false
 });
 
 const Appartient =      require('./Models/Appartient')      (connection, sql);
@@ -75,7 +76,8 @@ function SetPermissions(role, permission, callback) {
 /**
  * Met les permissions de base
  */
-function Setup_Permissions() {
+function SetupPermissions() {
+
     SetPermissions("R_STUDENT"  , "P_CONNECT",          () => { });
     SetPermissions("R_STUDENT"  , "P_ADD_ACTIVITE",     () => { });
     SetPermissions("R_STUDENT"  , "P_LIST_ACTIVITE",    () => { });
@@ -94,6 +96,7 @@ function Setup_Permissions() {
     SetPermissions("R_BDE"      , "P_ADD_SHOP",         () => { });
     SetPermissions("R_BDE"      , "P_DELETE_SHOP",      () => { });
     SetPermissions("R_STUDENT"  , "P_PURCHASE_SHOP",    () => { });
+
 }
 
 var DataBase = {};
@@ -181,7 +184,7 @@ DataBase.GetTokenTime = (token, callback) => {
  * @param {callback} callback Callback (aucun param) retourné une fois l'insertion dans la base de données terminée
  */
 DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => {
-    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount } }).then(r => {
+    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } }).then(r => {
         var idIdee = r[0].ID;
         var done = [].fill(false, 0, manifestationArray.length);
         for (let i = 0; i < manifestationArray.length; i++) {
@@ -247,22 +250,16 @@ DataBase.GetAccountFromId = (idAccount, callback) => {
     });
 };
 
-connection.sync().then(() => {
+connection.sync({ force: false, logging: false }).then(() => {
 
-    Setup_Permissions();
+    SetupPermissions();
 
-   console.log();
-   console.log();
-   console.log();
-   console.log();
-   console.log();
-   console.log();
-    CheckPermission(2, "")
-    CheckPermission(2, "")
-    CheckPermission(2, "")
-    CheckPermission(1, "")
-    CheckPermission(1, "")
-    CheckPermission(1, "")
+    console.log(CheckPermission(2, "P_VOTE_IDEE")); // ID 1        perm : 1,2,3,4,5,6,7,8,9,14 - true
+    console.log(CheckPermission(2, "P_LIKE_PHOTO")); // true
+    console.log(CheckPermission(2, "P_ADD_SHOP")); // false
+    console.log(CheckPermission(3, "P_VALID_MANIF")); // ID 1 - 2    perm : +10,12,13,15,16,17 - true
+    console.log(CheckPermission(3, "P_DUMP_PHOTO")); // false
+    console.log(CheckPermission(3, "P_VOTE_IDEE")); // true
 
 });
 
