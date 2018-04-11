@@ -7,7 +7,7 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Model>} Les idées
          */
         GetAllIdeas: () => {
-            return Idee.findAll();
+            return dataObject.Idee.findAll();
         },
 
         /**
