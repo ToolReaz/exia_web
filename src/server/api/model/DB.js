@@ -168,6 +168,16 @@ DataBase.GetAllIdeas = (callback) => {
         callback(r); 
     });
 };
+/**
+ * Récupère le nombre de like d'une image
+ * @param {int} idPhoto ID de la photo dont il faut récupérer le nombre de like
+ * @param {callback} callback Callback (1 param : entier représentant le nombre de like)
+ */
+DataBase.GetLikeCount = (idPhoto, callback) => {
+    Likes.count({where: {ID_Photos: idPhoto}}).then(r=>{
+        callback(r);
+    })
+}
 
 /// TOKEN BASED OPERATIONS
 
@@ -372,6 +382,22 @@ function CommentPhoto(idAccount, idPhoto, comment, callback){
     Comment.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto, Texte: comment}}).then(r=>{
         callback();
     });
+}
+
+DataBase.LikePhoto = (idAccount, idPhoto, like, callback) => {
+    FilterPermission(idAccount, "P_LIKE_PHOTO", (ok)=>{if(ok)LikePhoto(idAccount, idPhoto, like, callback);});
+}
+
+function LikePhoto(idAccount, idPhoto, like, callback){
+    if(like){
+        likes.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto}}).then(r=>{
+            callback();
+        });
+    } else {
+        likes.destroy({where: {ID: idAccount, ID_Photos: idPhoto}}).then(r=>{
+            callback();
+        });
+    }
 }
 
 
