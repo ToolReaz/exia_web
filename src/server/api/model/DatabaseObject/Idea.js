@@ -98,6 +98,21 @@ module.exports = {
             out &= element;
         });
         return out;
-    }
+    },
+    
+    /**
+     * Valide une idée
+     * @param {int} idAccount ID de l'utilisateur
+     * @param {int} idIdee ID de l'idée
+     */
+    ValideIdee: (idAccount, idIdee) => {
+        return new Promise((resolve, reject) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
+                Idee.update({ Approuve: true }, { where: { ID: idIdee } }).then(r => { resolve(); }).catch(err => { reject(err); });
+            }).catch(err => {
+                if (err) reject(err);
+            });
+        });
+    },
 
 };

@@ -76,21 +76,6 @@ module.exports = {
     },
 
     /**
-     * Valide une idée
-     * @param {int} idAccount ID de l'utilisateur
-     * @param {int} idIdee ID de l'idée
-     */
-    ValideIdee: (idAccount, idIdee) => {
-        return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
-                Idee.update({ Approuve: true }, { where: { ID: idIdee } }).then(r => { resolve(); }).catch(err => { reject(err); });
-            }).catch(err => {
-                if (err) reject(err);
-            });
-        });
-    },
-
-    /**
      * retourne les évenements du mois (passés et futurs) et les répétitions d'anciens events
      */
     GetThisMonthEvents: () => {
@@ -112,12 +97,49 @@ module.exports = {
                     }
 
                     items--;
-                    if(items==0){
+                    if (items == 0) {
                         resolve(events);
                     }
 
                 });
             }).catch(err => { if (err) reject(err); });
         });
+    },
+
+    EditManifestation: (idManif, name, description, imagePath, date, timespan, price, public) => {
+        return new Promise((resolve, reject) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
+                var m = {};
+                if (name) m.Nom = name;
+                if (description) m.Description = description;
+                if (imagePath) m.Chemin_Image = imagePath;
+                if (date) m.Quand = date;
+                if (timespan) m.Intervale = timespan;
+                if (price) m.Prix = price;
+                if (public) m.Public = public;
+                Manifestations.update(m, { where: { ID: idManif } }).then(r => { resolve() }).catch(err => { reject(err); });
+            }).catch(err => {
+                if (err) reject(err);
+            });
+        });
+    },
+
+    GetManifestationAuthor: (idManif) => {
+        return new Promise((resolve, reject)=>{
+            Comprend.findOne({where: {ID: idManif}}).then(r=>{
+                if(r){
+                    Idee.findOne({where: {ID: r.ID}}).then(s=>{
+                        if(s){
+                            resolve(s.ID_Compte);
+                        } else {
+                            reject(new Error("L'id de la manifestation #"+idManif+" n'a pas d'idée associée"));
+                        }
+                    }).catch(err=>{if(err)reject(err);});
+                } else {
+                    reject(new Error("L'id de la manifestation #"+idManif+" n'existe pas"));
+                }
+            }).catch(err=>{if(err)reject(err);});
+        });
     }
+
 };
