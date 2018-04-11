@@ -2,6 +2,10 @@ const DB = require('../model/DB');
 
 module.exports = {
 
+    getAll: (req, res) => {
+
+    },
+
     create: (req, res) => {
         let reqName = req.body.name;
         let reqDescription = req.body.description;
@@ -16,5 +20,9 @@ module.exports = {
         } else {
             //DB.CreateManifestation
         }
+    },
+
+    subscribe: (req, res) => {
+
     }
 };

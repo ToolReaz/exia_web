@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import AdminManifestation from "./AdminManifestation";
+import AdminManifestation from "../../components/admin/AdminManifestation";
 
-class Admin extends Component {
+class Index extends Component {
 
     render() {
         return (
@@ -13,4 +13,4 @@ class Admin extends Component {
     }
 }
 
-export default Admin;
+export default Index;
