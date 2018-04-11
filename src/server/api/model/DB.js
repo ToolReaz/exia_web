@@ -108,6 +108,7 @@ function SetupPermissions() {
     SetPermissions("R_STUDENT"  , "P_LIKE_PHOTO",       () => { });
     SetPermissions("R_STUDENT"  , "P_COMMENT_PHOTO",    () => { });
     SetPermissions("R_STUDENT"  , "P_ADD_MANIF",        () => { });
+    SetPermissions("R_STUDENT"  , "P_PARTICIPE_MANIF",  () => { });
     SetPermissions("R_BDE"      , "P_VALID_MANIF",      () => { });
     SetPermissions("R_BDE"      , "P_LISTE_INSCRITS",   () => { });
     SetPermissions("R_BDE"      , "P_COMMENT_LAST",     () => { });
@@ -167,6 +168,16 @@ DataBase.GetAllIdeas = (callback) => {
         callback(r); 
     });
 };
+/**
+ * Récupère le nombre de like d'une image
+ * @param {int} idPhoto ID de la photo dont il faut récupérer le nombre de like
+ * @param {callback} callback Callback (1 param : entier représentant le nombre de like)
+ */
+DataBase.GetLikeCount = (idPhoto, callback) => {
+    Likes.count({where: {ID_Photos: idPhoto}}).then(r=>{
+        callback(r);
+    })
+}
 
 /// TOKEN BASED OPERATIONS
 
@@ -191,6 +202,17 @@ DataBase.GetAccountFromToken = (token, callback) => {
 DataBase.GetTokenTime = (token, callback) => {
     Session.findOne({ where: { Token: token } }).then(r => {
         callback(r.Derniere_connexion);
+    });
+};
+/**
+ * Change le timestamp d'un token
+ * @param {string} token Valeur du token
+ * @param {Date} timestamp Nouveau timestamp
+ * @param {callback} callback Callback (0 param)
+ */
+DataBase.SetTokenTimestamp = (token, timestamp, callback) => {
+    Session.update({Derniere_connexion: timestamp}, {where: {Token: token}}).then(r=>{
+        callback()
     });
 };
 
@@ -261,7 +283,7 @@ DataBase.SetPayPal = (idAccount, paypalApiKey, callback) => {
  */
 DataBase.VoteIdea = (idAccount, idIdea, vote, callback) => {
     FilterPermission(idAccount, "P_VOTE_IDEE", (ok)=>{if(ok)VoteIdeaid(Account, idIdea, vote, callback);});
-}
+};
 /**
  * Vote pour une idée
  * @param {int} idAccount ID du compte ayant voté
@@ -271,6 +293,24 @@ DataBase.VoteIdea = (idAccount, idIdea, vote, callback) => {
  */
 function VoteIdea(idAccount, idIdea, vote, callback){
     Vote.findOrCreate({where: {ID: idAccount, ID_Idee: idIdea}, defaults: {Pour: vote}});
+}
+/**
+ * Inscrit une personne à une manif
+ * @param {int} idAccount ID du compte voulant s'inscrire à une manif
+ * @param {int} idManif ID de la manif
+ * @param {callback} callback Callback (0 param)
+ */
+DataBase.InscrireManif = (idAccount, idManif, callback) => {
+    FilterPermission(idAccount, "P_PARTICIPE_MANIF", (ok)=>{if(ok)InscrireManif(idAccount, idManif, callback);});
+}
+/**
+ * Inscrit une personne à une manif
+ * @param {int} idAccount ID du compte voulant s'inscrire à une manif
+ * @param {int} idManif ID de la manif
+ * @param {callback} callback Callback (0 param)
+ */
+function InscrireManif(idAccount, idManif, callback){
+    Participe.findOrCreate({where: {ID: idAccount, ID_Manifestation: idManif}}).then(r=>{callback();});
 }
 
 /**
@@ -294,6 +334,72 @@ DataBase.GetAccountFromId = (idAccount, callback) => {
         callback(r);
     });
 };
+/**
+ * Ajoute une photo à une manif
+ * @param {int} idAccount ID du compte souhaitant uploader l'image
+ * @param {string} photoPath Path de l'image
+ * @param {int} idManif ID de la manifestation
+ * @param {callback} callback Callback (0 param)
+ */
+DataBase.AddPhoto = (idAccount, photoPath, idManif, callback) => {
+    FilterPermission(idAccount, "P_ADD_PHOTO", (ok)=>{if(ok)AddPhoto(idAccount, photoPath, idManif, callback);});
+};
+/**
+ * Ajoute une photo à une manif
+ * @param {int} idAccount ID du compte souhaitant uploader l'image
+ * @param {string} photoPath Path de l'image
+ * @param {int} idManif ID de la manifestation
+ * @param {callback} callback Callback (0 param)
+ */
+function AddPhoto(idAccount, photoPath, idManif, callback) {
+    Photos.findOrCreate({ where: { Chemin_Image: photoPath }, defaults: { Public: false } }).then(r => {
+        Photographie.findOrCreate({ where: { ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount } }).then(s => {
+            Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } }).then(t => {
+                if (t) callback();
+            });
+        });
+    });
+}
+
+/**
+ * Commente une photo
+ * @param {int} idAccount ID du compte
+ * @param {int} idPhoto ID de la photo
+ * @param {string} comment Commentaire pour la photo
+ * @param {callback} callback Callback (0 param)
+ */
+DataBase.CommentPhoto = (idAccount, idPhoto, comment, callback) => {
+    FilterPermission(idAccount, "P_COMMENT_PHOTO", (ok)=>{if(ok)CommentPhoto(idAccount, idPhoto, comment, callback);});
+}
+/**
+ * Commente une photo
+ * @param {int} idAccount ID du compte
+ * @param {int} idPhoto ID de la photo
+ * @param {string} comment Commentaire pour la photo
+ * @param {callback} callback Callback (0 param)
+ */
+function CommentPhoto(idAccount, idPhoto, comment, callback){
+    Comment.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto, Texte: comment}}).then(r=>{
+        callback();
+    });
+}
+
+DataBase.LikePhoto = (idAccount, idPhoto, like, callback) => {
+    FilterPermission(idAccount, "P_LIKE_PHOTO", (ok)=>{if(ok)LikePhoto(idAccount, idPhoto, like, callback);});
+}
+
+function LikePhoto(idAccount, idPhoto, like, callback){
+    if(like){
+        likes.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto}}).then(r=>{
+            callback();
+        });
+    } else {
+        likes.destroy({where: {ID: idAccount, ID_Photos: idPhoto}}).then(r=>{
+            callback();
+        });
+    }
+}
+
 
 connection.sync({ force: false, logging: false }).then(() => {
 
