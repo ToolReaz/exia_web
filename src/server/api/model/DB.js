@@ -351,9 +351,23 @@ function AddPhoto(idAccount, photoPath, idManif, callback) {
     });
 }
 
+/**
+ * Commente une photo
+ * @param {int} idAccount ID du compte
+ * @param {int} idPhoto ID de la photo
+ * @param {string} comment Commentaire pour la photo
+ * @param {callback} callback Callback (0 param)
+ */
 DataBase.CommentPhoto = (idAccount, idPhoto, comment, callback) => {
     FilterPermission(idAccount, "P_COMMENT_PHOTO", (ok)=>{if(ok)CommentPhoto(idAccount, idPhoto, comment, callback);});
 }
+/**
+ * Commente une photo
+ * @param {int} idAccount ID du compte
+ * @param {int} idPhoto ID de la photo
+ * @param {string} comment Commentaire pour la photo
+ * @param {callback} callback Callback (0 param)
+ */
 function CommentPhoto(idAccount, idPhoto, comment, callback){
     Comment.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto, Texte: comment}}).then(r=>{
         callback();
