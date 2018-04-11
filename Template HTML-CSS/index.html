@@ -32,12 +32,71 @@
             <div class="col-2">
               <input></input>
             </div>
+            
             <div class="col-1">
-              <button class="col-12">Connexion</button>
+              <button class="col-12" onclick="document.getElementById('id01').style.display='block'">Connexion</button>
             </div>
+            <div id="id01" class="grp-modal">
+              <div class="grp-modal-content">
+                <header class="grp-container grp-teal">
+                  <span onclick="document.getElementById('id01').style.display='none'"
+                  class="grp-button grp-display-topright">&times;</span>
+                  <h2>Connexion</h2>
+                </header>
+                <div class="grp-container">
+                  <div>
+                    <input />
+                    <p>Email</p>
+                  </div>
+                  <div>
+                    <input type="password" />
+                    <p>Mot de passe</p>
+                  </div>
+                  <button> Connexion ><button>
+                </div>
+              </div>
+            </div>
+
             <div class="col-1">
-              <button class="col-12">Inscription</button>
+              <button class="col-12" onclick="document.getElementById('id02').style.display='block'">Inscription</button>
             </div>
+            <div id="id02" class="grp-modal">
+              <div class="grp-modal-content">
+                <header class="grp-container grp-teal">
+                  <span onclick="document.getElementById('id02').style.display='none'"
+                  class="grp-button grp-display-topright">&times;</span>
+                  <h2>Inscription</h2>
+                </header>
+                <div class="grp-container">
+                  <div>
+                    <input />
+                    <p>Nom</p>
+                  </div>
+                  <div>
+                    <input />
+                    <p>Prénom</p>
+                  </div>
+                  <div>
+                    <input />
+                    <p>Email</p>
+                  </div>
+                  <div>
+                    <input />
+                    <p>Confirmation email</p>
+                  </div>
+                  <div>
+                    <input type="password" />
+                    <p>Mot de passe</p>
+                  </div>
+                  <div>
+                    <input type="password" />
+                    <p>Confirmation mot de passe</p>
+                  </div>
+                  <button> Inscription ><button>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </nav>
