@@ -2,9 +2,10 @@ nav, footer{
   width: 100%;
   background-color: #c2242a;
   color: white;
-  height: 20%;
+  height: 8%;
   margin: auto;
   z-index: 1000;
+  position: fixed;
 }
  nav img{
    height: 100%;
