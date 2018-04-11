@@ -32,16 +32,16 @@ module.exports = {
                             if (t) resolve();
                             else reject();
                         }).catch(err => {
-                            {if(err)reject(err);};
+                            if (err) reject(err);
                         });
                     }).catch(err => {
-                        {if(err)reject(err);};
+                        if (err) reject(err);
                     });;
                 }).catch(err => {
-                    {if(err)reject(err);};
+                    if (err) reject(err);
                 });;
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },
@@ -63,10 +63,10 @@ module.exports = {
                 }).then(r => {
                     resolve();
                 }).catch(err => {
-                    {if(err)reject(err);};
+                    if (err) reject(err);
                 });
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },
@@ -88,7 +88,7 @@ module.exports = {
                     }).then(r => {
                         resolve();
                     }).catch(err => {
-                        {if(err)reject(err);};
+                        if (err) reject(err);
                     });
                 } else {
                     likes.destroy({
@@ -99,11 +99,11 @@ module.exports = {
                     }).then(r => {
                         resolve();
                     }).catch(err => {
-                        {if(err)reject(err);};
+                        if (err) reject(err);
                     });;
                 }
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },

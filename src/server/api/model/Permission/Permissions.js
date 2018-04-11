@@ -54,13 +54,17 @@ module.exports = {
                                 reject('Permission insuffisante : permission ' + permission + ' requise.')
                             }
                         }).catch(err => {
-                            {if(err)reject(err);}                        });
+                            { if (err) reject(err); }
+                        });
                     }).catch(err => {
-                        {if(err)reject(err);}                    });
+                        { if (err) reject(err); }
+                    });
                 }).catch(err => {
-                    {if(err)reject(err);}                });
+                    { if (err) reject(err); }
+                });
             }).catch(err => {
-                {if(err)reject(err);}            });
+                { if (err) reject(err); }
+            });
         });
     },
     /**     
@@ -86,13 +90,13 @@ module.exports = {
                             ID_Role: r[0].ID
                         }
                     }).then(resolve()).catch(err => {
-                        {if(err)reject(err);};
+                        if (err) reject(err);
                     });
                 }).catch(err => {
-                    {if(err)reject(err);};
+                    if (err) reject(err);
                 });
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },
@@ -100,8 +104,8 @@ module.exports = {
      * Met les permissions de base     
      */
     SetupPermissions: () => {
-        SetPermissions("R_STUDENT", "P_CONNECT", () => { });
-        SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { });
+        SetPermissions("R_STUDENT", "P_CONNECT", () => { }); //done
+        SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { }); //done
         SetPermissions("R_STUDENT", "P_LIST_ACTIVITE", () => { });
         SetPermissions("R_STUDENT", "P_VOTE_IDEE", () => { });
         SetPermissions("R_STUDENT", "P_ADD_PHOTO", () => { });

@@ -18,12 +18,12 @@ module.exports = {
                     }).then(s => {
                         resolve();
                     }).catch(err => {
-                        {if(err)reject(err);};
+                        if (err) reject(err);
                     });
                 } else {
-                    reject("L'utilisateur #" + idAccount + " n'existe pas.");
+                    reject(new Error("L'utilisateur #" + idAccount + " n'existe pas."));
                 }
-            }).catch(err => {if(err)reject(err);});
+            }).catch(err => { if (err) reject(err); });
         });
     },
     /**    

@@ -19,9 +19,9 @@ module.exports = {
                 }
             }).then(r => {
                 if (r[1]) resolve();
-                else reject("L'utilisateur \"" + email + "\" existe déjà.");
+                else reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },
@@ -37,9 +37,9 @@ module.exports = {
                 }
             }).then(r => {
                 if (r) resolve(r);
-                else reject("L'utilisateur \"" + email + "\" n'existe pas.");
+                else reject(new Error("L'utilisateur \"" + email + "\" n'existe pas."));
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },
@@ -55,10 +55,10 @@ module.exports = {
                 }
             }).then(r => {
                 if (r) resolve(r);
-                else reject("L'ID #" + idAccount + " n'existe pas.");
+                else reject(new Error("L'ID #" + idAccount + " n'existe pas."));
             }).catch(err => {
-                {if(err)reject(err);};
-            });;
+                if (err) reject(err);
+            });
         });
     },
     /**     
@@ -76,10 +76,10 @@ module.exports = {
                 }).then(r => {
                     resolve(r[1]);
                 }).catch(err => {
-                    {if(err)reject(err);};
+                    if (err) reject(err);
                 });
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     }

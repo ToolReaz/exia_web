@@ -19,16 +19,16 @@ module.exports = {
                         if (c) {
                             resolve(c.ID);
                         } else {
-                            reject("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ");
+                            reject(new Error("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ"));
                         }
                     }).catch(err => {
-                        {if(err)reject(err);};
+                        if (err) reject(err);
                     });
                 } else {
-                    reject("Le token \"" + token + "\" n'existe pas.");
+                    reject(new Error("Le token \"" + token + "\" n'existe pas."));
                 }
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },
@@ -44,9 +44,9 @@ module.exports = {
                 }
             }).then(r => {
                 if (r) resolve(r.Derniere_connexion);
-                else reject("Le token \"" + token + "\" n'existe pas.");
+                else reject(new Error("Le token \"" + token + "\" n'existe pas."));
             }).catch(err => {
-                {if(err)reject(err);};
+                if (err) reject(err);
             });
         });
     },

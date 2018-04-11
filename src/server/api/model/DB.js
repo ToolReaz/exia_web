@@ -35,7 +35,6 @@ const Vote =            require('./Tables/Vote')            (connection, sql);
 
 var DataBase = {};
 
-// TODO : Retour d'erreur si non autorisé
 DataBase.Compte =           require('./DatabaseObject/Compte');
 DataBase.Token =            require('./DatabaseObject/Token');
 DataBase.Photo =            require('./DatabaseObject/Photo');
