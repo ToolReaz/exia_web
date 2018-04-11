@@ -5,13 +5,13 @@ module.exports = {
 
     connect: (req, res) => {
 
-        let reqEmail = req.body.email;""
+        let reqEmail = req.body.email;
         let reqPassword = req.body.password;
 
         if (!reqEmail || !reqPassword) {
             res.json({'error': 'Pseudo ou mot de passe invalide !'});
         } else {
-            DB.GetAccount(reqEmail, (result) => {
+            DB.Compte.GetAccount(reqEmail, (result) => {
                 if (result!=null && result.dataValues!=null) {
                     let dbPassword = result.dataValues.Mot_de_passe;
                     bcrypt.compare(reqPassword, dbPassword, (err, ok) => {
@@ -47,7 +47,7 @@ module.exports = {
             res.json({'error': 'Champs invalides !'});
         } else {
             bcrypt.hash(reqPassword, 10, (err, hashPassword) => {
-                DB.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname, (callback) =>  {
+                DB.Compte.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname, (callback) =>  {
                     if (callback) {
                         res.json({'status': 'success', 'message': 'Votre compte à bien été créer ! Vérifier vos mails.'});
                     } else {
