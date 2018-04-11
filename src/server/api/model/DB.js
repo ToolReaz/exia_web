@@ -43,16 +43,37 @@ function AND(array) {
     return out;
 }
 
-function CheckPermission(userID, permission){
-    var allowed = false;
-    Appartient.findAll({where: {ID: userID}}).then(r=>{
-        var done = [].fill(false, 0, r.length);
-        r.forEach(element => {
-            Possede.findAll({where: {ID_Role: element.ID}}).then(s=>{
-                s.forEach(permission => {
-                    Permission.findOne({where: {ID: permission.ID}}).then(t=>{
-                        allowed|=t.Code_permission==permission;
-                    });
+/**
+ * Détermine si deux membres de deux tableaux différents sont identiques
+ * @param {array} arrayLeft Premier tableau
+ * @param {array} arrayRight Deuxième tableau
+ * @param {callback} transformLeft Transformée à appliquer au premier tableau
+ * @param {callback} transformRight Transformée à appliquer au deuxième tableau
+ */
+function Contains(arrayLeft, arrayRight, transformLeft, transformRight) {
+    var ret = false;
+    arrayLeft.forEach(entityLeft => {
+        var tLeft = transformLeft(entityLeft);
+        arrayRight.forEach(entityRight => {
+            var tRight = transformRight(entityRight);
+            ret |= tRight == tLeft;
+        });
+    });
+    return ret;
+}
+
+/**
+ * Filtre les executions de requête en fonction des permissions
+ * @param {int} userID ID de l'utilisateur executant la requête
+ * @param {string} permission Permission requise pour executer la requête
+ * @param {callback} callback Callback (param 1 : droits d'executer l'action)
+ */
+function FilterPermission(userID, permission, callback) {
+    Permission.findOne({where: {Code_permission: permission}}).then(r=>{
+        Possede.findAll({where: {ID: r.ID}}).then(s=>{
+            Compte.findOne({where: {ID: userID}}).then(t=>{
+                Appartient.findAll({where: {ID: t.ID}}).then(u=>{
+                    callback(Contains(s, u, (s_)=>{return s_.ID_Role;}, (u_)=>{return u_.ID_Role}));
                 });
             });
         });
@@ -174,7 +195,7 @@ DataBase.GetTokenTime = (token, callback) => {
 };
 
 /// ACCOUNT BASED OPERATIONS
-
+// TODO : Retour d'erreur si non autorisé
 /**
  * Crée une idée et l'insère dans la base de données
  * @param {int} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées obtenu par GetAccount
@@ -184,6 +205,9 @@ DataBase.GetTokenTime = (token, callback) => {
  * @param {callback} callback Callback (aucun param) retourné une fois l'insertion dans la base de données terminée
  */
 DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => {
+    FilterPermission(idAccount, "P_ADD_ACTIVITE", (ok)=>{if(ok)CreateIdea(idAccount, title, text, manifestationArray, callback);});
+};
+function CreateIdea(idAccount, title, text, manifestationArray, callback){
     Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } }).then(r => {
         var idIdee = r[0].ID;
         var done = [].fill(false, 0, manifestationArray.length);
@@ -196,28 +220,29 @@ DataBase.CreateIdea = (idAccount, title, text, manifestationArray, callback) => 
             });
         }
     });
-};
-
+}
 /**
  * Crée un token pour un utilisateur
  * @param {int} idCompte ID du compte associé au token
  * @param {string} token Token à insérer pour l'utilisateur spécifié
  * @param {callback} callback Callback (1 param : True si le token n'existait pas, False si le token existait déjà)
  */
-DataBase.SetToken = (idCompte, token, callback) => {
-    Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idCompte } }).then(r => {
+DataBase.SetToken = (idAccount, token, callback) => {
+    FilterPermission(idAccount, "P_CONNECT", (ok)=>{if(ok)SetToken(idAccount, token, callback);});
+};
+function SetToken(idAccount, token, callback){
+    Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idAccount } }).then(r => {
         callback(r[1]);
     });
-};
-
+}
 /**
  * Crée une liaison entre un compte PayPal et un compte sur le site du BDE
- * @param {int} idCompte ID du compte
+ * @param {int} idAccount ID du compte
  * @param {string} paypalApiKey Clé de l'API PayPal
  * @param {callback} callback Callback (true : succès, false : l'utilisateur n'existe pas)
  */
-DataBase.SetPayPal = (idCompte, paypalApiKey, callback) => {
-    Compte.findOne({ where: { ID: idCompte } }).then(r => {
+DataBase.SetPayPal = (idAccount, paypalApiKey, callback) => {
+    Compte.findOne({ where: { ID: idAccount } }).then(r => {
         if (r) {
             Compte_PayPal.findOrCreate({ where: { GUID: paypalApiKey, ID_Compte: r.ID } }).then(s => {
                 callback(true);
@@ -227,14 +252,34 @@ DataBase.SetPayPal = (idCompte, paypalApiKey, callback) => {
         }
     })
 };
+/**
+ * Vote pour une idée
+ * @param {int} idAccount ID du compte ayant voté
+ * @param {int} idIdea ID de l'idée votée
+ * @param {boolean} vote Valeur du vote
+ * @param {callback} callback Callback (pas de param)
+ */
+DataBase.VoteIdea = (idAccount, idIdea, vote, callback) => {
+    FilterPermission(idAccount, "P_VOTE_IDEE", (ok)=>{if(ok)VoteIdeaid(Account, idIdea, vote, callback);});
+}
+/**
+ * Vote pour une idée
+ * @param {int} idAccount ID du compte ayant voté
+ * @param {int} idIdea ID de l'idée votée
+ * @param {boolean} vote Valeur du vote
+ * @param {callback} callback Callback (pas de param)
+ */
+function VoteIdea(idAccount, idIdea, vote, callback){
+    Vote.findOrCreate({where: {ID: idAccount, ID_Idee: idIdea}, defaults: {Pour: vote}});
+}
 
 /**
  * Récupère la clé de l'API de Paypal associée au compte
- * @param {int} idCompte ID du compte
+ * @param {int} idAccount ID du compte
  * @param {callback} callback Callback (param 1 : compte paypal)
  */
-DataBase.GetPayPalFromAccount = (idCompte, callback) => {
-    Compte_PayPal.findOne({ where: { ID_Compte: idCompte } }).then(r => {
+DataBase.GetPayPalFromAccount = (idAccount, callback) => {
+    Compte_PayPal.findOne({ where: { ID_Compte: idAccount } }).then(r => {
         callback(r.GUID);
     });
 };
@@ -253,13 +298,6 @@ DataBase.GetAccountFromId = (idAccount, callback) => {
 connection.sync({ force: false, logging: false }).then(() => {
 
     SetupPermissions();
-
-    console.log(CheckPermission(2, "P_VOTE_IDEE")); // ID 1        perm : 1,2,3,4,5,6,7,8,9,14 - true
-    console.log(CheckPermission(2, "P_LIKE_PHOTO")); // true
-    console.log(CheckPermission(2, "P_ADD_SHOP")); // false
-    console.log(CheckPermission(3, "P_VALID_MANIF")); // ID 1 - 2    perm : +10,12,13,15,16,17 - true
-    console.log(CheckPermission(3, "P_DUMP_PHOTO")); // false
-    console.log(CheckPermission(3, "P_VOTE_IDEE")); // true
 
 });
 
