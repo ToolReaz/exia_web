@@ -106,6 +106,17 @@ module.exports = {
         });
     },
 
+    /**
+     * Edite les données d'une manifestation
+     * @param {int} idManif ID de la manifestation
+     * @param {string} name Nouveau nom de la manifestation (ou NULL)
+     * @param {string} description Nouvelle description (ou NULL)
+     * @param {string} imagePath Nouveau path vers l'image (ou NULL)
+     * @param {Date} date Nouvelle date de début pour la manif (ou NULL)
+     * @param {Number} timespan Nouvel interval entre deux répétitions de la manifestation (ou NULL)
+     * @param {Number} price Nouveau prix pour la manifestation (ou NULL)
+     * @param {boolean} public Si la manifestation est publique (visible sur la page) ou non (ou NULL)
+     */
     EditManifestation: (idManif, name, description, imagePath, date, timespan, price, public) => {
         return new Promise((resolve, reject) => {
             require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
@@ -124,6 +135,10 @@ module.exports = {
         });
     },
 
+    /**
+     * Récupère l'ID de l'utilisateur ayant proposé la manif
+     * @param {Number} idManif ID de la manif dont on cherche à déterminer l'auteur
+     */
     GetManifestationAuthor: (idManif) => {
         return new Promise((resolve, reject)=>{
             Comprend.findOne({where: {ID: idManif}}).then(r=>{
