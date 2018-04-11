@@ -341,14 +341,24 @@ DataBase.AddPhoto = (idAccount, photoPath, idManif, callback) => {
  * @param {int} idManif ID de la manifestation
  * @param {callback} callback Callback (0 param)
  */
-function AddPhoto(idAccount, photoPath, idManif, callback){
-    Photos.findOrCreate({where: {Chemin_Image: photoPath}, defaults: {Public: false}}).then(r=>{
-        Photographie.findOrCreate({where: {ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount}}).then(s=>{
-            callback();
+function AddPhoto(idAccount, photoPath, idManif, callback) {
+    Photos.findOrCreate({ where: { Chemin_Image: photoPath }, defaults: { Public: false } }).then(r => {
+        Photographie.findOrCreate({ where: { ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount } }).then(s => {
+            Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } }).then(t => {
+                if (t) callback();
+            });
         });
     });
 }
 
+DataBase.CommentPhoto = (idAccount, idPhoto, comment, callback) => {
+    FilterPermission(idAccount, "P_COMMENT_PHOTO", (ok)=>{if(ok)CommentPhoto(idAccount, idPhoto, comment, callback);});
+}
+function CommentPhoto(idAccount, idPhoto, comment, callback){
+    Comment.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto, Texte: comment}}).then(r=>{
+        callback();
+    });
+}
 
 
 connection.sync({ force: false, logging: false }).then(() => {
