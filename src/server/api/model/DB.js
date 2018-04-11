@@ -194,6 +194,17 @@ DataBase.GetTokenTime = (token, callback) => {
         callback(r.Derniere_connexion);
     });
 };
+/**
+ * Change le timestamp d'un token
+ * @param {string} token Valeur du token
+ * @param {Date} timestamp Nouveau timestamp
+ * @param {callback} callback Callback (0 param)
+ */
+DataBase.SetTokenTimestamp = (token, timestamp, callback) => {
+    Session.update({Derniere_connexion: timestamp}, {where: {Token: token}}).then(r=>{
+        callback()
+    });
+};
 
 /// ACCOUNT BASED OPERATIONS
 // TODO : Retour d'erreur si non autorisé
@@ -337,6 +348,8 @@ function AddPhoto(idAccount, photoPath, idManif, callback){
         });
     });
 }
+
+
 
 connection.sync({ force: false, logging: false }).then(() => {
 
