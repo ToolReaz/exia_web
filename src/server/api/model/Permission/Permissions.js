@@ -1,10 +1,10 @@
 module.exports = {
-    /**
-     * Détermine si deux membres de deux tableaux différents sont identiques
-     * @param {array} arrayLeft Premier tableau
-     * @param {array} arrayRight Deuxième tableau
-     * @param {callback} transformLeft Transformée à appliquer au premier tableau
-     * @param {callback} transformRight Transformée à appliquer au deuxième tableau
+    /**     
+     * Détermine si deux membres de deux tableaux différents sont identiques     
+     * @param {array} arrayLeft Premier tableau     
+     * @param {array} arrayRight Deuxième tableau     
+     * @param {callback} transformLeft Transformée à appliquer au premier tableau     
+     * @param {callback} transformRight Transformée à appliquer au deuxième tableau     
      */
     Contains: (arrayLeft, arrayRight, transformLeft, transformRight) => {
         var ret = false;
@@ -17,59 +17,96 @@ module.exports = {
         });
         return ret;
     },
-
-    /**
-     * Filtre les executions de requête en fonction des permissions
-     * @param {int} userID ID de l'utilisateur executant la requête
-     * @param {string} permission Permission requise pour executer la requête
+    /**     
+     * Filtre les executions de requête en fonction des permissions     
+     * @param {int} userID ID de l'utilisateur executant la requête     
+     * @param {string} permission Permission requise pour executer la requête     
      */
     FilterPermission: (userID, permission) => {
         return new Promise((resolve, reject) => {
-            Permission.findOne({ where: { Code_permission: permission } }).then(r => {
-                Possede.findAll({ where: { ID: r.ID } }).then(s => {
-                    Compte.findOne({ where: { ID: userID } }).then(t => {
-                        Appartient.findAll({ where: { ID: t.ID } }).then(u => {
-                            if (this.Contains(s, u, (s_) => { return s_.ID_Role; }, (u_) => { return u_.ID_Role })) {
+            Permission.findOne({
+                where: {
+                    Code_permission: permission
+                }
+            }).then(r => {
+                Possede.findAll({
+                    where: {
+                        ID: r.ID
+                    }
+                }).then(s => {
+                    Compte.findOne({
+                        where: {
+                            ID: userID
+                        }
+                    }).then(t => {
+                        Appartient.findAll({
+                            where: {
+                                ID: t.ID
+                            }
+                        }).then(u => {
+                            if (this.Contains(s, u, (s_) => {
+                                return s_.ID_Role;
+                            }, (u_) => {
+                                return u_.ID_Role
+                            })) {
                                 resolve()
                             } else {
                                 reject('Permission insuffisante : permission ' + permission + ' requise.')
                             }
-                        }).catch(err => { reject(err) });
-                    }).catch(err => { reject(err) });
-                }).catch(err => { reject(err) });
-            }).catch(err => { reject(err) });
+                        }).catch(err => {
+                            { if (err) reject(err); }
+                        });
+                    }).catch(err => {
+                        { if (err) reject(err); }
+                    });
+                }).catch(err => {
+                    { if (err) reject(err); }
+                });
+            }).catch(err => {
+                { if (err) reject(err); }
+            });
         });
     },
-
-    /**
-     * Définit les permissions
-     * @param {string} role Nom du role
-     * @param {string} permission Nom de la permission
+    /**     
+     * Définit les permissions     
+     * @param {string} role Nom du role     
+     * @param {string} permission Nom de la permission     
      */
     SetPermissions: (role, permission) => {
         return new Promise((resolve, reject) => {
-            Role.findOrCreate({ where: { Nom_role: role } })
-                .then(r => {
-                    Permission.findOrCreate({ where: { Code_permission: permission } })
-                        .then(s => {
-                            Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } })
-                                .then(resolve())
-                                .catch(err => { reject(err); });
-                        })
-                        .catch(err => { reject(err); });
-                })
-                .catch(err => { reject(err); });
+            Role.findOrCreate({
+                where: {
+                    Nom_role: role
+                }
+            }).then(r => {
+                Permission.findOrCreate({
+                    where: {
+                        Code_permission: permission
+                    }
+                }).then(s => {
+                    Possede.findOrCreate({
+                        where: {
+                            ID: s[0].ID,
+                            ID_Role: r[0].ID
+                        }
+                    }).then(resolve()).catch(err => {
+                        if (err) reject(err);
+                    });
+                }).catch(err => {
+                    if (err) reject(err);
+                });
+            }).catch(err => {
+                if (err) reject(err);
+            });
         });
     },
-
-    /**
-     * Met les permissions de base
+    /**     
+     * Met les permissions de base     
      */
     SetupPermissions: () => {
-
-        SetPermissions("R_STUDENT", "P_CONNECT", () => { }); // DONE
-        SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { }); // DONE
-        SetPermissions("R_STUDENT", "P_LIST_ACTIVITE", () => { }); // 
+        SetPermissions("R_STUDENT", "P_CONNECT", () => { }); //done
+        SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { }); //done
+        SetPermissions("R_STUDENT", "P_LIST_ACTIVITE", () => { });
         SetPermissions("R_STUDENT", "P_VOTE_IDEE", () => { });
         SetPermissions("R_STUDENT", "P_ADD_PHOTO", () => { });
         SetPermissions("R_STUDENT", "P_LIST_PHOTO", () => { });
@@ -86,6 +123,5 @@ module.exports = {
         SetPermissions("R_BDE", "P_ADD_SHOP", () => { });
         SetPermissions("R_BDE", "P_DELETE_SHOP", () => { });
         SetPermissions("R_STUDENT", "P_PURCHASE_SHOP", () => { });
-
     }
 };
