@@ -68,14 +68,6 @@ module.exports = {
     },
 
     /**
-     * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
-     * @param {int} idAccount ID de l'utilisateur
-     */
-    ListeInscriptions: (idAccount) => {
-        return Participe.findAll({ where: { ID: idAccount } });
-    },
-
-    /**
      * retourne les évenements du mois (passés et futurs) et les répétitions d'anciens events
      */
     GetThisMonthEvents: () => {
@@ -154,6 +146,23 @@ module.exports = {
                     reject(new Error("L'id de la manifestation #"+idManif+" n'existe pas"));
                 }
             }).catch(err=>{if(err)reject(err);});
+        });
+    },
+    
+    /**
+     * Récupère la liste des personnes inscrites à un évènement
+     * @param {Number} idAccount ID du compte de la personne souhaitant récupérer la liste des personnes inscrites
+     * @param {Number} idManif ID de la manif dont il faut récupérer les participants
+     */
+    GetInscriptions: (idAccount, idManif) => {
+        return new Promise((resolve, reject) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_LISTE_INSCRITS").then(() => {
+                Participe.findAll({where: {ID_Manifestation: idManif}}).then(r=>{
+                    resolve(r);
+                }).catch(err=>{if(err)reject(err);});
+            }).catch(err => {
+                if (err) reject(err);
+            });
         });
     }
 

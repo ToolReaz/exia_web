@@ -25,6 +25,7 @@ module.exports = {
             });
         });
     },
+
     /**     
      * Récupère le compte (brut) d'une personne     
      * @param {string} email Adresse E-Mail de la personne dont il faut récupérer le compte     
@@ -43,6 +44,7 @@ module.exports = {
             });
         });
     },
+
     /**     
      * Récupère les données brutes liées au compte     
      * @param {int} idAccount ID du compte     
@@ -61,6 +63,7 @@ module.exports = {
             });
         });
     },
+
     /**     
      * Crée un token pour un utilisateur     
      * @param {int} idCompte ID du compte associé au token     
@@ -82,5 +85,14 @@ module.exports = {
                 if (err) reject(err);
             });
         });
+    },
+
+    /**
+     * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
+     * @param {int} idAccount ID de l'utilisateur
+     */
+    ListeInscriptions: (idAccount) => {
+        return Participe.findAll({ where: { ID: idAccount } });
     }
+    
 };
