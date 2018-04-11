@@ -10,4 +10,8 @@ router.post('/register', (req, res, next) => {
     UserController.register(req, res);
 });
 
+router.post('/token', (req, res, next) => {
+    UserController.register(req, res);
+});
+
 module.exports = router;

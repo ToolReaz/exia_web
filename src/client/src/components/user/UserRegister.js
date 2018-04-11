@@ -91,15 +91,19 @@ class UserRegister extends Component {
 
     render() {
         return (
-            <div>
-                <form className="grp-container" id="register-form" onSubmit={this.handleSubmit}><br/>
-                    <input type="text" name="firstname" placeholder="Prenom" onChange={this.handleChange}/><br/>
-                    <input type="text" name="lastname" placeholder="Nom" onChange={this.handleChange}/><br/>
-                    <input type="mail" name="email" placeholder="Email" onChange={this.handleChange}/><br/>
-                    <input type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/><br/>
-                    <input type="text" name="password_bis" placeholder="Retaper le mot de passe" onChange={this.handleChange}/><br/>
-                    <input type="submit" value="Valider"/>
-                </form>
+            <div className="grid-container">
+                <div className="row">
+                    <div className="col-6">
+                        <form className="grp-container" id="register-form" onSubmit={this.handleSubmit}><br/>
+                            <input className="input-regular" type="text" name="firstname" placeholder="Prenom" onChange={this.handleChange}/><br/><br/>
+                            <input className="input-regular" type="text" name="lastname" placeholder="Nom" onChange={this.handleChange}/><br/><br/>
+                            <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/><br/><br/>
+                            <input className="input-regular" type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/><br/><br/>
+                            <input className="input-regular" type="text" name="password_bis" placeholder="Retaper le mot de passe" onChange={this.handleChange}/><br/><br/>
+                            <input className="input-submit-regular" type="submit" value="Valider"/><br/><br/>
+                        </form>
+                    </div>
+                </div>
             </div>
         )
     }

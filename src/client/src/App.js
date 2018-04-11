@@ -6,7 +6,7 @@ import Nav from "./components/Nav";
 import Footer from "./components/Footer";
 import UserConnect from "./components/user/UserConnect";
 import Admin from "./pages/admin";
-import IdeasPage from "./pages/user/IdeasPage";
+import Event from "./pages/user/event";
 import Index from "./pages";
 
 class App extends Component {
@@ -20,7 +20,7 @@ class App extends Component {
                     <Route path="/user/register" component={UserRegister} />
                     <Route path="/user/connect" component={UserConnect} />
                     <Route path="/admin" component={Admin} />
-                    <Route path="/idee" component={IdeasPage} />
+                    <Route path="/event" component={Event} />
                 </Switch>
             </div>
             <Footer />

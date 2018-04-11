@@ -361,5 +361,30 @@ nav input {
     font-family: 'Open Sans', sans-serif;
 
  */
+input {
+  width: 100%; }
+
+.input-regular {
+  width: 100%;
+  height: 42px;
+  border: 0;
+  border-bottom: 2px solid #555;
+  font-size: 18px; }
+
+.input-regular:focus {
+  border-bottom: 2px solid #C2242A; }
+
+.input-submit-regular {
+  width: 100%;
+  height: 42px;
+  border-radius: 10px;
+  background-color: #C2242A;
+  border: 0;
+  color: #FFFFFF;
+  font-size: 18px; }
+
+.input-submit-regular:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 10px 0px rgba(156, 39, 176, 0.3); }
 
 /*# sourceMappingURL=index.css.map */

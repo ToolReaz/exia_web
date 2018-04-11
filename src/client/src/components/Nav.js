@@ -16,7 +16,7 @@ class Nav extends Component {
                                 <Link to="/equipe" className="col-12">L'équipe</Link>
                             </div>
                             <div className="col-1">
-                                <Link to="/idee" className="col-12">Evènements</Link>
+                                <Link to="/event" className="col-12">Evènements</Link>
                             </div>
                             <div className="col-1">
                                 <Link to="/shop" className="col-12">Boutique</Link>
