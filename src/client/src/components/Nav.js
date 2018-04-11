@@ -3,61 +3,55 @@ import {Link} from "react-router-dom";
 
 class Nav extends Component {
 
-    static openNav() {
-        var menu = document.getElementById("header-nav-container");
-        if (menu.style.display === "none") {
-            menu.style.display = "block";
-        } else {
-            menu.style.display = "none";
-        }
-    }
-
     render() {
         return (
             <header>
-                <div className="header-content">
-                    <div className="header-hamburger" onClick={Nav.openNav}>
-                        <img src="btn-hamburger.png" alt=""/>
+                <nav>
+                    <div className="grid-container">
+                        <div className="row">
+                            <div className="col-1">
+                                <Link to="/" className="col-12">Accueil</Link>
+                            </div>
+                            <div className="col-1">
+                                <Link to="/equipe" className="col-12">L'équipe</Link>
+                            </div>
+                            <div className="col-1">
+                                <Link to="/idee" className="col-12">Evènements</Link>
+                            </div>
+                            <div className="col-1">
+                                <Link to="/shop" className="col-12">Boutique</Link>
+                            </div>
+                            <div className="col-1">
+                                <Link to="/user/connect" className="col-12">Connexion</Link>
+                            </div>
+                            <div className="col-1">
+                                <Link to="/user/register" className="col-12">Inscription</Link>
+                            </div>
+                            <div className="col-2">
+                                <img src="logobde.png"/>
+                            </div>
+                            <div className="col-2">
+                                <input/>
+                            </div>
+
+                            <div id="id01" className="grp-modal">
+                                <div className="grp-modal-content">
+                                    <header className="grp-container grp-teal">
+                                        <h2><Link to="/user/connect" className="col-12">Connextion</Link></h2>
+                                    </header>
+                                </div>
+                            </div>
+
+                            <div id="id02" className="grp-modal">
+                                <div className="grp-modal-content">
+                                    <header className="grp-container grp-teal">
+                                        <h2><Link to="/user/register" className="col-12">Inscription</Link></h2>
+                                    </header>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div className="header-search desktop-only">
-                        <input type="text" placeholder="Chercher"/>
-                    </div>
-                    <div className="header-logo">
-                        <img src="logobde.png" alt="logo" draggable="false"/>
-                    </div>
-                    <div className="header-account desktop-only">
-                        <Link to="/user/register">Inscription</Link>
-                        <Link to="/user/connect">Connexion</Link>
-                    </div>
-                </div>
-                <div id="header-nav-container" className='header-nav-container'>
-                    <nav>
-                        <div className="nav-item">
-                            <Link to="/">Accueil</Link>
-                        </div>
-                        <div className="nav-item">
-                            <Link to="/">L'équipe</Link>
-                        </div>
-                        <div className="nav-item">
-                            <Link to="/">Evènements</Link>
-                        </div>
-                        <div className="nav-item">
-                            <Link to="/">Boutique</Link>
-                        </div>
-                        <div className="nav-item">
-                            <Link to="/admin">Admin</Link>
-                        </div>
-                        <div className="nav-item">
-                            <Link to="/idee">Idee</Link>
-                        </div>
-                        <div className="nav-item mobile-only">
-                            <Link to="/user/register">Inscription</Link>
-                        </div>
-                        <div className="nav-item mobile-only">
-                            <Link to="/user/connect">Connexion</Link>
-                        </div>
-                    </nav>
-                </div>
+                </nav>
             </header>
         )
     }

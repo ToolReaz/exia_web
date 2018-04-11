@@ -31,7 +31,7 @@ module.exports = {
         DB.Token.GetAccountFromToken(reqToken).then((id) => {
             DB.Idea.VoteIdea(id, reqVoteId, true).then(() => {
                 res.json({'error': null, 'content': null});
-            }).catch((reason => res.json({'error': reason, 'content': null}));
-        })
+            }).catch((reason => res.json({'error': reason, 'content': null})));
+        });
     }
 };

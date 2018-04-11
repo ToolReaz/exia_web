@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import {getApi, postApi} from '../../lib/api/requestApi';
 
 class UserConnect extends Component {
 
@@ -18,7 +19,7 @@ class UserConnect extends Component {
 
     checkValues() {
         if (this.state.email && this.state.password) {
-            this.register();
+            this.connect();
             return true;
         } else {
             return false;
@@ -26,11 +27,17 @@ class UserConnect extends Component {
     }
 
 
-    register() {
+    connect() {
         let data = {
             password: this.state.password,
             email: this.state.email
         };
+        postApi('/user/connect', data).then(response => {
+            console.log('R'+response);
+        }).catch(error => {
+            console.log('E'+error);
+        });
+        /*
         try {
             $.post('/user/connect', data, res => {
                 console.log(res);
@@ -49,6 +56,7 @@ class UserConnect extends Component {
                 error: e
             });
         }
+        */
     }
 
 
@@ -77,11 +85,11 @@ class UserConnect extends Component {
 
     render() {
         return (
-            <div>
-                <form id="connect-form" onSubmit={this.handleSubmit}>
-                    <input type="mail" name="email" placeholder="Email" onChange={this.handleChange}/>
-                    <input type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/>
-                    <input type="submit" value="Valider"/>
+            <div className="grp-container">
+                <form id="connect-form" onSubmit={this.handleSubmit}><br/>
+                    <input type="mail" name="email" placeholder="Email" onChange={this.handleChange}/><br/>
+                    <input type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/><br/>
+                    <input type="submit" value="Connexion"/>
                 </form>
             </div>
         )

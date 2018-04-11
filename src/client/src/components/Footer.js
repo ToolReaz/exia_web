@@ -5,7 +5,8 @@ class Nav extends Component {
     render() {
         return (
             <footer>
-                <p>Hello I am a footer !</p>
+                <a href="">Mentions légales</a>
+                <span >Copyright - BDE-Strasbourg</span>
             </footer>
         )
     }

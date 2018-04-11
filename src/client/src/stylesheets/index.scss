@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto');
 @import "partials/grid";
-@import "partials/default";
-@import "partials/nav";
+@import "partials/web";
 
 $red: #C2242A;
 $grey: #F5F5F5;
@@ -17,17 +16,3 @@ $success: #4caf50;
     font-family: 'Open Sans', sans-serif;
 
  */
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  font-family: 'Roboto', sans-serif, 'Open Sans', sans-serif;
-}
-a {
-  text-decoration: none;
-}
-
-.page {
-  padding-top: 110px;
-}
