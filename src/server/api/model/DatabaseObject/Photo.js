@@ -8,7 +8,7 @@ module.exports = {
      */
     AddPhoto: (idAccount, photoPath, idManif) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_PHOTO", (ok) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_PHOTO").then((ok) => {
                 if (ok) {
                     Photos.findOrCreate({ where: { Chemin_Image: photoPath }, defaults: { Public: false } }).then(r => {
                         Photographie.findOrCreate({ where: { ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount } }).then(s => {
@@ -29,7 +29,7 @@ module.exports = {
      */
     CommentPhoto: (idAccount, idPhoto, comment) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_COMMENT_PHOTO", (ok) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_COMMENT_PHOTO").then((ok) => {
                 if (ok) {
                     Comment.findOrCreate({ where: { ID: idAccount, ID_Photos: idPhoto, Texte: comment } }).then(r => {
                         resolve();
@@ -46,7 +46,7 @@ module.exports = {
      */
     LikePhoto: (idAccount, idPhoto, like) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_LIKE_PHOTO", (ok) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_LIKE_PHOTO").then((ok) => {
                 if (ok) {
                     if (like) {
                         likes.findOrCreate({ where: { ID: idAccount, ID_Photos: idPhoto } }).then(r => {

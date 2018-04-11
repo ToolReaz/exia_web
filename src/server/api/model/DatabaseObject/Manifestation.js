@@ -20,12 +20,12 @@ module.exports = {
      */
     InscrireManif: (idAccount, idManif) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_PARTICIPE_MANIF", (ok) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_PARTICIPE_MANIF").then((ok) => {
                 if (ok) {
                     Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } }).then(r => { resolve(); });
                 }
             });
         });
     }
-    
+
 };

@@ -18,7 +18,7 @@ module.exports = {
      */
     CreateIdea: (idAccount, title, text, manifestationArray) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_ACTIVITE", (ok) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_ACTIVITE").then((ok) => {
                 if (ok) {
                     Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } }).then(r => {
                         var idIdee = r[0].ID;

@@ -45,7 +45,7 @@ module.exports = {
      */
     SetToken: (idAccount, token) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_CONNECT", (ok) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_CONNECT").then((ok) => {
                 if (ok) {
                     Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idAccount } }).then(r => {
                         resolve(r[1]);
