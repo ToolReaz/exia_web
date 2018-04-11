@@ -45,7 +45,7 @@ module.exports = (dataObject) => {
                                     ID: t.ID
                                 }
                             }).then(u => {
-                                if (a.Contains(s, u, (s_) => {
+                                if (here.Contains(s, u, (s_) => {
                                     return s_.ID_Role;
                                 }, (u_) => {
                                     return u_.ID_Role
