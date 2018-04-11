@@ -18,12 +18,12 @@ class Event extends Component {
         getApi('/api/idea').then(res => {
             console.log(res);
             let tmp = this.state.ideas;
-            res.content.forEach(idea => {
+            res.forEach(idea => {
                 tmp.push(idea);
-            }).catch(reason => {
-                console.log(reason);
             });
             this.setState({ideas: tmp});
+        }).catch(reason => {
+            console.log(reason);
         });
     }
 
@@ -40,10 +40,10 @@ class Event extends Component {
                 <h1>Liste des idées</h1><br/>
             </div>
         );
-        this.state.ideas.forEach((item) =>  {
+        this.state.ideas.forEach((idea) =>  {
             view.push(
                 <div className="row">
-                    <Idea minimized={true} values={item} /><br/>
+                    <Idea values={idea} /><br/>
                 </div>
             );
         });

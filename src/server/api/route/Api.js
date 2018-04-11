@@ -16,7 +16,7 @@ router.post('/idea', (req, res) => {
     IdeaController.create(req, res);
 });
 // Vote for an idea
-router.get('/idea/vote/:type/:id', (req, res) => {
+router.get('/idea/vote/:id', (req, res) => {
     IdeaController.vote(req, res);
 });
 

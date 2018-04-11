@@ -4,7 +4,6 @@ module.exports = {
 
     getAll: (req, res) => {
         DB.Idea.GetAllIdeas().then((ideas) => {
-            console.log(ideas);
             res.json({'error': null, 'content': ideas});
         }).catch((reason) => res.json({'error': 'Impossible de récupérer les idées !', 'content': null}));
     },
@@ -26,8 +25,10 @@ module.exports = {
     },
 
     vote: (req, res) => {
-        let reqVoteId = req.params.id;
+        let reqVoteId = req.body.id;
         let reqToken = req.cookies.token;
+
+        console.log('hey');
 
         DB.Token.GetAccountFromToken(reqToken).then((id) => {
             DB.Idea.VoteIdea(id, reqVoteId, true).then(() => {
