@@ -28,6 +28,14 @@
   /* border: 1px solid red; */
 }
 
+desktop-only {
+  display: none !important;
+}
+
+mobile-only {
+  display: block !important;
+}
+
 @media only screen and (min-width: 1300px) {
   /* For desktop: */
   .grid-container {
@@ -54,5 +62,13 @@
 
   .col-hide {
     display: block;
+  }
+
+  desktop-only {
+    display: block !important;
+  }
+
+  mobile-only {
+    display: none !important;
   }
 }
