@@ -21,6 +21,6 @@ module.exports = function (sequelize, DataTypes) {
 			}
 		}
 	}, {
-			tableName: 'Appartient'
-		});
+		tableName: 'Appartient'
+	});
 };
