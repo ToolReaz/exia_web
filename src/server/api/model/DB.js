@@ -108,6 +108,7 @@ function SetupPermissions() {
     SetPermissions("R_STUDENT"  , "P_LIKE_PHOTO",       () => { });
     SetPermissions("R_STUDENT"  , "P_COMMENT_PHOTO",    () => { });
     SetPermissions("R_STUDENT"  , "P_ADD_MANIF",        () => { });
+    SetPermissions("R_STUDENT"  , "P_PARTICIPE_MANIF",  () => { });
     SetPermissions("R_BDE"      , "P_VALID_MANIF",      () => { });
     SetPermissions("R_BDE"      , "P_LISTE_INSCRITS",   () => { });
     SetPermissions("R_BDE"      , "P_COMMENT_LAST",     () => { });
@@ -261,7 +262,7 @@ DataBase.SetPayPal = (idAccount, paypalApiKey, callback) => {
  */
 DataBase.VoteIdea = (idAccount, idIdea, vote, callback) => {
     FilterPermission(idAccount, "P_VOTE_IDEE", (ok)=>{if(ok)VoteIdeaid(Account, idIdea, vote, callback);});
-}
+};
 /**
  * Vote pour une idée
  * @param {int} idAccount ID du compte ayant voté
@@ -271,6 +272,24 @@ DataBase.VoteIdea = (idAccount, idIdea, vote, callback) => {
  */
 function VoteIdea(idAccount, idIdea, vote, callback){
     Vote.findOrCreate({where: {ID: idAccount, ID_Idee: idIdea}, defaults: {Pour: vote}});
+}
+/**
+ * Inscrit une personne à une manif
+ * @param {int} idAccount ID du compte voulant s'inscrire à une manif
+ * @param {int} idManif ID de la manif
+ * @param {callback} callback Callback (0 param)
+ */
+DataBase.InscrireManif = (idAccount, idManif, callback) => {
+    FilterPermission(idAccount, "P_PARTICIPE_MANIF", (ok)=>{if(ok)InscrireManif(idAccount, idManif, callback);});
+}
+/**
+ * Inscrit une personne à une manif
+ * @param {int} idAccount ID du compte voulant s'inscrire à une manif
+ * @param {int} idManif ID de la manif
+ * @param {callback} callback Callback (0 param)
+ */
+function InscrireManif(idAccount, idManif, callback){
+    Participe.findOrCreate({where: {ID: idAccount, ID_Manifestation: idManif}}).then(r=>{callback();});
 }
 
 /**
@@ -294,6 +313,30 @@ DataBase.GetAccountFromId = (idAccount, callback) => {
         callback(r);
     });
 };
+/**
+ * Ajoute une photo à une manif
+ * @param {int} idAccount ID du compte souhaitant uploader l'image
+ * @param {string} photoPath Path de l'image
+ * @param {int} idManif ID de la manifestation
+ * @param {callback} callback Callback (0 param)
+ */
+DataBase.AddPhoto = (idAccount, photoPath, idManif, callback) => {
+    FilterPermission(idAccount, "P_ADD_PHOTO", (ok)=>{if(ok)AddPhoto(idAccount, photoPath, idManif, callback);});
+};
+/**
+ * Ajoute une photo à une manif
+ * @param {int} idAccount ID du compte souhaitant uploader l'image
+ * @param {string} photoPath Path de l'image
+ * @param {int} idManif ID de la manifestation
+ * @param {callback} callback Callback (0 param)
+ */
+function AddPhoto(idAccount, photoPath, idManif, callback){
+    Photos.findOrCreate({where: {Chemin_Image: photoPath}, defaults: {Public: false}}).then(r=>{
+        Photographie.findOrCreate({where: {ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount}}).then(s=>{
+            callback();
+        });
+    });
+}
 
 connection.sync({ force: false, logging: false }).then(() => {
 
