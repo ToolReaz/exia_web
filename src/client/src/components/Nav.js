@@ -28,7 +28,7 @@ class Nav extends Component {
                     <div className="nav-item">
                         <Link to="/admin">Admin</Link>
                     </div>
-                    <div className="nav-item">
+                    <div className="nav-item">2
                         <Link to="/idee">Idee</Link>
                     </div>
                 </nav>
