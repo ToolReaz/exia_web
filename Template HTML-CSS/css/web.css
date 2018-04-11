@@ -1,13 +1,11 @@
 nav, footer{
   width: 100%;
   background-color: #c2242a;
-  color: white;
   height: 8%;
   margin: auto;
   z-index: 1000;
-  position: absolute;
-
 }
+
  nav img{
    height: 100%;
    width: 20%;
@@ -133,7 +131,18 @@ nav input{
   padding-top: 2em;
 }
 
+.article{
+  border: 1px black solid;
+  font-size: 0.8em;
+  margin: 2% 0% 2% 0%;
+}
+.article p{
+  font-size: 0.65em;
+}
 
+.article a{
+  font-size: 0.8em;
+}
 
 
 
@@ -250,10 +259,58 @@ nav input{
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
 }
-/*========================================================Carousel 2====================================================*/
+/*======================================================== Modal ====================================================*/
+.grp-modal {
+    z-index: 3;
+    display: none;
+    padding-top: 100px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4)
+}
+
+.grp-modal-content {
+    margin: auto;
+    background-color: #fff;
+    position: relative;
+    padding: 0;
+    outline: 0;
+    width: 600px;
+    padding: 0px 50px 25px 0px;
+}
 
 
-/*========================================================Parallax====================================================*/
+.grp-teal,
+.grp-hover-teal:hover {
+    color: black;
+    background-color: #c2242a!important
+}
+
+.grp-display-topright {
+    position: absolute;
+    right: 0;
+    top: 0
+}
+
+.grp-button{
+  width: 50px;
+  height: 50px;
+  background-color: grey;
+  color: white;
+  font-size: 2em;
+  text-align: center;
+  line-height: 50px;
+}
+
+.grp-container{
+  text-align: center;
+}
+/*======================================================== Parallax ====================================================*/
 
 .parallax {
     /* The image used */
