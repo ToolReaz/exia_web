@@ -1,4 +1,5 @@
-module.exports = {
+module.exports = (dataObject, permissions) => {
+    var here = {
 
     /**     
      * Crée une manifestation     
@@ -29,8 +30,8 @@ module.exports = {
      */
     InscrireManif: (idAccount, idManif) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_PARTICIPE_MANIF").then(() => {
-                Participe.findOrCreate({
+            permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF").then(() => {
+                dataObject.Participe.findOrCreate({
                     where: {
                         ID: idAccount,
                         ID_Manifestation: idManif
@@ -54,7 +55,7 @@ module.exports = {
      */
     Participe: (idAccount, idManif) => {
         return new Promise((resolve, reject) => {
-            Participe.findOne({
+            dataObject.Participe.findOne({
                 where: {
                     ID: idAccount,
                     ID_Manifestation: idManif
@@ -72,7 +73,7 @@ module.exports = {
      */
     GetThisMonthEvents: () => {
         return new Promise((resolve, reject) => {
-            Manifestations.findAll().then(r => {
+            dataObject.Manifestations.findAll().then(r => {
                 var events = [];
                 var items = r.length;
                 r.forEach(element => {
@@ -111,7 +112,7 @@ module.exports = {
      */
     EditManifestation: (idManif, name, description, imagePath, date, timespan, price, public) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
+            permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
                 var m = {};
                 if (name) m.Nom = name;
                 if (description) m.Description = description;
@@ -120,7 +121,7 @@ module.exports = {
                 if (timespan) m.Intervale = timespan;
                 if (price) m.Prix = price;
                 if (public) m.Public = public;
-                Manifestations.update(m, { where: { ID: idManif } }).then(r => { resolve() }).catch(err => { reject(err); });
+                dataObject.Manifestations.update(m, { where: { ID: idManif } }).then(r => { resolve() }).catch(err => { reject(err); });
             }).catch(err => {
                 if (err) reject(err);
             });
@@ -133,9 +134,9 @@ module.exports = {
      */
     GetManifestationAuthor: (idManif) => {
         return new Promise((resolve, reject)=>{
-            Comprend.findOne({where: {ID: idManif}}).then(r=>{
+            dataObject.Comprend.findOne({where: {ID: idManif}}).then(r=>{
                 if(r){
-                    Idee.findOne({where: {ID: r.ID}}).then(s=>{
+                    dataObject.Idee.findOne({where: {ID: r.ID}}).then(s=>{
                         if(s){
                             resolve(s.ID_Compte);
                         } else {
@@ -156,8 +157,8 @@ module.exports = {
      */
     GetInscriptions: (idAccount, idManif) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_LISTE_INSCRITS").then(() => {
-                Participe.findAll({where: {ID_Manifestation: idManif}}).then(r=>{
+            permissions.FilterPermission(idAccount, "P_LISTE_INSCRITS").then(() => {
+                dataObject.Participe.findAll({where: {ID_Manifestation: idManif}}).then(r=>{
                     resolve(r);
                 }).catch(err=>{if(err)reject(err);});
             }).catch(err => {
@@ -167,3 +168,5 @@ module.exports = {
     }
 
 };
+return here;
+}

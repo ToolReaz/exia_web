@@ -10,37 +10,39 @@ const connection = new sql({
     logging: false
 });
 
-const Permissions =     require('./Permission/Permissions');
+const database = {
+    Appartient :      require('./Tables/Appartient')      (connection, sql),
+    Categorie :       require('./Tables/Categorie')       (connection, sql),
+    Commente :        require('./Tables/Commente')        (connection, sql),
+    Comprend :        require('./Tables/Comprend')        (connection, sql),
+    Compte :          require('./Tables/Compte')          (connection, sql),
+    Compte_PayPal :   require('./Tables/Compte_PayPal')   (connection, sql),
+    Idee :            require('./Tables/Idee')            (connection, sql),
+    Likes :           require('./Tables/Likes')           (connection, sql),
+    Manifestation :   require('./Tables/Manifestation')   (connection, sql),
+    Panier :          require('./Tables/Panier')          (connection, sql),
+    Participe :       require('./Tables/Participe')       (connection, sql),
+    Permission :      require('./Tables/Permission')      (connection, sql),
+    Photographie :    require('./Tables/Photographie')    (connection, sql),
+    Photos :          require('./Tables/Photos')          (connection, sql),
+    Possede :         require('./Tables/Possede')         (connection, sql),
+    Produit :         require('./Tables/Produit')         (connection, sql),
+    Regroupe :        require('./Tables/Regroupe')        (connection, sql),
+    Role :            require('./Tables/Role')            (connection, sql),
+    Session :         require('./Tables/Session')         (connection, sql),
+    Vote :            require('./Tables/Vote')            (connection, sql)
+}
 
-const Appartient =      require('./Tables/Appartient')      (connection, sql);
-const Categorie =       require('./Tables/Categorie')       (connection, sql);
-const Commente =        require('./Tables/Commente')        (connection, sql);
-const Comprend =        require('./Tables/Comprend')        (connection, sql);
-const Compte =          require('./Tables/Compte')          (connection, sql);
-const Compte_PayPal =   require('./Tables/Compte_PayPal')   (connection, sql);
-const Idee =            require('./Tables/Idee')            (connection, sql);
-const Likes =           require('./Tables/Likes')           (connection, sql);
-const Manifestation =   require('./Tables/Manifestation')   (connection, sql);
-const Panier =          require('./Tables/Panier')          (connection, sql);
-const Participe =       require('./Tables/Participe')       (connection, sql);
-const Permission =      require('./Tables/Permission')      (connection, sql);
-const Photographie =    require('./Tables/Photographie')    (connection, sql);
-const Photos =          require('./Tables/Photos')          (connection, sql);
-const Possede =         require('./Tables/Possede')         (connection, sql);
-const Produit =         require('./Tables/Produit')         (connection, sql);
-const Regroupe =        require('./Tables/Regroupe')        (connection, sql);
-const Role =            require('./Tables/Role')            (connection, sql);
-const Session =         require('./Tables/Session')         (connection, sql);
-const Vote =            require('./Tables/Vote')            (connection, sql);
+const Permissions =   require('./Permission/Permissions') (database);
 
 var DataBase = {};
 
-DataBase.Compte =           require('./DatabaseObject/Compte');
-DataBase.Token =            require('./DatabaseObject/Token');
-DataBase.Photo =            require('./DatabaseObject/Photo');
-DataBase.Idea =             require('./DatabaseObject/Idea');
-DataBase.Manifestation =    require('./DatabaseObject/Manifestation');
-DataBase.PayPal =           require('./DatabaseObject/PayPal');
+DataBase.Compte =           require('./DatabaseObject/Compte')          (database, Permissions);
+DataBase.Token =            require('./DatabaseObject/Token')           (database, Permissions);
+DataBase.Photo =            require('./DatabaseObject/Photo')           (database, Permissions);
+DataBase.Idea =             require('./DatabaseObject/Idea')            (database, Permissions);
+DataBase.Manifestation =    require('./DatabaseObject/Manifestation')   (database, Permissions);
+DataBase.PayPal =           require('./DatabaseObject/PayPal')          (database, Permissions);
 
 connection.sync({ force: false, logging: false }).then(() => {
 

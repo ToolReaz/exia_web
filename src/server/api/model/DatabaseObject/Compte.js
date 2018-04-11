@@ -1,4 +1,5 @@
-module.exports = {
+module.exports = (dataObject, permissions) => {
+    var here = {
     /**     
      * Crée un utilisateur et l'insère dans la base de données     
      * @param {string} email Adresse E-Mail de l'utilisateur dont il faut créer le compte     
@@ -8,7 +9,7 @@ module.exports = {
      */
     CreateUser: (email, password, firstname, lastname) => {
         return new Promise((resolve, reject) => {
-            Compte.findOrCreate({
+            dataObject.Compte.findOrCreate({
                 where: {
                     Adresse_Mail: email
                 },
@@ -32,7 +33,7 @@ module.exports = {
      */
     GetAccount: (email) => {
         return new Promise((resolve, reject) => {
-            Compte.findOne({
+            dataObject.Compte.findOne({
                 where: {
                     Adresse_Mail: email
                 }
@@ -51,7 +52,7 @@ module.exports = {
      */
     GetAccountFromId: (idAccount) => {
         return new Promise((resolve, reject) => {
-            Compte.findOne({
+            dataObject.Compte.findOne({
                 where: {
                     ID: idAccount
                 }
@@ -71,8 +72,8 @@ module.exports = {
      */
     SetToken: (idAccount, token) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_CONNECT").then(() => {
-                Session.upsert({
+            permissions.FilterPermission(idAccount, "P_CONNECT").then(() => {
+                dataObject.Session.upsert({
                     Token: token,
                     Derniere_connexion: Date.now(),
                     ID_Compte: idAccount
@@ -92,7 +93,9 @@ module.exports = {
      * @param {int} idAccount ID de l'utilisateur
      */
     ListeInscriptions: (idAccount) => {
-        return Participe.findAll({ where: { ID: idAccount } });
+        return dataObject.Participe.findAll({ where: { ID: idAccount } });
     }
-    
+
 };
+return here;
+}
