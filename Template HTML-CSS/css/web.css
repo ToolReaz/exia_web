@@ -5,7 +5,7 @@ nav, footer{
   height: 8%;
   margin: auto;
   z-index: 1000;
-  position: fixed;
+
 }
  nav img{
    height: 100%;
