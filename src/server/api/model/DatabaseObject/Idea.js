@@ -1,4 +1,5 @@
-module.exports = {
+module.exports = (dataObject, permissions) => {
+    var here = {
 
     /**     
      * Récupère l'ensemble des idées     
@@ -17,8 +18,8 @@ module.exports = {
      */
     CreateIdea: (idAccount, title, text, manifestationArray) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_ACTIVITE").then(() => {
-                Idee.findOrCreate({
+            permissions.FilterPermission(idAccount, "P_ADD_ACTIVITE").then(() => {
+                dataObject.Idee.findOrCreate({
                     where: {
                         Titre: title,
                         Texte: text
@@ -34,10 +35,10 @@ module.exports = {
                     if (manifestationArray == null) resolve();
                     else {
                         for (let i = 0; i < manifestationArray.length; i++) {
-                            Manifestation.findOrCreate({
+                            dataObject.Manifestation.findOrCreate({
                                 where: manifestationArray[i]
                             }).then(s => {
-                                Comprend.findOrCreate({
+                                dataObject.Comprend.findOrCreate({
                                     where: {
                                         ID: r.ID,
                                         ID_Manifestation: s.ID
@@ -68,8 +69,8 @@ module.exports = {
      */
     VoteIdea: (idAccount, idIdea, vote) => {
         return new Promise((resolve, reject) => {
-            FilterPermission(idAccount, "P_VOTE_IDEE", () => {
-                Vote.findOrCreate({
+            permissions.FilterPermission(idAccount, "P_VOTE_IDEE", () => {
+                dataObject.Vote.findOrCreate({
                     where: {
                         ID: idAccount,
                         ID_Idee: idIdea
@@ -107,8 +108,8 @@ module.exports = {
      */
     ValideIdee: (idAccount, idIdee) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
-                Idee.update({ Approuve: true }, { where: { ID: idIdee } }).then(r => { resolve(); }).catch(err => { reject(err); });
+            permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
+                dataObject.Idee.update({ Approuve: true }, { where: { ID: idIdee } }).then(r => { resolve(); }).catch(err => { reject(err); });
             }).catch(err => {
                 if (err) reject(err);
             });
@@ -116,3 +117,5 @@ module.exports = {
     },
 
 };
+return here;
+}

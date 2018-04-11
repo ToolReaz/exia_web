@@ -1,4 +1,5 @@
-module.exports = {
+module.exports = (dataObject, permissions) => {
+    var here = {
     /**     
      * Ajoute une photo à une manif     
      * @param {int} idAccount ID du compte souhaitant uploader l'image     
@@ -7,8 +8,8 @@ module.exports = {
      */
     AddPhoto: (idAccount, photoPath, idManif) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_PHOTO").then(() => {
-                Photos.findOrCreate({
+            permissions.FilterPermission(idAccount, "P_ADD_PHOTO").then(() => {
+                dataObject.Photos.findOrCreate({
                     where: {
                         Chemin_Image: photoPath
                     },
@@ -16,14 +17,14 @@ module.exports = {
                         Public: false
                     }
                 }).then(r => {
-                    Photographie.findOrCreate({
+                    dataObject.Photographie.findOrCreate({
                         where: {
                             ID_Photos: r.ID,
                             ID_Manifestation: idManif,
                             ID: idAccount
                         }
                     }).then(s => {
-                        Participe.findOne({
+                        dataObject.Participe.findOne({
                             where: {
                                 ID: idAccount,
                                 ID_Manifestation: idManif
@@ -53,8 +54,8 @@ module.exports = {
      */
     CommentPhoto: (idAccount, idPhoto, comment) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_COMMENT_PHOTO").then(() => {
-                Comment.findOrCreate({
+            permissions.FilterPermission(idAccount, "P_COMMENT_PHOTO").then(() => {
+                dataObject.Comment.findOrCreate({
                     where: {
                         ID: idAccount,
                         ID_Photos: idPhoto,
@@ -78,9 +79,9 @@ module.exports = {
      */
     LikePhoto: (idAccount, idPhoto, like) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_LIKE_PHOTO").then(() => {
+            permissions.FilterPermission(idAccount, "P_LIKE_PHOTO").then(() => {
                 if (like) {
-                    likes.findOrCreate({
+                    dataObject.likes.findOrCreate({
                         where: {
                             ID: idAccount,
                             ID_Photos: idPhoto
@@ -91,7 +92,7 @@ module.exports = {
                         if (err) reject(err);
                     });
                 } else {
-                    likes.destroy({
+                    dataObject.likes.destroy({
                         where: {
                             ID: idAccount,
                             ID_Photos: idPhoto
@@ -112,10 +113,12 @@ module.exports = {
      * @param {int} idPhoto ID de la photo dont il faut récupérer le nombre de like     
      */
     GetLikeCount: (idPhoto) => {
-        return Likes.count({
+        return dataObject.Likes.count({
             where: {
                 ID_Photos: idPhoto
             }
         });
     }
 };
+return here;
+}

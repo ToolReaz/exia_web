@@ -1,17 +1,18 @@
-module.exports = {
+module.exports = (dataObject, permissions) => {
+    var here = {
     /**     
      * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)    
      * @param {string} token Token de connexion     
      */
     GetAccountFromToken: (token) => {
         return new Promise((resolve, reject) => {
-            Session.findOne({
+            dataObject.Session.findOne({
                 where: {
                     Token: token
                 }
             }).then(r => {
                 if (r) {
-                    Compte.findOne({
+                    dataObject.Compte.findOne({
                         where: {
                             ID: r.ID
                         }
@@ -38,7 +39,7 @@ module.exports = {
      */
     GetTokenTime: (token) => {
         return new Promise((resolve, reject) => {
-            Session.findOne({
+            dataObject.Session.findOne({
                 where: {
                     Token: token
                 }
@@ -56,7 +57,7 @@ module.exports = {
      * @param {Date} timestamp Nouveau timestamp     
      */
     SetTokenTimestamp: (token, timestamp) => {
-        return Session.update({
+        return dataObject.Session.update({
             Derniere_connexion: timestamp
         }, {
                 where: {
@@ -65,3 +66,5 @@ module.exports = {
             });
     }
 };
+return here;
+}
