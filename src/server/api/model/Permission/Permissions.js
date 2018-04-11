@@ -104,24 +104,24 @@ module.exports = {
      * Met les permissions de base     
      */
     SetupPermissions: () => {
-        SetPermissions("R_STUDENT", "P_CONNECT", () => { }); //done
-        SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { }); //done
-        SetPermissions("R_STUDENT", "P_LIST_ACTIVITE", () => { });
-        SetPermissions("R_STUDENT", "P_VOTE_IDEE", () => { });
-        SetPermissions("R_STUDENT", "P_ADD_PHOTO", () => { });
-        SetPermissions("R_STUDENT", "P_LIST_PHOTO", () => { });
-        SetPermissions("R_STUDENT", "P_LIKE_PHOTO", () => { });
-        SetPermissions("R_STUDENT", "P_COMMENT_PHOTO", () => { });
-        SetPermissions("R_STUDENT", "P_ADD_MANIF", () => { });
-        SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF", () => { });
-        SetPermissions("R_BDE", "P_VALID_MANIF", () => { });
-        SetPermissions("R_BDE", "P_LISTE_INSCRITS", () => { });
-        SetPermissions("R_BDE", "P_COMMENT_LAST", () => { });
-        SetPermissions("R_BDE", "P_ADMIN_PHOTO", () => { });
-        SetPermissions("R_EXIA", "P_REPORT", () => { });
-        SetPermissions("R_EXIA", "P_DUMP_PHOTO", () => { });
-        SetPermissions("R_BDE", "P_ADD_SHOP", () => { });
-        SetPermissions("R_BDE", "P_DELETE_SHOP", () => { });
-        SetPermissions("R_STUDENT", "P_PURCHASE_SHOP", () => { });
+        this.SetPermissions("R_STUDENT", "P_CONNECT", () => { }); //done
+        this.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE", () => { }); //done
+        this.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE", () => { });
+        this.SetPermissions("R_STUDENT", "P_VOTE_IDEE", () => { });
+        this.SetPermissions("R_STUDENT", "P_ADD_PHOTO", () => { });
+        this.SetPermissions("R_STUDENT", "P_LIST_PHOTO", () => { });
+        this.SetPermissions("R_STUDENT", "P_LIKE_PHOTO", () => { });
+        this.SetPermissions("R_STUDENT", "P_COMMENT_PHOTO", () => { });
+        this.SetPermissions("R_STUDENT", "P_ADD_MANIF", () => { });
+        this.SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF", () => { });
+        this.SetPermissions("R_BDE", "P_VALID_MANIF", () => { });
+        this.SetPermissions("R_BDE", "P_LISTE_INSCRITS", () => { });
+        this.SetPermissions("R_BDE", "P_COMMENT_LAST", () => { });
+        this.SetPermissions("R_BDE", "P_ADMIN_PHOTO", () => { });
+        this.SetPermissions("R_EXIA", "P_REPORT", () => { });
+        this.SetPermissions("R_EXIA", "P_DUMP_PHOTO", () => { });
+        this.SetPermissions("R_BDE", "P_ADD_SHOP", () => { });
+        this.SetPermissions("R_BDE", "P_DELETE_SHOP", () => { });
+        this.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP", () => { });
     }
 };
