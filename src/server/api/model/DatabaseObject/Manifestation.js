@@ -68,29 +68,6 @@ module.exports = {
     },
 
     /**
-     * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
-     * @param {int} idAccount ID de l'utilisateur
-     */
-    ListeInscriptions: (idAccount) => {
-        return Participe.findAll({ where: { ID: idAccount } });
-    },
-
-    /**
-     * Valide une idée
-     * @param {int} idAccount ID de l'utilisateur
-     * @param {int} idIdee ID de l'idée
-     */
-    ValideIdee: (idAccount, idIdee) => {
-        return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
-                Idee.update({ Approuve: true }, { where: { ID: idIdee } }).then(r => { resolve(); }).catch(err => { reject(err); });
-            }).catch(err => {
-                if (err) reject(err);
-            });
-        });
-    },
-
-    /**
      * retourne les évenements du mois (passés et futurs) et les répétitions d'anciens events
      */
     GetThisMonthEvents: () => {
@@ -112,12 +89,81 @@ module.exports = {
                     }
 
                     items--;
-                    if(items==0){
+                    if (items == 0) {
                         resolve(events);
                     }
 
                 });
             }).catch(err => { if (err) reject(err); });
         });
+    },
+
+    /**
+     * Edite les données d'une manifestation
+     * @param {int} idManif ID de la manifestation
+     * @param {string} name Nouveau nom de la manifestation (ou NULL)
+     * @param {string} description Nouvelle description (ou NULL)
+     * @param {string} imagePath Nouveau path vers l'image (ou NULL)
+     * @param {Date} date Nouvelle date de début pour la manif (ou NULL)
+     * @param {Number} timespan Nouvel interval entre deux répétitions de la manifestation (ou NULL)
+     * @param {Number} price Nouveau prix pour la manifestation (ou NULL)
+     * @param {boolean} public Si la manifestation est publique (visible sur la page) ou non (ou NULL)
+     */
+    EditManifestation: (idManif, name, description, imagePath, date, timespan, price, public) => {
+        return new Promise((resolve, reject) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
+                var m = {};
+                if (name) m.Nom = name;
+                if (description) m.Description = description;
+                if (imagePath) m.Chemin_Image = imagePath;
+                if (date) m.Quand = date;
+                if (timespan) m.Intervale = timespan;
+                if (price) m.Prix = price;
+                if (public) m.Public = public;
+                Manifestations.update(m, { where: { ID: idManif } }).then(r => { resolve() }).catch(err => { reject(err); });
+            }).catch(err => {
+                if (err) reject(err);
+            });
+        });
+    },
+
+    /**
+     * Récupère l'ID de l'utilisateur ayant proposé la manif
+     * @param {Number} idManif ID de la manif dont on cherche à déterminer l'auteur
+     */
+    GetManifestationAuthor: (idManif) => {
+        return new Promise((resolve, reject)=>{
+            Comprend.findOne({where: {ID: idManif}}).then(r=>{
+                if(r){
+                    Idee.findOne({where: {ID: r.ID}}).then(s=>{
+                        if(s){
+                            resolve(s.ID_Compte);
+                        } else {
+                            reject(new Error("L'id de la manifestation #"+idManif+" n'a pas d'idée associée"));
+                        }
+                    }).catch(err=>{if(err)reject(err);});
+                } else {
+                    reject(new Error("L'id de la manifestation #"+idManif+" n'existe pas"));
+                }
+            }).catch(err=>{if(err)reject(err);});
+        });
+    },
+    
+    /**
+     * Récupère la liste des personnes inscrites à un évènement
+     * @param {Number} idAccount ID du compte de la personne souhaitant récupérer la liste des personnes inscrites
+     * @param {Number} idManif ID de la manif dont il faut récupérer les participants
+     */
+    GetInscriptions: (idAccount, idManif) => {
+        return new Promise((resolve, reject) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_LISTE_INSCRITS").then(() => {
+                Participe.findAll({where: {ID_Manifestation: idManif}}).then(r=>{
+                    resolve(r);
+                }).catch(err=>{if(err)reject(err);});
+            }).catch(err => {
+                if (err) reject(err);
+            });
+        });
     }
+
 };
