@@ -3,7 +3,7 @@ const DB = require('../model/DB');
 module.exports = {
 
     getAll: (req, res) => {
-        DB.GetAllIdeas((result) => {
+        DB.Idea.GetAllIdeas((result) => {
             res.json({'error': null, 'ideas': result});
         });
         //res.json({'error': 'Impossible de récupérer les données sur le server !'});
@@ -17,9 +17,13 @@ module.exports = {
         if (!reqName || !reqText || !reqToken) {
             res.json({'error': 'Champs incorrect !'});
         } else {
-            DB.GetTokenTime(reqToken, (callback) =>  {
+            DB.Token.GetTokenTime(reqToken, (callback) =>  {
                 console.log(callback);
             })
         }
+    },
+
+    vote: (req, res) => {
+
     }
 };
