@@ -16,10 +16,10 @@ module.exports = {
                 bcrypt.compare(reqPassword, dbPassword, (err, ok) => {
                     if (ok) {
                         let newToken = require('crypto').randomBytes(64).toString('hex');
-                        DB.Compte.SetToken(account.id, newToken).then(session => {
+                        DB.Compte.SetToken(account.ID, newToken).then(session => {
                             res.cookie('token', newToken);
-                            res.json({'error': null, 'content': null});
-                        }).catch(reason => res.json({'error': reason}));
+                            res.json({'error': null, 'content': 'connexion effectuée !'});
+                        }).catch(reason => res.json({'error': 'Token pas set correctement' + reason}));
                     } else {
                         res.json({'error': "Nom d'utilisateur ou mot de passe incorrect !"});
                     }

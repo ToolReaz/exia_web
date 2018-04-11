@@ -32,12 +32,13 @@ class UserConnect extends Component {
             password: this.state.password,
             email: this.state.email
         };
+        /*
         postApi('/user/connect', data).then(response => {
             console.log('R'+response);
         }).catch(error => {
             console.log('E'+error);
         });
-        /*
+        */
         try {
             $.post('/user/connect', data, res => {
                 console.log(res);
@@ -56,14 +57,14 @@ class UserConnect extends Component {
                 error: e
             });
         }
-        */
+
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
         if (this.checkValues()) {
-            this.register();
+            this.connect();
         } else {
             alert('Erreur dans les données saisi !');
         }
