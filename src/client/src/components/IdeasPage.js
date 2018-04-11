@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import cookie from 'react-cookie';
 import Idea from "./Idea";
 
 class IdeasPage extends Component {
@@ -46,7 +47,7 @@ class IdeasPage extends Component {
         let data = {
             title: this.state.title,
             text: this.state.text,
-            token: Cookies.get('token') || null
+            token: cookie.load('token') || null
         };
         try {
             $.post('/api/idea', data, res => {
