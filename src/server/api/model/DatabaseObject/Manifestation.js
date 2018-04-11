@@ -1,5 +1,5 @@
 module.exports = {
-    
+
     /**
      * Crée une manifestation
      * @param {string} name Nom de la manifestation à créer
@@ -17,13 +17,15 @@ module.exports = {
      * Inscrit une personne à une manif
      * @param {int} idAccount ID du compte voulant s'inscrire à une manif
      * @param {int} idManif ID de la manif
-     * @param {callback} callback Callback (0 param)
      */
-    InscrireManif: (idAccount, idManif, callback) => {
-        require('../Permission/Permissions').FilterPermission(idAccount, "P_PARTICIPE_MANIF", (ok) => {
-            if (ok) {
-                Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } }).then(r => { callback(); });
-            }
+    InscrireManif: (idAccount, idManif) => {
+        return new Promise((resolve, reject) => {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_PARTICIPE_MANIF", (ok) => {
+                if (ok) {
+                    Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } }).then(r => { resolve(); });
+                }
+            });
         });
     }
+    
 };
