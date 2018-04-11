@@ -8,28 +8,26 @@ module.exports = {
      */
     SetPayPal: (idAccount, paypalApiKey) => {
         return new Promise((resolve, reject) => {
-            Compte.findOne({ where: { ID: idAccount } }).then(r => {
-                if (r) {
-                    Compte_PayPal.findOrCreate({ where: { GUID: paypalApiKey, ID_Compte: r.ID } }).then(s => {
-                        resolve();
-                    });
-                } else {
-                    reject("L'utilisateur #" + idAccount + " n'existe pas.");
-                }
-            });
+            Compte.findOne({ where: { ID: idAccount } })
+                .then(r => {
+                    if (r) {
+                        Compte_PayPal.upsert({ GUID: paypalApiKey, ID_Compte: r.ID })
+                            .then(s => { resolve(); })
+                            .catch(err => { reject(err); });
+                    } else {
+                        reject("L'utilisateur #" + idAccount + " n'existe pas.");
+                    }
+                })
+                .catch(err => reject(err));
         });
     },
 
     /**
-     * Récupère la clé de l'API de Paypal associée au compte
+     * Récupère l'enregistrement de l'API de Paypal associée au compte
      * @param {int} idAccount ID du compte
      */
     GetPayPalFromAccount: (idAccount) => {
-        return new Promise((resolve, reject) => {
-            Compte_PayPal.findOne({ where: { ID_Compte: idAccount } }).then(r => {
-                resolve(r.GUID);
-            });
-        });
+        return Compte_PayPal.findOne({ where: { ID_Compte: idAccount } });
     }
 
 };

@@ -8,17 +8,23 @@ module.exports = {
      */
     AddPhoto: (idAccount, photoPath, idManif) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_PHOTO").then((ok) => {
-                if (ok) {
-                    Photos.findOrCreate({ where: { Chemin_Image: photoPath }, defaults: { Public: false } }).then(r => {
-                        Photographie.findOrCreate({ where: { ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount } }).then(s => {
-                            Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } }).then(t => {
-                                if (t) resolve(); else reject();
-                            });
-                        });
-                    });
-                }
-            });
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_PHOTO")
+                .then(() => {
+                    Photos.findOrCreate({ where: { Chemin_Image: photoPath }, defaults: { Public: false } })
+                        .then(r => {
+                            Photographie.findOrCreate({ where: { ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount } })
+                                .then(s => {
+                                    Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } })
+                                        .then(t => {
+                                            if (t) resolve(); else reject();
+                                        })
+                                        .catch(err => { reject(err); });
+                                })
+                                .catch(err => { reject(err); });;
+                        })
+                        .catch(err => { reject(err); });;
+                })
+                .catch(err => { reject(err); });
         });
     },
     /**
@@ -29,13 +35,13 @@ module.exports = {
      */
     CommentPhoto: (idAccount, idPhoto, comment) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_COMMENT_PHOTO").then((ok) => {
-                if (ok) {
-                    Comment.findOrCreate({ where: { ID: idAccount, ID_Photos: idPhoto, Texte: comment } }).then(r => {
-                        resolve();
-                    });
-                }
-            });
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_COMMENT_PHOTO")
+                .then(() => {
+                    Comment.findOrCreate({ where: { ID: idAccount, ID_Photos: idPhoto, Texte: comment } })
+                        .then(r => { resolve(); })
+                        .catch(err => { reject(err); });
+                })
+                .catch(err => { reject(err); });
         });
     },
     /**
@@ -46,19 +52,19 @@ module.exports = {
      */
     LikePhoto: (idAccount, idPhoto, like) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_LIKE_PHOTO").then((ok) => {
-                if (ok) {
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_LIKE_PHOTO")
+                .then(() => {
                     if (like) {
-                        likes.findOrCreate({ where: { ID: idAccount, ID_Photos: idPhoto } }).then(r => {
-                            resolve();
-                        });
+                        likes.findOrCreate({ where: { ID: idAccount, ID_Photos: idPhoto } })
+                            .then(r => { resolve(); })
+                            .catch(err => { reject(err); });
                     } else {
-                        likes.destroy({ where: { ID: idAccount, ID_Photos: idPhoto } }).then(r => {
-                            resolve();
-                        });
+                        likes.destroy({ where: { ID: idAccount, ID_Photos: idPhoto } })
+                            .then(r => { resolve(); })
+                            .catch(err => { reject(err); });;
                     }
-                }
-            });
+                })
+                .catch(err => { reject(err); });
         });
     },
     /**
@@ -66,10 +72,6 @@ module.exports = {
      * @param {int} idPhoto ID de la photo dont il faut récupérer le nombre de like
      */
     GetLikeCount: (idPhoto) => {
-        return new Promise((resolve, reject) => {
-            Likes.count({ where: { ID_Photos: idPhoto } }).then(r => {
-                resolve(r);
-            });
-        });
+        return Likes.count({ where: { ID_Photos: idPhoto } });
     }
 };

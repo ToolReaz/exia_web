@@ -1,13 +1,10 @@
 module.exports = {
     /**
      * Récupère l'ensemble des idées
+     * @returns {Promise<Model>} Les idées
      */
     GetAllIdeas: () => {
-        return new Promise((resolve, reject) => {
-            Idee.findAll().then(r => {
-                resolve(r);
-            });
-        });
+        return Idee.findAll()
     },
     /**
      * Crée une idée et l'insère dans la base de données
@@ -18,22 +15,26 @@ module.exports = {
      */
     CreateIdea: (idAccount, title, text, manifestationArray) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_ACTIVITE").then((ok) => {
-                if (ok) {
-                    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } }).then(r => {
-                        var idIdee = r[0].ID;
-                        var done = [].fill(false, 0, manifestationArray.length);
-                        for (let i = 0; i < manifestationArray.length; i++) {
-                            Manifestation.findOrCreate({ where: manifestationArray[i] }).then(s => {
-                                Comprend.findOrCreate({ where: { ID: r.ID, ID_Manifestation: s.ID } }).then(t => {
-                                    done[i] = true;
-                                    if (this.AND(done)) { resolve(); }
-                                });
-                            });
-                        }
-                    });
-                }
-            });
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_ADD_ACTIVITE")
+                .then(() => {
+                    Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } })
+                        .then(r => {
+                            var idIdee = r[0].ID;
+                            var done = [].fill(false, 0, manifestationArray.length);
+                            if (manifestationArray == null) resolve(); else {
+                                for (let i = 0; i < manifestationArray.length; i++) {
+                                    Manifestation.findOrCreate({ where: manifestationArray[i] }).then(s => {
+                                        Comprend.findOrCreate({ where: { ID: r.ID, ID_Manifestation: s.ID } }).then(t => {
+                                            done[i] = true;
+                                            if (this.AND(done)) { resolve(); }
+                                        });
+                                    });
+                                }
+                            }
+                        })
+                        .catch(err => { reject(err); });
+                })
+                .catch(err => { reject(err); });
         });
     },
     /**
@@ -44,13 +45,12 @@ module.exports = {
      */
     VoteIdea: (idAccount, idIdea, vote) => {
         return new Promise((resolve, reject) => {
-            FilterPermission(idAccount, "P_VOTE_IDEE", (ok) => {
-                if (ok) {
-                    Vote.findOrCreate({ where: { ID: idAccount, ID_Idee: idIdea }, defaults: { Pour: vote } }).then(r => {
-                        resolve();
-                    });
-                }
-            });
+            FilterPermission(idAccount, "P_VOTE_IDEE", () => {
+
+                Vote.findOrCreate({ where: { ID: idAccount, ID_Idee: idIdea }, defaults: { Pour: vote } })
+                    .then(r => { resolve(); })
+                    .catch(err => { reject(err); });
+            }).catch(err => { reject(err); });
         });
     },
     /**
