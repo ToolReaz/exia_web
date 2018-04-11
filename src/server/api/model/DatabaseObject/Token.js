@@ -6,19 +6,23 @@ module.exports = {
      */
     GetAccountFromToken: (token) => {
         return new Promise((resolve, reject) => {
-            Session.findOne({ where: { Token: token } }).then(r => {
-                if (r) {
-                    Compte.findOne({ where: { ID: r.ID } }).then(c => {
-                        if (c) {
-                            resolve(c.ID);
-                        } else {
-                            reject("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ");
-                        }
-                    });
-                } else {
-                    reject("Le token \"" + token + "\" n'existe pas.");
-                }
-            });
+            Session.findOne({ where: { Token: token } })
+                .then(r => {
+                    if (r) {
+                        Compte.findOne({ where: { ID: r.ID } })
+                            .then(c => {
+                                if (c) {
+                                    resolve(c.ID);
+                                } else {
+                                    reject("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ");
+                                }
+                            })
+                            .catch(err => { reject(err); });
+                    } else {
+                        reject("Le token \"" + token + "\" n'existe pas.");
+                    }
+                })
+                .catch(err => { reject(err); });
         });
     },
 
@@ -28,9 +32,11 @@ module.exports = {
      */
     GetTokenTime: (token) => {
         return new Promise((resolve, reject) => {
-            Session.findOne({ where: { Token: token } }).then(r => {
+            Session.findOne({ where: { Token: token } })
+            .then(r => {
                 if (r) resolve(r.Derniere_connexion); else reject("Le token \"" + token + "\" n'existe pas.");
-            });
+            })
+            .catch(err=>{reject(err);});
         });
     },
 
@@ -40,10 +46,6 @@ module.exports = {
      * @param {Date} timestamp Nouveau timestamp
      */
     SetTokenTimestamp: (token, timestamp) => {
-        return new Promise((resolve, reject) => {
-            Session.update({ Derniere_connexion: timestamp }, { where: { Token: token } }).then(r => {
-                resolve()
-            });
-        });
+        return Session.update({ Derniere_connexion: timestamp }, { where: { Token: token } });
     }
 };

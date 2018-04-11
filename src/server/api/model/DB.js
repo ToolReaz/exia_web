@@ -33,8 +33,6 @@ const Role =            require('./Tables/Role')            (connection, sql);
 const Session =         require('./Tables/Session')         (connection, sql);
 const Vote =            require('./Tables/Vote')            (connection, sql);
 
-
-
 var DataBase = {};
 
 // TODO : Retour d'erreur si non autorisé

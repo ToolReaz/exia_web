@@ -20,11 +20,24 @@ module.exports = {
      */
     InscrireManif: (idAccount, idManif) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_PARTICIPE_MANIF").then((ok) => {
-                if (ok) {
-                    Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } }).then(r => { resolve(); });
-                }
-            });
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_PARTICIPE_MANIF").then(() => {
+                Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } })
+                    .then(r => { resolve(); })
+                    .catch(err => { reject(err) });
+            }).catch(err => { reject(err); });
+        });
+    },
+
+    /**
+     * Détermine si l'utilisateur participe à une manif
+     * @param {int} idAccount ID de l'utilisateur
+     * @param {int} idManif ID de la manif
+     */
+    Participe: (idAccount, idManif) => {
+        return new Promise((resolve, reject) => {
+            Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } })
+                .then(r => { resolve(r == null); })
+                .catch(err => { reject(err); });
         });
     }
 

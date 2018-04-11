@@ -8,9 +8,11 @@ module.exports = {
      */
     CreateUser: (email, password, firstname, lastname) => {
         return new Promise((resolve, reject) => {
-            Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password } }).then(r => {
-                if (r[1]) resolve(); else reject("L'utilisateur \"" + email + "\" existe déjà.");
-            });
+            Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password } })
+                .then(r => {
+                    if (r[1]) resolve(); else reject("L'utilisateur \"" + email + "\" existe déjà.");
+                })
+                .catch(err => { reject(err); });
         });
     },
 
@@ -20,9 +22,11 @@ module.exports = {
      */
     GetAccount: (email) => {
         return new Promise((resolve, reject) => {
-            Compte.findOne({ where: { Adresse_Mail: email } }).then(r => {
-                if (r) resolve(r); else reject("L'utilisateur \"" + email + "\" n'existe pas.");
-            });
+            Compte.findOne({ where: { Adresse_Mail: email } })
+                .then(r => {
+                    if (r) resolve(r); else reject("L'utilisateur \"" + email + "\" n'existe pas.");
+                })
+                .catch(err => { reject(err); });
         });
     },
 
@@ -32,9 +36,11 @@ module.exports = {
      */
     GetAccountFromId: (idAccount) => {
         return new Promise((resolve, reject) => {
-            Compte.findOne({ where: { ID: idAccount } }).then(r => {
-                if (r) resolve(r); else reject("L'ID #" + idAccount + " n'existe pas.");
-            });
+            Compte.findOne({ where: { ID: idAccount } })
+                .then(r => {
+                    if (r) resolve(r); else reject("L'ID #" + idAccount + " n'existe pas.");
+                })
+                .catch(err => { reject(err); });;
         });
     },
 
@@ -45,13 +51,13 @@ module.exports = {
      */
     SetToken: (idAccount, token) => {
         return new Promise((resolve, reject) => {
-            require('../Permission/Permissions').FilterPermission(idAccount, "P_CONNECT").then((ok) => {
-                if (ok) {
-                    Session.findOrCreate({ where: { Token: token }, defaults: { Derniere_connexion: Date.now(), ID_Compte: idAccount } }).then(r => {
-                        resolve(r[1]);
-                    });
-                }
-            });
+            require('../Permission/Permissions').FilterPermission(idAccount, "P_CONNECT")
+                .then(() => {
+                    Session.upsert({ Token: token, Derniere_connexion: Date.now(), ID_Compte: idAccount })
+                        .then(r => { resolve(r[1]); })
+                        .catch(err => { reject(err); });
+                })
+                .catch(err => { reject(err); });
         });
     }
 };

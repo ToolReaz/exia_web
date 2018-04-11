@@ -29,11 +29,15 @@ module.exports = {
                 Possede.findAll({ where: { ID: r.ID } }).then(s => {
                     Compte.findOne({ where: { ID: userID } }).then(t => {
                         Appartient.findAll({ where: { ID: t.ID } }).then(u => {
-                            resolve(this.Contains(s, u, (s_) => { return s_.ID_Role; }, (u_) => { return u_.ID_Role }));
-                        });
-                    });
-                });
-            });
+                            if (this.Contains(s, u, (s_) => { return s_.ID_Role; }, (u_) => { return u_.ID_Role })) {
+                                resolve()
+                            } else {
+                                reject('Permission insuffisante : permission ' + permission + ' requise.')
+                            }
+                        }).catch(err => { reject(err) });
+                    }).catch(err => { reject(err) });
+                }).catch(err => { reject(err) });
+            }).catch(err => { reject(err) });
         });
     },
 
@@ -44,11 +48,17 @@ module.exports = {
      */
     SetPermissions: (role, permission) => {
         return new Promise((resolve, reject) => {
-            Role.findOrCreate({ where: { Nom_role: role } }).then(r => {
-                Permission.findOrCreate({ where: { Code_permission: permission } }).then(s => {
-                    Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } }).then(resolve());
-                });
-            });
+            Role.findOrCreate({ where: { Nom_role: role } })
+                .then(r => {
+                    Permission.findOrCreate({ where: { Code_permission: permission } })
+                        .then(s => {
+                            Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } })
+                                .then(resolve())
+                                .catch(err => { reject(err); });
+                        })
+                        .catch(err => { reject(err); });
+                })
+                .catch(err => { reject(err); });
         });
     },
 
