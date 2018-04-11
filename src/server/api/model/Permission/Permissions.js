@@ -22,14 +22,15 @@ module.exports = {
      * Filtre les executions de requête en fonction des permissions
      * @param {int} userID ID de l'utilisateur executant la requête
      * @param {string} permission Permission requise pour executer la requête
-     * @param {callback} callback Callback (param 1 : droits d'executer l'action)
      */
-    FilterPermission: (userID, permission, callback) => {
-        Permission.findOne({ where: { Code_permission: permission } }).then(r => {
-            Possede.findAll({ where: { ID: r.ID } }).then(s => {
-                Compte.findOne({ where: { ID: userID } }).then(t => {
-                    Appartient.findAll({ where: { ID: t.ID } }).then(u => {
-                        callback(this.Contains(s, u, (s_) => { return s_.ID_Role; }, (u_) => { return u_.ID_Role }));
+    FilterPermission: (userID, permission) => {
+        return new Promise((resolve, reject) => {
+            Permission.findOne({ where: { Code_permission: permission } }).then(r => {
+                Possede.findAll({ where: { ID: r.ID } }).then(s => {
+                    Compte.findOne({ where: { ID: userID } }).then(t => {
+                        Appartient.findAll({ where: { ID: t.ID } }).then(u => {
+                            resolve(this.Contains(s, u, (s_) => { return s_.ID_Role; }, (u_) => { return u_.ID_Role }));
+                        });
                     });
                 });
             });
@@ -40,12 +41,13 @@ module.exports = {
      * Définit les permissions
      * @param {string} role Nom du role
      * @param {string} permission Nom de la permission
-     * @param {callback} callback Callback après la mise en place des permissions
      */
-    SetPermissions: (role, permission, callback) => {
-        Role.findOrCreate({ where: { Nom_role: role } }).then(r => {
-            Permission.findOrCreate({ where: { Code_permission: permission } }).then(s => {
-                Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } }).then(callback());
+    SetPermissions: (role, permission) => {
+        return new Promise((resolve, reject) => {
+            Role.findOrCreate({ where: { Nom_role: role } }).then(r => {
+                Permission.findOrCreate({ where: { Code_permission: permission } }).then(s => {
+                    Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } }).then(resolve());
+                });
             });
         });
     },

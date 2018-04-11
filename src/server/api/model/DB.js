@@ -33,17 +33,7 @@ const Role =            require('./Tables/Role')            (connection, sql);
 const Session =         require('./Tables/Session')         (connection, sql);
 const Vote =            require('./Tables/Vote')            (connection, sql);
 
-/**
- * Calcule un ET logique sur un tableau
- * @param {boolean[]} array Tableau de boolean dont il faut calculer le ET
- */
-function AND(array) {
-    var out = true;
-    array.forEach(element => {
-        out &= element;
-    });
-    return out;
-}
+
 
 var DataBase = {};
 
