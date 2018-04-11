@@ -1,6 +1,6 @@
 /* jshint indent: 2 */
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
 	return sequelize.define('Role', {
 		ID: {
 			type: DataTypes.INTEGER(11),

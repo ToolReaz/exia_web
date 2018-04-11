@@ -1,9 +1,11 @@
 module.exports = (dataObject, permissions) => {
+
     var here = {
-        /**     
-         * Crée une liaison entre un compte PayPal et un compte sur le site du BDE     
-         * @param {int} idAccount ID du compte     
-         * @param {string} paypalApiKey Clé de l'API PayPal     
+
+        /**
+         * Crée une liaison entre un compte PayPal et un compte sur le site du BDE
+         * @param {int} idAccount ID du compte
+         * @param {string} paypalApiKey Clé de l'API PayPal
          */
         SetPayPal: (idAccount, paypalApiKey) => {
             return new Promise((resolve, reject) => {
@@ -24,12 +26,15 @@ module.exports = (dataObject, permissions) => {
                     } else {
                         reject(new Error("L'utilisateur #" + idAccount + " n'existe pas."));
                     }
-                }).catch(err => { if (err) reject(err); });
+                }).catch(err => {
+                    if (err) reject(err);
+                });
             });
         },
-        /**    
-         * Récupère l'enregistrement de l'API de Paypal associée au compte    
-         * @param {int} idAccount ID du compte    
+
+        /**
+         * Récupère l'enregistrement de l'API de Paypal associée au compte
+         * @param {int} idAccount ID du compte
          */
         GetPayPalFromAccount: (idAccount) => {
             return dataObject.Compte_PayPal.findOne({
@@ -39,5 +44,6 @@ module.exports = (dataObject, permissions) => {
             });
         }
     };
+
     return here;
 }

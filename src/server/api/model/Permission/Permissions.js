@@ -46,25 +46,33 @@ module.exports = (dataObject) => {
                                 }
                             }).then(u => {
                                 if (here.Contains(s, u, (s_) => {
-                                    return s_.ID_Role;
-                                }, (u_) => {
-                                    return u_.ID_Role
-                                })) {
+                                        return s_.ID_Role;
+                                    }, (u_) => {
+                                        return u_.ID_Role
+                                    })) {
                                     resolve()
                                 } else {
                                     reject('Permission insuffisante : permission ' + permission + ' requise.')
                                 }
                             }).catch(err => {
-                                { if (err) reject(err); }
+                                {
+                                    if (err) reject(err);
+                                }
                             });
                         }).catch(err => {
-                            { if (err) reject(err); }
+                            {
+                                if (err) reject(err);
+                            }
                         });
                     }).catch(err => {
-                        { if (err) reject(err); }
+                        {
+                            if (err) reject(err);
+                        }
                     });
                 }).catch(err => {
-                    { if (err) reject(err); }
+                    {
+                        if (err) reject(err);
+                    }
                 });
             });
         },
@@ -105,25 +113,25 @@ module.exports = (dataObject) => {
          * Met les permissions de base     
          */
         SetupPermissions: () => {
-            here.SetPermissions("R_STUDENT", "P_CONNECT").then(() => { }); //done
-            here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE").then(() => { }); //done
-            here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_VOTE_IDEE").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_ADD_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_LIST_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_LIKE_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_COMMENT_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_ADD_MANIF").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF").then(() => { });
-            here.SetPermissions("R_BDE", "P_VALID_MANIF").then(() => { });
-            here.SetPermissions("R_BDE", "P_LISTE_INSCRITS").then(() => { });
-            here.SetPermissions("R_BDE", "P_COMMENT_LAST").then(() => { });
-            here.SetPermissions("R_BDE", "P_ADMIN_PHOTO").then(() => { });
-            here.SetPermissions("R_EXIA", "P_REPORT").then(() => { });
-            here.SetPermissions("R_EXIA", "P_DUMP_PHOTO").then(() => { });
-            here.SetPermissions("R_BDE", "P_ADD_SHOP").then(() => { });
-            here.SetPermissions("R_BDE", "P_DELETE_SHOP").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP").then(() => { });
+            here.SetPermissions("R_STUDENT", "P_CONNECT").then(() => {}); //done
+            here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE").then(() => {}); //done
+            here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_VOTE_IDEE").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_ADD_PHOTO").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_LIST_PHOTO").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_LIKE_PHOTO").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_COMMENT_PHOTO").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_ADD_MANIF").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF").then(() => {});
+            here.SetPermissions("R_BDE", "P_VALID_MANIF").then(() => {});
+            here.SetPermissions("R_BDE", "P_LISTE_INSCRITS").then(() => {});
+            here.SetPermissions("R_BDE", "P_COMMENT_LAST").then(() => {});
+            here.SetPermissions("R_BDE", "P_ADMIN_PHOTO").then(() => {});
+            here.SetPermissions("R_EXIA", "P_REPORT").then(() => {});
+            here.SetPermissions("R_EXIA", "P_DUMP_PHOTO").then(() => {});
+            here.SetPermissions("R_BDE", "P_ADD_SHOP").then(() => {});
+            here.SetPermissions("R_BDE", "P_DELETE_SHOP").then(() => {});
+            here.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP").then(() => {});
         }
     };
     return here;

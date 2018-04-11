@@ -1,3 +1,5 @@
 src/client/node_modules
 src/server/node_modules
 .idea
+.vscode
+.TODO.txt
