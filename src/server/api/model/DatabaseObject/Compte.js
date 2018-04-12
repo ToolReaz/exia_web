@@ -75,15 +75,24 @@ module.exports = (dataObject, permissions) => {
         SetToken: (idAccount, token) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_CONNECT").then(() => {
-                    dataObject.Session.upsert({
-                        Token: token,
-                        Derniere_connexion: Date.now(),
-                        ID_Compte: idAccount
-                    }).then(r => {
-                        resolve(r[1]);
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });
+                    if (token) {
+                        dataObject.Session.upsert({
+                            Token: token,
+                            Derniere_connexion: Date.now(),
+                            ID_Compte: idAccount
+                        }).then(r => {
+                            resolve();
+                        }).catch(err => {
+                            if (err) reject(err);
+                        });
+                    } else {
+                        dataObject.Session.destroy({ where: { ID_Compte: idAccount } }).then(() => {
+                            resolve();
+                        }).catch(err => {
+                            if (err) reject(err);
+                        });
+                    }
+
                 }).catch(err => {
                     if (err) reject(err);
                 });
