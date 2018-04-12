@@ -6,48 +6,32 @@ class Nav extends Component {
     render() {
         return (
             <nav>
-                <div className="grid-container">
-                    <div className="row">
-                        <div className="col-1">
-                            <Link to="/" className="col-12">Accueil</Link>
-                        </div>
-                        <div className="col-1">
-                            <Link to="/equipe" className="col-12">L'équipe</Link>
-                        </div>
-                        <div className="col-1">
-                            <Link to="/event" className="col-12">Evènements</Link>
-                        </div>
-                        <div className="col-1">
-                            <Link to="/shop" className="col-12">Boutique</Link>
-                        </div>
-                        <div className="col-1">
-                            <Link to="/user/connect" className="col-12">Connexion</Link>
-                        </div>
-                        <div className="col-1">
-                            <Link to="/user/register" className="col-12">Inscription</Link>
-                        </div>
-                        <div className="col-2">
-                            <img src="logobde.png"/>
-                        </div>
-                        <div className="col-2">
-                            <input/>
-                        </div>
+                <div className="nav">
+                    <div className="nav-btn">
+                        <label htmlFor="nav-check">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </label>
+                    </div>
+                    <input type="checkbox" id="nav-check"/>
+                    <div className="nav-links">
+                        <Link to="/" >Accueil</Link>
+                        <Link to="/team" >L'équipe</Link>
+                        <Link to="/event" >Evènements</Link>
+                        <Link to="/shop" >Boutique</Link>
+                        <Link className="caché" to="/connect">Connexion</Link>
+                        <Link className="caché" to="/register">Inscription</Link>
+                        <form className="caché" id="form">
+                            <input id="searchid" type="search" placeholder="Que cherchez vous ?"/>
+                            <button id="boutonsearchid">C'est parti !</button>
+                        </form>
+                    </div>
 
-                        <div id="id01" className="grp-modal">
-                            <div className="grp-modal-content">
-                                <header className="grp-container grp-teal">
-                                    <h2><Link to="/user/connect" className="col-12">Connextion</Link></h2>
-                                </header>
-                            </div>
-                        </div>
-
-                        <div id="id02" className="grp-modal">
-                            <div className="grp-modal-content">
-                                <header className="grp-container grp-teal">
-                                    <h2><Link to="/user/register" className="col-12">Inscription</Link></h2>
-                                </header>
-                            </div>
-                        </div>
+                    <div className="nav-links-right">
+                        <p className="s"><input name="search" id="search" type="search"/></p>
+                        <Link to="/connect">Connexion</Link>
+                        <Link to="/register">Inscription</Link>
                     </div>
                 </div>
             </nav>
