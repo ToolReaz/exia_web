@@ -11,8 +11,10 @@ const connection = new sql({
 });
 
 const database = {
+    Achats :          require('./Tables/Achats')          (connection, sql),
     Appartient :      require('./Tables/Appartient')      (connection, sql),
     Categorie :       require('./Tables/Categorie')       (connection, sql),
+    Commentaires :    require('./Tables/Commentaires')    (connection, sql),
     Commente :        require('./Tables/Commente')        (connection, sql),
     Comprend :        require('./Tables/Comprend')        (connection, sql),
     Compte :          require('./Tables/Compte')          (connection, sql),

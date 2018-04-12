@@ -2,14 +2,6 @@
 
 module.exports = function (sequelize, DataTypes) {
 	return sequelize.define('Commente', {
-		Texte: {
-			type: DataTypes.STRING(25),
-			allowNull: false
-		},
-		Public: {
-			type: DataTypes.INTEGER(1),
-			allowNull: false
-		},
 		ID: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
@@ -27,8 +19,17 @@ module.exports = function (sequelize, DataTypes) {
 				model: 'Photos',
 				key: 'ID'
 			}
+		},
+		ID_Commentaires: {
+			type: DataTypes.INTEGER(11),
+			allowNull: false,
+			primaryKey: true,
+			references: {
+				model: 'Commentaires',
+				key: 'ID'
+			}
 		}
 	}, {
-		tableName: 'Commente'
-	});
+			tableName: 'Commente'
+		});
 };
