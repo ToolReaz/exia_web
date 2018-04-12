@@ -6,6 +6,7 @@ import UserConnect from "./components/user/UserConnect";
 import Admin from "./pages/admin";
 import Event from "./pages/user/event";
 import Index from "./pages";
+import Team from "./pages/team";
 
 class App extends Component {
   render() {
@@ -16,6 +17,7 @@ class App extends Component {
             <Route path="/user/connect" component={UserConnect} />
             <Route path="/admin" component={Admin} />
             <Route path="/event" component={Event} />
+            <Route path="/team" component={Team} />
         </Switch>
     );
   }

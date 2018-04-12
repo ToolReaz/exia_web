@@ -13,6 +13,8 @@ body {
   height: 100px;
   background: #C2242A url('logobde.png') no-repeat center center;
   background-size: 80px 80px;
+  position: fixed;
+  top: 0;
 }
 
 .nav > .nav-btn {
@@ -125,10 +127,12 @@ p.s:hover:after {
 }
 @media (max-width:900px) {
   .nav > .nav-links {
-    margin-left: 0;
+    font-size: 16px;
+    margin-left: 1%;
   }
   .nav > .nav-links-right {
-    margin-right: 0;
+    font-size: 16px;
+    margin-right: 1%;
   }
 }
 @media (max-width:800px) {

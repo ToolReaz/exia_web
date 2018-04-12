@@ -20,8 +20,8 @@ class Nav extends Component {
                         <Link to="/team" >L'équipe</Link>
                         <Link to="/event" >Evènements</Link>
                         <Link to="/shop" >Boutique</Link>
-                        <Link className="caché" to="/connect">Connexion</Link>
-                        <Link className="caché" to="/register">Inscription</Link>
+                        <Link to="/user/connect" className="caché">Connexion</Link>
+                        <Link to="/user/register" className="caché">Inscription</Link>
                         <form className="caché" id="form">
                             <input id="searchid" type="search" placeholder="Que cherchez vous ?"/>
                             <button id="boutonsearchid">C'est parti !</button>
@@ -30,8 +30,8 @@ class Nav extends Component {
 
                     <div className="nav-links-right">
                         <p className="s"><input name="search" id="search" type="search"/></p>
-                        <Link to="/connect">Connexion</Link>
-                        <Link to="/register">Inscription</Link>
+                        <Link to="/user/connect">Connexion</Link>
+                        <Link to="/user/register">Inscription</Link>
                     </div>
                 </div>
             </nav>

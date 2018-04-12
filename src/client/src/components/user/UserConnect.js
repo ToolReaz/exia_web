@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import {getApi, postApi} from '../../lib/api/requestApi';
+import {postApi} from '../../lib/api/requestApi';
 
 class UserConnect extends Component {
 
@@ -32,32 +31,16 @@ class UserConnect extends Component {
             password: this.state.password,
             email: this.state.email
         };
-        /*
         postApi('/user/connect', data).then(response => {
             console.log('R'+response);
+            this.setState({
+                email: '',
+                password: ''
+            });
+            document.getElementById("connect-form").reset();
         }).catch(error => {
             console.log('E'+error);
         });
-        */
-        try {
-            $.post('/user/connect', data, res => {
-                console.log(res);
-                if (!res.error) {
-                    this.setState({
-                        username: '',
-                        password: '',
-                        password_bis: '',
-                        email: ''
-                    });
-                    document.getElementById("connect-form").reset();
-                }
-            }, "json");
-        } catch (e) {
-            this.setState({
-                error: e
-            });
-        }
-
     }
 
 
