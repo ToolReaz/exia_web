@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class Nav extends Component {
+class Footer extends Component {
 
     render() {
         return (
@@ -8,8 +8,8 @@ class Nav extends Component {
                 <a href="">Mentions légales</a>
                 <span >Copyright - BDE-Strasbourg</span>
             </footer>
-        )
+        );
     }
 }
 
-export default Nav;
+export default Footer;

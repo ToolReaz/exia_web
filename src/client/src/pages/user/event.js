@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Idea from "../../components/user/Idea";
 import {getApi} from "../../lib/api/requestApi";
 import CreateIdea from "../../components/user/CreateIdea";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 class Event extends Component {
 
@@ -34,8 +36,9 @@ class Event extends Component {
 
     render() {
         let view = [];
-        view[0] = (<CreateIdea/>);
-        view[1] = (
+        view.push(<Header/>);
+        view.push(<CreateIdea/>);
+        view.push(
             <div>
                 <h1>Liste des idées</h1><br/>
             </div>
@@ -47,6 +50,7 @@ class Event extends Component {
                 </div>
             );
         });
+        view.push(<Footer/>);
         return view;
     }
 }

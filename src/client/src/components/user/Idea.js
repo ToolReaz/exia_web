@@ -6,7 +6,8 @@ class Idea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            vote: 0,
+            voteFor: props.values.VotePour,
+            voteAgainst: props.values.VoteContre,
             id: props.values.ID
         };
 
@@ -14,9 +15,10 @@ class Idea extends Component {
     }
 
     vote(e) {
-        console.log('/api/idea/vote/' + e.target.id + '/' + this.state.id.toString());
-        getApi('/api/idea/vote/' + e.target.id + '/' + this.state.id.toString()).then(res => {
-            e.target.id === 'for' ? this.setState({vote: this.state.vote++}) : this.setState({vote: this.state.vote--})
+        let type = e.target.id;
+        console.log('/api/idea/vote/' + type + '/' + this.state.id.toString());
+        getApi('/api/idea/vote/' + type + '/' + this.state.id.toString()).then(res => {
+            type === 'for' ? this.setState({vote: ++this.state.vote}) : this.setState({vote: --this.state.vote})
         }).catch(reason => {
             console.log(reason);
         })
