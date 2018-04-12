@@ -2,10 +2,12 @@
   height: 12em;
   overflow: scroll;
   margin-bottom: 2%;
+  overflow-x: hidden;
 }
 
 .commentaire p {
   margin-bottom: 2%;
+  text-align: justify;
 }
 
 .inputcom {
