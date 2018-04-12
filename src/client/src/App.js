@@ -19,7 +19,7 @@ class App extends Component {
             <Route path="/admin" component={Admin} />
             <Route path="/event" component={Event} />
             <Route path="/team" component={Team} />
-            <Route path="/user/compte" component={Account} />
+            <Route path="/user/account" component={Account} />
         </Switch>
     );
   }

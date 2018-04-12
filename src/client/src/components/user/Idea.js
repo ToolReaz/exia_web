@@ -31,8 +31,8 @@ class Idea extends Component {
                 <h3>Nom: {this.props.values.Titre}</h3>
                 <p>Soumis le: {this.props.values.Soumis_le}</p>
                 <p>Texte: {this.props.values.Texte}</p>
-                <button id="against" onClick={this.vote}>Vote contre: {this.state.vote}</button>
-                <button id="for" onClick={this.vote}>Vote pour: {this.state.vote}</button>
+                <button id="against" onClick={this.vote}>Vote contre: {this.state.voteFor}</button>
+                <button id="for" onClick={this.vote}>Vote pour: {this.state.vote.voteAgainst}</button>
             </div>
         )
     }

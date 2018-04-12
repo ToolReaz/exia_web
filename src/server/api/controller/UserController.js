@@ -50,7 +50,7 @@ module.exports = {
 
     getAccount: (res, req) => {
         let reqToken = req.cookies.token;
-
+        console.log('tete');
         if (reqToken) {
             DB.Compte.GetAccountFromToken(reqToken).then(account => {
                 console.log(account);

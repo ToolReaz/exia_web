@@ -13,11 +13,13 @@ class UserAccount extends Component {
     }
 
     componentDidMount() {
+        console.log('lol');
         getApi('/user/account').then(res => {
+            console.log(res);
             this.setState({account: res});
         }).catch(reason => {
             console.log(reason);
-        })
+        });
     }
 
     render() {
