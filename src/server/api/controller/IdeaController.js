@@ -3,9 +3,22 @@ const DB = require('../model/DB');
 module.exports = {
 
     getAll: (req, res) => {
-        DB.Idea.GetAllIdeas().then((ideas) => {
-            res.json({'error': null, 'content': ideas});
-        }).catch((reason) => res.json({'error': 'Impossible de récupérer les idées !', 'content': null}));
+        let reqToken = req.cookies.token;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Idea.GetAllIdeas(id).then((ideas) => {
+                    res.json({'error': null, 'content': ideas});
+                }).catch((reason) => {
+                    res.json({'error': reason, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason, 'content': null});
+            });
+        } else {
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
+        }
+
     },
 
     create: (req, res) => {
@@ -31,10 +44,12 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then((id) => {
                 DB.Idea.VoteIdea(id, reqVoteId, type).then(() => {
-                    res.json({'error': null, 'content': null});
-                }).catch((reason => res.json({'error': reason, 'content': null})));
+                    res.json({'error': null, 'content': 'ok'});
+                }).catch((reason => {
+                    res.json({'error': 'Error: ' + reason, 'content': null})
+                }));
             }).catch(reason => {
-                res.json({'error': reason, 'content': null});
+                res.json({'error': 'Error: ' + reason, 'content': null});
             });
         } else {
             res.json({'error': "Vous n'êtes pas connecté !", 'content': null});

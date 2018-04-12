@@ -14,7 +14,7 @@ class Idea extends Component {
         this.vote = this.vote.bind(this);
     }
 
-    componentDidMount() {
+    getVotes() {
         getApi('/api/idea/votes/' + this.state.id).then(res => {
             this.setState({voteFor: res.votesFor, voteAgainst: res.votesAgainst});
         }).catch(reason => {
@@ -22,14 +22,17 @@ class Idea extends Component {
         })
     }
 
+    componentDidMount() {
+        this.getVotes();
+    }
+
     vote(e) {
         let type = e.target.id;
-        console.log('/api/idea/vote/' + type + '/' + this.state.id.toString());
         getApi('/api/idea/vote/' + type + '/' + this.state.id.toString()).then(res => {
-            type === 'for' ? this.setState({vote: ++this.state.vote}) : this.setState({vote: --this.state.vote})
+            this.getVotes();
         }).catch(reason => {
-            console.log(reason);
-        })
+            console.log(reason.toString());
+        });
     }
 
 
@@ -40,8 +43,8 @@ class Idea extends Component {
                 <p>Soumis le: {this.props.values.Soumis_le}</p>
                 <p>Texte: {this.props.values.Texte}</p>
                 <p>S'inscrire: {this.props.values.Texte}</p>
-                <button id="against" onClick={this.vote}>Vote contre: {this.state.voteFor}</button>
-                <button id="for" onClick={this.vote}>Vote pour: {this.state.voteAgainst}</button>
+                <button id="against" onClick={this.vote}>Vote contre: {this.state.voteAgainst}</button>
+                <button id="for" onClick={this.vote}>Vote pour: {this.state.voteFor}</button>
             </div>
         )
     }
