@@ -45,6 +45,8 @@ DataBase.Photo =            require('./DatabaseObject/Photo')           (databas
 DataBase.Idea =             require('./DatabaseObject/Idea')            (database, Permissions);
 DataBase.Manifestation =    require('./DatabaseObject/Manifestation')   (database, Permissions);
 DataBase.PayPal =           require('./DatabaseObject/PayPal')          (database, Permissions);
+DataBase.Role =             require('./DatabaseObject/Role')            (database, Permissions);
+DataBase.Shop =             require('./DatabaseObject/Shop')            (database, Permissions);
 
 connection.sync({ force: false, logging: false }).then(() => {
 

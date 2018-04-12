@@ -108,6 +108,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Récupère le nombre de like d'une image
          * @param {Number} idPhoto ID de la photo dont il faut récupérer le nombre de like
+         * @returns {promise}
          */
         GetLikeCount: (idPhoto) => {
             return dataObject.Likes.count({

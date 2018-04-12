@@ -59,6 +59,7 @@ module.exports = (dataObject, permissions) => {
          * Change le timestamp d'un token
          * @param {string} token Valeur du token
          * @param {Date} timestamp Nouveau timestamp
+         * @returns {promise}
          */
         SetTokenTimestamp: (token, timestamp) => {
             return dataObject.Session.update({

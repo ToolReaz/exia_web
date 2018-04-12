@@ -36,6 +36,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère tous les produits en vente
+         * @returns {promise}
          */
         GetAllProducts: () => {
             return dataObject.Produit.findAll();
@@ -44,6 +45,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Récupère tous les IDs des catégories auxquelles le produit appartient
          * @param {number} idProduct ID du produit
+         * @returns {promise}
          */
         GetCategoriesID: (idProduct) => {
             return dataObject.Regroupe.findAll({where: {ID: idProduct}});
@@ -52,6 +54,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne une catégorie à partir de son ID
          * @param {number} idCategorie ID de la catégorie
+         * @returns {promise}
          */
         GetCategorieFromID: (idCategorie) => {
             return dataObject.Categorie.findOne({where: {ID: idCategorie}});
@@ -60,6 +63,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne l'ensemble des produits appartenant à une catégorie
          * @param {number} idCategorie ID de la catégorie
+         * @returns {promise}
          */
         GetProductsFromCategorieID: (idCategorie) => {
             return dataObject.Regroupe.findAll({where: {ID_Categorie: idCategorie}});
@@ -68,6 +72,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne un produit à partir de son ID
          * @param {number} idProduct ID du produit
+         * @returns {promise}
          */
         GetProductFromID: (idProduct) => {
             return dataObject.Produit.findOne({where: {ID: idProduct}});
@@ -114,6 +119,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Effectue les achats enregistrés dans le panier
          * @param {number} idAccount ID du compte de la personne qui effectue ses achats
+         * @returns {promise}
          */
         CommitPurchase: (idAccount) => {
             return dataObject.Achats.update({Realise: true}, {where: {ID_Compte: idAccount}});
@@ -124,6 +130,7 @@ module.exports = (dataObject, permissions) => {
          * @param {number} idAccount ID du compte de l'utilisateur
          * @param {number} idProduct ID du produit à supprimer
          * @param {number} quantity Quantité du produit à déduire
+         * @returns {promise}
          */
         RemoveItemFromPurchaseList: (idAccount, idProduct, quantity) => {
             return new Promise((resolve, reject)=>{
@@ -147,6 +154,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Retourne l'historique des achats de l'utilisateur
+         * @param {number} idAccount ID du compte de l'utilisateur
+         * @returns {promise}
          */
         GetHistoryOfPurchase: (idAccount) => {
             return dataObject.Achats.findAll({where: {ID_Compte: idAccount, Realise: true}});
