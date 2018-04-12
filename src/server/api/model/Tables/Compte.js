@@ -26,6 +26,6 @@ module.exports = function (sequelize, DataTypes) {
 			allowNull: false
 		}
 	}, {
-		tableName: 'Compte'
-	});
+			tableName: 'Compte'
+		});
 };

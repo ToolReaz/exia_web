@@ -1,17 +1,13 @@
-/* jshint indent: 2 */
-
 module.exports = function (sequelize, DataTypes) {
-	return sequelize.define('Compte_PayPal', {
+	return sequelize.define('Achats', {
 		ID: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
-		GUID: {
-			type: DataTypes.STRING(25),
-			allowNull: false,
-			unique: true
+		Realise: {
+			type: DataTypes.INTEGER(1),
+			allowNull: false
 		},
 		ID_Compte: {
 			type: DataTypes.INTEGER(11),
@@ -19,10 +15,9 @@ module.exports = function (sequelize, DataTypes) {
 			references: {
 				model: 'Compte',
 				key: 'ID'
-			},
-			unique: true
+			}
 		}
 	}, {
-			tableName: 'Compte_PayPal'
+			tableName: 'Achats'
 		});
 };

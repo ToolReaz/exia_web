@@ -25,6 +25,6 @@ module.exports = function (sequelize, DataTypes) {
 			}
 		}
 	}, {
-		tableName: 'Panier'
-	});
+			tableName: 'Panier'
+		});
 };

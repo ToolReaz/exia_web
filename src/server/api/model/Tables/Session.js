@@ -25,8 +25,16 @@ module.exports = function (sequelize, DataTypes) {
 				key: 'ID'
 			},
 			unique: true
+		},
+		createdAt: {
+			type: DataTypes.DATE,
+			allowNull: false
+		},
+		updatedAt: {
+			type: DataTypes.DATE,
+			allowNull: false
 		}
 	}, {
-		tableName: 'Session'
-	});
+			tableName: 'Session'
+		});
 };

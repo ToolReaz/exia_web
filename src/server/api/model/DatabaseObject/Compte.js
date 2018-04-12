@@ -93,6 +93,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
          * @param {Number} idAccount ID de l'utilisateur
+         * @returns {promise}
          */
         ListeInscriptions: (idAccount) => {
             return dataObject.Participe.findAll({
