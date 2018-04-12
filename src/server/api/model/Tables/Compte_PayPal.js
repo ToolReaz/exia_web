@@ -1,4 +1,6 @@
-export default function (sequelize, DataTypes) {
+/* jshint indent: 2 */
+
+module.exports = function (sequelize, DataTypes) {
 	return sequelize.define('Compte_PayPal', {
 		ID: {
 			type: DataTypes.INTEGER(11),
@@ -21,6 +23,6 @@ export default function (sequelize, DataTypes) {
 			unique: true
 		}
 	}, {
-		tableName: 'Compte_PayPal'
-	});
-}
+			tableName: 'Compte_PayPal'
+		});
+};

@@ -1,11 +1,11 @@
-export default function (dataObject) {
+module.exports = (dataObject) => {
     var here = {
-        /**
-         * Détermine si deux membres de deux tableaux différents sont identiques
-         * @param {array} arrayLeft Premier tableau
-         * @param {array} arrayRight Deuxième tableau
-         * @param {callback} transformLeft Transformée à appliquer au premier tableau
-         * @param {callback} transformRight Transformée à appliquer au deuxième tableau
+        /**     
+         * Détermine si deux membres de deux tableaux différents sont identiques     
+         * @param {array} arrayLeft Premier tableau     
+         * @param {array} arrayRight Deuxième tableau     
+         * @param {callback} transformLeft Transformée à appliquer au premier tableau     
+         * @param {callback} transformRight Transformée à appliquer au deuxième tableau     
          */
         Contains: (arrayLeft, arrayRight, transformLeft, transformRight) => {
             var ret = false;
@@ -18,10 +18,10 @@ export default function (dataObject) {
             });
             return ret;
         },
-        /**
-         * Filtre les executions de requête en fonction des permissions
-         * @param {int} userID ID de l'utilisateur executant la requête
-         * @param {string} permission Permission requise pour executer la requête
+        /**     
+         * Filtre les executions de requête en fonction des permissions     
+         * @param {int} userID ID de l'utilisateur executant la requête     
+         * @param {string} permission Permission requise pour executer la requête     
          */
         FilterPermission: (userID, permission) => {
             return new Promise((resolve, reject) => {
@@ -48,42 +48,38 @@ export default function (dataObject) {
                                 if (here.Contains(s, u, (s_) => {
                                         return s_.ID_Role;
                                     }, (u_) => {
-                                        return u_.ID_Role;
+                                        return u_.ID_Role
                                     })) {
-                                    resolve();
+                                    resolve()
                                 } else {
-                                    reject('Permission insuffisante : permission ' + permission + ' requise.');
+                                    reject('Permission insuffisante : permission ' + permission + ' requise.')
                                 }
                             }).catch(err => {
                                 {
-                                    if (err)
-                                        reject(err);
+                                    if (err) reject(err);
                                 }
                             });
                         }).catch(err => {
                             {
-                                if (err)
-                                    reject(err);
+                                if (err) reject(err);
                             }
                         });
                     }).catch(err => {
                         {
-                            if (err)
-                                reject(err);
+                            if (err) reject(err);
                         }
                     });
                 }).catch(err => {
                     {
-                        if (err)
-                            reject(err);
+                        if (err) reject(err);
                     }
                 });
             });
         },
-        /**
-         * Définit les permissions
-         * @param {string} role Nom du role
-         * @param {string} permission Nom de la permission
+        /**     
+         * Définit les permissions     
+         * @param {string} role Nom du role     
+         * @param {string} permission Nom de la permission     
          */
         SetPermissions: (role, permission) => {
             return new Promise((resolve, reject) => {
@@ -103,21 +99,18 @@ export default function (dataObject) {
                                 ID_Role: r[0].ID
                             }
                         }).then(resolve()).catch(err => {
-                            if (err)
-                                reject(err);
+                            if (err) reject(err);
                         });
                     }).catch(err => {
-                        if (err)
-                            reject(err);
+                        if (err) reject(err);
                     });
                 }).catch(err => {
-                    if (err)
-                        reject(err);
+                    if (err) reject(err);
                 });
             });
         },
-        /**
-         * Met les permissions de base
+        /**     
+         * Met les permissions de base     
          */
         SetupPermissions: () => {
             here.SetPermissions("R_STUDENT", "P_CONNECT").then(() => {}); //done

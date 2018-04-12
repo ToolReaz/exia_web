@@ -1,4 +1,4 @@
-export default function (sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
 	return sequelize.define('Achats', {
 		ID: {
 			type: DataTypes.INTEGER(11),
@@ -18,6 +18,6 @@ export default function (sequelize, DataTypes) {
 			}
 		}
 	}, {
-		tableName: 'Achats'
-	});
-}
+			tableName: 'Achats'
+		});
+};

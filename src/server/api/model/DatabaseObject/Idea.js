@@ -1,5 +1,7 @@
-export default function (dataObject, permissions) {
+module.exports = (dataObject, permissions) => {
+
     var here = {
+
         /**
          * Récupère l'ensemble des idées
          * @param {number} idAccount ID du compte
@@ -8,18 +10,17 @@ export default function (dataObject, permissions) {
         GetAllIdeas: (idAccount) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_LIST_ACTIVITE").then(() => {
-                    dataObject.Idee.findAll().then(r => {
+                    dataObject.Idee.findAll().then(r=>{
                         resolve(r);
                     }).catch(err => {
-                        if (err)
-                            reject(err);
-                    });
+                        if (err) reject(err);
+                    })
                 }).catch(err => {
-                    if (err)
-                        reject(err);
+                    if (err) reject(err);
                 });
             });
         },
+
         /**
          * Crée une idée et l'insère dans la base de données
          * @param {Number} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées obtenu par GetAccount
@@ -43,8 +44,7 @@ export default function (dataObject, permissions) {
                     }).then(r => {
                         var idIdee = r[0].ID;
                         var done = [].fill(false, 0, manifestationArray.length);
-                        if (manifestationArray == null)
-                            resolve();
+                        if (manifestationArray == null) resolve();
                         else {
                             for (let i = 0; i < manifestationArray.length; i++) {
                                 dataObject.Manifestation.findOrCreate({
@@ -65,15 +65,14 @@ export default function (dataObject, permissions) {
                             }
                         }
                     }).catch(err => {
-                        if (err)
-                            reject(err);
+                        if (err) reject(err);
                     });
                 }).catch(err => {
-                    if (err)
-                        reject(err);
+                    if (err) reject(err);
                 });
             });
         },
+
         /**
          * Vote pour une idée
          * @param {Number} idAccount ID du compte ayant voté
@@ -94,15 +93,14 @@ export default function (dataObject, permissions) {
                     }).then(r => {
                         resolve();
                     }).catch(err => {
-                        if (err)
-                            reject(err);
+                        if (err) reject(err);
                     });
                 }).catch(err => {
-                    if (err)
-                        reject(err);
+                    if (err) reject(err);
                 });
             });
         },
+
         /**
          * Calcule un ET logique sur un tableau
          * @param {boolean[]} array Tableau de boolean dont il faut calculer le ET
@@ -114,6 +112,7 @@ export default function (dataObject, permissions) {
             });
             return out;
         },
+
         /**
          * Valide une idée
          * @param {Number} idAccount ID de l'utilisateur
@@ -134,11 +133,11 @@ export default function (dataObject, permissions) {
                         reject(err);
                     });
                 }).catch(err => {
-                    if (err)
-                        reject(err);
+                    if (err) reject(err);
                 });
             });
         },
+
         /**
          * Récupère le nombre de vote pour une idée
          * @param {Number} idIdee ID de la idée dont il faut récupérer le nombre de vote favorable
@@ -152,6 +151,7 @@ export default function (dataObject, permissions) {
                 }
             });
         },
+
         /**
          * Récupère le nombre de vote contre une idée
          * @param {Number} idIdee ID de la idée dont il faut récupérer le nombre de vote défavorable
@@ -166,5 +166,6 @@ export default function (dataObject, permissions) {
             });
         }
     };
+
     return here;
 }

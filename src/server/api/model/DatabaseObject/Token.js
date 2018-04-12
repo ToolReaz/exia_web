@@ -1,5 +1,7 @@
-export default function (dataObject, permissions) {
+module.exports = (dataObject, permissions) => {
+
     var here = {
+
         /**
          * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
          * @param {string} token Token de connexion
@@ -24,18 +26,17 @@ export default function (dataObject, permissions) {
                                 reject(new Error("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ"));
                             }
                         }).catch(err => {
-                            if (err)
-                                reject(err);
+                            if (err) reject(err);
                         });
                     } else {
                         reject(new Error("Le token \"" + token + "\" n'existe pas."));
                     }
                 }).catch(err => {
-                    if (err)
-                        reject(err);
+                    if (err) reject(err);
                 });
             });
         },
+
         /**
          * Récupère le timestamp d'un token
          * @param {string} token Token dont il faut récupérer le temps
@@ -47,16 +48,14 @@ export default function (dataObject, permissions) {
                         Token: token
                     }
                 }).then(r => {
-                    if (r)
-                        resolve(new Date(r.Derniere_connexion));
-                    else
-                        reject(new Error("Le token \"" + token + "\" n'existe pas."));
+                    if (r) resolve(new Date(r.Derniere_connexion));
+                    else reject(new Error("Le token \"" + token + "\" n'existe pas."));
                 }).catch(err => {
-                    if (err)
-                        reject(err);
+                    if (err) reject(err);
                 });
             });
         },
+
         /**
          * Change le timestamp d'un token
          * @param {string} token Valeur du token
@@ -73,5 +72,6 @@ export default function (dataObject, permissions) {
             });
         }
     };
+
     return here;
 }

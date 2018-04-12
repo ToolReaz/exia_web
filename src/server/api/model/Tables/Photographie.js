@@ -1,4 +1,6 @@
-export default function (sequelize, DataTypes) {
+/* jshint indent: 2 */
+
+module.exports = function (sequelize, DataTypes) {
 	return sequelize.define('Photographie', {
 		ID: {
 			type: DataTypes.INTEGER(11),
@@ -28,6 +30,6 @@ export default function (sequelize, DataTypes) {
 			}
 		}
 	}, {
-		tableName: 'Photographie'
-	});
-}
+			tableName: 'Photographie'
+		});
+};

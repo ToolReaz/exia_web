@@ -1,4 +1,6 @@
-export default function (sequelize, DataTypes) {
+/* jshint indent: 2 */
+
+module.exports = function (sequelize, DataTypes) {
 	return sequelize.define('Vote', {
 		Pour: {
 			type: DataTypes.INTEGER(1),
@@ -23,6 +25,6 @@ export default function (sequelize, DataTypes) {
 			}
 		}
 	}, {
-		tableName: 'Vote'
-	});
-}
+			tableName: 'Vote'
+		});
+};
