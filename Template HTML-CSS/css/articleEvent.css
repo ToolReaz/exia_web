@@ -1,0 +1,42 @@
+.commentaire {
+  height: 12em;
+  overflow: scroll;
+  margin-bottom: 2%;
+  overflow-x: hidden;
+}
+
+.commentaire p {
+  margin-bottom: 2%;
+  text-align: justify;
+}
+
+.inputcom {
+  margin-left: 5px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 5em;
+}
+
+.commentaire button {
+  background-color: #C2242A;
+  color: white;
+  border: none;
+  height: 2em;
+  width: 4em;
+}
+
+.commentaire button:hover {
+  background-color: #D7282F;
+}
+
+.commentaire h3{
+  padding-top: 15px;
+}
+
+.h1Event{
+  color: white;
+  text-align: center;
+  background-color: #c2242a;
+  height: 5em;
+  padding-top: 2em;
+}

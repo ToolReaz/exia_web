@@ -8,112 +8,51 @@
     <script src="./js/web.js"></script>
   </head>
   <body>
-    <header>
-      <nav>
-        <div class="grid-container">
-          <div class="row">
-              <div class="col-1">
-                <button class="col-12">Accueil</button>
-              </div>
-              <div class="col-1">
-                <button class="col-12">L'équipe</button>
-              </div>
-              <div class="col-1">
-                <button class="col-12">Evènements</button>
-              </div>
-              <div class="col-1">
-                <button class="col-12">Boutique</button>
-              </div>
-            <div class="col-1"></div>
-            <div class="col-2" style="">
-              <img src="./img/logobde.png" />
-            </div>
-            <div class="col-1"></div>
-            <div class="col-2">
-              <input></input>
-            </div>
-            
-            <div class="col-1">
-              <button class="col-12" onclick="document.getElementById('id01').style.display='block'">Connexion</button>
-            </div>
-            <div id="id01" class="grp-modal">
-              <div class="grp-modal-content">
-                <header class="grp-container grp-teal">
-                  <span onclick="document.getElementById('id01').style.display='none'"
-                  class="grp-button grp-display-topright">&times;</span>
-                  <h2>Connexion</h2>
-                </header>
-                <div class="grp-container">
-                  <div>
-                    <input />
-                    <p>Email</p>
-                  </div>
-                  <div>
-                    <input type="password" />
-                    <p>Mot de passe</p>
-                  </div>
-                  <button> Connexion ><button>
-                </div>
-              </div>
-            </div>
+    <div class="nav">
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+      <input type="checkbox" id="nav-check">
 
-            <div class="col-1">
-              <button class="col-12" onclick="document.getElementById('id02').style.display='block'">Inscription</button>
-            </div>
-            <div id="id02" class="grp-modal">
-              <div class="grp-modal-content">
-                <header class="grp-container grp-teal">
-                  <span onclick="document.getElementById('id02').style.display='none'"
-                  class="grp-button grp-display-topright">&times;</span>
-                  <h2>Inscription</h2>
-                </header>
-                <div class="grp-container">
-                  <div>
-                    <input />
-                    <p>Nom</p>
-                  </div>
-                  <div>
-                    <input />
-                    <p>Prénom</p>
-                  </div>
-                  <div>
-                    <input />
-                    <p>Email</p>
-                  </div>
-                  <div>
-                    <input />
-                    <p>Confirmation email</p>
-                  </div>
-                  <div>
-                    <input type="password" />
-                    <p>Mot de passe</p>
-                  </div>
-                  <div>
-                    <input type="password" />
-                    <p>Confirmation mot de passe</p>
-                  </div>
-                  <button> Inscription ><button>
-                </div>
-              </div>
-            </div>
+      <div class="nav-links">
+        <a href="" target="_blank">Accueil</a>
+        <a href="" target="_blank">L'équipe</a>
+        <a href="" target="_blank">Evènements</a>
+        <a href="" target="_blank">Boutique</a>
+        <a class="caché" href="" target="_blank">Connexion</a>
+        <a class="caché" href="" target="_blank">Inscription</a>
+        <form class="caché" id="form" action="" method="">
+      		<input id="searchid" type="search" placeholder="Que cherchez vous ?">
+      		<button id="boutonsearchid">C'est parti !</button>
+      	</form>
 
-          </div>
-        </div>
-      </nav>
-    </header>
+      </div>
+
+      <div class="nav-links-right">
+        <p class="s"><input name="search" id="search" type="search"></p>
+        <a href="" target="_blank">Connexion</a>
+        <a href="" target="_blank">Inscription</a>
+      </div>
+    </div>
+
     <div>
       <img src="https://scontent-mrs1-1.xx.fbcdn.net/v/t31.0-8/22339559_1517810414976542_6327557607105310968_o.jpg?_nc_cat=0&oh=636dde4af9903697e4ad756f7bd48748&oe=5B696581" style="width:100%">
     </div>
     <h1 class="h1Event">Les 8 membres de l'équipe.</h1>
+    <div class="fondExia">
     <div class="grid-container">
       <div class="row">
-        <div class="col-12" style="text-align:center">
+        <div class="col-12 center">
         </div>
       </div>
       <div class="row">
         <div class="col-1"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -123,7 +62,7 @@
         </div>
         <div class="col-2"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -136,7 +75,7 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -146,7 +85,7 @@
         </div>
         <div class="col-2"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -159,7 +98,7 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -169,7 +108,7 @@
         </div>
         <div class="col-2"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -182,7 +121,7 @@
       <div class="row">
         <div class="col-1"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -192,7 +131,7 @@
         </div>
         <div class="col-2"></div>
         <div class="col-4 membreBDE">
-            <img class="col-5" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png" style="border-radius:500px;">
+            <img class="col-5 round" src="https://cdn.pixabay.com/photo/2014/04/03/00/29/boy-308465_960_720.png">
             <div class="col-7">
               <h2> Nom du post<h2>
               <p> Une description de fou</p>
@@ -203,6 +142,7 @@
         <div class="col-1"></div>
       </div>
     </div>
+  </div>
 
     <footer>
           <a style="margin-left:33%" href="">Mentions légales</a>

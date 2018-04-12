@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>BDE Strasbourg</title>
+  <link rel="stylesheet" type="text/css" href=./css/grid.css />
+  <link rel="stylesheet" type="text/css" href=./css/global.css />
+  <link rel="stylesheet" type="text/css" href=./css/articleEvent.css />
+  <script src="./js/web.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+</head>
+
+<body onload="showSlides(1);showSlides2(1)">
+  <div class="nav">
+    <div class="nav-btn">
+      <label for="nav-check">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+    <input type="checkbox" id="nav-check">
+
+    <div class="nav-links">
+      <a href="" target="_blank">Accueil</a>
+      <a href="" target="_blank">L'équipe</a>
+      <a href="" target="_blank">Evènements</a>
+      <a href="" target="_blank">Boutique</a>
+      <a class="caché" href="" target="_blank">Connexion</a>
+      <a class="caché" href="" target="_blank">Inscription</a>
+      <form class="caché" id="form" action="" method="">
+        <input id="searchid" type="search" placeholder="Que cherchez vous ?">
+        <button id="boutonsearchid">C'est parti !</button>
+      </form>
+    </div>
+
+    <div class="nav-links-right">
+      <p class="s"><input name="search" id="search" type="search"></p>
+      <a href="" target="_blank">Connexion</a>
+      <a href="" target="_blank">Inscription</a>
+    </div>
+  </div>
+  <h1 class="h1Event">Titre</h1>
+  <div class="grid-container">
+    <div class="row">
+      <div class="col-12">
+        <img class="col-12" alt="" src="https://cdn.pixabay.com/photo/2013/04/06/11/50/image-editing-101040_960_720.jpg" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <p>Quand ? Le 10/10/1010</p>
+      </div>
+      <div class="col-2">
+        <p>Prix : XX€</p>
+      </div>
+      <div class="col-2">
+        <p>Tous les x jours</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 ">
+        <h2> Description </h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dictum, orci a finibus volutpat, neque eros euismod erat, in interdum leo enim vel arcu. Mauris sed faucibus libero. Suspendisse et enim justo. Aliquam elementum eu neque eu dignissim.
+          Vivamus nisl tortor, varius at eros et, venenatis interdum justo. Maecenas efficitur nulla tempus tincidunt faucibus. Cras dolor nulla, malesuada in feugiat finibus, pulvinar sed neque. Ut ac est vitae libero congue bibendum sit amet nec nibh.
+          Maecenas porttitor ligula quis augue posuere, at pulvinar eros porta. Phasellus at iaculis nulla. Phasellus fermentum tristique arcu, venenatis semper libero pretium nec. Vivamus sagittis fermentum nisi ac finibus.</p>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-2">
+        <a href="https://cdn-media.rtl.fr/cache/0VDITTxWTr0nYJiLwIYjWw/880v587-0/online/image/2017/0504/7788406441_un-tir-de-missile-en-californie.jpg" target="_blank"><img alt="" class="col-12" src="https://cdn-media.rtl.fr/cache/0VDITTxWTr0nYJiLwIYjWw/880v587-0/online/image/2017/0504/7788406441_un-tir-de-missile-en-californie.jpg" /></a>
+      </div>
+      <div class="col-8 commentaire">
+        <h3>Prénom nom</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dictum, orci a finibus volutpat, neque eros euismod erat, in interdum leo enim vel arcu. Mauris sed faucibus libero. Suspendisse et enim justo. Aliquam elementum eu neque eu dignissim.
+          Vivamus nisl tortor, varius at eros et, venenatis interdum justo. Maecenas efficitur nulla tempus tincidunt faucibus. Cras dolor nulla, malesuada in feugiat finibus, pulvinar sed neque. Ut ac est vitae libero congue bibendum sit amet nec nibh.
+          Maecenas porttitor ligula quis augue posuere, at pulvinar eros porta. Phasellus at iaculis nulla. Phasellus fermentum tristique arcu, venenatis semper libero pretium nec. Vivamus sagittis fermentum nisi ac finibus.</p>
+        <h3>Prénom nom</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dictum, orci a finibus volutpat, neque eros euismod erat, in interdum leo enim vel arcu. Mauris sed faucibus libero. Suspendisse et enim justo. Aliquam elementum eu neque eu dignissim.
+          Vivamus nisl tortor, varius at eros et, venenatis interdum justo. Maecenas efficitur nulla tempus tincidunt faucibus. Cras dolor nulla, malesuada in feugiat finibus, pulvinar sed neque. Ut ac est vitae libero congue bibendum sit amet nec nibh.
+          Maecenas porttitor ligula quis augue posuere, at pulvinar eros porta. Phasellus at iaculis nulla. Phasellus fermentum tristique arcu, venenatis semper libero pretium nec. Vivamus sagittis fermentum nisi ac finibus.</p>
+        <span>Laissez votre commentaire</span>
+        <textarea class="inputcom"></textarea>
+        <button>Envoyer</button>
+      </div>
+      <div class="col-1" style="padding-top:30px;">
+        <i class="far fa-thumbs-up" style="color:green;"></i><span>+42</span><i class="far fa-thumbs-down" style="color:grey"></i><span>-5</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-2">
+        <a href="https://cdn-media.rtl.fr/cache/0VDITTxWTr0nYJiLwIYjWw/880v587-0/online/image/2017/0504/7788406441_un-tir-de-missile-en-californie.jpg" target="_blank"><img alt="" class="col-12" src="https://cdn-media.rtl.fr/cache/0VDITTxWTr0nYJiLwIYjWw/880v587-0/online/image/2017/0504/7788406441_un-tir-de-missile-en-californie.jpg" /></a>
+      </div>
+      <div class="col-8 commentaire">
+        <h3>Prénom nom</h3>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In dictum, orci a finibus volutpat, neque eros euismod erat, in interdum leo enim vel arcu. Mauris sed faucibus libero. Suspendisse et enim justo. Aliquam elementum eu neque eu dignissim.
+          Vivamus nisl tortor, varius at eros et, venenatis interdum justo. Maecenas efficitur nulla tempus tincidunt faucibus. Cras dolor nulla, malesuada in feugiat finibus, pulvinar sed neque. Ut ac est vitae libero congue bibendum sit amet nec nibh.
+          Maecenas porttitor ligula quis augue posuere, at pulvinar eros porta. Phasellus at iaculis nulla. Phasellus fermentum tristique arcu, venenatis semper libero pretium nec. Vivamus sagittis fermentum nisi ac finibus.</p>
+        <span>Laissez votre commentaire</span>
+        <textarea class="inputcom"></textarea>
+        <button>Envoyer</button>
+      </div>
+      <div class="col-1" style="padding-top:30px;">
+        <i class="far fa-thumbs-up" style="color:green;"></i><span>+42</span><i class="far fa-thumbs-down" style="color:grey"></i><span>-5</span>
+      </div>
+    </div>
+    <hr>
+    <div class="row">
+      <div class="col-5">
+        <p>Ajouter une image</p><input type="file" />
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

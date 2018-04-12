@@ -1,0 +1,89 @@
+
+.event{
+  border: 1px grey solid;
+  margin: 3% 0% 3% 0%;
+  background-color: rgb(220,220,220);
+  text-align: justify;
+}
+.event p,span{
+  font-size: 0.7em;
+}
+
+.event a{
+  width: 50%;
+  background-color: #C2242A;
+  text-align: center;
+  text-decoration: none;
+  margin-left: 15px;
+  color: white;
+}
+
+.event a:hover{
+  background-color: #D7282F;
+}
+
+.event p{
+  font-size: 0.6em;
+  height: 9.5em;
+  overflow: hidden;
+}
+
+.event2{
+  border: 1px grey solid;
+  margin: 3% 0% 3% 6.333%;
+  background-color: rgb(220,220,220);
+  text-align: justify;
+}
+
+.event2 p,span{
+  font-size: 0.7em;
+}
+
+.event2 a{
+  width: 50%;
+  background-color: #C2242A;
+  text-align: center;
+  text-decoration: none;
+  margin-left: 15px;
+  color: white;
+}
+
+.event2 a:hover{
+  background-color: #D7282F;
+}
+
+.event2 p{
+  font-size: 0.6em;
+  height: 9.5em;
+  overflow: hidden;
+}
+
+.h1Event{
+  color: white;
+  text-align: center;
+  background-color: #c2242a;
+  height: 5em;
+  padding-top: 2em;
+}
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
+
+.grey{
+  color: grey;
+}
+
+@media only screen and (max-width: 1000px) {
+  .event2{
+    border: 1px grey solid;
+    margin: 3% 0% 3% 0%;
+  }
+  .event2 p,span{
+    font-size: 0.7em;
+  }
+}

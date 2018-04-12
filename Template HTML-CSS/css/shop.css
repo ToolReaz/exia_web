@@ -1,0 +1,38 @@
+
+.h1Event{
+  color: white;
+  text-align: center;
+  background-color: #c2242a;
+  height: 5em;
+  padding-top: 2em;
+}
+
+.article{
+  border: 1px grey solid;
+  margin: 3% 0% 3% 0%;
+  background-color: rgb(220,220,220);
+  text-align: justify;
+}
+.article p,span{
+  font-size: 0.7em;
+}
+
+.article a{
+  width: 50%;
+  background-color: #C2242A;
+  text-align: center;
+  text-decoration: none;
+  margin-left: 15px;
+  color: white;
+  font-size: 0.8em;
+}
+
+.article a:hover{
+  background-color: #D7282F;
+}
+
+.article p{
+  font-size: 0.6em;
+  height: 9.5em;
+  overflow: hidden;
+}
