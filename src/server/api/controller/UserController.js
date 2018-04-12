@@ -48,18 +48,58 @@ module.exports = {
         }
     },
 
-    getAccount: (res, req) => {
+    getAccount: (req, res) => {
         let reqToken = req.cookies.token;
-        console.log('tete');
-        if (reqToken) {
-            DB.Compte.GetAccountFromToken(reqToken).then(account => {
-                console.log(account);
-                res.json({'error': null, 'content': account});
-            }).catch(reason => {
-                res.json({'error': reason, 'content': null});
-            });
-        } else {
+
+        if (!reqToken) {
             res.json({'error': "Vous n'êtes aps connecté !", 'content': null});
+        } else {
+            // Get user ID from token
+            DB.Token.GetTokenTime(reqToken).then(date => {
+                // Verify if token is expired (24H validity)
+                console.log((Date.now()-date));
+                if ((Date.now()-date) <= 3600*24*1000) {
+                    // If token is VALID
+                    // Get account ID associated with token
+                    DB.Token.GetAccountFromToken(reqToken).then(id => {
+                        // Get account data
+                        DB.Compte.GetAccountFromId(id).then(account => {
+                            // Success: send data to client
+                            res.json({'error': null, 'content': account});
+                        }).catch(reason => {
+                            // Error: account data error
+                            res.json({'error': reason.message, 'content': null});
+                        });
+                    }).catch(reason => {
+                        // Error: account not found with token
+                        res.json({'error': reason.message, 'content': null});
+                    });
+                } else {
+                    // If token is EXPIRED
+                    // Get user ID form token
+                    DB.Compte.GetAccountFromToken(reqToken).then(id => {
+                        // Delete the user's token
+                        DB.Compte.SetToken(id, '').then(() => {
+                            // Delete session token
+                            res.clearCookie('token');
+                            // Response: user need to reconnect
+                            res.json({'error': 'Token expiré !', 'content': null});
+                        }).catch(reason => {
+                            // Deletion of token failed
+                            res.json({'error': reason.message, 'content': null});
+                        });
+                    }).catch(reason => {
+                        // User not found from token
+                        res.json({'error': reason.message, 'content': null});
+                    });
+                }
+            }).catch(reason => {
+                // If token is invalid
+                // Clear token in session
+                res.clearCookie('token');
+                // Error: send the error to client
+                res.json({'error': reason.message, 'content': null});
+            });
         }
     }
 };

@@ -32,7 +32,7 @@ class Idea extends Component {
                 <p>Soumis le: {this.props.values.Soumis_le}</p>
                 <p>Texte: {this.props.values.Texte}</p>
                 <button id="against" onClick={this.vote}>Vote contre: {this.state.voteFor}</button>
-                <button id="for" onClick={this.vote}>Vote pour: {this.state.vote.voteAgainst}</button>
+                <button id="for" onClick={this.vote}>Vote pour: {this.state.voteAgainst}</button>
             </div>
         )
     }
