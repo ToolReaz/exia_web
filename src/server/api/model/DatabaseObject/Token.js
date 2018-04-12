@@ -48,7 +48,7 @@ module.exports = (dataObject, permissions) => {
                         Token: token
                     }
                 }).then(r => {
-                    if (r) resolve(r.Derniere_connexion);
+                    if (r) resolve(new Date(r.Derniere_connexion));
                     else reject(new Error("Le token \"" + token + "\" n'existe pas."));
                 }).catch(err => {
                     if (err) reject(err);
