@@ -70,7 +70,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Crée un token pour un utilisateur
          * @param {Number} idCompte ID du compte associé au token
-         * @param {string} token Token à insérer pour l'utilisateur spécifié
+         * @param {string?} token Token à insérer pour l'utilisateur spécifié
          */
         SetToken: (idAccount, token) => {
             return new Promise((resolve, reject) => {
