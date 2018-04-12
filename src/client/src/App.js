@@ -7,6 +7,7 @@ import Admin from "./pages/admin";
 import Event from "./pages/user/event";
 import Index from "./pages";
 import Team from "./pages/team";
+import Account from "./pages/account";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
             <Route path="/admin" component={Admin} />
             <Route path="/event" component={Event} />
             <Route path="/team" component={Team} />
+            <Route path="/user/compte" component={Account} />
         </Switch>
     );
   }
