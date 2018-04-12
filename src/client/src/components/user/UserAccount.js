@@ -11,10 +11,11 @@ class UserAccount extends Component {
             account: {},
             logged: true
         };
+
+        this.logOut = this.logOut.bind(this);
     }
 
     componentDidMount() {
-        console.log('lol');
         getApi('/user/account').then(res => {
             console.log(res);
             this.setState({account: res});
@@ -24,12 +25,23 @@ class UserAccount extends Component {
         });
     }
 
+    logOut(e) {
+        e.preventDefault();
+        getApi('/user/disconnect').then(res => {
+            console.log(res);
+            this.setState({logged: false});
+        }).catch(reason => {
+            alert(reason.toString());
+        })
+    }
+
     render() {
         if (cookies.load('token') || this.state.logged) {
             return (
                 <div>
                     <h1>Nom: {this.state.account.Nom}</h1>
                     <h1>Prenom: {this.state.account.Prenom}</h1>
+                    <button onClick={this.logOut}>Déconnexion</button>
                 </div>
             );
         } else {

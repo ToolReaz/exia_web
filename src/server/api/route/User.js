@@ -18,4 +18,8 @@ router.get('/account', (req, res, next) => {
     UserController.getAccount(req, res);
 });
 
+router.get('/disconnect', (req, res, next) => {
+    UserController.disconnect(req, res);
+});
+
 module.exports = router;

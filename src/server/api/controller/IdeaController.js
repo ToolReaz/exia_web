@@ -39,5 +39,24 @@ module.exports = {
         } else {
             res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
         }
+    },
+
+    getVotes: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqId = req.params.id;
+
+        if (reqToken) {
+            DB.Idea.GetVoteForCount(reqId).then(votesFor => {
+                DB.Idea.GetVoteAgainstCount(reqId).then(votesAgainst => {
+                    res.json({'error': null, 'content': {'votesFor': votesFor, 'votesAgainst': votesAgainst}})
+                }).catch(reason => {
+                    res.json({'error': reason, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason, 'content': null});
+            });
+        } else {
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
+        }
     }
 };
