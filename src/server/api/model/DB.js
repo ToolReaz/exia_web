@@ -50,10 +50,7 @@ DataBase.Shop =             require('./DatabaseObject/Shop')            (databas
 
 connection.sync({ force: false, logging: false }).then(() => {
 
-    //Permissions.SetupPermissions();
-
-    DataBase.Token.GetAccountFromToken("e934669ff1aed5b97b11c0133abc75c8ac4a3ab2b9135caa9f691d9d4e53ae0b36493455e70b2e342416d0e06ab0491e130365383069d5c5e2c96ab5339c169f")
-    .then(r=>console.log(r));
+    Permissions.SetupPermissions();
 
 });
 
