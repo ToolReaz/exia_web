@@ -17,11 +17,11 @@ module.exports = (dataObject, permissions) => {
                     if (r) {
                         dataObject.Compte.findOne({
                             where: {
-                                ID: r.ID
+                                ID: r.ID_Compte
                             }
                         }).then(c => {
                             if (c) {
-                                resolve(c.ID_Compte);
+                                resolve(c.ID);
                             } else {
                                 reject(new Error("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ"));
                             }
