@@ -4,9 +4,9 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Ajoute une photo à une manif
-         * @param {int} idAccount ID du compte souhaitant uploader l'image
+         * @param {Number} idAccount ID du compte souhaitant uploader l'image
          * @param {string} photoPath Path de l'image
-         * @param {int} idManif ID de la manifestation
+         * @param {Number} idManif ID de la manifestation
          */
         AddPhoto: (idAccount, photoPath, idManif) => {
             return new Promise((resolve, reject) => {
@@ -51,8 +51,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Commente une photo
-         * @param {int} idAccount ID du compte
-         * @param {int} idPhoto ID de la photo
+         * @param {Number} idAccount ID du compte
+         * @param {Number} idPhoto ID de la photo
          * @param {string} comment Commentaire pour la photo
          */
         CommentPhoto: (idAccount, idPhoto, comment) => {
@@ -77,8 +77,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Like une photo
-         * @param {int} idAccount ID du compte
-         * @param {int} idPhoto ID de la photo
+         * @param {Number} idAccount ID du compte
+         * @param {Number} idPhoto ID de la photo
          * @param {boolean} like True : like, False : plus like
          */
         LikePhoto: (idAccount, idPhoto, like) => {
@@ -115,7 +115,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère le nombre de like d'une image
-         * @param {int} idPhoto ID de la photo dont il faut récupérer le nombre de like
+         * @param {Number} idPhoto ID de la photo dont il faut récupérer le nombre de like
          */
         GetLikeCount: (idPhoto) => {
             return dataObject.Likes.count({

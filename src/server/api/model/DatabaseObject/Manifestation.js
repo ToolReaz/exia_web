@@ -8,8 +8,8 @@ module.exports = (dataObject, permissions) => {
          * @param {string} description Description de la manifestation à créer
          * @param {string} imagePath Chemin de l'image associée à la manifestation
          * @param {Date} date Date de la première (ou seule) occurence de la manifestation
-         * @param {int} interval_seconds Interval en secondes entre deux occurences de la manifestation (0 = pas de répétition)
-         * @param {int} price Prix de participation à la manifestation
+         * @param {Number} interval_seconds Interval en secondes entre deux occurences de la manifestation (0 = pas de répétition)
+         * @param {Number} price Prix de participation à la manifestation
          */
         CreateManifestation: (name, description, imagePath, date, interval_seconds, price) => {
             return {
@@ -25,8 +25,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Inscrit une personne à une manif
-         * @param {int} idAccount ID du compte voulant s'inscrire à une manif
-         * @param {int} idManif ID de la manif
+         * @param {Number} idAccount ID du compte voulant s'inscrire à une manif
+         * @param {Number} idManif ID de la manif
          * @returns {Promise<any>} Sans param
          */
         InscrireManif: (idAccount, idManif) => {
@@ -50,8 +50,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Détermine si l'utilisateur participe à une manif
-         * @param {int} idAccount ID de l'utilisateur
-         * @param {int} idManif ID de la manif
+         * @param {Number} idAccount ID de l'utilisateur
+         * @param {Number} idManif ID de la manif
          * @returns {Promise<boolean>} L'utilisateur participe à la manif
          */
         Participe: (idAccount, idManif) => {
@@ -104,7 +104,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Edite les données d'une manifestation
-         * @param {int} idManif ID de la manifestation
+         * @param {Number} idManif ID de la manifestation
          * @param {string} name Nouveau nom de la manifestation (ou NULL)
          * @param {string} description Nouvelle description (ou NULL)
          * @param {string} imagePath Nouveau path vers l'image (ou NULL)

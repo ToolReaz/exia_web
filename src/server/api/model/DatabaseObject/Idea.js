@@ -12,7 +12,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Crée une idée et l'insère dans la base de données
-         * @param {int} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées obtenu par GetAccount
+         * @param {Number} idAccount ID du compte de la personne ayant crée l'idée à mettre dans la boite à idées obtenu par GetAccount
          * @param {string} title Titre de l'idée
          * @param {string} text Texte/Description de l'idée
          * @param {array} manifestationArray Liste de manifestation obtenue par CreateManifestation
@@ -64,8 +64,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Vote pour une idée
-         * @param {int} idAccount ID du compte ayant voté
-         * @param {int} idIdea ID de l'idée votée
+         * @param {Number} idAccount ID du compte ayant voté
+         * @param {Number} idIdea ID de l'idée votée
          * @param {boolean} vote Valeur du vote
          */
         VoteIdea: (idAccount, idIdea, vote) => {
@@ -104,8 +104,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Valide une idée
-         * @param {int} idAccount ID de l'utilisateur
-         * @param {int} idIdee ID de l'idée
+         * @param {Number} idAccount ID de l'utilisateur
+         * @param {Number} idIdee ID de l'idée
          */
         ValideIdee: (idAccount, idIdee) => {
             return new Promise((resolve, reject) => {
@@ -126,6 +126,32 @@ module.exports = (dataObject, permissions) => {
                 });
             });
         },
+
+        /**
+         * Récupère le nombre de vote pour une idée
+         * @param {Number} idIdee ID de la idée dont il faut récupérer le nombre de vote favorable
+         * @returns {Number}
+         */
+        GetVoteForCount: (idIdee) => {
+            return dataObject.Vote.count({
+                where: {
+                    Pour: 1
+                }
+            });
+        },
+
+        /**
+         * Récupère le nombre de vote contre une idée
+         * @param {Number} idIdee ID de la idée dont il faut récupérer le nombre de vote défavorable
+         * @returns {Number}
+         */
+        GetVoteAgainstCount: (idIdee) => {
+            return dataObject.Vote.count({
+                where: {
+                    Pour: 0
+                }
+            });
+        }
     };
 
     return here;
