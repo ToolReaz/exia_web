@@ -4,6 +4,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère l'ensemble des idées
+         * @param {number} idAccount ID du compte
          * @returns {Promise} Les idées
          */
         GetAllIdeas: (idAccount) => {
