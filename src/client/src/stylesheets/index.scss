@@ -2,6 +2,7 @@
 @import "partials/grid";
 @import "partials/web";
 @import "partials/team";
+@import "partials/footer";
 
 $red: #C2242A;
 $grey: #F5F5F5;
@@ -42,9 +43,10 @@ input {
 
 .input-submit-regular:hover {
   cursor: pointer;
-  box-shadow: 0 5px 10px 0px rgba(156, 39, 176, 0.3); }
+  box-shadow: 0 5px 10px 0 rgba(156, 39, 176, 0.3); }
 
 
 body {
   padding-top: 150px;
+  padding-bottom: 200px;
 }

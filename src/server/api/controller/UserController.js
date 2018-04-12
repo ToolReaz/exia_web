@@ -57,12 +57,13 @@ module.exports = {
             // Get user ID from token
             DB.Token.GetTokenTime(reqToken).then(date => {
                 // Verify if token is expired (24H validity)
-                if ((Date.now()-date) <= 3600*24) {
+                console.log((Date.now()-date));
+                if ((Date.now()-date) <= 3600*24*1000) {
                     // If token is VALID
                     // Get account ID associated with token
                     DB.Token.GetAccountFromToken(reqToken).then(id => {
                         // Get account data
-                        DB.Token.GetAccountFromId(id).then(account => {
+                        DB.Compte.GetAccountFromId(id).then(account => {
                             // Success: send data to client
                             res.json({'error': null, 'content': account});
                         }).catch(reason => {
