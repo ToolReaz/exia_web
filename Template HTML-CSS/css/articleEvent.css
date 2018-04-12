@@ -40,3 +40,19 @@
   height: 5em;
   padding-top: 2em;
 }
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
+
+.grey{
+  color: grey;
+}
+
+.padTop{
+  padding-top: 30px;
+}
