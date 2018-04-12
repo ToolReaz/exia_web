@@ -1,13 +1,13 @@
 import sql from "sequelize";
 
 const connection = new sql({
-    dialect:        'mysql',
-    username:       'exia',
-    password:       'ingenieur123*',
     database:       'exia',
+    dialect:        'mysql',
     host:           'toolreaz.space',
+    logging:        false,
+    password:       'ingenieur123*',
     port:           '3306',
-    logging:        false
+    username:       'exia'
 });
 
 const database = {
