@@ -26,7 +26,8 @@ class UserAccount extends Component {
         if (cookies.load('token'))  {
             return (
                 <div>
-                    <h1>Compte de: {this.state.account.Nom}</h1>
+                    <h1>Nom: {this.state.account.Nom}</h1>
+                    <h1>Prenom: {this.state.account.Prenom}</h1>
                 </div>
             );
         } else {

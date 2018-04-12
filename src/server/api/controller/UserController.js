@@ -48,18 +48,37 @@ module.exports = {
         }
     },
 
-    getAccount: (res, req) => {
+    getAccount: (req, res) => {
         let reqToken = req.cookies.token;
-        console.log('tete');
-        if (reqToken) {
-            DB.Compte.GetAccountFromToken(reqToken).then(account => {
-                console.log(account);
-                res.json({'error': null, 'content': account});
+
+        if (!reqToken) {
+            res.json({'error': "Vous n'êtes aps connecté !", 'content': null});
+        } else {
+            DB.Token.GetTokenTime(reqToken).then(date => {
+                if ((Date.now()-date) <= 3600*24) {
+                    DB.Token.GetAccountFromToken(reqToken).then(id => {
+                        DB.Compte.GetAccountFromId(id).then(account => {
+                            res.json({'error': null, 'content': account});
+                        }).catch(reason => {
+                            res.json({'error': reason, 'content': null});
+                        });
+                    }).catch(reason => {
+                        res.json({'error': reason, 'content': null});
+                    });
+                } else {
+                    DB.Compte.GetAccountFromToken(reqToken).then(id => {
+                        DB.Compte.SetToken(id, '').then(() => {
+                            res.json({'error': 'Token expiré !', 'content': null});
+                        }).catch(reason => {
+                            res.json({'error': reason, 'content': null});
+                        });
+                    }).catch(reason => {
+                        res.json({'error': reason, 'content': null});
+                    });
+                }
             }).catch(reason => {
                 res.json({'error': reason, 'content': null});
             });
-        } else {
-            res.json({'error': "Vous n'êtes aps connecté !", 'content': null});
         }
     }
 };

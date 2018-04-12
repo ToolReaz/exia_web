@@ -416,4 +416,7 @@ input {
   cursor: pointer;
   box-shadow: 0 5px 10px 0px rgba(156, 39, 176, 0.3); }
 
+body {
+  padding-top: 150px; }
+
 /*# sourceMappingURL=index.css.map */
