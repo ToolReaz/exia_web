@@ -21,7 +21,7 @@ module.exports = (dataObject, permissions) => {
                             }
                         }).then(c => {
                             if (c) {
-                                resolve(c.ID);
+                                resolve(c.ID_Compte);
                             } else {
                                 reject(new Error("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ"));
                             }
