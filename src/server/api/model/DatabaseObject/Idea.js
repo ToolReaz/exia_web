@@ -70,7 +70,7 @@ module.exports = (dataObject, permissions) => {
          */
         VoteIdea: (idAccount, idIdea, vote) => {
             return new Promise((resolve, reject) => {
-                permissions.FilterPermission(idAccount, "P_VOTE_IDEE", () => {
+                permissions.FilterPermission(idAccount, "P_VOTE_IDEE").then(() => {
                     dataObject.Vote.findOrCreate({
                         where: {
                             ID: idAccount,
