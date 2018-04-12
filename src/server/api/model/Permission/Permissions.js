@@ -130,6 +130,7 @@ module.exports = (dataObject) => {
             here.SetPermissions("R_EXIA", "P_REPORT").then(() => {});
             here.SetPermissions("R_EXIA", "P_DUMP_PHOTO").then(() => {});
             here.SetPermissions("R_BDE", "P_ADD_SHOP").then(() => {});
+            here.SetPermissions("R_BDE", "P_SET_CATEGORIE_SHOP").then(() => {});
             here.SetPermissions("R_BDE", "P_DELETE_SHOP").then(() => {});
             here.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP").then(() => {});
         }
