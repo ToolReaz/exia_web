@@ -58,20 +58,12 @@ module.exports = (dataObject, permissions) => {
         CommentPhoto: (idAccount, idPhoto, comment) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_COMMENT_PHOTO").then(() => {
-                    dataObject.Comment.findOrCreate({
-                        where: {
-                            ID: idAccount,
-                            ID_Photos: idPhoto,
-                            Texte: comment
-                        }
-                    }).then(r => {
-                        resolve();
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                    dataObject.Commentaires.findOrCreate({where: {Texte: comment}}).then(r=>{
+                        dataObject.Commente.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto, ID_Commentaires: r[0].ID}}).then(s=>{
+                            resolve();
+                        }).catch(err => { if (err) reject(err); });
+                    }).catch(err => { if (err) reject(err); });
+                }).catch(err => { if (err) reject(err); });
             });
         },
 
