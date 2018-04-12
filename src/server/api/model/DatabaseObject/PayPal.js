@@ -35,6 +35,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Récupère l'enregistrement de l'API de Paypal associée au compte
          * @param {Number} idAccount ID du compte
+         * @returns {promise}
          */
         GetPayPalFromAccount: (idAccount) => {
             return dataObject.Compte_PayPal.findOne({

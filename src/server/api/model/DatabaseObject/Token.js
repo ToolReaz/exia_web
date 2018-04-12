@@ -5,6 +5,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
          * @param {string} token Token de connexion
+         * @returns {Promise<number>}
          */
         GetAccountFromToken: (token) => {
             return new Promise((resolve, reject) => {
@@ -16,7 +17,7 @@ module.exports = (dataObject, permissions) => {
                     if (r) {
                         dataObject.Compte.findOne({
                             where: {
-                                ID: r.ID
+                                ID: r.ID_Compte
                             }
                         }).then(c => {
                             if (c) {
@@ -47,7 +48,7 @@ module.exports = (dataObject, permissions) => {
                         Token: token
                     }
                 }).then(r => {
-                    if (r) resolve(r.Derniere_connexion);
+                    if (r) resolve(new Date(r.Derniere_connexion));
                     else reject(new Error("Le token \"" + token + "\" n'existe pas."));
                 }).catch(err => {
                     if (err) reject(err);
@@ -59,6 +60,7 @@ module.exports = (dataObject, permissions) => {
          * Change le timestamp d'un token
          * @param {string} token Valeur du token
          * @param {Date} timestamp Nouveau timestamp
+         * @returns {promise}
          */
         SetTokenTimestamp: (token, timestamp) => {
             return dataObject.Session.update({

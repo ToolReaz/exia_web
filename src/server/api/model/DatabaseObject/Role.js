@@ -5,6 +5,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne le role à partir de l'ID du role
          * @param {Number} idRole ID du role
+         * @returns {promise}
          */
         GetRoleFromID: (idRole) => {
             return dataObject.Role.findOne({where: {ID: idRole}});
@@ -13,6 +14,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne le role à partir du nom du role
          * @param {Number} idRole nom du role
+         * @returns {promise}
          */
         GetRoleFromName: (role) => {
             return dataObject.Role.findOne({where: {Nom_role: role}});
@@ -21,7 +23,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne les IDs des roles d'un utilisateur
          * @param {Number} idAccount ID du compte utilisateur
-         * @returns {Promise<Number>}
+         * @returns {Promise}
          */
         GetRolesIDFromUser: (idAccount) => {
             return new Promise((resolve, reject)=>{

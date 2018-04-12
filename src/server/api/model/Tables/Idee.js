@@ -33,6 +33,6 @@ module.exports = function (sequelize, DataTypes) {
 			allowNull: false
 		}
 	}, {
-		tableName: 'Idee'
-	});
+			tableName: 'Idee'
+		});
 };

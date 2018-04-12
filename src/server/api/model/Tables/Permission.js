@@ -14,6 +14,6 @@ module.exports = function (sequelize, DataTypes) {
 			unique: true
 		}
 	}, {
-		tableName: 'Permission'
-	});
+			tableName: 'Permission'
+		});
 };

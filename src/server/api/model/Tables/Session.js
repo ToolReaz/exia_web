@@ -14,7 +14,7 @@ module.exports = function (sequelize, DataTypes) {
 			unique: true
 		},
 		Derniere_connexion: {
-			type: DataTypes.DATEONLY,
+			type: DataTypes.DATE,
 			allowNull: false
 		},
 		ID_Compte: {
@@ -25,8 +25,8 @@ module.exports = function (sequelize, DataTypes) {
 				key: 'ID'
 			},
 			unique: true
-		}
+		},
 	}, {
-		tableName: 'Session'
-	});
+			tableName: 'Session'
+		});
 };

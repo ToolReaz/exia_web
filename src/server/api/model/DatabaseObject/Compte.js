@@ -70,20 +70,29 @@ module.exports = (dataObject, permissions) => {
         /**
          * Crée un token pour un utilisateur
          * @param {Number} idCompte ID du compte associé au token
-         * @param {string} token Token à insérer pour l'utilisateur spécifié
+         * @param {string?} token Token à insérer pour l'utilisateur spécifié
          */
         SetToken: (idAccount, token) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_CONNECT").then(() => {
-                    dataObject.Session.upsert({
-                        Token: token,
-                        Derniere_connexion: Date.now(),
-                        ID_Compte: idAccount
-                    }).then(r => {
-                        resolve(r[1]);
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });
+                    if (token) {
+                        dataObject.Session.upsert({
+                            Token: token,
+                            Derniere_connexion: Date.now(),
+                            ID_Compte: idAccount
+                        }).then(r => {
+                            resolve();
+                        }).catch(err => {
+                            if (err) reject(err);
+                        });
+                    } else {
+                        dataObject.Session.destroy({ where: { ID_Compte: idAccount } }).then(() => {
+                            resolve();
+                        }).catch(err => {
+                            if (err) reject(err);
+                        });
+                    }
+
                 }).catch(err => {
                     if (err) reject(err);
                 });
@@ -93,6 +102,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
          * @param {Number} idAccount ID de l'utilisateur
+         * @returns {promise}
          */
         ListeInscriptions: (idAccount) => {
             return dataObject.Participe.findAll({

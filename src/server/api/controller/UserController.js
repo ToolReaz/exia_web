@@ -46,5 +46,20 @@ module.exports = {
                 }).catch(reason => res.json({'error': reason, 'content': null}));
             });
         }
+    },
+
+    getAccount: (res, req) => {
+        let reqToken = req.cookies.token;
+        console.log('tete');
+        if (reqToken) {
+            DB.Compte.GetAccountFromToken(reqToken).then(account => {
+                console.log(account);
+                res.json({'error': null, 'content': account});
+            }).catch(reason => {
+                res.json({'error': reason, 'content': null});
+            });
+        } else {
+            res.json({'error': "Vous n'êtes aps connecté !", 'content': null});
+        }
     }
 };

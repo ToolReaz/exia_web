@@ -36,6 +36,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère tous les produits en vente
+         * @returns {promise}
          */
         GetAllProducts: () => {
             return dataObject.Produit.findAll();
@@ -44,6 +45,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Récupère tous les IDs des catégories auxquelles le produit appartient
          * @param {number} idProduct ID du produit
+         * @returns {promise}
          */
         GetCategoriesID: (idProduct) => {
             return dataObject.Regroupe.findAll({where: {ID: idProduct}});
@@ -52,6 +54,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne une catégorie à partir de son ID
          * @param {number} idCategorie ID de la catégorie
+         * @returns {promise}
          */
         GetCategorieFromID: (idCategorie) => {
             return dataObject.Categorie.findOne({where: {ID: idCategorie}});
@@ -60,6 +63,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne l'ensemble des produits appartenant à une catégorie
          * @param {number} idCategorie ID de la catégorie
+         * @returns {promise}
          */
         GetProductsFromCategorieID: (idCategorie) => {
             return dataObject.Regroupe.findAll({where: {ID_Categorie: idCategorie}});
@@ -68,6 +72,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne un produit à partir de son ID
          * @param {number} idProduct ID du produit
+         * @returns {promise}
          */
         GetProductFromID: (idProduct) => {
             return dataObject.Produit.findOne({where: {ID: idProduct}});
@@ -82,14 +87,16 @@ module.exports = (dataObject, permissions) => {
         AddItemToPurchaseList: (idAccount, idProduct, quantity) => {
             return new Promise((resolve, reject)=>{
                 permissions.FilterPermission(idAccount, "P_PURCHASE_SHOP").then(()=>{
-                    dataObject.Panier.findOrCreate({where: {ID: idAccount, ID_Produit: idProduct}, defaults: {Quantite: quantity}}).then(r=>{
-                        if(!r[1]){
-                            dataObject.Panier.update({Quantite: r[0].Quantite+quantity}, {where: {ID: idAccount, ID_Produit: idProduct}}).then(s=>{
+                    dataObject.Achats.findOrCreate({where: {Realise: false, ID_Compte: idAccount}}).then(r=>{
+                        dataObject.Panier.findOrCreate({where: {ID_Produit: idProduct, ID: r[0].ID}, defaults: {Quantite: quantity}}).then(s=>{
+                            if(!s[1]){
+                                dataObject.Panier.update({Quantite: r[0].Quantite+quantity}, {where: {ID: idAccount, ID_Produit: idProduct}}).then(s=>{
+                                    resolve();
+                                }).catch(err=>{if(err)reject(err);});
+                            } else {
                                 resolve();
-                            }).catch(err=>{if(err)reject(err);});
-                        } else {
-                            resolve();
-                        }
+                            }
+                        }).catch(err=>{if(err)reject(err);});
                     }).catch(err=>{if(err)reject(err);});
                 }).catch(err=>{if(err)reject(err);});
             });
@@ -100,7 +107,58 @@ module.exports = (dataObject, permissions) => {
          * @param {number} idAccount ID du compte de l'utilisateur
          */
         GetPurchaseListOfUser: (idAccount) => {
-            return dataObject.findAll({where: {ID: idAccount}});
+            return new Promise((resolve, reject)=>{
+                dataObject.Achats.findOne({where: {ID_Compte: idAccount, Realise: false}}).then(r=>{
+                    dataObject.Panier.findAll({where: {ID: r.ID}}).then(s=>{
+                        resolve(s);
+                    }).catch(err=>{if(err)reject(err);});
+                }).catch(err=>{if(err)reject(err);});
+            });
+        },
+
+        /**
+         * Effectue les achats enregistrés dans le panier
+         * @param {number} idAccount ID du compte de la personne qui effectue ses achats
+         * @returns {promise}
+         */
+        CommitPurchase: (idAccount) => {
+            return dataObject.Achats.update({Realise: true}, {where: {ID_Compte: idAccount}});
+        },
+
+        /**
+         * Supprime des produits du panier de l'utilisateur
+         * @param {number} idAccount ID du compte de l'utilisateur
+         * @param {number} idProduct ID du produit à supprimer
+         * @param {number} quantity Quantité du produit à déduire
+         * @returns {promise}
+         */
+        RemoveItemFromPurchaseList: (idAccount, idProduct, quantity) => {
+            return new Promise((resolve, reject)=>{
+                dataObject.Achats.findOne({where: {ID_Compte: idAccount, Realise: false}}).then(r=>{
+                    dataObject.Panier.findOne({where: {ID: r.ID, ID_Produit: idProduct}}).then(s=>{
+                        if(s.Quantite>quantity){
+                            dataObject.Panier.update({Quantite: s.Quantite-quantity}, {where: {ID: s.ID, ID_Produit: idProduct}}).then(t=>{
+                                resolve();
+                            }).catch(err=>{if(err)reject(err);});
+                        } else if(s.Quantite==quantity){
+                            dataObject.Panier.destroy({where: {ID: s.ID, ID_Produit: idProduct}}).then(t=>{
+                                resolve();
+                            }).catch(err=>{if(err)reject(err);});
+                        } else {
+                            reject(new Error("L'utilisateur ne peut pas supprimer plus de produits qu'il n'en a commandé"));
+                        }
+                    }).catch(err=>{if(err)reject(err);});
+                }).catch(err=>{if(err)reject(err);});
+            });
+        },
+
+        /**
+         * Retourne l'historique des achats de l'utilisateur
+         * @param {number} idAccount ID du compte de l'utilisateur
+         * @returns {promise}
+         */
+        GetHistoryOfPurchase: (idAccount) => {
+            return dataObject.Achats.findAll({where: {ID_Compte: idAccount, Realise: true}});
         },
 
         /**

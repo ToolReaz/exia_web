@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import {postApi} from '../../lib/api/requestApi';
+import {Redirect, Switch} from "react-router-dom";
+import cookies from 'react-cookie';
 
 class UserConnect extends Component {
 
@@ -68,20 +70,27 @@ class UserConnect extends Component {
 
 
     render() {
-        return (
-            <div className="grid-container">
-                <div className="row">
-                    <div className="col-6">
-                        <form id="connect-form" onSubmit={this.handleSubmit}><br/>
-                            <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/><br/><br/>
-                            <input className="input-regular" type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/><br/><br/>
-                            <input className="input-submit-regular" type="submit" value="Connexion"/><br/><br/>
-                        </form>
+        if (cookies.load('token')) {
+            return (
+                <Switch>
+                    <Redirect from="/user/connect" to="/user/account" push />
+                </Switch>
+            )
+        } else {
+            return (
+                <div className="grid-container">
+                    <div className="row">
+                        <div className="col-6">
+                            <form id="connect-form" onSubmit={this.handleSubmit}><br/>
+                                <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/><br/><br/>
+                                <input className="input-regular" type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/><br/><br/>
+                                <input className="input-submit-regular" type="submit" value="Connexion"/><br/><br/>
+                            </form>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-        )
+            )
+        }
     }
 }
 

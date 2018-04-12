@@ -1,15 +1,14 @@
 /* jshint indent: 2 */
 
 module.exports = function (sequelize, DataTypes) {
-	return sequelize.define('Photos', {
+	return sequelize.define('Commentaires', {
 		ID: {
 			type: DataTypes.INTEGER(11),
 			allowNull: false,
-			primaryKey: true,
-			autoIncrement: true
+			primaryKey: true
 		},
-		Chemin_image: {
-			type: DataTypes.STRING(256),
+		Texte: {
+			type: DataTypes.STRING(25),
 			allowNull: false
 		},
 		Public: {
@@ -17,6 +16,6 @@ module.exports = function (sequelize, DataTypes) {
 			allowNull: false
 		}
 	}, {
-			tableName: 'Photos'
+			tableName: 'Commentaires'
 		});
 };
