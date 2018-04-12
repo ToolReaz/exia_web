@@ -1,39 +1,5 @@
-nav, footer{
-  width: 100%;
-  background-color: #c2242a;
-  height: 8%;
-  margin: auto;
-  z-index: 1000;
-}
 
- nav img{
-   height: 100%;
-   width: 20%;
-   margin-left:40%;
-   transform: scale(2);
- }
-
-
-nav button{
-  transition-duration: 0.5s;
-  margin-top: 5%;
-  color: #c2242a;
-  background-color: white;
-  border: none;
-  border-radius: 15px;
-  height: 3.4em;
-}
-
-nav button:hover{
-  transition-duration: 0.5s;
-  background-color: #c2242a;
-  color: white;
-  border: 1px white solid
-}
-
-nav input{
-  margin-top: 8%;
-}
+/*===================================*/
 
 .indexButton{
   transition: 1s;
@@ -78,6 +44,12 @@ nav input{
   border-radius: 5px;
 }
 
+.fondExia{
+  background-image: url('../img/fond.png');
+  background-repeat: repeat-x;
+}
+
+
 .membreBDE{
   transition: 0.5s;
   margin-top: 3%;
@@ -85,63 +57,25 @@ nav input{
   text-align:center;
   border:1px black solid;
   border-radius:15px;
+  background-color: white;
   box-shadow: 2px 2px 10px black;
+}
+
+.membreBDE p{
+  font-size: 0.6em;
 }
 
 .membreBDE:hover{
   transition: 0.5s;
   box-shadow: none;
   transform: translateY(5px);
+  border-radius: 0px;
 }
 
 .social{
   height: 50px;
   width: 50px;
   border-radius: 50px;
-}
-
-.h1Event{
-  color: red;
-  text-decoration: underline;
-}
-
-.event{
-  border: 1px grey solid;
-  margin: 3% 0% 3% 0%;
-  background-color: rgb(240,240,240);
-}
-.event p,span{
-  font-size: 0.7em;
-}
-
-.event2{
-  border: 1px grey solid;
-  margin: 3% 0% 3% 6.333%;
-  background-color: rgb(240,240,240);
-}
-.event2 p,span{
-  font-size: 0.7em;
-}
-
-.h1Event{
-  color: white;
-  text-align: center;
-  background-color: #c2242a;
-  height: 5em;
-  padding-top: 2em;
-}
-
-.article{
-  border: 1px black solid;
-  font-size: 0.8em;
-  margin: 2% 0% 2% 0%;
-}
-.article p{
-  font-size: 0.65em;
-}
-
-.article a{
-  font-size: 0.8em;
 }
 
 
@@ -169,14 +103,11 @@ nav input{
     color: black;
     border-radius: 5px;
   }
+}
 
-  .event2{
-    border: 1px grey solid;
-    margin: 3% 0% 3% 0%;
-  }
-  .event2 p,span{
-    font-size: 0.7em;
-  }
+.descArticle{
+  border: 1px black solid;
+  padding: 3px 1px 3px 1px;
 }
 /*=======================================================Carousel======================================================*/
 
@@ -259,57 +190,7 @@ nav input{
 @media only screen and (max-width: 300px) {
   .prev, .next,.text {font-size: 11px}
 }
-/*======================================================== Modal ====================================================*/
-.grp-modal {
-    z-index: 3;
-    display: none;
-    padding-top: 100px;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgb(0, 0, 0);
-    background-color: rgba(0, 0, 0, 0.4)
-}
 
-.grp-modal-content {
-    margin: auto;
-    background-color: #fff;
-    position: relative;
-    padding: 0;
-    outline: 0;
-    width: 600px;
-    padding: 0px 50px 25px 0px;
-}
-
-
-.grp-teal,
-.grp-hover-teal:hover {
-    color: black;
-    background-color: #c2242a!important
-}
-
-.grp-display-topright {
-    position: absolute;
-    right: 0;
-    top: 0
-}
-
-.grp-button{
-  width: 50px;
-  height: 50px;
-  background-color: grey;
-  color: white;
-  font-size: 2em;
-  text-align: center;
-  line-height: 50px;
-}
-
-.grp-container{
-  text-align: center;
-}
 /*======================================================== Parallax ====================================================*/
 
 .parallax {
