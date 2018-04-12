@@ -5,6 +5,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
          * @param {string} token Token de connexion
+         * @returns {Promise<number>}
          */
         GetAccountFromToken: (token) => {
             return new Promise((resolve, reject) => {
