@@ -8,7 +8,8 @@ class UserAccount extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            account: {}
+            account: {},
+            logged: true
         };
     }
 
@@ -19,20 +20,22 @@ class UserAccount extends Component {
             this.setState({account: res});
         }).catch(reason => {
             console.log(reason);
+            this.setState({logged: false})
         });
     }
 
     render() {
-        if (cookies.load('token'))  {
+        if (cookies.load('token') || this.state.logged) {
             return (
                 <div>
-                    <h1>Compte de: {this.state.account.Nom}</h1>
+                    <h1>Nom: {this.state.account.Nom}</h1>
+                    <h1>Prenom: {this.state.account.Prenom}</h1>
                 </div>
             );
         } else {
             return (
                 <Switch>
-                    <Redirect from="/user/account" to="/user/connect" push />
+                    <Redirect to="/user/connect" push />
                 </Switch>
             )
         }

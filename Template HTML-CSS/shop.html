@@ -4,104 +4,39 @@
     <meta charset="utf-8">
     <title>BDE Strasbourg</title>
     <link rel="stylesheet" type="text/css" href=./css/grid.css />
-    <link rel="stylesheet" type="text/css" href=./css/web.css />
-    <script src="./js/modal.js"></script>
-
+    <link rel="stylesheet" type="text/css" href=./css/global.css />
+    <link rel="stylesheet" type="text/css" href=./css/shop.css />
   </head>
   <body>
-    <header>
-      <nav>
-        <div class="grid-container">
-          <div class="row">
-              <div class="col-1">
-                <button class="col-12">Accueil</button>
-              </div>
-              <div class="col-1">
-                <button class="col-12">L'équipe</button>
-              </div>
-              <div class="col-1">
-                <button class="col-12">Evènements</button>
-              </div>
-              <div class="col-1">
-                <button class="col-12">Boutique</button>
-              </div>
-            <div class="col-1"></div>
-            <div class="col-2" style="">
-              <img src="./img/logobde.png" />
-            </div>
-            <div class="col-1"></div>
-            <div class="col-2">
-              <input></input>
-            </div>
+    <div class="nav">
+      <div class="nav-btn">
+        <label for="nav-check">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      </div>
+      <input type="checkbox" id="nav-check">
 
-            <div class="col-1">
-              <button class="col-12" onclick="document.getElementById('id01').style.display='block'">Connexion</button>
-            </div>
-            <div id="id01" class="grp-modal">
-              <div class="grp-modal-content">
-                <header class="grp-container grp-teal">
-                  <span onclick="document.getElementById('id01').style.display='none'"
-                  class="grp-button grp-display-topright">&times;</span>
-                  <h2>Connexion</h2>
-                </header>
-                <div class="grp-container">
-                  <div>
-                    <input />
-                    <p>Email</p>
-                  </div>
-                  <div>
-                    <input type="password" />
-                    <p>Mot de passe</p>
-                  </div>
-                  <button> Connexion ><button>
-                </div>
-              </div>
-            </div>
+      <div class="nav-links">
+        <a href="" target="_blank">Accueil</a>
+        <a href="" target="_blank">L'équipe</a>
+        <a href="" target="_blank">Evènements</a>
+        <a href="" target="_blank">Boutique</a>
+        <a class="caché" href="" target="_blank">Connexion</a>
+        <a class="caché" href="" target="_blank">Inscription</a>
+        <form class="caché" id="form" action="" method="">
+      		<input id="searchid" type="search" placeholder="Que cherchez vous ?">
+      		<button id="boutonsearchid">C'est parti !</button>
+      	</form>
+      </div>
 
-            <div class="col-1">
-              <button class="col-12" onclick="document.getElementById('id02').style.display='block'">Inscription</button>
-            </div>
-            <div id="id02" class="grp-modal">
-              <div class="grp-modal-content">
-                <header class="grp-container grp-teal">
-                  <span onclick="document.getElementById('id02').style.display='none'"
-                  class="grp-button grp-display-topright">&times;</span>
-                  <h2>Inscription</h2>
-                </header>
-                <div class="grp-container">
-                  <div>
-                    <input />
-                    <p>Nom</p>
-                  </div>
-                  <div>
-                    <input />
-                    <p>Prénom</p>
-                  </div>
-                  <div>
-                    <input />
-                    <p>Email</p>
-                  </div>
-                  <div>
-                    <input />
-                    <p>Confirmation email</p>
-                  </div>
-                  <div>
-                    <input type="password" />
-                    <p>Mot de passe</p>
-                  </div>
-                  <div>
-                    <input type="password" />
-                    <p>Confirmation mot de passe</p>
-                  </div>
-                  <button> Inscription ><button>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </nav>
-    </header>
+      <div class="nav-links-right">
+        <p class="s"><input name="search" id="search" type="search"></p>
+        <a href="" target="_blank">Connexion</a>
+        <a href="" target="_blank">Inscription</a>
+      </div>
+    </div>
     <h1 class="h1Event">Boutique</h1>
     <div class="grid-container">
       <div class="row">
@@ -125,8 +60,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
         <div class="col-1"></div>
@@ -134,8 +68,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
         <div class="col-1"></div>
@@ -143,8 +76,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
       </div>
@@ -154,8 +86,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
         <div class="col-1"></div>
@@ -163,8 +94,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
         <div class="col-1"></div>
@@ -172,8 +102,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
       </div>
@@ -183,8 +112,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
         <div class="col-1"></div>
@@ -192,8 +120,7 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
         <div class="col-1"></div>
@@ -201,20 +128,17 @@
           <h2>Nom Article<h2>
           <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
           <p class="col-12">Début description</p>
-          <span class="col-12">Prix</span>
-          <a class="col-6" href="">PLUS</a>
+          <span class="col-12">Prix XX€</span>
           <a class="col-6" href="">ACHETER</a>
         </div>
       </div>
     </div>
 
-
-
-
-    <footer>
-          <a style="margin-left:33%" href="">Mentions légales</a>
-          <span style="margin-left:25%">Copyright - BDE-Strasbourg</span>
-    </footer>
+    <div class="pagination">
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+    </div>
 
   </body>
 </html>
