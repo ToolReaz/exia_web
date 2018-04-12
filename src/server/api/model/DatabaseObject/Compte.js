@@ -50,7 +50,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère les données brutes liées au compte
-         * @param {int} idAccount ID du compte
+         * @param {Number} idAccount ID du compte
          */
         GetAccountFromId: (idAccount) => {
             return new Promise((resolve, reject) => {
@@ -69,7 +69,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Crée un token pour un utilisateur
-         * @param {int} idCompte ID du compte associé au token
+         * @param {Number} idCompte ID du compte associé au token
          * @param {string} token Token à insérer pour l'utilisateur spécifié
          */
         SetToken: (idAccount, token) => {
@@ -92,7 +92,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
-         * @param {int} idAccount ID de l'utilisateur
+         * @param {Number} idAccount ID de l'utilisateur
          */
         ListeInscriptions: (idAccount) => {
             return dataObject.Participe.findAll({

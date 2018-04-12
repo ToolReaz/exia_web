@@ -4,7 +4,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Crée une liaison entre un compte PayPal et un compte sur le site du BDE
-         * @param {int} idAccount ID du compte
+         * @param {Number} idAccount ID du compte
          * @param {string} paypalApiKey Clé de l'API PayPal
          */
         SetPayPal: (idAccount, paypalApiKey) => {
@@ -34,7 +34,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère l'enregistrement de l'API de Paypal associée au compte
-         * @param {int} idAccount ID du compte
+         * @param {Number} idAccount ID du compte
          */
         GetPayPalFromAccount: (idAccount) => {
             return dataObject.Compte_PayPal.findOne({
