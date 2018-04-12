@@ -16,10 +16,13 @@ router.post('/idea', (req, res) => {
     IdeaController.create(req, res);
 });
 // Vote for an idea
-router.get('/idea/vote/:id', (req, res) => {
-    IdeaController.vote(req, res);
+router.get('/idea/vote/for/:id', (req, res) => {
+    IdeaController.vote(req, res, true);
 });
-
+// Vote against an idea
+router.get('/idea/vote/against/:id', (req, res) => {
+    IdeaController.vote(req, res, false);
+});
 
 
 

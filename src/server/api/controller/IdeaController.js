@@ -24,16 +24,20 @@ module.exports = {
         }
     },
 
-    vote: (req, res) => {
-        let reqVoteId = req.body.id;
+    vote: (req, res, type) => {
+        let reqVoteId = req.params.id;
         let reqToken = req.cookies.token;
 
-        console.log('hey');
-
-        DB.Token.GetAccountFromToken(reqToken).then((id) => {
-            DB.Idea.VoteIdea(id, reqVoteId, true).then(() => {
-                res.json({'error': null, 'content': null});
-            }).catch((reason => res.json({'error': reason, 'content': null})));
-        });
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then((id) => {
+                DB.Idea.VoteIdea(id, reqVoteId, type).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch((reason => res.json({'error': reason, 'content': null})));
+            }).catch(reason => {
+                res.json({'error': reason, 'content': null});
+            });
+        } else {
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
+        }
     }
 };

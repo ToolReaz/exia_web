@@ -14,8 +14,8 @@ class Idea extends Component {
     }
 
     vote(e) {
-        console.log('/api/idea/vote/' + this.state.id.toString() + '?type=' + e.target.id);
-        getApi('/api/idea/vote/' + e.target.id + this.props.values.ID.toString()).then(res => {
+        console.log('/api/idea/vote/' + e.target.id + '/' + this.state.id.toString());
+        getApi('/api/idea/vote/' + e.target.id + '/' + this.state.id.toString()).then(res => {
             e.target.id === 'for' ? this.setState({vote: this.state.vote++}) : this.setState({vote: this.state.vote--})
         }).catch(reason => {
             console.log(reason);
