@@ -146,7 +146,8 @@ module.exports = (dataObject, permissions) => {
         GetVoteForCount: (idIdee) => {
             return dataObject.Vote.count({
                 where: {
-                    Pour: 1
+                    Pour: true,
+                    ID_Idee: idIdee
                 }
             });
         },
@@ -159,7 +160,8 @@ module.exports = (dataObject, permissions) => {
         GetVoteAgainstCount: (idIdee) => {
             return dataObject.Vote.count({
                 where: {
-                    Pour: 0
+                    Pour: false,
+                    ID_Idee: idIdee
                 }
             });
         }
