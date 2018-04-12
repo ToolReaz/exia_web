@@ -1,7 +1,5 @@
-module.exports = (dataObject, permissions) => {
-
+export default function (dataObject, permissions) {
     var here = {
-
         /**
          * Crée une liaison entre un compte PayPal et un compte sur le site du BDE
          * @param {Number} idAccount ID du compte
@@ -21,17 +19,18 @@ module.exports = (dataObject, permissions) => {
                         }).then(s => {
                             resolve();
                         }).catch(err => {
-                            if (err) reject(err);
+                            if (err)
+                                reject(err);
                         });
                     } else {
                         reject(new Error("L'utilisateur #" + idAccount + " n'existe pas."));
                     }
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * Récupère l'enregistrement de l'API de Paypal associée au compte
          * @param {Number} idAccount ID du compte
@@ -45,6 +44,5 @@ module.exports = (dataObject, permissions) => {
             });
         }
     };
-
     return here;
 }

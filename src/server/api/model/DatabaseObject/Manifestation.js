@@ -1,7 +1,5 @@
-module.exports = (dataObject, permissions) => {
-
+export default function (dataObject, permissions) {
     var here = {
-
         /**
          * Crée une manifestation
          * @param {string} name Nom de la manifestation à créer
@@ -22,7 +20,6 @@ module.exports = (dataObject, permissions) => {
                 Public: false
             };
         },
-
         /**
          * Inscrit une personne à une manif
          * @param {Number} idAccount ID du compte voulant s'inscrire à une manif
@@ -40,14 +37,15 @@ module.exports = (dataObject, permissions) => {
                     }).then(r => {
                         resolve();
                     }).catch(err => {
-                        if (err) reject(err);
+                        if (err)
+                            reject(err);
                     });
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * Détermine si l'utilisateur participe à une manif
          * @param {Number} idAccount ID de l'utilisateur
@@ -64,11 +62,11 @@ module.exports = (dataObject, permissions) => {
                 }).then(r => {
                     resolve(r == null);
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * retourne les évenements du mois (passés et futurs) et les répétitions d'anciens events
          */
@@ -82,26 +80,23 @@ module.exports = (dataObject, permissions) => {
                         var dateInit = Date.now();
                         var minDate = Date.UTC(new Date(Date.now()).getUTCFullYear, new Date(Date.now()).getUTCMonth, 1, 0, 0, 0, 0);
                         var maxDate = Date.UTC(new Date(Date.now()).getUTCFullYear, new Date(Date.now()).getUTCMonth + 1, 1, 0, 0, 0, 0) - 1;
-
                         if (dateInit > minDate &&
                             dateInit < maxDate ||
                             dateInit < minDate &&
                             Math.floor(minDate - dateInit / interval) < Math.floor(maxDate - dateInit / interval)) {
                             events.push(element);
                         }
-
                         items--;
                         if (items == 0) {
                             resolve(events);
                         }
-
                     });
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * Edite les données d'une manifestation
          * @param {Number} idManif ID de la manifestation
@@ -117,28 +112,35 @@ module.exports = (dataObject, permissions) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
                     var m = {};
-                    if (name) m.Nom = name;
-                    if (description) m.Description = description;
-                    if (imagePath) m.Chemin_Image = imagePath;
-                    if (date) m.Quand = date;
-                    if (timespan) m.Intervale = timespan;
-                    if (price) m.Prix = price;
-                    if (public) m.Public = public;
+                    if (name)
+                        m.Nom = name;
+                    if (description)
+                        m.Description = description;
+                    if (imagePath)
+                        m.Chemin_Image = imagePath;
+                    if (date)
+                        m.Quand = date;
+                    if (timespan)
+                        m.Intervale = timespan;
+                    if (price)
+                        m.Prix = price;
+                    if (public)
+                        m.Public = public;
                     dataObject.Manifestations.update(m, {
                         where: {
                             ID: idManif
                         }
                     }).then(r => {
-                        resolve()
+                        resolve();
                     }).catch(err => {
                         reject(err);
                     });
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * Récupère l'ID de l'utilisateur ayant proposé la manif
          * @param {Number} idManif ID de la manif dont on cherche à déterminer l'auteur
@@ -162,17 +164,18 @@ module.exports = (dataObject, permissions) => {
                                 reject(new Error("L'id de la manifestation #" + idManif + " n'a pas d'idée associée"));
                             }
                         }).catch(err => {
-                            if (err) reject(err);
+                            if (err)
+                                reject(err);
                         });
                     } else {
                         reject(new Error("L'id de la manifestation #" + idManif + " n'existe pas"));
                     }
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * Récupère la liste des personnes inscrites à un évènement
          * @param {Number} idAccount ID du compte de la personne souhaitant récupérer la liste des personnes inscrites
@@ -188,14 +191,15 @@ module.exports = (dataObject, permissions) => {
                     }).then(r => {
                         resolve(r);
                     }).catch(err => {
-                        if (err) reject(err);
+                        if (err)
+                            reject(err);
                     });
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         }
     };
-
     return here;
 }

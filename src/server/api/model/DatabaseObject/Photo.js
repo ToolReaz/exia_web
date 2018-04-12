@@ -1,7 +1,5 @@
-module.exports = (dataObject, permissions) => {
-
+export default function (dataObject, permissions) {
     var here = {
-
         /**
          * Ajoute une photo à une manif
          * @param {Number} idAccount ID du compte souhaitant uploader l'image
@@ -32,23 +30,28 @@ module.exports = (dataObject, permissions) => {
                                     ID_Manifestation: idManif
                                 }
                             }).then(t => {
-                                if (t) resolve();
-                                else reject();
+                                if (t)
+                                    resolve();
+                                else
+                                    reject();
                             }).catch(err => {
-                                if (err) reject(err);
+                                if (err)
+                                    reject(err);
                             });
                         }).catch(err => {
-                            if (err) reject(err);
+                            if (err)
+                                reject(err);
                         });;
                     }).catch(err => {
-                        if (err) reject(err);
+                        if (err)
+                            reject(err);
                     });;
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * Commente une photo
          * @param {Number} idAccount ID du compte
@@ -58,15 +61,33 @@ module.exports = (dataObject, permissions) => {
         CommentPhoto: (idAccount, idPhoto, comment) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_COMMENT_PHOTO").then(() => {
-                    dataObject.Commentaires.findOrCreate({where: {Texte: comment}}).then(r=>{
-                        dataObject.Commente.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto, ID_Commentaires: r[0].ID}}).then(s=>{
+                    dataObject.Commentaires.findOrCreate({
+                        where: {
+                            Texte: comment
+                        }
+                    }).then(r => {
+                        dataObject.Commente.findOrCreate({
+                            where: {
+                                ID: idAccount,
+                                ID_Photos: idPhoto,
+                                ID_Commentaires: r[0].ID
+                            }
+                        }).then(s => {
                             resolve();
-                        }).catch(err => { if (err) reject(err); });
-                    }).catch(err => { if (err) reject(err); });
-                }).catch(err => { if (err) reject(err); });
+                        }).catch(err => {
+                            if (err)
+                                reject(err);
+                        });
+                    }).catch(err => {
+                        if (err)
+                            reject(err);
+                    });
+                }).catch(err => {
+                    if (err)
+                        reject(err);
+                });
             });
         },
-
         /**
          * Like une photo
          * @param {Number} idAccount ID du compte
@@ -85,7 +106,8 @@ module.exports = (dataObject, permissions) => {
                         }).then(r => {
                             resolve();
                         }).catch(err => {
-                            if (err) reject(err);
+                            if (err)
+                                reject(err);
                         });
                     } else {
                         dataObject.likes.destroy({
@@ -96,15 +118,16 @@ module.exports = (dataObject, permissions) => {
                         }).then(r => {
                             resolve();
                         }).catch(err => {
-                            if (err) reject(err);
+                            if (err)
+                                reject(err);
                         });;
                     }
                 }).catch(err => {
-                    if (err) reject(err);
+                    if (err)
+                        reject(err);
                 });
             });
         },
-
         /**
          * Récupère le nombre de like d'une image
          * @param {Number} idPhoto ID de la photo dont il faut récupérer le nombre de like
@@ -118,6 +141,5 @@ module.exports = (dataObject, permissions) => {
             });
         }
     };
-
     return here;
 }

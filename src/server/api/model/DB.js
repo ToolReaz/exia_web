@@ -1,57 +1,61 @@
-const sql = require('sequelize');
+import sql from "sequelize";
 
 const connection = new sql({
-    dialect: 'mysql',
-    username: 'exia',
-    password: 'ingenieur123*',
-    database: 'exia',
-    host: 'toolreaz.space',
-    port: '3306',
-    logging: false
+    dialect:        'mysql',
+    username:       'exia',
+    password:       'ingenieur123*',
+    database:       'exia',
+    host:           'toolreaz.space',
+    port:           '3306',
+    logging:        false
 });
 
 const database = {
-    Achats :          require('./Tables/Achats')          (connection, sql),
-    Appartient :      require('./Tables/Appartient')      (connection, sql),
-    Categorie :       require('./Tables/Categorie')       (connection, sql),
-    Commentaires :    require('./Tables/Commentaires')    (connection, sql),
-    Commente :        require('./Tables/Commente')        (connection, sql),
-    Comprend :        require('./Tables/Comprend')        (connection, sql),
-    Compte :          require('./Tables/Compte')          (connection, sql),
-    Compte_PayPal :   require('./Tables/Compte_PayPal')   (connection, sql),
-    Idee :            require('./Tables/Idee')            (connection, sql),
-    Likes :           require('./Tables/Likes')           (connection, sql),
-    Manifestation :   require('./Tables/Manifestation')   (connection, sql),
-    Panier :          require('./Tables/Panier')          (connection, sql),
-    Participe :       require('./Tables/Participe')       (connection, sql),
-    Permission :      require('./Tables/Permission')      (connection, sql),
-    Photographie :    require('./Tables/Photographie')    (connection, sql),
-    Photos :          require('./Tables/Photos')          (connection, sql),
-    Possede :         require('./Tables/Possede')         (connection, sql),
-    Produit :         require('./Tables/Produit')         (connection, sql),
-    Regroupe :        require('./Tables/Regroupe')        (connection, sql),
-    Role :            require('./Tables/Role')            (connection, sql),
-    Session :         require('./Tables/Session')         (connection, sql),
-    Vote :            require('./Tables/Vote')            (connection, sql)
+    Achats:         require('./Tables/Achats').default                  (connection, sql),
+    Appartient:     require('./Tables/Appartient').default              (connection, sql),
+    Categorie:      require('./Tables/Categorie').default               (connection, sql),
+    Commentaires:   require('./Tables/Commentaires').default            (connection, sql),
+    Commente:       require('./Tables/Commente').default                (connection, sql),
+    Comprend:       require('./Tables/Comprend').default                (connection, sql),
+    Compte:         require('./Tables/Compte').default                  (connection, sql),
+    Compte_PayPal:  require('./Tables/Compte_PayPal').default           (connection, sql),
+    Idee:           require('./Tables/Idee').default                    (connection, sql),
+    Likes:          require('./Tables/Likes').default                   (connection, sql),
+    Manifestation:  require('./Tables/Manifestation').default           (connection, sql),
+    Panier:         require('./Tables/Panier').default                  (connection, sql),
+    Participe:      require('./Tables/Participe').default               (connection, sql),
+    Permission:     require('./Tables/Permission').default              (connection, sql),
+    Photographie:   require('./Tables/Photographie').default            (connection, sql),
+    Photos:         require('./Tables/Photos').default                  (connection, sql),
+    Possede:        require('./Tables/Possede').default                 (connection, sql),
+    Produit:        require('./Tables/Produit').default                 (connection, sql),
+    Regroupe:       require('./Tables/Regroupe').default                (connection, sql),
+    Role:           require('./Tables/Role').default                    (connection, sql),
+    Session:        require('./Tables/Session').default                 (connection, sql),
+    Vote:           require('./Tables/Vote').default                    (connection, sql)
 }
 
-const Permissions =   require('./Permission/Permissions') (database);
+const Permissions = require('./Permission/Permissions').default         (database);
 
-var DataBase = {};
+const DataBase = {
+    Compte:         require('./DatabaseObject/Compte').default          (database, Permissions),
+    Token:          require('./DatabaseObject/Token').default           (database, Permissions),
+    Photo:          require('./DatabaseObject/Photo').default           (database, Permissions),
+    Idea:           require('./DatabaseObject/Idea').default            (database, Permissions),
+    Manifestation:  require('./DatabaseObject/Manifestation').default   (database, Permissions),
+    PayPal:         require('./DatabaseObject/PayPal').default          (database, Permissions),
+    Role:           require('./DatabaseObject/Role').default            (database, Permissions),
+    Shop:           require('./DatabaseObject/Shop').default            (database, Permissions)
+};
 
-DataBase.Compte =           require('./DatabaseObject/Compte')          (database, Permissions);
-DataBase.Token =            require('./DatabaseObject/Token')           (database, Permissions);
-DataBase.Photo =            require('./DatabaseObject/Photo')           (database, Permissions);
-DataBase.Idea =             require('./DatabaseObject/Idea')            (database, Permissions);
-DataBase.Manifestation =    require('./DatabaseObject/Manifestation')   (database, Permissions);
-DataBase.PayPal =           require('./DatabaseObject/PayPal')          (database, Permissions);
-DataBase.Role =             require('./DatabaseObject/Role')            (database, Permissions);
-DataBase.Shop =             require('./DatabaseObject/Shop')            (database, Permissions);
 
-connection.sync({ force: false, logging: false }).then(() => {
+connection.sync({
+    force:          false,
+    logging:        false
+}).then(() => {
 
     Permissions.SetupPermissions();
 
 });
 
-module.exports = DataBase;
+export default DataBase;

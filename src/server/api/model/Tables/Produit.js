@@ -1,6 +1,4 @@
-/* jshint indent: 2 */
-
-module.exports = function (sequelize, DataTypes) {
+export default function (sequelize, DataTypes) {
 	return sequelize.define('Produit', {
 		ID: {
 			type: DataTypes.INTEGER(11),
@@ -29,6 +27,6 @@ module.exports = function (sequelize, DataTypes) {
 			}
 		}
 	}, {
-			tableName: 'Produit'
-		});
-};
+		tableName: 'Produit'
+	});
+}
