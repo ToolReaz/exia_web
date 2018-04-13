@@ -1,45 +1,88 @@
-
-.event{
+.event {
+  transition: 0.5s;
   border: 1px grey solid;
-  margin: 3% 0% 3% 0%;
-  background-color: rgb(220,220,220);
+  margin: 10% 0% 3% 0%;
+  background-color: rgb(255, 243, 242);
   text-align: justify;
+  position: relative;
+  box-shadow: 0px 0px 5px black;
 }
-.event p,span{
+
+.event:hover {
+  transition: 0.5s;
+  box-shadow: 0px 0px 20px #C2242A;
+  transform: translateY(-5px) scale(1.03);
+}
+
+.event p, span {
   font-size: 0.7em;
 }
 
-.event a{
-  width: 50%;
+.event a {
+  width: 100%;
+  height: auto;
   background-color: #C2242A;
   text-align: center;
   text-decoration: none;
-  margin-left: 15px;
   color: white;
+  padding: 5px 0px 4px 0px;
+  position: absolute;
+  bottom: -0.5px;
+  border: 1px #C2242A solid;
 }
 
-.event a:hover{
+.event a:hover {
   background-color: #D7282F;
+  box-shadow: none;
 }
 
-.event p{
+.event p {
+  font-weight: 420;
   font-size: 0.6em;
   height: 9.5em;
   overflow: hidden;
+  padding: 5px 15px 5px 15px;
+  margin-bottom: 5px;
 }
 
-.event2{
+.event .eventTitle {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #C2242A;
+  color: white;
+  padding: 5px;
+  font-size: 1.2em;
+  box-shadow: 2px 2px 5px black;
+  border: 1px #C2242A solid;
+}
+
+.eventImg {
+  width: 100%;
+  height: auto;
+  box-shadow: 0px 3px 5px black;
+}
+
+.eventDate {
+  padding-left: 15px;
+}
+
+.eventPrix {
+  padding-left: 30px;
+}
+
+.event2 {
   border: 1px grey solid;
   margin: 3% 0% 3% 6.333%;
-  background-color: rgb(220,220,220);
+  background-color: rgb(220, 220, 220);
   text-align: justify;
 }
 
-.event2 p,span{
+.event2 p, span {
   font-size: 0.7em;
 }
 
-.event2 a{
+.event2 a {
   width: 50%;
   background-color: #C2242A;
   text-align: center;
@@ -48,42 +91,43 @@
   color: white;
 }
 
-.event2 a:hover{
+.event2 a:hover {
   background-color: #D7282F;
 }
 
-.event2 p{
+.event2 p {
   font-size: 0.6em;
   height: 9.5em;
   overflow: hidden;
 }
 
-.h1Event{
+.h1Event {
   color: white;
   text-align: center;
-  background-color: #c2242a;
+  background: linear-gradient(to bottom, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, white);
   height: 5em;
   padding-top: 2em;
+  z-index: -1;
 }
 
-.green{
+.green {
   color: green;
 }
 
-.red{
+.red {
   color: red;
 }
 
-.grey{
+.grey {
   color: grey;
 }
 
 @media only screen and (max-width: 1000px) {
-  .event2{
+  .event2 {
     border: 1px grey solid;
     margin: 3% 0% 3% 0%;
   }
-  .event2 p,span{
+  .event2 p, span {
     font-size: 0.7em;
   }
 }

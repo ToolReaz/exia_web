@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="style.css" type="text/css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <title>CV</title>
+
+
+</head>
+<body>
+
+  <div class="grid-container">
+    <form method="post">
+
+      <fieldset>
+
+        <legend>Inscrivez vous !</legend>
+
+        <p>Prénom</p>
+        <input class="input-regular" type="text" name="firstname" pattern="^(?!.*[- ]{2,}.*)[àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœA-Za-z- ]+$" placeholder="Prénom" required onChange={this.handleChange}/>
+
+        <p>Nom</p>
+        <input class="input-regular" type="text" name="lastname" pattern="^(?!.*[- ]{2,}.*)[àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœA-Za-z- ]+$" placeholder="Nom" required onChange={this.handleChange}/>
+
+        <p>Adresse Email</p>
+        <input class="input-regular" type="mail" name="email" pattern="[A-Za-z0-9._+-]+@(via)?cesi.fr" placeholder="Email Viacesi" required onChange={this.handleChange}/>
+
+        <p>Mot de passe</p>
+        <input id="password" type="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Must be at least 6 characters long" name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required onChange={this.handleChange}/>
+
+        <p>Confirmez le mot de passe</p>
+        <input id="confirm_password" type="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="password confirm" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required onChange={this.handleChange}/>
+
+
+        <button type="submit" name="sign up" id="ca_btn" >S'inscrire !</button>
+
+      </fieldset>
+
+    </form>
+  </div>
+  <script>
+  var password = document.getElementById("password");
+    var confirm_password = document.getElementById("confirm_password");
+
+  function validatePassword(){
+    if(password.value != confirm_password.value) {
+      password.setCustomValidity("Les mots de passe ne correspondent pas !");
+      confirm_password.setCustomValidity("Les mots de passe ne correspondent pas !");
+    } else {
+      password.setCustomValidity('');
+      confirm_password.setCustomValidity('');
+    }
+  }
+
+  password.onchange = validatePassword;
+  password.onkeyup = validatePassword;
+  confirm_password.onkeyup = validatePassword;
+  </script>
+</body>
+
+
+</html>

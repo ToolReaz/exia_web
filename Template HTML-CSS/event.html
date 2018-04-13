@@ -1,81 +1,91 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>BDE Strasbourg</title>
-    <link rel="stylesheet" type="text/css" href=./css/grid.css />
-    <link rel="stylesheet" type="text/css" href=./css/global.css />
-    <link rel="stylesheet" type="text/css" href=./css/event.css />
-    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
-    <script src="./js/web.js"></script>
-  </head>
-  <body>
-    <div class="nav">
-      <div class="nav-btn">
-        <label for="nav-check">
+
+<head>
+  <meta charset="utf-8">
+  <title>BDE Strasbourg</title>
+  <link rel="stylesheet" type="text/css" href=./css/grid.css />
+  <link rel="stylesheet" type="text/css" href=./css/global.css />
+  <link rel="stylesheet" type="text/css" href=./css/event.css />
+  <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+  <script src="./js/web.js"></script>
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-btn">
+      <label for="nav-check">
           <span></span>
           <span></span>
           <span></span>
         </label>
-      </div>
-      <input type="checkbox" id="nav-check">
-
-      <div class="nav-links">
-        <a href="" target="_blank">Accueil</a>
-        <a href="" target="_blank">L'équipe</a>
-        <a href="" target="_blank">Evènements</a>
-        <a href="" target="_blank">Boutique</a>
-        <a class="caché" href="" target="_blank">Connexion</a>
-        <a class="caché" href="" target="_blank">Inscription</a>
-        <form class="caché" id="form" action="" method="">
-      		<input id="searchid" type="search" placeholder="Que cherchez vous ?">
-      		<button id="boutonsearchid">C'est parti !</button>
-      	</form>
-      </div>
-
-      <div class="nav-links-right">
-        <p class="s"><input name="search" id="search" type="search"></p>
-        <a href="" target="_blank">Connexion</a>
-        <a href="" target="_blank">Inscription</a>
-      </div>
     </div>
-    <h1 class="h1Event">Evènements à venir</h1>
-    <div class="grid-container">
-      <div class="row">
-        <div class="col-2"></div>
-        <div class="col-3 event">
-          <h2>Nom évènement<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Quisque id consectetur ipsum, eget pretium eros. Suspendisse nunc mi, venenatis varius luctus nec, vulputate bibendum quam. Fusce fermentum sed diam eget sollicitudin. Suspendisse blandit quam leo, id posuere ex sollicitudin vel. Suspendisse interdum lobortis scelerisque. Aliquam sollicitudin diam a ante laoreet congue. Duis sed consectetur lorem, eu elementum sem. Ut eleifend convallis tempor.</p>
-          <div><span class="col-6">Date 10/10/1010</span><span class="col-6">Prix XX€</span></div>
-          <a class="col-12" href="">Inscription</a>
+    <input type="checkbox" id="nav-check">
+
+    <div class="nav-links">
+      <a href="" target="_blank">Accueil</a>
+      <a href="" target="_blank">L'équipe</a>
+      <a href="" target="_blank">Evènements</a>
+      <a href="" target="_blank">Boutique</a>
+      <a class="caché" href="" target="_blank">Connexion</a>
+      <a class="caché" href="" target="_blank">Inscription</a>
+      <form class="caché" id="form" action="" method="">
+        <input id="searchid" type="search" placeholder="Que cherchez vous ?">
+        <button id="boutonsearchid">C'est parti !</button>
+      </form>
+    </div>
+
+    <div class="nav-links-right">
+      <p class="s"><input name="search" id="search" type="search"></p>
+      <a href="" target="_blank">Connexion</a>
+      <a href="" target="_blank">Inscription</a>
+    </div>
+  </div>
+  <h1 class="h1Event">Evènements à venir</h1>
+  <div class="grid-container">
+    <div class="row">
+      <div class="col-2"></div>
+      <div class="col-3">
+        <div class="event">
+          <h2 class="eventTitle">Nom évènement<h2>
+            <img class="eventImg" src="https://www.w3schools.com/howto/img_fjords.jpg">
+            <p>Quisque id consectetur ipsum, eget pretium eros. Suspendisse nunc mi, venenatis varius luctus nec, vulputate bibendum quam. Fusce fermentum sed diam eget sollicitudin. Suspendisse blandit quam leo, id posuere ex sollicitudin vel. Suspendisse interdum lobortis scelerisque. Aliquam sollicitudin diam a ante laoreet congue. Duis sed consectetur lorem, eu elementum sem. Ut eleifend convallis tempor.</p>
+            <div style="margin-bottom:45px;"><span class="eventDate">Date 10/10/1010</span><span class="eventPrix">Prix XX€</span></div>
+            <a href="">Inscription</a>
+          </div>
         </div>
         <div class="col-2"></div>
-        <div class="col-3 event">
-          <h2>Nom évènement<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <div><span class="col-6">Date 10/10/1010</span><span class="col-6">Prix XX€</span></div>
-          <a class="col-12" href="">Inscription</a>
-        </div>
+        <div class="col-3">
+          <div class="event">
+            <h2 class="eventTitle">Nom évènement<h2>
+              <img class="eventImg" src="https://www.w3schools.com/howto/img_fjords.jpg">
+              <p>Quisque id consectetur ipsum, eget pretium eros. Suspendisse nunc mi, venenatis varius luctus nec, vulputate bibendum quam. Fusce fermentum sed diam eget sollicitudin. Suspendisse blandit quam leo, id posuere ex sollicitudin vel. Suspendisse interdum lobortis scelerisque. Aliquam sollicitudin diam a ante laoreet congue. Duis sed consectetur lorem, eu elementum sem. Ut eleifend convallis tempor.</p>
+              <div style="margin-bottom:45px;"><span class="eventDate">Date 10/10/1010</span><span class="eventPrix">Prix XX€</span></div>
+              <a href="">Inscription</a>
+            </div>
+          </div>
       </div>
       <div class="row">
         <div class="col-2"></div>
-        <div class="col-3 event">
-          <h2>Nom évènement<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <div><span class="col-6">Date 10/10/1010</span><span class="col-6">Prix XX€</span></div>
-          <a class="col-12" href="">Inscription</a>
-        </div>
+        <div class="col-3">
+          <div class="event">
+            <h2 class="eventTitle">Nom évènement<h2>
+              <img class="eventImg" src="https://www.w3schools.com/howto/img_fjords.jpg">
+              <p>Quisque id consectetur ipsum, eget pretium eros. Suspendisse nunc mi, venenatis varius luctus nec, vulputate bibendum quam. Fusce fermentum sed diam eget sollicitudin. Suspendisse blandit quam leo, id posuere ex sollicitudin vel. Suspendisse interdum lobortis scelerisque. Aliquam sollicitudin diam a ante laoreet congue. Duis sed consectetur lorem, eu elementum sem. Ut eleifend convallis tempor.</p>
+              <div style="margin-bottom:45px;"><span class="eventDate">Date 10/10/1010</span><span class="eventPrix">Prix XX€</span></div>
+              <a href="">Inscription</a>
+            </div>
+          </div>
         <div class="col-2"></div>
-        <div class="col-3 event">
-          <h2>Nom évènement<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <div><span class="col-6">Date 10/10/1010</span><span class="col-6">Prix XX€</span></div>
-          <a class="col-12" href="">Inscription</a>
-        </div>
+        <div class="col-3">
+          <div class="event">
+            <h2 class="eventTitle">Nom évènement<h2>
+              <img class="eventImg" src="https://www.w3schools.com/howto/img_fjords.jpg">
+              <p>Quisque id consectetur ipsum, eget pretium eros. Suspendisse nunc mi, venenatis varius luctus nec, vulputate bibendum quam. Fusce fermentum sed diam eget sollicitudin. Suspendisse blandit quam leo, id posuere ex sollicitudin vel. Suspendisse interdum lobortis scelerisque. Aliquam sollicitudin diam a ante laoreet congue. Duis sed consectetur lorem, eu elementum sem. Ut eleifend convallis tempor.</p>
+              <div style="margin-bottom:45px;"><span class="eventDate">Date 10/10/1010</span><span class="eventPrix">Prix XX€</span></div>
+              <a href="">Inscription</a>
+            </div>
+          </div>
       </div>
     </div>
     <h1 class="h1Event">Evènements proposés</h1>

@@ -1,0 +1,30 @@
+.nomArticle {
+  font-size: 1.5em;
+  text-align: left;
+  margin-right: 10em;
+}
+
+.prix {
+  font-size: 1.1em;
+}
+
+.article a {
+  transition: 0.5s;
+  padding: 0.5em 1em 0.5em 1em;
+  background-color: white;
+  color: #C2242A;
+  border: 1px #C2242A solid;
+  margin: 10px 10px 10px 0px;
+  text-decoration: none;
+}
+
+.article a:hover {
+  transition: 0.5s;
+  background-color: #C2242A;
+  color: white;
+  border: 1px white solid;
+}
+
+.justify{
+  text-align: justify;
+}
