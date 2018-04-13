@@ -25,15 +25,11 @@ module.exports = (dataObject, permissions) => {
                             } else {
                                 reject(new Error("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ"));
                             }
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });
+                        }).catch(err => reject(err))
                     } else {
                         reject(new Error("Le token \"" + token + "\" n'existe pas."));
                     }
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
             });
         },
 
@@ -50,9 +46,7 @@ module.exports = (dataObject, permissions) => {
                 }).then(r => {
                     if (r) resolve(new Date(r.Derniere_connexion));
                     else reject(new Error("Le token \"" + token + "\" n'existe pas."));
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
             });
         },
 
@@ -66,10 +60,10 @@ module.exports = (dataObject, permissions) => {
             return dataObject.Session.update({
                 Derniere_connexion: timestamp
             }, {
-                where: {
-                    Token: token
-                }
-            });
+                    where: {
+                        Token: token
+                    }
+                });
         }
     };
 

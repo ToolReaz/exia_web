@@ -10,14 +10,10 @@ module.exports = (dataObject, permissions) => {
         GetAllIdeas: (idAccount) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_LIST_ACTIVITE").then(() => {
-                    dataObject.Idee.findAll().then(r=>{
+                    dataObject.Idee.findAll().then(r => {
                         resolve(r);
-                    }).catch(err => {
-                        if (err) reject(err);
-                    })
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                    }).catch(err => reject(err))
+                }).catch(err => reject(err))
             });
         },
 
@@ -64,12 +60,8 @@ module.exports = (dataObject, permissions) => {
                                 });
                             }
                         }
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                    }).catch(err => reject(err))
+                }).catch(err => reject(err))
             });
         },
 
@@ -90,14 +82,8 @@ module.exports = (dataObject, permissions) => {
                         defaults: {
                             Pour: vote
                         }
-                    }).then(r => {
-                        resolve();
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                    }).then(r => resolve()).catch(err => reject(err))
+                }).catch(err => reject(err))
             });
         },
 
@@ -124,17 +110,11 @@ module.exports = (dataObject, permissions) => {
                     dataObject.Idee.update({
                         Approuve: true
                     }, {
-                        where: {
-                            ID: idIdee
-                        }
-                    }).then(r => {
-                        resolve();
-                    }).catch(err => {
-                        reject(err);
-                    });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                            where: {
+                                ID: idIdee
+                            }
+                        }).then(r => resolve()).catch(err => reject(err))
+                }).catch(err => reject(err))
             });
         },
 

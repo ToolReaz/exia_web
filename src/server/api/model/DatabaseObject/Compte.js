@@ -23,9 +23,7 @@ module.exports = (dataObject, permissions) => {
                 }).then(r => {
                     if (r[1]) resolve();
                     else reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err));
             });
         },
 
@@ -42,9 +40,7 @@ module.exports = (dataObject, permissions) => {
                 }).then(r => {
                     if (r) resolve(r);
                     else reject(new Error("L'utilisateur \"" + email + "\" n'existe pas."));
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
             });
         },
 
@@ -61,9 +57,8 @@ module.exports = (dataObject, permissions) => {
                 }).then(r => {
                     if (r) resolve(r);
                     else reject(new Error("L'ID #" + idAccount + " n'existe pas."));
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
+
             });
         },
 
@@ -80,22 +75,15 @@ module.exports = (dataObject, permissions) => {
                             Token: token,
                             Derniere_connexion: Date.now(),
                             ID_Compte: idAccount
-                        }).then(r => {
-                            resolve();
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });
+                        }).then(r => resolve()).catch(err => reject(err))
                     } else {
-                        dataObject.Session.destroy({ where: { ID_Compte: idAccount } }).then(() => {
-                            resolve();
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });
+                        dataObject.Session.destroy({
+                            where: {
+                                ID_Compte: idAccount
+                            }
+                        }).then(() => resolve()).catch(err => reject(err))
                     }
-
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
             });
         },
 

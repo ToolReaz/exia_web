@@ -14,8 +14,8 @@ module.exports = (dataObject, permissions) => {
                 permissions.FilterPermission(idAccount, "P_ADD_SHOP").then(()=>{
                     dataObject.Produit.findOrCreate({where: {Nom: name, Description: description, Prix: price, ID_Compte: idAccount}}).then(r=>{
                         resolve();
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -29,8 +29,8 @@ module.exports = (dataObject, permissions) => {
                 permissions.FilterPermission(idAccount, "P_DELETE_SHOP").then(()=>{
                     dataObject.Produit.destroy({where: {ID: idProduct}}).then(r=>{
                         resolve();
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -92,13 +92,13 @@ module.exports = (dataObject, permissions) => {
                             if(!s[1]){
                                 dataObject.Panier.update({Quantite: r[0].Quantite+quantity}, {where: {ID: idAccount, ID_Produit: idProduct}}).then(s=>{
                                     resolve();
-                                }).catch(err=>{if(err)reject(err);});
+                                }).catch(err => reject(err));
                             } else {
                                 resolve();
                             }
-                        }).catch(err=>{if(err)reject(err);});
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                        }).catch(err => reject(err));
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -111,8 +111,8 @@ module.exports = (dataObject, permissions) => {
                 dataObject.Achats.findOne({where: {ID_Compte: idAccount, Realise: false}}).then(r=>{
                     dataObject.Panier.findAll({where: {ID: r.ID}}).then(s=>{
                         resolve(s);
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -139,16 +139,16 @@ module.exports = (dataObject, permissions) => {
                         if(s.Quantite>quantity){
                             dataObject.Panier.update({Quantite: s.Quantite-quantity}, {where: {ID: s.ID, ID_Produit: idProduct}}).then(t=>{
                                 resolve();
-                            }).catch(err=>{if(err)reject(err);});
+                            }).catch(err => reject(err));
                         } else if(s.Quantite==quantity){
                             dataObject.Panier.destroy({where: {ID: s.ID, ID_Produit: idProduct}}).then(t=>{
                                 resolve();
-                            }).catch(err=>{if(err)reject(err);});
+                            }).catch(err => reject(err));
                         } else {
                             reject(new Error("L'utilisateur ne peut pas supprimer plus de produits qu'il n'en a commandé"));
                         }
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -171,8 +171,8 @@ module.exports = (dataObject, permissions) => {
                 permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP").then(()=>{
                     dataObject.Categorie.findOrCreate({where: {Nom: categorie}}).then(r=>{
                         resolve();
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -186,8 +186,8 @@ module.exports = (dataObject, permissions) => {
                 permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP").then(()=>{
                     dataObject.Categorie.destroy({where: {ID: idCategorie}}).then(r=>{
                         resolve();
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -202,8 +202,8 @@ module.exports = (dataObject, permissions) => {
                 permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP").then(()=>{
                     dataObject.Regroupe.findOrCreate({where: {ID: idProduct, ID_Categorie: idCategorie}}).then(r=>{
                         resolve();
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         },
 
@@ -218,9 +218,17 @@ module.exports = (dataObject, permissions) => {
                 permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP").then(()=>{
                     dataObject.Regroupe.destroy({where: {ID: idProduct, ID_Categorie: idCategorie}}).then(r=>{
                         resolve();
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
+        },
+
+        /**
+         * Récupère toutes les catégories
+         * @returns {promise}
+         */
+        GetAllCategories: () => {
+            return dataObject.Categorie.findAll();
         }
 
     };

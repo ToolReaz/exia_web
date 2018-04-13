@@ -18,17 +18,11 @@ module.exports = (dataObject, permissions) => {
                         dataObject.Compte_PayPal.upsert({
                             GUID: paypalApiKey,
                             ID_Compte: r.ID
-                        }).then(s => {
-                            resolve();
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });
+                        }).then(s => resolve()).catch(err => reject(err));
                     } else {
                         reject(new Error("L'utilisateur #" + idAccount + " n'existe pas."));
                     }
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err));
             });
         },
 

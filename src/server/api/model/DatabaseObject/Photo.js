@@ -34,18 +34,10 @@ module.exports = (dataObject, permissions) => {
                             }).then(t => {
                                 if (t) resolve();
                                 else reject();
-                            }).catch(err => {
-                                if (err) reject(err);
-                            });
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });;
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });;
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                            }).catch(err => reject(err))
+                        }).catch(err => reject(err))
+                    }).catch(err => reject(err))
+                }).catch(err => reject(err))
             });
         },
 
@@ -61,9 +53,9 @@ module.exports = (dataObject, permissions) => {
                     dataObject.Commentaires.findOrCreate({where: {Texte: comment}}).then(r=>{
                         dataObject.Commente.findOrCreate({where: {ID: idAccount, ID_Photos: idPhoto, ID_Commentaires: r[0].ID}}).then(s=>{
                             resolve();
-                        }).catch(err => { if (err) reject(err); });
-                    }).catch(err => { if (err) reject(err); });
-                }).catch(err => { if (err) reject(err); });
+                        }).catch(err => reject(err))
+                    }).catch(err => reject(err))
+                }).catch(err => reject(err))
             });
         },
 
@@ -84,9 +76,7 @@ module.exports = (dataObject, permissions) => {
                             }
                         }).then(r => {
                             resolve();
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });
+                        }).catch(err => reject(err))
                     } else {
                         dataObject.likes.destroy({
                             where: {
@@ -95,13 +85,9 @@ module.exports = (dataObject, permissions) => {
                             }
                         }).then(r => {
                             resolve();
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });;
+                        }).catch(err => reject(err))
                     }
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
             });
         },
 
@@ -128,8 +114,8 @@ module.exports = (dataObject, permissions) => {
                 permissions.FilterPermission(idAccount, "P_REPORT").then(() => {
                     dataObject.Photos.update({Public: false}, {where: {ID: idPhoto}}).then(r=>{
                         resolve();
-                    }).catch(err=>{if(err)reject(err);});
-                }).catch(err=>{if(err)reject(err);});
+                    }).catch(err => reject(err));
+                }).catch(err => reject(err));
             });
         }
     };
