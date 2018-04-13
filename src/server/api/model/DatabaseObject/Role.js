@@ -23,7 +23,7 @@ module.exports = (dataObject, permissions) => {
         /**
          * Retourne les IDs des roles d'un utilisateur
          * @param {Number} idAccount ID du compte utilisateur
-         * @returns {Promise}
+         * @returns {Promise<number[]>}
          */
         GetRolesIDFromUser: (idAccount) => {
             return new Promise((resolve, reject)=>{
@@ -31,6 +31,29 @@ module.exports = (dataObject, permissions) => {
                     resolve(r.map(d=>{
                         return d.ID_Role;
                     }));
+                }).catch(err=>{if(err)reject(err);});
+            });
+        },
+
+        /**
+         * Retourne les roles associés à un utilisateur
+         * @param {number} idAccount ID du compte utilisateur
+         * @returns {Promise}
+         */
+        GetRolesFromUser: (idAccount) => {
+            return new Promise((resolve, reject) => {
+                here.GetRolesIDFromUser(idAccount).then(r=>{
+                    var l = r.length;
+                    var output = [];
+                    r.forEach(d=>{
+                        here.GetRoleFromID(d).then(s=>{
+                            output.push(s);
+                            l--;
+                            if(l==0){
+                                resolve(output);
+                            }
+                        }).catch(err=>{if(err)reject(err);});
+                    });
                 }).catch(err=>{if(err)reject(err);});
             });
         }
