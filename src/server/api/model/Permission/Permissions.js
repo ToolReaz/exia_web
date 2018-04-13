@@ -90,27 +90,27 @@ module.exports = (dataObject) => {
         /**     
          * Met les permissions de base     
          */
-        SetupPermissions: () => {
-            here.SetPermissions("R_STUDENT", "P_CONNECT").then(() => { }); //done
-            here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE").then(() => { }); //done
-            here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_VOTE_IDEE").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_ADD_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_LIST_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_LIKE_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_COMMENT_PHOTO").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_ADD_MANIF").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF").then(() => { });
-            here.SetPermissions("R_BDE", "P_VALID_MANIF").then(() => { });
-            here.SetPermissions("R_BDE", "P_LISTE_INSCRITS").then(() => { });
-            here.SetPermissions("R_BDE", "P_COMMENT_LAST").then(() => { });
-            here.SetPermissions("R_BDE", "P_ADMIN_PHOTO").then(() => { });
-            here.SetPermissions("R_EXIA", "P_REPORT").then(() => { });
-            here.SetPermissions("R_EXIA", "P_DUMP_PHOTO").then(() => { });
-            here.SetPermissions("R_BDE", "P_ADD_SHOP").then(() => { });
-            here.SetPermissions("R_BDE", "P_SET_CATEGORIE_SHOP").then(() => { });
-            here.SetPermissions("R_BDE", "P_DELETE_SHOP").then(() => { });
-            here.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP").then(() => { });
+        SetupPermissions: async () => {
+            await here.SetPermissions("R_STUDENT", "P_CONNECT") //done
+            await here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE") //done
+            await here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE")
+            await here.SetPermissions("R_STUDENT", "P_VOTE_IDEE")
+            await here.SetPermissions("R_STUDENT", "P_ADD_PHOTO")
+            await here.SetPermissions("R_STUDENT", "P_LIST_PHOTO")
+            await here.SetPermissions("R_STUDENT", "P_LIKE_PHOTO")
+            await here.SetPermissions("R_STUDENT", "P_COMMENT_PHOTO")
+            await here.SetPermissions("R_STUDENT", "P_ADD_MANIF")
+            await here.SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF")
+            await here.SetPermissions("R_BDE", "P_VALID_MANIF")
+            await here.SetPermissions("R_BDE", "P_LISTE_INSCRITS")
+            await here.SetPermissions("R_BDE", "P_COMMENT_LAST")
+            await here.SetPermissions("R_BDE", "P_ADMIN_PHOTO")
+            await here.SetPermissions("R_EXIA", "P_REPORT")
+            await here.SetPermissions("R_EXIA", "P_DUMP_PHOTO")
+            await here.SetPermissions("R_BDE", "P_ADD_SHOP")
+            await here.SetPermissions("R_BDE", "P_SET_CATEGORIE_SHOP")
+            await here.SetPermissions("R_BDE", "P_DELETE_SHOP")
+            await here.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP")
         }
     };
     return here;

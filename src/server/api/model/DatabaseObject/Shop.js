@@ -229,6 +229,14 @@ module.exports = (dataObject, permissions) => {
          */
         GetAllCategories: () => {
             return dataObject.Categorie.findAll();
+        },
+
+        /**
+         * Retourne une catégorie à partir de son nom
+         * @param {string} categorie Nom de la catégorie
+         */
+        GetCategorieFromName: (categorie) => {
+            return dataObject.Categorie.findOne({where: {Nom: categorie}});
         }
 
     };
