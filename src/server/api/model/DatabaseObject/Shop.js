@@ -8,12 +8,13 @@ module.exports = (dataObject, permissions) => {
          * @param {string} name Nom du produit à ajouter
          * @param {string} description Description du produit à créer
          * @param {number} price Prix du produit
+         * @returns {promise}
          */
         AddProduct: (idAccount, name, description, price) => {
             return new Promise((resolve, reject)=>{
                 permissions.FilterPermission(idAccount, "P_ADD_SHOP").then(()=>{
                     dataObject.Produit.findOrCreate({where: {Nom: name, Description: description, Prix: price, ID_Compte: idAccount}}).then(r=>{
-                        resolve();
+                        resolve(r.ID);
                     }).catch(err => reject(err));
                 }).catch(err => reject(err));
             });
@@ -237,7 +238,7 @@ module.exports = (dataObject, permissions) => {
          */
         GetCategorieFromName: (categorie) => {
             return dataObject.Categorie.findOne({where: {Nom: categorie}});
-        }
+        },
 
     };
 
