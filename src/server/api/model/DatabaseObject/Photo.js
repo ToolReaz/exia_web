@@ -116,6 +116,21 @@ module.exports = (dataObject, permissions) => {
                     ID_Photos: idPhoto
                 }
             });
+        },
+
+        /**
+         * Report une photo
+         * @param {number} idAccount ID du compte souhaitant report la photo
+         * @param {number} idPhoto ID de la photo à report
+         */
+        Report: (idAccount, idPhoto) => {
+            return new Promise((resolve, reject) => {
+                permissions.FilterPermission(idAccount, "P_REPORT").then(() => {
+                    dataObject.Photos.update({Public: false}, {where: {ID: idPhoto}}).then(r=>{
+                        resolve();
+                    }).catch(err=>{if(err)reject(err);});
+                }).catch(err=>{if(err)reject(err);});
+            });
         }
     };
 
