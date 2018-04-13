@@ -4,10 +4,21 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère l'ensemble des idées
+         * @param {number} idAccount ID du compte
          * @returns {Promise} Les idées
          */
-        GetAllIdeas: () => {
-            return dataObject.Idee.findAll();
+        GetAllIdeas: (idAccount) => {
+            return new Promise((resolve, reject) => {
+                permissions.FilterPermission(idAccount, "P_LIST_ACTIVITE").then(() => {
+                    dataObject.Idee.findAll().then(r=>{
+                        resolve(r);
+                    }).catch(err => {
+                        if (err) reject(err);
+                    })
+                }).catch(err => {
+                    if (err) reject(err);
+                });
+            });
         },
 
         /**
@@ -135,7 +146,8 @@ module.exports = (dataObject, permissions) => {
         GetVoteForCount: (idIdee) => {
             return dataObject.Vote.count({
                 where: {
-                    Pour: 1
+                    Pour: true,
+                    ID_Idee: idIdee
                 }
             });
         },
@@ -148,7 +160,8 @@ module.exports = (dataObject, permissions) => {
         GetVoteAgainstCount: (idIdee) => {
             return dataObject.Vote.count({
                 where: {
-                    Pour: 0
+                    Pour: false,
+                    ID_Idee: idIdee
                 }
             });
         }
