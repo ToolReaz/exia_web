@@ -61,6 +61,9 @@ router.get('/shop/category', (req, res) => {
 router.post('/shop/category', (req, res) => {
     ShopController.createCategory(req, res);
 });
+router.get('/shop/products', (req, res) => {
+    ShopController.getAllProducts(req, res);
+});
 
 
 

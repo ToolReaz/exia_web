@@ -64,8 +64,6 @@ class CreateManifestation extends Component {
     render() {
         return (
             <div>
-                <br/>
-                <h1>Créer une Manifestation</h1><br/>
                 <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
                     <input type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
                     <textarea name="description" placeholder="Description" onChange={this.handleChange}/><br/>

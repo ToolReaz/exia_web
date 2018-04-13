@@ -57,5 +57,13 @@ module.exports = {
         }).catch(reason => {
             res.json({'error': reason.message, 'content': null});
         });
+    },
+
+    getAllProducts: (req, res) => {
+        DB.Shop.GetAllProducts().then((products) => {
+            res.json({'error': null, 'content': products});
+        }).catch(reason => {
+            res.json({'error': reason.message, 'content': null});
+        });
     }
 };
