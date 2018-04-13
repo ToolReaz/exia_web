@@ -53,6 +53,6 @@ connection.sync({ force: false, logging: false }).then(() => {
 
     Permissions.SetupPermissions();
 
-});
+}).catch(err=>{console.log('MASTER ERROR !!! : '+err.message);});
 
 module.exports = DataBase;

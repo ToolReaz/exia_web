@@ -80,8 +80,10 @@ module.exports = (dataObject, permissions) => {
                     r.forEach(element => {
                         var interval = element.Intervale;
                         var dateInit = Date.now();
-                        var minDate = Date.UTC(new Date(Date.now()).getUTCFullYear, new Date(Date.now()).getUTCMonth, 1, 0, 0, 0, 0);
-                        var maxDate = Date.UTC(new Date(Date.now()).getUTCFullYear, new Date(Date.now()).getUTCMonth + 1, 1, 0, 0, 0, 0) - 1;
+                        var year = new Date(Date.now()).getUTCFullYear();
+                        var month = new Date(Date.now()).getUTCMonth();
+                        var minDate = Date.UTC(year, month, 1, 0, 0, 0, 0);
+                        var maxDate = Date.UTC(year, month + 1, 1, 0, 0, 0, 0) - 1;
 
                         if (dateInit > minDate &&
                             dateInit < maxDate ||
