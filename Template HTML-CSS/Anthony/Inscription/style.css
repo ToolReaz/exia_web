@@ -15,12 +15,16 @@ html {
 
 .grid-container{
   display: flex;
+    padding-top: 50px;
       align-items: center;
       justify-content: center;
       text-align: center;
+
 }
 form {
   font-family: "roboto", sans-serif;
+    background-color: rgba(153, 153, 153, 0.6);
+
   width: 400px;
   color: #111111;
   margin: 0;
