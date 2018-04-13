@@ -23,6 +23,20 @@ module.exports = (dataObject, permissions) => {
             };
         },
 
+        PosteManifestation: (idAccount, Manifestation) => {
+            return new Promise((resolve, reject) => {
+                permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
+                    dataObject.Manifestation.findOrCreate({where: Manifestation}).then(r=>{
+                        resolve();
+                    }).catch(err => {
+                        if (err) reject(err);
+                    });
+                }).catch(err => {
+                    if (err) reject(err);
+                });
+            });
+        },
+
         /**
          * Inscrit une personne à une manif
          * @param {Number} idAccount ID du compte voulant s'inscrire à une manif
