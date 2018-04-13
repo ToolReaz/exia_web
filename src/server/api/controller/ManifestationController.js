@@ -3,7 +3,21 @@ const DB = require('../model/DB');
 module.exports = {
 
     getAll: (req, res) => {
+        let reqToken = req.cookies.token;
 
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.GetThisMonthEvents().then(manifestations => {
+                    res.json({'error': null, 'content': manifestations});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                })
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas getallmanif !', 'content': null});
+        }
     },
 
     create: (req, res) => {
@@ -23,6 +37,40 @@ module.exports = {
     },
 
     subscribe: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqManifId = req.params.id;
 
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.Participe(id, reqManifId).then(ok => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas subscribe !', 'content': null});
+        }
+    },
+
+    validate: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqIdeaId = req.params.id;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Idee.ValideIdee(id, reqIdeaId).then(ok => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas valider idée !', 'content': null});
+        }
     }
 };

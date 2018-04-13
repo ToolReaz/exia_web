@@ -32,12 +32,20 @@ router.get('/idea/vote/against/:id', (req, res) => {
 
 // MANIFESTATION
 // Create a manifestation
+router.get('/manifestation', (req, res) => {
+    ManifestationController.getAll(req, res);
+});
+// Create a manifestation
 router.post('/manifestation', (req, res) => {
     ManifestationController.create(req, res);
 });
 // Subscribe to a manifestation
 router.post('/manifestation/subscribe/:id', (req, res) => {
     ManifestationController.subscribe(req, res);
+});
+// Validate to a manifestation
+router.post('/manifestation/validate/:id', (req, res) => {
+    ManifestationController.validate(req, res);
 });
 
 

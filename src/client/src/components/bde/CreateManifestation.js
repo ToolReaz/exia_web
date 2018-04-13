@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {postApi} from "../../lib/api/requestApi";
 
-class CreateIdea extends Component {
+class CreateManifestation extends Component {
 
     constructor(props) {
         super(props);
@@ -43,8 +43,8 @@ class CreateIdea extends Component {
         return (
             <div>
                 <br/>
-                <h1>Créer une idée</h1><br/>
-                <form id="create-idea-form" onSubmit={this.handleSubmit}>
+                <h1>Créer une Manifestation</h1><br/>
+                <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
                     <input type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
                     <textarea name="text" placeholder="Text" onChange={this.handleChange}/><br/>
                     <input type="submit" value="Envoyer"/>
@@ -55,4 +55,4 @@ class CreateIdea extends Component {
     }
 }
 
-export default CreateIdea;
+export default CreateManifestation;

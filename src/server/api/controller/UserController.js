@@ -24,6 +24,8 @@ module.exports = {
                         res.json({'error': "Nom d'utilisateur ou mot de passe incorrect !"});
                     }
                 });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
             });
         }
     },
@@ -117,6 +119,42 @@ module.exports = {
             });
         } else {
             res.json({'error': 'Déconnexion impossible !', 'content': null});
+        }
+    },
+
+    getRole: (req, res) => {
+        let reqToken = req.cookies.token;
+        if (reqToken) {
+            DB.Role.GetRoleFromName('R_BDE').then(role => {
+                DB.Token.GetAccountFromToken(reqToken).then(id => {
+                    DB.Role.GetRolesIDFromUser(id).then((userRoles) => {
+                        let items = userRoles.length;
+                        let returned = [];
+                        let error;
+                        userRoles.forEach(a=>{
+                            DB.Role.GetRoleFromID(a).then(role => {
+                                returned.push(role);
+                            }).catch(reason => {
+                                error = true;
+                            });
+                            items--;
+                            if (items===0) {
+                                if (error) {
+                                    res.json({'error': reason.message, 'content': null});
+                                } else {
+                                    res.json({'error': null, 'content': returned});
+                                }
+                            }
+                        });
+                    }).catch(reason => {
+                        res.json({'error': reason.message, 'content': null});
+                    });
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas role !', 'content': null});
         }
     }
 };

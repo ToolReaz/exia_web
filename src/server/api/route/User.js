@@ -22,4 +22,8 @@ router.get('/disconnect', (req, res, next) => {
     UserController.disconnect(req, res);
 });
 
+router.get('/role', (req, res, next) => {
+    UserController.getRole(req, res);
+});
+
 module.exports = router;

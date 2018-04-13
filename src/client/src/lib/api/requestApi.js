@@ -20,7 +20,6 @@ export function postApi(path, values) {
     return new Promise((resolve, reject) => {
         try {
             $.post(path, values, response => {
-                console.log(response);
                 if (response.error == null) {
                     resolve(response.content);
                 } else {
