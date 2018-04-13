@@ -53,11 +53,11 @@ connection.sync({ force: false, logging: false }).then(() => {
 
     Permissions.SetupPermissions();
 
-    DataBase.Shop.AddProduct(2, "test", "testDescription", 1000).then(()=>{
+    /*DataBase.Shop.AddProduct(2, "test", "testDescription", 1000).then(()=>{
         console.log('ok');
     }).catch(err=>{
         console.error(err.message);
-    })
+    })*/
 
 }).catch(err=>{console.log('MASTER ERROR !!! : '+err.message);});
 
