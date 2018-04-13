@@ -23,6 +23,11 @@ module.exports = (dataObject, permissions) => {
             };
         },
 
+        /**
+         * Poste une manifestation
+         * @param {number} idAccount ID du compte souhaitant créer directement une manif
+         * @param {any} Manifestation Manifestation issue de CreateManifestation
+         */
         PosteManifestation: (idAccount, Manifestation) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
