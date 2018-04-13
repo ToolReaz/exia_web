@@ -67,30 +67,47 @@ class Event extends Component {
 
     render() {
         let view = [];
+        let tmp = [];
         view.push(<Header/>);
         view.push(<CreateIdea/>);
-        view.push(
-            <div>
-                <h1>Liste des idées</h1><br/>
-            </div>
-        );
+
+
         this.state.ideas.forEach((idea) =>  {
             idea.roles = this.state.roles;
-            view.push(
-                <div className="row">
-                    <Idea values={idea} /><br/>
-                </div>
+            tmp.push(
+                <Idea values={idea} />
             );
         });
+
+
         view.push(
-            <div>
-                <h2>Liste des manifestations</h2><br/>
+            <div className="grid-container">
+                <div className="row">
+                    <h2>Liste des idées</h2>
+                </div>
+                <div className="row">
+                    {tmp}
+                </div>
+            </div>
+        );
+
+
+
+
+
+        view.push(
+            <div className="grid-container">
+                <div className="row">
+                    <h2>Liste des manifestations</h2>
+                </div>
             </div>
         );
         this.state.manifestations.forEach((manifestation) =>  {
             view.push(
-                <div className="row">
-                    <Manifestation values={manifestation} /><br/>
+                <div className="grid-container">
+                    <div className="row">
+                        <Manifestation values={manifestation} />
+                    </div>
                 </div>
             );
         });

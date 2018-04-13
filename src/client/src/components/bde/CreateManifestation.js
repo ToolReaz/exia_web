@@ -11,8 +11,7 @@ class CreateManifestation extends Component {
             description: '',
             date: '',
             interval: '',
-            price: 0,
-            isPublic: false
+            price: 0
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -32,8 +31,6 @@ class CreateManifestation extends Component {
                 break;
             case 'price': this.setState({price: e.target.value});
                 break;
-            case 'isPublic': this.setState({isPublic: e.target.value});
-                break;
             default:
                 break;
         }
@@ -47,8 +44,7 @@ class CreateManifestation extends Component {
             description: this.state.description,
             date: this.state.date,
             interval: this.state.interval,
-            price: this.state.price,
-            isPublic: this.state.isPublic
+            price: this.state.price
         };
         postApi('/api/manifestation', data).then(res => {
             console.log(res);
@@ -57,8 +53,7 @@ class CreateManifestation extends Component {
                 description: '',
                 date: '',
                 interval: '',
-                price: 0,
-                isPublic: false
+                price: 0
             });
         }).catch(reason => {
             console.log(reason);
@@ -77,7 +72,6 @@ class CreateManifestation extends Component {
                     <input type="date" name="date" onChange={this.handleChange}/><br/>
                     <input type="integer" name="interval" placeholder="Interval" onChange={this.handleChange}/><br/>
                     <input type="integer" name="price" placeholder="Prix" onChange={this.handleChange}/><br/>
-                    <input type="checkbox" name="isPublic" onChange={this.handleChange}/><br/>
                     <input type="submit" value="Créer"/>
                 </form>
                 <br/>

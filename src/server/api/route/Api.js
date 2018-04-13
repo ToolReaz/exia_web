@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 let IdeaController = require('../controller/IdeaController');
 let ManifestationController = require('../controller/ManifestationController');
-let PaypalController = require('../controller/PaypalController');
+let ShopController = require('../controller/ShopController');
 let PhotoController = require('../controller/PhotoController');
 
 
@@ -51,9 +51,15 @@ router.get('/manifestation/validate/:id', (req, res) => {
 
 
 
-// PAYPAL
-router.get('/paypal', (req, res) => {
-    PaypalController.set(req, res);
+// SHOP
+router.post('/shop/article', (req, res) => {
+    ShopController.createArticle(req, res);
+});
+router.get('/shop/category', (req, res) => {
+    ShopController.getAllCategories(req, res);
+});
+router.post('/shop/category', (req, res) => {
+    ShopController.createCategory(req, res);
 });
 
 

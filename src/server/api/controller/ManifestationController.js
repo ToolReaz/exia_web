@@ -33,7 +33,9 @@ module.exports = {
         if (reqToken) {
             DB.Compte.GetAccountFromToken(reqToken).then(id => {
 
-            })
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
         } else {
             res.json({'error': 'Pas connecté = pas créer manifestation !', 'content': null});
         }
