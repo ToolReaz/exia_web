@@ -9,7 +9,7 @@ class Idea extends Component {
             voteFor: props.values.VotePour,
             voteAgainst: props.values.VoteContre,
             id: props.values.ID,
-            //role: props.values.role.Nom_role
+            roles: props.values.roles
         };
         console.log(props.values);
 
@@ -40,7 +40,7 @@ class Idea extends Component {
     }
 
     validateIdea(e) {
-        getApi('/api/manifestation/validate/' + this.state.ID).then(res => {
+        getApi('/api/manifestation/validate/' + this.state.id).then(res => {
             alert('Manifestation valider !');
         }).catch(reason => {
             alert(reason);
@@ -59,7 +59,7 @@ class Idea extends Component {
                 <button id="for" onClick={this.vote}>Vote pour: {this.state.voteFor}</button>
             </div>
         );
-        if (this.state.role === 'R_BDE') {
+        if (this.state.roles.includes('R_BDE')) {
             view.push(
                 <button onClick={this.validateIdea}>Valider l'idée</button>
             )

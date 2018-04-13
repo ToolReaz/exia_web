@@ -14,16 +14,16 @@ class Event extends Component {
             error: null,
             ideas: [],
             manifestations: [],
-            role: ''
+            roles: []
         };
     }
 
 
     getRole() {
-        getApi('/user/role').then(res => {
+        getApi('/user/roles').then(res => {
             console.log('ROLES:');
             console.log(res);
-            this.setState({role: res});
+            this.setState({roles: res});
         }).catch(reason => {
             alert(reason);
         });
@@ -75,7 +75,7 @@ class Event extends Component {
             </div>
         );
         this.state.ideas.forEach((idea) =>  {
-            idea.role = this.state.role;
+            idea.roles = this.state.roles;
             view.push(
                 <div className="row">
                     <Idea values={idea} /><br/>

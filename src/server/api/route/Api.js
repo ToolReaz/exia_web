@@ -44,7 +44,7 @@ router.post('/manifestation/subscribe/:id', (req, res) => {
     ManifestationController.subscribe(req, res);
 });
 // Validate to a manifestation
-router.post('/manifestation/validate/:id', (req, res) => {
+router.get('/manifestation/validate/:id', (req, res) => {
     ManifestationController.validate(req, res);
 });
 

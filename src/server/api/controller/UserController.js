@@ -122,36 +122,21 @@ module.exports = {
         }
     },
 
-    getRole: (req, res) => {
+    getRoles: (req, res) => {
         let reqToken = req.cookies.token;
         if (reqToken) {
-            DB.Role.GetRoleFromName('R_BDE').then(role => {
-                DB.Token.GetAccountFromToken(reqToken).then(id => {
-                    DB.Role.GetRolesIDFromUser(id).then((userRoles) => {
-                        let items = userRoles.length;
-                        let returned = [];
-                        let error;
-                        userRoles.forEach(a=>{
-                            DB.Role.GetRoleFromID(a).then(role => {
-                                returned.push(role);
-                            }).catch(reason => {
-                                error = true;
-                            });
-                            items--;
-                            if (items===0) {
-                                if (error) {
-                                    res.json({'error': reason.message, 'content': null});
-                                } else {
-                                    res.json({'error': null, 'content': returned});
-                                }
-                            }
-                        });
-                    }).catch(reason => {
-                        res.json({'error': reason.message, 'content': null});
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Role.GetRolesFromUser(id).then((roles) => {
+                    let userRoles = [];
+                    roles.forEach(role => {
+                        userRoles.push(role.Nom_role);
                     });
+                    res.json({'error': null, 'content': userRoles});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
             });
         } else {
             res.json({'error': 'Pas connecté = pas role !', 'content': null});

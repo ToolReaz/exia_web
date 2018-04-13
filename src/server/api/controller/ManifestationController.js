@@ -21,18 +21,21 @@ module.exports = {
     },
 
     create: (req, res) => {
+        let reqToken = req.cookies.token;
         let reqName = req.body.name;
         let reqDescription = req.body.description;
         let reqImagePath = req.body.imagePath;
         let reqDate = req.body.date;
         let reqPrice = req.body.price;
         let reqInterval = req.body.interval;
-        let reqFree = req.body.free;
+        let reqIsPublic= req.body.isPublic;
 
-        if (!reqName) {
-            res.json({'error': 'Champs invalides !'});
+        if (reqToken) {
+            DB.Compte.GetAccountFromToken(reqToken).then(id => {
+
+            })
         } else {
-            //DB.CreateManifestation
+            res.json({'error': 'Pas connecté = pas créer manifestation !', 'content': null});
         }
     },
 
@@ -61,7 +64,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Idee.ValideIdee(id, reqIdeaId).then(ok => {
+                DB.Idea.ValideIdee(id, reqIdeaId).then(ok => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

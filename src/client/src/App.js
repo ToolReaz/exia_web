@@ -8,6 +8,7 @@ import Event from "./pages/user/event";
 import Index from "./pages";
 import Team from "./pages/team";
 import Account from "./pages/account";
+import Bde from "./pages/bde/bde";
 
 class App extends Component {
   render() {
@@ -19,6 +20,7 @@ class App extends Component {
             <Route path="/admin" component={Admin} />
             <Route path="/event" component={Event} />
             <Route path="/team" component={Team} />
+            <Route path="/bde" component={Bde} />
             <Route path="/user/account" component={Account} />
         </Switch>
     );
