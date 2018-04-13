@@ -74,7 +74,7 @@ module.exports = (dataObject, permissions) => {
          */
         GetThisMonthEvents: () => {
             return new Promise((resolve, reject) => {
-                dataObject.Manifestations.findAll().then(r => {
+                dataObject.Manifestation.findAll().then(r => {
                     var events = [];
                     var items = r.length;
                     r.forEach(element => {

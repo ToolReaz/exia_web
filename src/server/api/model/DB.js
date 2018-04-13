@@ -33,20 +33,21 @@ const database = {
     Role :            require('./Tables/Role')            (connection, sql),
     Session :         require('./Tables/Session')         (connection, sql),
     Vote :            require('./Tables/Vote')            (connection, sql)
-}
+};
 
 const Permissions =   require('./Permission/Permissions') (database);
 
-var DataBase = {};
+const DataBase = {
+    Compte :          require('./DatabaseObject/Compte')          (database, Permissions),
+    Token :           require('./DatabaseObject/Token')           (database, Permissions),
+    Photo :           require('./DatabaseObject/Photo')           (database, Permissions),
+    Idea :            require('./DatabaseObject/Idea')            (database, Permissions),
+    Manifestation :   require('./DatabaseObject/Manifestation')   (database, Permissions),
+    PayPal :          require('./DatabaseObject/PayPal')          (database, Permissions),
+    Role :            require('./DatabaseObject/Role')            (database, Permissions),
+    Shop :            require('./DatabaseObject/Shop')            (database, Permissions)
+};
 
-DataBase.Compte =           require('./DatabaseObject/Compte')          (database, Permissions);
-DataBase.Token =            require('./DatabaseObject/Token')           (database, Permissions);
-DataBase.Photo =            require('./DatabaseObject/Photo')           (database, Permissions);
-DataBase.Idea =             require('./DatabaseObject/Idea')            (database, Permissions);
-DataBase.Manifestation =    require('./DatabaseObject/Manifestation')   (database, Permissions);
-DataBase.PayPal =           require('./DatabaseObject/PayPal')          (database, Permissions);
-DataBase.Role =             require('./DatabaseObject/Role')            (database, Permissions);
-DataBase.Shop =             require('./DatabaseObject/Shop')            (database, Permissions);
 
 connection.sync({ force: false, logging: false }).then(() => {
 
