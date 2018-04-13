@@ -9,7 +9,7 @@ class CreateIdea extends Component {
             error: null,
             name: '',
             text: ''
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);

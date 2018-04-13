@@ -8,6 +8,8 @@ import Event from "./pages/user/event";
 import Index from "./pages";
 import Team from "./pages/team";
 import Account from "./pages/account";
+import Bde from "./pages/bde/bde";
+import Shop from "./pages/public/shop";
 
 class App extends Component {
   render() {
@@ -16,10 +18,12 @@ class App extends Component {
             <Route exact path="/" component={Index} />
             <Route path="/user/register" component={UserRegister} />
             <Route path="/user/connect" component={UserConnect} />
+            <Route path="/user/account" component={Account} />
             <Route path="/admin" component={Admin} />
             <Route path="/event" component={Event} />
             <Route path="/team" component={Team} />
-            <Route path="/user/account" component={Account} />
+            <Route path="/bde" component={Bde} />
+            <Route path="/shop" component={Shop} />
         </Switch>
     );
   }

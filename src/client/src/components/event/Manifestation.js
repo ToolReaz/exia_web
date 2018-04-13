@@ -1,44 +1,42 @@
-import React, { Component } from 'react';
-import $ from 'jquery';
+import React, {Component} from "react";
+import {getApi} from "../../lib/api/requestApi";
 
 class Manifestation extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
-            event: {},
-            name: '',
-            description: '',
-            imagePath: '',
-            date: '',
-            price: 0,
-            isPublic: true,
-            interval: 0
+            id: props.values.ID,
+            subscribed: false
         };
+
+        this.subscribe = this.subscribe.bind(this);
     }
 
-    getManifestation(id) {
-        try {
-            $.get('/api/event/' + id, res => {
-                console.log(res);
-                if (!res.error) {
-                    this.setState({event: res.event});
-                }
-            }, "json");
-        } catch (e) {
-            this.setState({
-                error: e
-            });
-        }
+    subscribe() {
+        getApi('/api/manifestation/subscribe/' + this.state.id).then(res => {
+            console.log(res);
+            this.setState({subscribed: true});
+        }).catch(reason => {
+            console.log(reason);
+        })
+    }
+
+    componentDidMount() {
+
     }
 
     render() {
         return (
             <div>
-                <p>Manif</p>
+                <p><strong>{this.props.values.Nom}</strong></p>
+                <p>Description: {this.props.values.Description}</p>
+                <p>Date: {this.props.values.Date}</p>
+                <p>Intreval: {this.props.values.Intervale}</p>
+                <p>Prix: {this.props.values.Prix}</p>
+                <button onClick={this.subscribe}>S'inscrire</button>
             </div>
-        )
+        );
     }
 }
 
