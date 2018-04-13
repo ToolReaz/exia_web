@@ -10,6 +10,7 @@ class CreateShopProduct extends Component {
             name: '',
             description: '',
             price: 0,
+            category: '',
             categories: []
         };
 
@@ -20,10 +21,14 @@ class CreateShopProduct extends Component {
 
     componentDidMount() {
         getApi('/api/shop/category').then(res => {
+            let tmp = [];
             res.forEach(category => {
-                this.setState({categories: this.state.categories.push(category)});
-            })
-        })
+                tmp.push(category);
+            });
+            this.setState({categories: tmp});
+        }).catch(reason => {
+            alert(reason);
+        });
     }
 
 
@@ -34,6 +39,8 @@ class CreateShopProduct extends Component {
             case 'description': this.setState({description: e.target.value});
                 break;
             case 'price': this.setState({price: e.target.value});
+                break;
+            case 'category': this.setState({category: e.target.value});
                 break;
             default:
                 break;
@@ -46,13 +53,16 @@ class CreateShopProduct extends Component {
         let data = {
             name: this.state.name,
             description: this.state.description,
-            price: this.state.price
+            price: this.state.price,
+            category: this.state.category
         };
+        console.log(this.state.category);
         postApi('/api/shop/article', data).then(res => {
             this.setState({
                 name: '',
                 description: '',
-                price: 0
+                price: 0,
+                category: ''
             });
             alert('Article ajouté !');
         }).catch(reason => {
@@ -61,12 +71,21 @@ class CreateShopProduct extends Component {
     }
 
     render() {
+        let catSelector = [];
+        this.state.categories.forEach(cat => {
+            catSelector.push(
+                <option value={cat.Nom}>{cat.Nom}</option>
+            );
+        });
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="name" placeholder="Nom du produit" value={this.state.name} onChange={this.handleChange}/>
                     <textarea name="description" placeholder="Description du produit" value={this.state.description} onChange={this.handleChange}/>
                     <input type="integer" name="price" placeholder="Prix du produit" value={this.state.price} onChange={this.handleChange}/>
+                    <select name="category" onChange={this.handleChange}>
+                        {catSelector}
+                    </select>
                     <input type="submit" value="Créer le produit"/>
                 </form>
             </div>

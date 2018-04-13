@@ -7,7 +7,7 @@ class CreateShopCategory extends Component {
         super(props);
         this.state = {
             error: null,
-            name: ''
+            catName: ''
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -16,20 +16,19 @@ class CreateShopCategory extends Component {
 
 
     handleChange(e) {
-        this.setState({name: e.target.value});
+        if (e.target.name === 'catName') {
+            this.setState({catName: e.target.value});
+        }
     }
 
 
     handleSubmit(e) {
         e.preventDefault();
-        let data = {
-            name: this.state.name
-        };
-        postApi('/api/shop/article', data).then(res => {
+        postApi('/api/shop/category', {name: this.state.catName}).then(res => {
             this.setState({
-                name: ''
+                catName: ''
             });
-            alert('Article ajouté !');
+            alert('Categorie ajouté !');
         }).catch(reason => {
             alert(reason);
         });
@@ -39,7 +38,7 @@ class CreateShopCategory extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom de la catégorie" value={this.state.name} onChange={this.handleChange}/>
+                    <input type="text" name="catName" placeholder="Nom de la catégorie" value={this.state.catName} onChange={this.handleChange}/>
                     <input type="submit" value="Créer la catégorie"/>
                 </form>
             </div>
