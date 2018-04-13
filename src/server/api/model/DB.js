@@ -51,13 +51,13 @@ const DataBase = {
 
 connection.sync({ force: false, logging: false }).then(() => {
 
-    Permissions.SetupPermissions();
-
-    DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000).then((i)=>{
-        console.log('i :'+i);
-    }).catch(err=>{
-        console.error(err.message);
-    })
+    Permissions.SetupPermissions().then(()=>{
+        /*DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000).then((i)=>{
+            console.log('i :'+i);
+        }).catch(err=>{
+            console.error(err.message);
+        });*/
+    }).catch(err=>console.error(err.message));
 
 }).catch(err=>{console.log('MASTER ERROR !!! : '+err.message);});
 
