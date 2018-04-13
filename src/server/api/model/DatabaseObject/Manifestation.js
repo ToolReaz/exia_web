@@ -24,6 +24,23 @@ module.exports = (dataObject, permissions) => {
         },
 
         /**
+         * Poste une manifestation
+         * @param {number} idAccount ID du compte souhaitant créer directement une manif
+         * @param {any} Manifestation Manifestation issue de CreateManifestation
+         */
+        PosteManifestation: (idAccount, Manifestation) => {
+            return new Promise((resolve, reject) => {
+                permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
+                    dataObject.Manifestation.findOrCreate({ where: Manifestation }).then(r => {
+                        resolve();
+                    }).catch(err => reject(err))
+
+                }).catch(err => reject(err))
+
+            });
+        },
+
+        /**
          * Inscrit une personne à une manif
          * @param {Number} idAccount ID du compte voulant s'inscrire à une manif
          * @param {Number} idManif ID de la manif
@@ -39,12 +56,10 @@ module.exports = (dataObject, permissions) => {
                         }
                     }).then(r => {
                         resolve();
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                    }).catch(err => reject(err))
+
+                }).catch(err => reject(err))
+
             });
         },
 
@@ -63,9 +78,8 @@ module.exports = (dataObject, permissions) => {
                     }
                 }).then(r => {
                     resolve(r == null);
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
+
             });
         },
 
@@ -98,9 +112,8 @@ module.exports = (dataObject, permissions) => {
                         }
 
                     });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
+
             });
         },
 
@@ -130,14 +143,9 @@ module.exports = (dataObject, permissions) => {
                         where: {
                             ID: idManif
                         }
-                    }).then(r => {
-                        resolve()
-                    }).catch(err => {
-                        reject(err);
-                    });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                    }).then(r => resolve()).catch(err => reject(err))
+                }).catch(err => reject(err))
+
             });
         },
 
@@ -163,15 +171,13 @@ module.exports = (dataObject, permissions) => {
                             } else {
                                 reject(new Error("L'id de la manifestation #" + idManif + " n'a pas d'idée associée"));
                             }
-                        }).catch(err => {
-                            if (err) reject(err);
-                        });
+                        }).catch(err => reject(err))
+
                     } else {
                         reject(new Error("L'id de la manifestation #" + idManif + " n'existe pas"));
                     }
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                }).catch(err => reject(err))
+
             });
         },
 
@@ -187,14 +193,8 @@ module.exports = (dataObject, permissions) => {
                         where: {
                             ID_Manifestation: idManif
                         }
-                    }).then(r => {
-                        resolve(r);
-                    }).catch(err => {
-                        if (err) reject(err);
-                    });
-                }).catch(err => {
-                    if (err) reject(err);
-                });
+                    }).then(r => resolve(r)).catch(err => reject(err))
+                }).catch(err => reject(err))
             });
         }
     };

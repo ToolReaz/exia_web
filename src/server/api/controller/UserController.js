@@ -24,6 +24,8 @@ module.exports = {
                         res.json({'error': "Nom d'utilisateur ou mot de passe incorrect !"});
                     }
                 });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
             });
         }
     },
@@ -57,7 +59,6 @@ module.exports = {
             // Get user ID from token
             DB.Token.GetTokenTime(reqToken).then(date => {
                 // Verify if token is expired (24H validity)
-                console.log((Date.now()-date));
                 if ((Date.now()-date) <= 3600*24*1000) {
                     // If token is VALID
                     // Get account ID associated with token
@@ -100,6 +101,45 @@ module.exports = {
                 // Error: send the error to client
                 res.json({'error': reason.message, 'content': null});
             });
+        }
+    },
+
+    disconnect: (req, res) => {
+        let reqToken = req.cookies.token;
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Compte.SetToken(id, '').then(() => {
+                    res.clearCookie('token');
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Déconnexion impossible !', 'content': null});
+        }
+    },
+
+    getRoles: (req, res) => {
+        let reqToken = req.cookies.token;
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Role.GetRolesFromUser(id).then((roles) => {
+                    let userRoles = [];
+                    roles.forEach(role => {
+                        userRoles.push(role.Nom_role);
+                    });
+                    res.json({'error': null, 'content': userRoles});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas role !', 'content': null});
         }
     }
 };

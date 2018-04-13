@@ -31,7 +31,7 @@ module.exports = (dataObject, permissions) => {
                     resolve(r.map(d=>{
                         return d.ID_Role;
                     }));
-                }).catch(err=>{if(err)reject(err);});
+                }).catch(err => reject(err));
             });
         },
 
@@ -52,9 +52,9 @@ module.exports = (dataObject, permissions) => {
                             if(l==0){
                                 resolve(output);
                             }
-                        }).catch(err=>{if(err)reject(err);});
+                        }).catch(err => reject(err));
                     });
-                }).catch(err=>{if(err)reject(err);});
+                }).catch(err => reject(err));
             });
         }
 
