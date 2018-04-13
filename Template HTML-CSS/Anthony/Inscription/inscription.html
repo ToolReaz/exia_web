@@ -27,7 +27,7 @@
         <input class="input-regular" type="mail" name="email" pattern="[A-Za-z0-9._+-]+@(via)?cesi.fr" placeholder="Email Viacesi" required onChange={this.handleChange}/>
 
         <p>Mot de passe</p>
-        <input id="password" type="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="Must be at least 6 characters long" name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required onChange={this.handleChange}/>
+        <input id="password" type="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="6 caractères 1 majuscule 1 chiffre minimum requis" name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required onChange={this.handleChange}/>
 
         <p>Confirmez le mot de passe</p>
         <input id="confirm_password" type="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="password confirm" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required onChange={this.handleChange}/>
