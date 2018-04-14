@@ -52,6 +52,7 @@ const DataBase = {
 connection.sync({ force: false, logging: false }).then(() => {
 
     Permissions.SetupPermissions().then(()=>{
+        console.log("Successfully initialized DB connection !");
         /*DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000).then((i)=>{
             console.log('i :'+i);
         }).catch(err=>{
