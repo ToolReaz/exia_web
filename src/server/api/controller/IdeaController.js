@@ -73,5 +73,20 @@ module.exports = {
         } else {
             res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
         }
+    },
+
+    validate: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqId = req.params.id;
+        let reqTitle = req.params.title;
+        let reqDescription = req.params.description;
+
+        if (reqToken) {
+            DB.Compte.GetAccountFromToken(reqToken).then(id => {
+
+            })
+        } else {
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
+        }
     }
 };

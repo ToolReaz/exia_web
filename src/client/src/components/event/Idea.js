@@ -6,8 +6,8 @@ class Idea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            voteFor: props.values.VotePour,
-            voteAgainst: props.values.VoteContre,
+            voteFor: props.values.voteFor,
+            voteAgainst: props.values.voteAgainst,
             id: props.values.ID,
             roles: props.values.roles
         };
@@ -49,10 +49,14 @@ class Idea extends Component {
 
 
     render() {
-        let view = [];
-        view.push(
+        let validBtn = '';
+        if (this.state.roles.includes('R_BDE')) {
+            validBtn = (<button onClick={this.validateIdea}>Valider l'idée</button>);
+        }
+        return (
             <div className="col-3">
                 <div className="event">
+                    {validBtn}
                     <h2>Nom: {this.props.values.Titre}</h2>
                     <p>Soumis le: {this.props.values.Soumis_le}</p>
                     <p>Texte: {this.props.values.Texte}</p>
@@ -61,12 +65,6 @@ class Idea extends Component {
                 </div>
             </div>
         );
-        if (!this.state.roles.includes('R_BDE')) {
-            view.push(
-                <button onClick={this.validateIdea}>Valider l'idée</button>
-            )
-        }
-        return view;
     }
 }
 

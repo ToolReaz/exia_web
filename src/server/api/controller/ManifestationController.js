@@ -22,17 +22,14 @@ module.exports = {
 
     create: (req, res) => {
         let reqToken = req.cookies.token;
-        let reqName = req.body.name;
+        let reqTitle = req.body.title;
         let reqDescription = req.body.description;
         let reqImagePath = req.body.imagePath;
         let reqDate = req.body.date;
-        let reqPrice = req.body.price;
-        let reqInterval = req.body.interval;
-        let reqIsPublic= req.body.isPublic;
 
         if (reqToken) {
             DB.Compte.GetAccountFromToken(reqToken).then(id => {
-
+                DB.Manifestation.CreateManifestation();
             }).catch(reason => {
                 res.json({'error': reason.message, 'content': null});
             });

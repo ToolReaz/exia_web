@@ -15,6 +15,10 @@ router.get('/idea', (req, res) => {
 router.post('/idea', (req, res) => {
     IdeaController.create(req, res);
 });
+// Validate an idea
+router.post('/idea/validate', (req, res) => {
+    IdeaController.validate(req, res);
+});
 // Get number of votes for an idea
 router.get('/idea/votes/:id', (req, res) => {
     IdeaController.getVotes(req, res);
