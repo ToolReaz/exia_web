@@ -28,16 +28,13 @@ module.exports = (dataObject, permissions) => {
          * @param {number} idAccount ID du compte souhaitant créer directement une manif
          * @param {any} Manifestation Manifestation issue de CreateManifestation
          */
-        PosteManifestation: (idAccount, Manifestation) => {
-            return new Promise((resolve, reject) => {
-                permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
-                    dataObject.Manifestation.findOrCreate({ where: Manifestation }).then(r => {
-                        resolve();
-                    }).catch(err => reject(err))
-
-                }).catch(err => reject(err))
-
-            });
+        PosteManifestation: async(idAccount, Manifestation) => {
+            if (await permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
+                await dataObject.Manifestation.findOrCreate({ where: Manifestation });
+                return;
+            } else {
+                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
+            }
         },
 
         /**
@@ -47,20 +44,12 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<any>} Sans param
          */
         InscrireManif: (idAccount, idManif) => {
-            return new Promise((resolve, reject) => {
-                permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF").then(() => {
-                    dataObject.Participe.findOrCreate({
-                        where: {
-                            ID: idAccount,
-                            ID_Manifestation: idManif
-                        }
-                    }).then(r => {
-                        resolve();
-                    }).catch(err => reject(err))
-
-                }).catch(err => reject(err))
-
-            });
+            if (permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF")) {
+                await dataObject.Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } });
+                return;
+            } else {
+                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
+            }
         },
 
         /**
@@ -69,20 +58,15 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} idManif ID de la manif
          * @returns {Promise<boolean>} L'utilisateur participe à la manif
          */
-        Participe: (idAccount, idManif) => {
-            return new Promise((resolve, reject) => {
-                dataObject.Participe.findOne({
-                    where: {
-                        ID: idAccount,
-                        ID_Manifestation: idManif
-                    }
-                }).then(r => {
-                    resolve(r == null);
-                }).catch(err => reject(err))
-
-            });
+        Participe: async(idAccount, idManif) => {
+            return await dataObject.Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } }) == null;
         },
 
+
+
+
+
+        
         /**
          * retourne les évenements du mois (passés et futurs) et les répétitions d'anciens events
          */
