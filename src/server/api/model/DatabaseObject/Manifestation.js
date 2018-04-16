@@ -4,9 +4,9 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Crée une manifestation
-         * @param {string} name Nom de la manifestation à créer
-         * @param {string} description Description de la manifestation à créer
-         * @param {string} imagePath Chemin de l'image associée à la manifestation
+         * @param {String} name Nom de la manifestation à créer
+         * @param {String} description Description de la manifestation à créer
+         * @param {String} imagePath Chemin de l'image associée à la manifestation
          * @param {Date} date Date de la première (ou seule) occurence de la manifestation
          * @param {Number} interval_seconds Interval en secondes entre deux occurences de la manifestation (0 = pas de répétition)
          * @param {Number} price Prix de participation à la manifestation
@@ -25,7 +25,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Poste une manifestation
-         * @param {number} idAccount ID du compte souhaitant créer directement une manif
+         * @param {Number} idAccount ID du compte souhaitant créer directement une manif
          * @param {any} Manifestation Manifestation issue de CreateManifestation
          */
         PosteManifestation: async (idAccount, Manifestation) => {
@@ -63,39 +63,30 @@ module.exports = (dataObject, permissions) => {
          */
         GetThisMonthEvents: async () => {
             var r = await dataObject.Manifestation.findAll();
-            var events = [];
-            var items = r.length;
-            r.forEach(element => {
-                var interval = element.Intervale;
-                var dateInit = Date.now();
-                var year = new Date(Date.now()).getUTCFullYear();
-                var month = new Date(Date.now()).getUTCMonth();
-                var minDate = Date.UTC(year, month, 1, 0, 0, 0, 0);
-                var maxDate = Date.UTC(year, month + 1, 1, 0, 0, 0, 0) - 1;
-                if (dateInit > minDate &&
-                    dateInit < maxDate ||
-                    dateInit < minDate &&
-                    Math.floor(minDate - dateInit / interval) < Math.floor(maxDate - dateInit / interval)) {
-                    events.push(element);
-                }
-                items--;
-                if (items == 0) {
-                    return events;
-                }
-            });
+            var dateInit = Date.now();
+            var year = new Date(Date.now()).getUTCFullYear();
+            var month = new Date(Date.now()).getUTCMonth();
+            var minDate = Date.UTC(year, month, 1, 0, 0, 0, 0);
+            var maxDate = Date.UTC(year, month + 1, 1, 0, 0, 0, 0) - 1;
+            return events.filter(d=>
+                dateInit > minDate &&
+                dateInit < maxDate ||
+                dateInit < minDate &&
+                Math.floor(minDate - dateInit / element.Intervale) < Math.floor(maxDate - dateInit / element.Intervale)
+            );
         },
 
         /**
          * Edite les données d'une manifestation
          * @param {Number} idAccount ID de la personne souhaitant ajouter la manif
          * @param {Number} idManif ID de la manifestation
-         * @param {string} name Nouveau nom de la manifestation (ou NULL)
-         * @param {string} description Nouvelle description (ou NULL)
-         * @param {string} imagePath Nouveau path vers l'image (ou NULL)
-         * @param {Date} date Nouvelle date de début pour la manif (ou NULL)
-         * @param {Number} timespan Nouvel interval entre deux répétitions de la manifestation (ou NULL)
-         * @param {Number} price Nouveau prix pour la manifestation (ou NULL)
-         * @param {boolean} public Si la manifestation est publique (visible sur la page) ou non (ou NULL)
+         * @param {String=} name Nouveau nom de la manifestation (ou NULL)
+         * @param {String=} description Nouvelle description (ou NULL)
+         * @param {String=} imagePath Nouveau path vers l'image (ou NULL)
+         * @param {Date=} date Nouvelle date de début pour la manif (ou NULL)
+         * @param {Number=} timespan Nouvel interval entre deux répétitions de la manifestation (ou NULL)
+         * @param {Number=} price Nouveau prix pour la manifestation (ou NULL)
+         * @param {Boolean=} public Si la manifestation est publique (visible sur la page) ou non (ou NULL)
          */
         EditManifestation: async (idAccount, idManif, name, description, imagePath, date, timespan, price, public) => {
             if (permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {

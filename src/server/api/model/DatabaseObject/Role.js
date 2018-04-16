@@ -29,7 +29,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Retourne les roles associés à un utilisateur
-         * @param {number} idAccount ID du compte utilisateur
+         * @param {Number} idAccount ID du compte utilisateur
          */
         GetRolesFromUser: async (idAccount) => {
             var r = await here.GetRolesIDFromUser(idAccount);

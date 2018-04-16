@@ -1,44 +1,26 @@
 module.exports = (dataObject) => {
     var here = {
-        /**     
-         * Détermine si deux membres de deux tableaux différents sont identiques     
-         * @param {array} arrayLeft Premier tableau     
-         * @param {array} arrayRight Deuxième tableau     
-         * @param {callback} transformLeft Transformée à appliquer au premier tableau     
-         * @param {callback} transformRight Transformée à appliquer au deuxième tableau     
-         */
-        Contains: (arrayLeft, arrayRight, transformLeft, transformRight) => {
-            var ret = false;
-            arrayLeft.forEach(entityLeft => {
-                var tLeft = transformLeft(entityLeft);
-                arrayRight.forEach(entityRight => {
-                    var tRight = transformRight(entityRight);
-                    ret |= tRight == tLeft;
-                });
-            });
-            return ret;
-        },
 
         /**     
          * Filtre les executions de requête en fonction des permissions     
-         * @param {int} userID ID de l'utilisateur executant la requête     
-         * @param {string} permission Permission requise pour executer la requête     
+         * @param {Number} userID ID de l'utilisateur executant la requête     
+         * @param {String} permission Permission requise pour executer la requête     
          */
-        FilterPermission: async(userID, permission) => {
+        FilterPermission: async (userID, permission) => {
             var r = await dataObject.Permission.findOne({ where: { Code_permission: permission } });
             var s = await dataObject.Possede.findAll({ where: { ID: r.ID } });
             var t = await dataObject.Compte.findOne({ where: { ID: userID } });
             var u = await dataObject.Appartient.findAll({ where: { ID: t.ID } });
 
-            return here.Contains(s, u, (s_) => s_.ID_Role, (u_) => u_.ID_Role);
+            return Contains(s, u, (s_) => s_.ID_Role, (u_) => u_.ID_Role);
         },
 
         /**     
          * Définit les permissions     
-         * @param {string} role Nom du role     
-         * @param {string} permission Nom de la permission     
+         * @param {String} role Nom du role     
+         * @param {String} permission Nom de la permission     
          */
-        SetPermissions: async(role, permission) => {
+        SetPermissions: async (role, permission) => {
             var r = await dataObject.Role.findOrCreate({ where: { Nom_role: role } });
             var s = await dataObject.Permission.findOrCreate({ where: { Code_permission: permission } });
             await dataObject.Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } });
@@ -47,7 +29,7 @@ module.exports = (dataObject) => {
         /**     
          * Met les permissions de base     
          */
-        SetupPermissions: async() => {
+        SetupPermissions: async () => {
             await here.SetPermissions("R_STUDENT", "P_CONNECT")
             await here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE")
             await here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE")
@@ -71,4 +53,23 @@ module.exports = (dataObject) => {
         }
     };
     return here;
+}
+
+/**     
+ * Détermine si deux membres de deux tableaux différents sont identiques     
+ * @param {Array} arrayLeft Premier tableau     
+ * @param {Array} arrayRight Deuxième tableau     
+ * @param {Function} transformLeft Transformée à appliquer au premier tableau     
+ * @param {Function} transformRight Transformée à appliquer au deuxième tableau     
+ */
+function Contains(arrayLeft, arrayRight, transformLeft, transformRight) {
+    var ret = false;
+    var transformedLeft = arrayLeft.map(d => transformLeft(d));
+    var transformedRight = arrayRight.map(d => transformedRight(d));
+    transformedLeft.forEach(entityLeft => {
+        transformedRight.forEach(entityRight => {
+            ret |= tRight == tLeft;
+        });
+    });
+    return ret;
 }

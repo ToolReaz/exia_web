@@ -4,7 +4,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
-         * @param {string} token Token de connexion
+         * @param {String} token Token de connexion
          */
         GetAccountFromToken: async (token) => {
             var r = await dataObject.Session.findOne({ where: { Token: token } });
@@ -22,7 +22,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Récupère le timestamp d'un token
-         * @param {string} token Token dont il faut récupérer le temps
+         * @param {String} token Token dont il faut récupérer le temps
          */
         GetTokenTime: async (token) => {
             var r = await dataObject.Session.findOne({ where: { Token: token } });
@@ -35,7 +35,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Change le timestamp d'un token
-         * @param {string} token Valeur du token
+         * @param {String} token Valeur du token
          * @param {Date} timestamp Nouveau timestamp
          */
         SetTokenTimestamp: async (token, timestamp) => {

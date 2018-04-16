@@ -4,8 +4,10 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Ajoute une photo à une manif
+         * SUSPECT
+         * TODO
          * @param {Number} idAccount ID du compte souhaitant uploader l'image
-         * @param {string} photoPath Path de l'image
+         * @param {String} photoPath Path de l'image
          * @param {Number} idManif ID de la manifestation
          */
         AddPhoto: async (idAccount, photoPath, idManif) => {
@@ -24,7 +26,7 @@ module.exports = (dataObject, permissions) => {
          * Commente une photo
          * @param {Number} idAccount ID du compte
          * @param {Number} idPhoto ID de la photo
-         * @param {string} comment Commentaire pour la photo
+         * @param {String} comment Commentaire pour la photo
          */
         CommentPhoto: async (idAccount, idPhoto, comment) => {
             if (await permissions.FilterPermission(idAccount, "P_COMMENT_PHOTO")) {
@@ -39,7 +41,7 @@ module.exports = (dataObject, permissions) => {
          * Like une photo
          * @param {Number} idAccount ID du compte
          * @param {Number} idPhoto ID de la photo
-         * @param {boolean} like True : like, False : plus like
+         * @param {Boolean} like True : like, False : plus like
          */
         LikePhoto: async (idAccount, idPhoto, like) => {
             if (await permissions.FilterPermission(idAccount, "P_LIKE_PHOTO")) {
@@ -63,8 +65,8 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Report une photo
-         * @param {number} idAccount ID du compte souhaitant report la photo
-         * @param {number} idPhoto ID de la photo à report
+         * @param {Number} idAccount ID du compte souhaitant report la photo
+         * @param {Number} idPhoto ID de la photo à report
          */
         Report: async (idAccount, idPhoto) => {
             if(await permissions.FilterPermission(idAccount, "P_REPORT")){
