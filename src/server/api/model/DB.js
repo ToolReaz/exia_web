@@ -58,6 +58,13 @@ connection.sync({ force: false, logging: false }).then(() => {
         }).catch(err=>{
             console.error(err.message);
         });*/
+        /*DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Nom de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
+        .then(()=>{
+            console.log('ok');
+        })
+        .catch((err)=>{
+            console.error(err.message);
+        });*/
     }).catch(err=>console.error(err.message));
 
 }).catch(err=>{console.log('MASTER ERROR !!! : '+err.message);});
