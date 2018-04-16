@@ -1,4 +1,6 @@
 const DB = require('../model/DB');
+const PDFDocument = require('pdfkit');
+const Json2csvParser = require('json2csv').Parser;
 
 module.exports = {
 
@@ -78,7 +80,7 @@ module.exports = {
 
     update: (req, res) => {
         let reqToken = req.cookies.token;
-        let reqId = req.params.id;
+        let reqId = req.body.id;
         let reqName = req.body.name;
         let reqDescription = req.body.description;
         let reqImagePath = req.body.imagePath;
@@ -88,7 +90,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Manifestation.EditManifestation(id, reqId, reqName, reqDescription, reqImagePath, reqDate, reqInterval, reqPrice, true).then(() => {
+                DB.Manifestation.EditManifestation(id, reqId, reqName, reqDescription, reqImagePath, new Date(reqDate), reqInterval, reqPrice, true).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
@@ -98,6 +100,78 @@ module.exports = {
             });
         } else {
             res.json({'error': 'Pas connecté = pas modifier manif !', 'content': null});
+        }
+    },
+
+    getSubscribers: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqId = req.params.id;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
+                    res.json({'error': null, 'content': subscribers});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas valider idée !', 'content': null});
+        }
+    },
+
+    getSubscribersPDF: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqId = req.params.id;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
+                    let pdf = new PDFDocument;
+                    let fs=require('fs');
+                    pdf.pipe(fs.createWriteStream(res));
+                    pdf.fontSize(8);
+                    pdf.text(subscribers.toString());
+                    pdf.end();
+                    res.sendFile(pdf);
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas valider idée !', 'content': null});
+        }
+    },
+
+    getSubscribersCSV: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqId = req.params.id;
+        console.log(id);
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
+                    console.log(subscribers);
+                    try {
+                        const parser = new Json2csvParser();
+                        const csv = parser.parse(subscribers);
+                        console.log(csv);
+                        res.sendFile(csv);
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas valider idée !', 'content': null});
         }
     }
 };

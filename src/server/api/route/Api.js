@@ -59,6 +59,15 @@ router.post('/manifestation/subscribe/:id', (req, res) => {
 router.get('/manifestation/validate/:id', (req, res) => {
     ManifestationController.validate(req, res);
 });
+router.get('/manifestation/subscribers/:id', (req, res) => {
+    ManifestationController.getSubscribers(req, res);
+});
+router.get('/manifestation/subscribers/csv/:id', (req, res) => {
+    ManifestationController.getSubscribersPDF(req, res);
+});
+router.get('/manifestation/subscribers/pdf/:id', (req, res) => {
+    ManifestationController.getSubscribersCSV(req, res);
+});
 
 
 

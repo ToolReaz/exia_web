@@ -25,7 +25,6 @@ class ModifyManifestation extends Component {
     componentDidMount() {
         getApi('/api/manifestation').then(res => {
             let tmp = this.state.manifestations;
-            console.log(res);
             res.forEach(manifestation => {
                 tmp.push(manifestation);
             });
@@ -67,8 +66,8 @@ class ModifyManifestation extends Component {
             interval: this.state.interval,
             price: this.state.price
         };
+        console.log(data);
         postApi('/api/manifestation/update', data).then(res => {
-            console.log(res);
             this.setState({
                 name: '',
                 description: '',
