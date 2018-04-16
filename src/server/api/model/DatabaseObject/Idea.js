@@ -49,15 +49,15 @@ module.exports = (dataObject, permissions) => {
                                     dataObject.Comprend.findOrCreate({
                                         where: {
                                             ID: r[0].ID,
-                                            ID_Manifestation: s.ID
+                                            ID_Manifestation: s[0].ID
                                         }
                                     }).then(t => {
                                         done[i] = true;
-                                        if (this.AND(done)) {
+                                        if (here.AND(done)) {
                                             resolve();
                                         }
-                                    });
-                                });
+                                    }).catch(err => reject(err));
+                                }).catch(err => reject(err));
                             }
                         }
                     }).catch(err => reject(err))
