@@ -53,13 +53,10 @@ connection.sync({ force: false, logging: false }).then(() => {
 
     Permissions.SetupPermissions().then(()=>{
         console.log("Successfully initialized DB connection !");
-        /*DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000).then((i)=>{
-            console.log('i :'+i);
-        }).catch(err=>{
-            console.error(err.message);
-        });*/
-        /*DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Nom de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
-        .then(()=>{
+        //DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000)
+        //DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Nom de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
+        //DataBase.Idea.ValideIdee(2, 7)
+        /*.then(()=>{
             console.log('ok');
         })
         .catch((err)=>{
