@@ -6,6 +6,7 @@ import CreateShopCategory from "../../components/bde/CreateShopCategory";
 import CreateShopProduct from "../../components/bde/CreateShopProduct";
 import ValidateIdea from "../../components/bde/ValidateIdea";
 import ModifyManifestation from "../../components/bde/ModifyManifestation";
+import ShowSubscribersManifestation from "../../components/bde/ShowSubscribersManifestation";
 
 class Bde extends Component {
 
@@ -42,6 +43,18 @@ class Bde extends Component {
                     </div>
                     <div className="row">
                         <ModifyManifestation/>
+                    </div>
+
+
+
+                    <div className="row">
+                        <div className="col-12">
+                            <h2>Liste des inscrits</h2>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <ShowSubscribersManifestation/>
                     </div>
 
 

@@ -59,6 +59,15 @@ router.post('/manifestation/subscribe/:id', (req, res) => {
 router.get('/manifestation/validate/:id', (req, res) => {
     ManifestationController.validate(req, res);
 });
+router.get('/manifestation/subscribers/:id', (req, res) => {
+    ManifestationController.getSubscribers(req, res);
+});
+router.get('/manifestation/subscribers/csv/:id', (req, res) => {
+    ManifestationController.getSubscribersPDF(req, res);
+});
+router.get('/manifestation/subscribers/pdf/:id', (req, res) => {
+    ManifestationController.getSubscribersCSV(req, res);
+});
 
 
 
@@ -75,6 +84,12 @@ router.post('/shop/category', (req, res) => {
 });
 router.get('/shop/products', (req, res) => {
     ShopController.getAllProducts(req, res);
+});
+router.get('/shop/addtocart/:id', (req, res) => {
+    ShopController.addToCart(req, res);
+});
+router.get('/shop/order', (req, res) => {
+    ShopController.order(req, res);
 });
 
 

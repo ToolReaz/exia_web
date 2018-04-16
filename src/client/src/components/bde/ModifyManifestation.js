@@ -7,6 +7,7 @@ class ModifyManifestation extends Component {
         super(props);
         this.state = {
             error: null,
+            id: 0,
             name: '',
             description: '',
             date: '',
@@ -57,6 +58,7 @@ class ModifyManifestation extends Component {
     handleSubmit(e) {
         e.preventDefault();
         let data = {
+            id: this.state.id,
             name: this.state.name,
             description: this.state.description,
             date: this.state.date,
@@ -64,14 +66,15 @@ class ModifyManifestation extends Component {
             interval: this.state.interval,
             price: this.state.price
         };
+        console.log(data);
         postApi('/api/manifestation/update', data).then(res => {
-            console.log(res);
             this.setState({
                 name: '',
                 description: '',
                 date: '',
                 interval: '',
-                price: 0
+                price: 0,
+                imagePath: ''
             });
         }).catch(reason => {
             console.log(reason);
@@ -81,26 +84,36 @@ class ModifyManifestation extends Component {
 
     selectManifestation(e) {
         this.setState({
-            id: this.state.ideas[e.target.value].ID,
-            title: this.state.ideas[e.target.value].Titre,
-            description: this.state.ideas[e.target.value].Texte
+            id: this.state.manifestations[e.target.value].ID,
+            name: this.state.manifestations[e.target.value].Nom,
+            description: this.state.manifestations[e.target.value].Description,
+            date: this.state.manifestations[e.target.value].Quand,
+            imagePath: this.state.manifestations[e.target.value].Chemin_Image,
+            interval: this.state.manifestations[e.target.value].Intervale,
+            price: this.state.manifestations[e.target.value].Prix
         });
     }
 
 
     render() {
         let options = [];
+        this.state.manifestations.forEach((manifestation, index) => {
+            options.push(
+                <option value={index}>{manifestation.Nom}</option>
+            )
+        });
         return (
             <div>
                 <select name="id" onChange={this.selectManifestation}>
                     {options}
                 </select>
                 <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
-                    <textarea name="description" placeholder="Description" onChange={this.handleChange}/><br/>
-                    <input type="date" name="date" onChange={this.handleChange}/><br/>
-                    <input type="integer" name="interval" placeholder="Interval" onChange={this.handleChange}/><br/>
-                    <input type="integer" name="price" placeholder="Prix" onChange={this.handleChange}/><br/>
+                    <input type="text" name="name" placeholder="Nom" value={this.state.name} onChange={this.handleChange}/><br/>
+                    <textarea name="description" placeholder="Description" value={this.state.description} onChange={this.handleChange}/><br/>
+                    <input type="text" name="date" value={this.state.date} onChange={this.handleChange}/><br/>
+                    <input type="integer" name="interval" placeholder="Interval" value={this.state.interval} onChange={this.handleChange}/><br/>
+                    <input type="text" name="imagePath" placeholder="Url image" value={this.state.imagePath} onChange={this.handleChange}/><br/>
+                    <input type="integer" name="price" placeholder="Prix" value={this.state.price} onChange={this.handleChange}/><br/>
                     <input type="submit" value="Modifier"/>
                 </form>
                 <br/>

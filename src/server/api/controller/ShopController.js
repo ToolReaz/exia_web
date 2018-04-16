@@ -1,4 +1,5 @@
 const DB = require('../model/DB');
+const nodemailer = require('nodemailer');
 
 module.exports = {
 
@@ -65,5 +66,81 @@ module.exports = {
         }).catch(reason => {
             res.json({'error': reason.message, 'content': null});
         });
+    },
+
+    addToCart: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqID= req.params.ID;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Shop.AddItemToPurchaseList(id, reqID, 1).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter article au panier !', 'content': null});
+        }
+    },
+
+    order: (req, res) => {
+        let reqToken = req.cookies.token;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Shop.CommitPurchase(id).then((res) => {
+
+                    /*
+                    nodemailer.createTestAccount((err, account) => {
+                        let transporter = nodemailer.createTransport({
+                            host: 'smtp.ethereal.email',
+                            port: 587,
+                            secure: false,
+                            auth: {
+                                user: account.user,
+                                pass: account.pass
+                            }
+                        });
+
+                        // setup email data with unicode symbols
+                        let mailOptions = {
+                            from: '"Fred Foo 👻" <foo@example.com>', // sender address
+                            to: 'bar@example.com, baz@example.com', // list of receivers
+                            subject: 'Hello ✔', // Subject line
+                            text: 'Hello world?', // plain text body
+                            html: '<b>Hello world?</b>' // html body
+                        };
+
+                        // send mail with defined transport object
+                        transporter.sendMail(mailOptions, (error, info) => {
+                            if (error) {
+                                return console.log(error);
+                            }
+                            console.log('Message sent: %s', info.messageId);
+                            // Preview only available when sending through an Ethereal account
+                            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
+
+                            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+                            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+                        });
+                    });*/
+
+
+
+
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter article au panier !', 'content': null});
+        }
     }
 };
