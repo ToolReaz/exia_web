@@ -196,6 +196,10 @@ module.exports = (dataObject, permissions) => {
                     }).then(r => resolve(r)).catch(err => reject(err))
                 }).catch(err => reject(err))
             });
+        },
+
+        GetAllManifestations: () => {
+            return dataObject.Manifestation.findAll();
         }
     };
 
