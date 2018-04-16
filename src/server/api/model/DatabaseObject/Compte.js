@@ -98,7 +98,7 @@ module.exports = (dataObject, permissions) => {
                     ID: idAccount
                 }
             });
-        }
+        },
     };
 
     return here;
