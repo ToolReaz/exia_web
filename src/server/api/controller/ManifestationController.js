@@ -79,7 +79,7 @@ module.exports = {
     update: (req, res) => {
         let reqToken = req.cookies.token;
         let reqId = req.params.id;
-        let reqTitle = req.body.name;
+        let reqName = req.body.name;
         let reqDescription = req.body.description;
         let reqImagePath = req.body.imagePath;
         let reqDate = req.body.date;
@@ -88,12 +88,16 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Manifestation.EditManifestation(reqId, reqTitle, reqDescription, reqImagePath, reqDate, reqInterval, reqPrice, true)
+                DB.Manifestation.EditManifestation(id, reqId, reqName, reqDescription, reqImagePath, reqDate, reqInterval, reqPrice, true).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
             }).catch(reason => {
                 res.json({'error': reason.message, 'content': null});
             });
         } else {
-            res.json({'error': 'Pas connecté = pas valider idée !', 'content': null});
+            res.json({'error': 'Pas connecté = pas modifier manif !', 'content': null});
         }
     }
 };
