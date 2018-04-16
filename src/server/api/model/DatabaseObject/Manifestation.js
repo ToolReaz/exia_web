@@ -28,7 +28,7 @@ module.exports = (dataObject, permissions) => {
          * @param {number} idAccount ID du compte souhaitant créer directement une manif
          * @param {any} Manifestation Manifestation issue de CreateManifestation
          */
-        PosteManifestation: async(idAccount, Manifestation) => {
+        PosteManifestation: async (idAccount, Manifestation) => {
             if (await permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
                 await dataObject.Manifestation.findOrCreate({ where: Manifestation });
                 return;
@@ -41,9 +41,8 @@ module.exports = (dataObject, permissions) => {
          * Inscrit une personne à une manif
          * @param {Number} idAccount ID du compte voulant s'inscrire à une manif
          * @param {Number} idManif ID de la manif
-         * @returns {Promise<any>} Sans param
          */
-        InscrireManif: (idAccount, idManif) => {
+        InscrireManif: async (idAccount, idManif) => {
             if (permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF")) {
                 await dataObject.Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } });
                 return;
@@ -56,48 +55,35 @@ module.exports = (dataObject, permissions) => {
          * Détermine si l'utilisateur participe à une manif
          * @param {Number} idAccount ID de l'utilisateur
          * @param {Number} idManif ID de la manif
-         * @returns {Promise<boolean>} L'utilisateur participe à la manif
          */
-        Participe: async(idAccount, idManif) => {
+        Participe: async (idAccount, idManif) => {
             return await dataObject.Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } }) == null;
         },
 
-
-
-
-
-        
         /**
          * retourne les évenements du mois (passés et futurs) et les répétitions d'anciens events
          */
-        GetThisMonthEvents: () => {
-            return new Promise((resolve, reject) => {
-                dataObject.Manifestation.findAll().then(r => {
-                    var events = [];
-                    var items = r.length;
-                    r.forEach(element => {
-                        var interval = element.Intervale;
-                        var dateInit = Date.now();
-                        var year = new Date(Date.now()).getUTCFullYear();
-                        var month = new Date(Date.now()).getUTCMonth();
-                        var minDate = Date.UTC(year, month, 1, 0, 0, 0, 0);
-                        var maxDate = Date.UTC(year, month + 1, 1, 0, 0, 0, 0) - 1;
-
-                        if (dateInit > minDate &&
-                            dateInit < maxDate ||
-                            dateInit < minDate &&
-                            Math.floor(minDate - dateInit / interval) < Math.floor(maxDate - dateInit / interval)) {
-                            events.push(element);
-                        }
-
-                        items--;
-                        if (items == 0) {
-                            resolve(events);
-                        }
-
-                    });
-                }).catch(err => reject(err))
-
+        GetThisMonthEvents: async () => {
+            var r = await dataObject.Manifestation.findAll();
+            var events = [];
+            var items = r.length;
+            r.forEach(element => {
+                var interval = element.Intervale;
+                var dateInit = Date.now();
+                var year = new Date(Date.now()).getUTCFullYear();
+                var month = new Date(Date.now()).getUTCMonth();
+                var minDate = Date.UTC(year, month, 1, 0, 0, 0, 0);
+                var maxDate = Date.UTC(year, month + 1, 1, 0, 0, 0, 0) - 1;
+                if (dateInit > minDate &&
+                    dateInit < maxDate ||
+                    dateInit < minDate &&
+                    Math.floor(minDate - dateInit / interval) < Math.floor(maxDate - dateInit / interval)) {
+                    events.push(element);
+                }
+                items--;
+                if (items == 0) {
+                    return events;
+                }
             });
         },
 
@@ -113,57 +99,39 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} price Nouveau prix pour la manifestation (ou NULL)
          * @param {boolean} public Si la manifestation est publique (visible sur la page) ou non (ou NULL)
          */
-        EditManifestation: (idAccount, idManif, name, description, imagePath, date, timespan, price, public) => {
-            return new Promise((resolve, reject) => {
-                permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
-                    var m = {};
-                    if (name) m.Nom = name;
-                    if (description) m.Description = description;
-                    if (imagePath) m.Chemin_Image = imagePath;
-                    if (date) m.Quand = date;
-                    if (timespan) m.Intervale = timespan;
-                    if (price) m.Prix = price;
-                    if (public) m.Public = public;
-                    dataObject.Manifestation.update(m, {
-                        where: {
-                            ID: idManif
-                        }
-                    }).then(r => resolve()).catch(err => reject(err))
-                }).catch(err => reject(err))
-
-            });
+        EditManifestation: async (idAccount, idManif, name, description, imagePath, date, timespan, price, public) => {
+            if (permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
+                var m = {};
+                if (name) m.Nom = name;
+                if (description) m.Description = description;
+                if (imagePath) m.Chemin_Image = imagePath;
+                if (date) m.Quand = date;
+                if (timespan) m.Intervale = timespan;
+                if (price) m.Prix = price;
+                if (public) m.Public = public;
+                await dataObject.Manifestation.update(m, { where: { ID: idManif } });
+                return;
+            } else {
+                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
+            }
         },
 
         /**
          * Récupère l'ID de l'utilisateur ayant proposé la manif
          * @param {Number} idManif ID de la manif dont on cherche à déterminer l'auteur
          */
-        GetManifestationAuthor: (idManif) => {
-            return new Promise((resolve, reject) => {
-                dataObject.Comprend.findOne({
-                    where: {
-                        ID: idManif
-                    }
-                }).then(r => {
-                    if (r) {
-                        dataObject.Idee.findOne({
-                            where: {
-                                ID: r.ID
-                            }
-                        }).then(s => {
-                            if (s) {
-                                resolve(s.ID_Compte);
-                            } else {
-                                reject(new Error("L'id de la manifestation #" + idManif + " n'a pas d'idée associée"));
-                            }
-                        }).catch(err => reject(err))
-
-                    } else {
-                        reject(new Error("L'id de la manifestation #" + idManif + " n'existe pas"));
-                    }
-                }).catch(err => reject(err))
-
-            });
+        GetManifestationAuthor: async (idManif) => {
+            var r = await dataObject.Comprend.findOne({ where: { ID: idManif } });
+            if (r) {
+                var s = await dataObject.Idee.findOne({ where: { ID: r.ID } });
+                if (s) {
+                    return s.ID_Compte;
+                } else {
+                    Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'a pas d'idée associée"));
+                }
+            } else {
+                Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'existe pas"));
+            }
         },
 
         /**
@@ -171,24 +139,19 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} idAccount ID du compte de la personne souhaitant récupérer la liste des personnes inscrites
          * @param {Number} idManif ID de la manif dont il faut récupérer les participants
          */
-        GetInscriptions: (idAccount, idManif) => {
-            return new Promise((resolve, reject) => {
-                permissions.FilterPermission(idAccount, "P_LISTE_INSCRITS").then(() => {
-                    dataObject.Participe.findAll({
-                        where: {
-                            ID_Manifestation: idManif
-                        }
-                    }).then(r => resolve(r)).catch(err => reject(err))
-                }).catch(err => reject(err))
-            });
+        GetInscriptions: async (idAccount, idManif) => {
+            if (await permissions.FilterPermission(idAccount, "P_LISTE_INSCRITS")) {
+                return await dataObject.Participe.findAll({ where: { ID_Manifestation: idManif } });
+            } else {
+                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_LISTE_INSCRITS\""));
+            }
         },
 
         /**
          * Retourne toutes les manifestations
-         * @returns {Promise}
          */
-        GetAllManifestations: () => {
-            return dataObject.Manifestation.findAll();
+        GetAllManifestations: async () => {
+            return await dataObject.Manifestation.findAll();
         }
     };
 
