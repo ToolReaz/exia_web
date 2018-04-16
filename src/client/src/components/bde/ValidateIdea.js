@@ -17,7 +17,7 @@ class ValidateIdea extends Component {
     }
 
     componentDidMount() {
-        getApi('/api/idea').then(res => {
+        getApi('/api/idea/invalidated').then(res => {
             let tmp = this.state.ideas;
             res.forEach(idea => {
                 tmp.push(idea);
@@ -30,7 +30,8 @@ class ValidateIdea extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        postApi('/api/idea/validate', this.state.id).then(res => {
+        console.log(this.state.id);
+        postApi('/api/idea/validate', {id: this.state.id}).then(res => {
             alert('Idée validée !');
         }).catch(reason => {
             alert(reason);
@@ -60,7 +61,7 @@ class ValidateIdea extends Component {
                 <form id="validate-idea-form" onSubmit={this.handleSubmit}>
                     <input disabled type="text" name="title" placeholder="Titre" value={this.state.title}/><br/>
                     <textarea disabled name="description" placeholder="Text" value={this.state.description}/><br/>
-                    <input type="submit" value="Envoyer"/>
+                    <input type="submit" value="Valider"/>
                 </form>
             </div>
         );
