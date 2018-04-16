@@ -1,22 +1,9 @@
-* {
-  box-sizing: border-box;
-}
 
-html {
-  height: 100%;
-  box-sizing: border-box;
-}
 
 body {
-    margin: 120px 0 0;
     font-family: 'segoe ui', serif;
     position: relative;
     min-height: 100%;
-}
-*,
-*:before,
-*:after {
-  box-sizing: inherit;
 }
 
 .nav {

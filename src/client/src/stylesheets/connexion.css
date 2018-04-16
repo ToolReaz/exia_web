@@ -1,25 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700);
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
 
-html {
-  font-size: 10px;
-  height: 100%;
-  background:#212531;
-  background: linear-gradient(to right bottom, #F5F5F5 70%, #C2242A 30%);
-}
-
-.grid-container{
-  display: flex;
-  padding-top: 50px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-}
 #connect-form {
   font-family: "roboto", sans-serif;
   background-color: rgba(153, 153, 153, 0.6);

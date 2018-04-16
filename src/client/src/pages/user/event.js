@@ -69,15 +69,21 @@ class Event extends Component {
         let view = [];
         let ideas = [];
         view.push(<Header/>);
-        view.push(<CreateIdea/>);
+        view.push(
+            <div className="grid-container">
+                <div className="row">
+                    <div className="col-12">
+                        <CreateIdea/>
+                    </div>
+                </div>
+            </div>
+        );
 
 
-        this.state.ideas.forEach((idea) =>  {
+        this.state.ideas.forEach((idea, index) =>  {
             idea.roles = this.state.roles;
             ideas.push(
-                <div className="col-4">
-                    <Idea values={idea} />
-                </div>
+                <Idea values={idea} />
             );
         });
 
@@ -85,10 +91,16 @@ class Event extends Component {
         view.push(
             <div className="grid-container">
                 <div className="row">
-                    <h2 className="eventTitle">Liste des idées</h2>
+                    <div className="col-12">
+                        <h2 className="eventTitle">Liste des idées</h2>
+                    </div>
                 </div>
                 <div className="row">
-                    {ideas}
+                    <div className="col-12">
+                        <div>
+                            {ideas}
+                        </div>
+                    </div>
                 </div>
             </div>
         );
