@@ -60,6 +60,46 @@ module.exports = (dataObject) => {
                 }).catch(err => reject(err))
             });
         },
+
+        /**     
+         * Filtre les executions de requête en fonction des permissions     
+         * @param {int} userID ID de l'utilisateur executant la requête     
+         * @param {string} permission Permission requise pour executer la requête     
+         */
+        /*FilterPermissionAsync: async (userID, permission) => {
+            var r = await dataObject.Permission.findOne({
+                where: {
+                    Code_permission: permission
+                }
+            });
+            var s = await dataObject.Possede.findAll({
+                where: {
+                    ID: r.ID
+                }
+            });
+            var t = await dataObject.Compte.findOne({
+                where: {
+                    ID: userID
+                }
+            });
+            var u = await dataObject.Appartient.findAll({
+                where: {
+                    ID: t.ID
+                }
+            });
+
+            if (here.Contains(s, u, (s_) => {
+                return s_.ID_Role;
+            }, (u_) => {
+                return u_.ID_Role
+            })) {
+                return true;
+            } else {
+                return Promise.reject(new Error('Permission insuffisante : permission ' + permission + ' requise.'));
+            }
+
+        },*/
+
         /**     
          * Définit les permissions     
          * @param {string} role Nom du role     
@@ -91,8 +131,8 @@ module.exports = (dataObject) => {
          * Met les permissions de base     
          */
         SetupPermissions: async () => {
-            await here.SetPermissions("R_STUDENT", "P_CONNECT") //done
-            await here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE") //done
+            await here.SetPermissions("R_STUDENT", "P_CONNECT")
+            await here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE")
             await here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE")
             await here.SetPermissions("R_STUDENT", "P_VOTE_IDEE")
             await here.SetPermissions("R_STUDENT", "P_ADD_PHOTO")

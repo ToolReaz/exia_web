@@ -89,7 +89,7 @@ module.exports = (dataObject, permissions) => {
             return new Promise((resolve, reject)=>{
                 permissions.FilterPermission(idAccount, "P_PURCHASE_SHOP").then(()=>{
                     dataObject.Achats.findOrCreate({where: {Realise: false, ID_Compte: idAccount}}).then(r=>{
-                        dataObject.Panier.findOrCreate({where: {ID_Produit: idProduct, ID: r[0].ID}, defaults: {Quantite: quantity}}).then(s=>{
+                        dataObject.Panier.findOrCreate({where: {ID_Produit: idProduct, ID: idAccount, ID_Achat: r[0].ID}, defaults: {Quantite: quantity}}).then(s=>{
                             if(!s[1]){
                                 dataObject.Panier.update({Quantite: r[0].Quantite+quantity}, {where: {ID: idAccount, ID_Produit: idProduct}}).then(s=>{
                                     resolve();
