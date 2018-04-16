@@ -85,6 +85,12 @@ router.post('/shop/category', (req, res) => {
 router.get('/shop/products', (req, res) => {
     ShopController.getAllProducts(req, res);
 });
+router.get('/shop/addtocart/:id', (req, res) => {
+    ShopController.addToCart(req, res);
+});
+router.get('/shop/order', (req, res) => {
+    ShopController.order(req, res);
+});
 
 
 

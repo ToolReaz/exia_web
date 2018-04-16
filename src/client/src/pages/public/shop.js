@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import {getApi, postApi} from "../../lib/api/requestApi";
+import AddToCart from "../../components/shop/AddToCart";
 
 class Shop extends Component {
 
@@ -55,6 +56,7 @@ class Shop extends Component {
                         <h2>{product.Nom}</h2>
                         <p>{product.Description}</p>
                         <p>{product.Prix}</p>
+                        <AddToCart value={product.ID}/>
                     </div>
                 )
             });
@@ -77,7 +79,6 @@ class Shop extends Component {
                     {productsView}
                 </div>
 
-                <Footer/>
             </div>
         );
     }
