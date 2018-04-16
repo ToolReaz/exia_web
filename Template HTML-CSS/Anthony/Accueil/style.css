@@ -8,10 +8,12 @@ html {
 }
 
 body {
-  margin: 0px;
+  margin-top: 120px;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 0;
   font-family: 'segoe ui';
   position: relative;
-  padding-bottom: 6rem;
   min-height: 100%;
 }
 *,
@@ -329,7 +331,8 @@ p.s:hover:after {
 }
 
 .footer-distributed {
-  position: absolute;
+  margin-top: 10px;
+  position: static;
   right: 0;
   bottom: 0;
   left: 0;
