@@ -198,6 +198,10 @@ module.exports = (dataObject, permissions) => {
             });
         },
 
+        /**
+         * Retourne toutes les manifestations
+         * @returns {Promise}
+         */
         GetAllManifestations: () => {
             return dataObject.Manifestation.findAll();
         }
