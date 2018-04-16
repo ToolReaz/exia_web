@@ -14,6 +14,7 @@ class Shop extends Component {
         };
 
         this.handleChange = this.handleChange.bind(this);
+        this.order = this.order.bind(this);
     }
 
     componentDidMount() {
@@ -32,6 +33,15 @@ class Shop extends Component {
         if (e.target.name === 'search') {
             this.setState({search: e.target.value});
         }
+    }
+
+    order(e) {
+        e.preventDefault();
+        getApi('/api/shop/order').then(res => {
+            alert('Commande validée !');
+        }).catch(reason => {
+            alert(reason);
+        })
     }
 
     render() {
@@ -70,7 +80,12 @@ class Shop extends Component {
                         <div className="col-6">
                             <h1>Boutique</h1>
                         </div>
-                        <div className="col-6">
+                        <div className="col-3">
+                            <div>
+                                <button onClick={this.order}>Valider mes achats !</button>
+                            </div>
+                        </div>
+                        <div className="col-3">
                             <div>
                                 <input type="text" name="search" placeholder="Filtrer" value={this.state.search} onChange={this.handleChange}/>
                             </div>
