@@ -1,45 +1,47 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>BDE Strasbourg</title>
-    <link rel="stylesheet" type="text/css" href=./css/grid.css />
-    <link rel="stylesheet" type="text/css" href=./css/global.css />
-    <link rel="stylesheet" type="text/css" href=./css/shop.css />
-  </head>
-  <body>
-    <div class="nav">
-      <div class="nav-btn">
-        <label for="nav-check">
+
+<head>
+  <meta charset="utf-8">
+  <title>BDE Strasbourg</title>
+  <link rel="stylesheet" type="text/css" href=./css/grid.css />
+  <link rel="stylesheet" type="text/css" href=./css/global.css />
+  <link rel="stylesheet" type="text/css" href=./css/shop.css />
+</head>
+
+<body>
+  <div class="nav">
+    <div class="nav-btn">
+      <label for="nav-check">
           <span></span>
           <span></span>
           <span></span>
         </label>
-      </div>
-      <input type="checkbox" id="nav-check">
-
-      <div class="nav-links">
-        <a href="" target="_blank">Accueil</a>
-        <a href="" target="_blank">L'équipe</a>
-        <a href="" target="_blank">Evènements</a>
-        <a href="" target="_blank">Boutique</a>
-        <a class="caché" href="" target="_blank">Connexion</a>
-        <a class="caché" href="" target="_blank">Inscription</a>
-        <form class="caché" id="form" action="" method="">
-      		<input id="searchid" type="search" placeholder="Que cherchez vous ?">
-      		<button id="boutonsearchid">C'est parti !</button>
-      	</form>
-      </div>
-
-      <div class="nav-links-right">
-        <p class="s"><input name="search" id="search" type="search"></p>
-        <a href="" target="_blank">Connexion</a>
-        <a href="" target="_blank">Inscription</a>
-      </div>
     </div>
-    <h1 class="h1Event">Boutique</h1>
-    <div class="panierPC">
-      <a href="">
+    <input type="checkbox" id="nav-check">
+
+    <div class="nav-links">
+      <a href="" target="_blank">Accueil</a>
+      <a href="" target="_blank">L'équipe</a>
+      <a href="" target="_blank">Evènements</a>
+      <a href="" target="_blank">Boutique</a>
+      <a class="caché" href="" target="_blank">Connexion</a>
+      <a class="caché" href="" target="_blank">Inscription</a>
+      <form class="caché" id="form" action="" method="">
+        <input id="searchid" type="search" placeholder="Que cherchez vous ?">
+        <button id="boutonsearchid">C'est parti !</button>
+      </form>
+    </div>
+
+    <div class="nav-links-right">
+      <p class="s"><input name="search" id="search" type="search"></p>
+      <a href="" target="_blank">Connexion</a>
+      <a href="" target="_blank">Inscription</a>
+    </div>
+  </div>
+  <h1 class="h1Event">Boutique</h1>
+  <div class="panierPC">
+    <a href="">
       <h2>Panier</h2>
       <p>Nom de l'article</p>
       <p>Prix : XX€</p>
@@ -52,133 +54,163 @@
       <hr>
       <p>Nom de l'article</p>
       <p>Prix : XX€</p>
+      <hr>
+      <p> Total : XXX €</p>
     </a>
-    </div>
-    <div class="grid-container">
-      <div class="row">
-        <div class="col-7"></div>
-        <div class="col-2">
-          <input></input>
-        </div>
-        <div class="col-2">
-          <select>
+  </div>
+  <div class="grid-container">
+    <div class="row">
+      <div class="col-7"></div>
+      <div class="col-2">
+        <input class="shopInput" value="Recherche"></input>
+      </div>
+      <div class="col-2">
+        <select class=shopSelect>
             <option>Catégorie</option>
             <option>Catégorie 1</option>
             <option>Catégorie 2</option>
             <option>Catégorie 3</option>
             <option>Catégorie 4</option>
           </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-2">
+      <div class="article">
+          <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+          <small class="shopCategorie">Catégorie</small>
+          <hr>
+          <p>Titre</p>
+          <p style="text-align:right">Prix: XX €</p>
+          <a href="">ACHETER</a>
         </div>
       </div>
-      </div>
-      <div class="row">
-        <div class="col-2"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
         <div class="col-1"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
+        <div class="col-2">
+          <div class="article">
+              <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+              <small class="shopCategorie">Catégorie</small>
+              <hr>
+              <p>Titre</p>
+              <p style="text-align:right">Prix: XX €</p>
+              <a href="">ACHETER</a>
+            </div>
+          </div>
         <div class="col-1"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-2"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
+        <div class="col-2">
+          <div class="article">
+              <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+              <small class="shopCategorie">Catégorie</small>
+              <hr>
+              <p>Titre</p>
+              <p style="text-align:right">Prix: XX €</p>
+              <a href="">ACHETER</a>
+            </div>
+          </div>
       </div>
       <div class="row">
         <div class="col-2"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
-        <div class="col-1"></div>
-        <div class="col-2 article">
-          <h2>Nom Article<h2>
-          <img class="col-12" src="https://www.w3schools.com/howto/img_fjords.jpg">
-          <p class="col-12">Début description</p>
-          <span class="col-12">Prix XX€</span>
-          <a class="col-6" href="">ACHETER</a>
-        </div>
-      </div>
+        <div class="col-2">
+          <div class="article">
+              <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+              <small class="shopCategorie">Catégorie</small>
+              <hr>
+              <p>Titre</p>
+              <p style="text-align:right">Prix: XX €</p>
+              <a href="">ACHETER</a>
+            </div>
+          </div>
+            <div class="col-1"></div>
+            <div class="col-2">
+              <div class="article">
+                  <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+                  <small class="shopCategorie">Catégorie</small>
+                  <hr>
+                  <p>Titre</p>
+                  <p style="text-align:right">Prix: XX €</p>
+                  <a href="">ACHETER</a>
+                </div>
+              </div>
+            <div class="col-1"></div>
+            <div class="col-2">
+              <div class="article">
+                  <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+                  <small class="shopCategorie">Catégorie</small>
+                  <hr>
+                  <p>Titre</p>
+                  <p style="text-align:right">Prix: XX €</p>
+                  <a href="">ACHETER</a>
+                </div>
+              </div>
+          </div>
+          <div class="row">
+            <div class="col-2"></div>
+            <div class="col-2">
+              <div class="article">
+                  <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+                  <small class="shopCategorie">Catégorie</small>
+                  <hr>
+                  <p>Titre</p>
+                  <p style="text-align:right">Prix: XX €</p>
+                  <a href="">ACHETER</a>
+                </div>
+              </div>
+                <div class="col-1"></div>
+                <div class="col-2">
+                  <div class="article">
+                      <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+                      <small class="shopCategorie">Catégorie</small>
+                      <hr>
+                      <p>Titre</p>
+                      <p style="text-align:right">Prix: XX €</p>
+                      <a href="">ACHETER</a>
+                    </div>
+                  </div>
+                <div class="col-1"></div>
+                <div class="col-2">
+                  <div class="article">
+                      <img class="shopImg" src="https://www.w3schools.com/howto/img_fjords.jpg" alt="" />
+                      <small class="shopCategorie">Catégorie</small>
+                      <hr>
+                      <p>Titre</p>
+                      <p style="text-align:right">Prix: XX €</p>
+                      <a href="">ACHETER</a>
+                    </div>
+                  </div>
+              </div>
       <div class="row">
         <div class="col-12">
           <div class="panierPortable">
             <div class="panierPortable">
               <a href="">
               <h2>Panier</h2>
-              <p>Nom de l'article</p>
-              <p>Prix : XX€</p>
-              <hr>
-              <p>Nom de l'article</p>
-              <p>Prix : XX€</p>
-              <hr>
-              <p>Nom de l'article</p>
-              <p>Prix : XX€</p>
-              <hr>
-              <p>Nom de l'article</p>
-              <p>Prix : XX€</p>
-            </a>
-            </div>
-        </div>
+        <p>Nom de l'article</p>
+        <p>Prix : XX€</p>
+        <hr>
+        <p>Nom de l'article</p>
+        <p>Prix : XX€</p>
+        <hr>
+        <p>Nom de l'article</p>
+        <p>Prix : XX€</p>
+        <hr>
+        <p>Nom de l'article</p>
+        <p>Prix : XX€</p>
+        </a>
       </div>
     </div>
+  </div>
+  </div>
 
-    </div>
+  </div>
 
-    <div class="pagination">
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-    </div>
+  <div class="pagination">
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+  </div>
 
-  </body>
+</body>
+
 </html>

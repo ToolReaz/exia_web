@@ -1,41 +1,66 @@
-.h1Event {
-  color: white;
-  text-align: center;
-  background-color: #c2242a;
-  height: 5em;
-  padding-top: 2em;
-}
+
 
 .article {
+  transition: 1s;
   border: 1px grey solid;
   margin: 3% 0% 3% 0%;
   background-color: rgb(220, 220, 220);
   text-align: justify;
+  position: relative;
+  padding-bottom: 40px;
+  transform: scale(1.1);
+  box-shadow: 0px 0px 15px rgb(180, 180, 180);
 }
 
-.article p, span {
-  font-size: 0.7em;
+.article:hover {
+  transition: 0.5s;
+  box-shadow: 0px 0px 20px #C2242A;
 }
 
 .article a {
-  width: 50%;
+  width: 100%;
+  height: auto;
   background-color: #C2242A;
   text-align: center;
   text-decoration: none;
-  margin-left: 15px;
   color: white;
-  font-size: 0.8em;
+  padding: 5px 0px 4px 0px;
+  position: absolute;
+  bottom: -0.5px;
+  border: 1px #C2242A solid;
 }
 
 .article a:hover {
   background-color: #D7282F;
 }
 
-.article p {
-  font-size: 0.6em;
-  height: 9.5em;
-  overflow: hidden;
+
+
+.shopImg{
+  width: 100%;
+  height: auto;
+  box-shadow: 0px 3px 5px black;
 }
+
+.shopCategorie{
+  margin:10px 0px 10px 0px;
+  color: rgb(150,150,150);
+}
+
+.shopTitre{
+  margin-bottom: 10px;
+}
+
+.shopInput{
+  border-radius: 5px;
+}
+
+.shopSelect{
+  border-radius: 5px;
+}
+
+
+
 
 .panierPC {
   display: none;
@@ -53,6 +78,13 @@
 .panierPortable hr {
   margin: 1% 0% 1% 0%;
 }
+.panierProtable hr{
+  border: 1px solid darkgrey;
+}
+
+
+
+
 
 @media only screen and (min-width: 1000px) {
   .panierPC {
@@ -62,9 +94,8 @@
     left: 0px;
     width: 13em;
     background-color: rgb(220, 220, 220);
-  }
-  .panierPC hr {
-    margin: 1% 0% 1% 0%;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px rgb(180, 180, 180);
   }
   .panierPC a {
     text-decoration: none;
@@ -72,6 +103,13 @@
   }
   .panierPC h2 {
     text-align: center;
+  }
+  .panierPC hr{
+    border: 1px solid darkgrey;
+  }
+
+  .panierPC p{
+    margin: 5px 0px 5px 0px
   }
   .panierPortable {
     display: none;
