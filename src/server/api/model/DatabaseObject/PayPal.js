@@ -11,7 +11,6 @@ module.exports = (dataObject, permissions) => {
             var r = dataObject.Compte.findOne({ where: { ID: idAccount } });
             if (r) {
                 await dataObject.Compte_PayPal.upsert({ GUID: paypalApiKey, ID_Compte: r.ID });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'existe pas."));
             }

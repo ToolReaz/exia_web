@@ -14,9 +14,7 @@ module.exports = (dataObject, permissions) => {
                 var s = await dataObject.Photographie.findOrCreate({ where: { ID_Photos: r.ID, ID_Manifestation: idManif, ID: idAccount } });
                 var t = await dataObject.Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } });
                 // SUSPECT
-                if (t) {
-                    return;
-                } else {
+                if (!t) {
                     Promise.reject(new Error("ERREUR A DEFINIR")) // TODO : Remplacer l'erreur
                 }
             }
@@ -32,7 +30,6 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_COMMENT_PHOTO")) {
                 var r = await dataObject.Commentaires.findOrCreate({ where: { Texte: comment } });
                 var s = await dataObject.Commente.findOrCreate({ where: { ID: idAccount, ID_Photos: idPhoto, ID_Commentaires: r[0].ID } });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_COMMENT_PHOTO\""));
             }
@@ -51,7 +48,6 @@ module.exports = (dataObject, permissions) => {
                 } else {
                     var r = await dataObject.likes.destroy({ where: { ID: idAccount, ID_Photos: idPhoto } });
                 }
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_LIKE_PHOTO\""));
             }
@@ -73,7 +69,6 @@ module.exports = (dataObject, permissions) => {
         Report: async (idAccount, idPhoto) => {
             if(await permissions.FilterPermission(idAccount, "P_REPORT")){
                 var r = await dataObject.Photos.update({ Public: false }, { where: { ID: idPhoto } });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_REPORT\""));
             }

@@ -14,8 +14,7 @@ module.exports = (dataObject, permissions) => {
                 where: { Adresse_Mail: email },
                 defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password }
             });
-            if (r[1]) return;
-            else Promise.reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
+            if (!r[1]) Promise.reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
         },
 
         /**
@@ -50,7 +49,6 @@ module.exports = (dataObject, permissions) => {
                 } else {
                     await dataObject.Session.destroy({ where: { ID_Compte: idAccount } })
                 }
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_CONNECT\""));
             }

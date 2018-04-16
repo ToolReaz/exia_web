@@ -31,7 +31,6 @@ module.exports = (dataObject, permissions) => {
         PosteManifestation: async (idAccount, Manifestation) => {
             if (await permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
                 await dataObject.Manifestation.findOrCreate({ where: Manifestation });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
             }
@@ -45,7 +44,6 @@ module.exports = (dataObject, permissions) => {
         InscrireManif: async (idAccount, idManif) => {
             if (permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF")) {
                 await dataObject.Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
             }
@@ -110,7 +108,6 @@ module.exports = (dataObject, permissions) => {
                 if (price) m.Prix = price;
                 if (public) m.Public = public;
                 await dataObject.Manifestation.update(m, { where: { ID: idManif } });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
             }

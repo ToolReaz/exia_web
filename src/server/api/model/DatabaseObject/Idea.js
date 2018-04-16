@@ -54,7 +54,6 @@ module.exports = (dataObject, permissions) => {
                     where: { ID: idAccount, ID_Idee: idIdea },
                     defaults: { Pour: vote }
                 });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VOTE_IDEE\""));
             }
@@ -68,7 +67,6 @@ module.exports = (dataObject, permissions) => {
         ValideIdee: async(idAccount, idIdee) => {
             if (permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
                 await dataObject.Idee.update({ Approuve: true }, { where: { ID: idIdee } });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
             }

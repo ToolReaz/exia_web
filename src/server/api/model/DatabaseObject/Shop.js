@@ -27,7 +27,6 @@ module.exports = (dataObject, permissions) => {
         DeleteProduct: async (idAccount, idProduct) => {
             if (await permissions.FilterPermission(idAccount, "P_DELETE_SHOP")) {
                 await dataObject.Produit.destroy({ where: { ID: idProduct } });
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_DELETE_SHOP\""));
             }
@@ -86,7 +85,6 @@ module.exports = (dataObject, permissions) => {
                 if (!s[1]) {
                     var t = await dataObject.Panier.update({ Quantite: r[0].Quantite + quantity }, { where: { ID: idAccount, ID_Produit: idProduct } });
                 }
-                return;
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PURCHASE_SHOP\""));
             }
