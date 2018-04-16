@@ -3,3 +3,5 @@ src/server/node_modules
 .idea
 .vscode
 .TODO.txt
+src/server/package.json
+src/server/package-lock.json
