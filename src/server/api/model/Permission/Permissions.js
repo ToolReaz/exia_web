@@ -18,119 +18,36 @@ module.exports = (dataObject) => {
             });
             return ret;
         },
+
         /**     
          * Filtre les executions de requête en fonction des permissions     
          * @param {int} userID ID de l'utilisateur executant la requête     
          * @param {string} permission Permission requise pour executer la requête     
          */
-        FilterPermission: (userID, permission) => {
-            return new Promise((resolve, reject) => {
-                dataObject.Permission.findOne({
-                    where: {
-                        Code_permission: permission
-                    }
-                }).then(r => {
-                    dataObject.Possede.findAll({
-                        where: {
-                            ID: r.ID
-                        }
-                    }).then(s => {
-                        dataObject.Compte.findOne({
-                            where: {
-                                ID: userID
-                            }
-                        }).then(t => {
-                            dataObject.Appartient.findAll({
-                                where: {
-                                    ID: t.ID
-                                }
-                            }).then(u => {
-                                if (here.Contains(s, u, (s_) => {
-                                    return s_.ID_Role;
-                                }, (u_) => {
-                                    return u_.ID_Role
-                                })) {
-                                    resolve()
-                                } else {
-                                    reject('Permission insuffisante : permission ' + permission + ' requise.')
-                                }
-                            }).catch(err => reject(err))
-                        }).catch(err => reject(err))
-                    }).catch(err => reject(err))
-                }).catch(err => reject(err))
-            });
+        FilterPermission: async(userID, permission) => {
+            var r = await dataObject.Permission.findOne({ where: { Code_permission: permission } });
+            var s = await dataObject.Possede.findAll({ where: { ID: r.ID } });
+            var t = await dataObject.Compte.findOne({ where: { ID: userID } });
+            var u = await dataObject.Appartient.findAll({ where: { ID: t.ID } });
+
+            return here.Contains(s, u, (s_) => s_.ID_Role, (u_) => u_.ID_Role);
         },
-
-        /**     
-         * Filtre les executions de requête en fonction des permissions     
-         * @param {int} userID ID de l'utilisateur executant la requête     
-         * @param {string} permission Permission requise pour executer la requête     
-         */
-        /*FilterPermissionAsync: async (userID, permission) => {
-            var r = await dataObject.Permission.findOne({
-                where: {
-                    Code_permission: permission
-                }
-            });
-            var s = await dataObject.Possede.findAll({
-                where: {
-                    ID: r.ID
-                }
-            });
-            var t = await dataObject.Compte.findOne({
-                where: {
-                    ID: userID
-                }
-            });
-            var u = await dataObject.Appartient.findAll({
-                where: {
-                    ID: t.ID
-                }
-            });
-
-            if (here.Contains(s, u, (s_) => {
-                return s_.ID_Role;
-            }, (u_) => {
-                return u_.ID_Role
-            })) {
-                return true;
-            } else {
-                return Promise.reject(new Error('Permission insuffisante : permission ' + permission + ' requise.'));
-            }
-
-        },*/
 
         /**     
          * Définit les permissions     
          * @param {string} role Nom du role     
          * @param {string} permission Nom de la permission     
          */
-        SetPermissions: (role, permission) => {
-            return new Promise((resolve, reject) => {
-                dataObject.Role.findOrCreate({
-                    where: {
-                        Nom_role: role
-                    }
-                }).then(r => {
-                    dataObject.Permission.findOrCreate({
-                        where: {
-                            Code_permission: permission
-                        }
-                    }).then(s => {
-                        dataObject.Possede.findOrCreate({
-                            where: {
-                                ID: s[0].ID,
-                                ID_Role: r[0].ID
-                            }
-                        }).then(resolve()).catch(err => reject(err))
-                    }).catch(err => reject(err))
-                }).catch(err => reject(err))
-            });
+        SetPermissions: async(role, permission) => {
+            var r = await dataObject.Role.findOrCreate({ where: { Nom_role: role } });
+            var s = await dataObject.Permission.findOrCreate({ where: { Code_permission: permission } });
+            await dataObject.Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } });
         },
+
         /**     
          * Met les permissions de base     
          */
-        SetupPermissions: async () => {
+        SetupPermissions: async() => {
             await here.SetPermissions("R_STUDENT", "P_CONNECT")
             await here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE")
             await here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE")
