@@ -9,17 +9,14 @@ class ValidateIdea extends Component {
             id: null,
             title: '',
             description: '',
-            date: '',
-            imagePath: '',
             ideas: []
         };
 
-        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.selectIdea = this.selectIdea.bind(this);
     }
 
-    getAllIdeas() {
+    componentDidMount() {
         getApi('/api/idea').then(res => {
             let tmp = this.state.ideas;
             res.forEach(idea => {
@@ -31,35 +28,9 @@ class ValidateIdea extends Component {
         });
     }
 
-    componentDidMount() {
-        this.getAllIdeas();
-    }
-
-    handleChange(e) {
-        e.preventDefault();
-        switch (e.target.name) {
-            case 'title': this.setState({description: e.target.value});
-                break;
-            case 'description': this.setState({description: e.target.value});
-                break;
-            case 'date': this.setState({date: e.target.value});
-                break;
-            case 'imagePath': this.setState({imagePath: e.target.value});
-                break;
-            default:
-                break;
-        }
-    }
-
     handleSubmit(e) {
-        let data = {
-            id: this.state.id,
-            title: this.state.title,
-            description: this.state.description,
-            date: this.state.date,
-            imagePath: this.state.imagePath
-        };
-        postApi('/api/manifestation', data).then(res => {
+        e.preventDefault();
+        postApi('/api/idea/validate', this.state.id).then(res => {
             alert('Idée validée !');
         }).catch(reason => {
             alert(reason);
@@ -87,10 +58,8 @@ class ValidateIdea extends Component {
                     {options}
                 </select>
                 <form id="validate-idea-form" onSubmit={this.handleSubmit}>
-                    <input disabled type="text" name="title" placeholder="Titre" value={this.state.title} onChange={this.handleChange}/><br/>
-                    <textarea name="description" placeholder="Text" value={this.state.description} onChange={this.handleChange}/><br/>
-                    <input type="date" name="date" onChange={this.handleChange}/><br/>
-                    <input type="text" name="imagePath" placeholder="Lien image" value={this.state.imagePath || ''} onChange={this.handleChange}/><br/>
+                    <input disabled type="text" name="title" placeholder="Titre" value={this.state.title}/><br/>
+                    <textarea disabled name="description" placeholder="Text" value={this.state.description}/><br/>
                     <input type="submit" value="Envoyer"/>
                 </form>
             </div>

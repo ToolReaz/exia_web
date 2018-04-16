@@ -85,13 +85,17 @@ module.exports = {
     validate: (req, res) => {
         let reqToken = req.cookies.token;
         let reqId = req.params.id;
-        let reqTitle = req.params.title;
-        let reqDescription = req.params.description;
 
         if (reqToken) {
             DB.Compte.GetAccountFromToken(reqToken).then(id => {
-
-            })
+                DB.Idee.ValideIdee(id, reqId).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
         } else {
             res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
         }

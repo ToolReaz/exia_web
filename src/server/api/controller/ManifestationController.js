@@ -7,7 +7,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Manifestation.GetThisMonthEvents().then(manifestations => {
+                DB.Manifestation.GetAllManifestations().then(manifestations => {
                     res.json({'error': null, 'content': manifestations});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
