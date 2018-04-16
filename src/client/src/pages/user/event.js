@@ -21,8 +21,6 @@ class Event extends Component {
 
     getRole() {
         getApi('/user/roles').then(res => {
-            console.log('ROLES:');
-            console.log(res);
             this.setState({roles: res});
         }).catch(reason => {
             alert(reason);
@@ -32,8 +30,6 @@ class Event extends Component {
 
     getAllIdeas() {
         getApi('/api/idea').then(res => {
-            console.log('Idea:');
-            console.log(res);
             let tmp = this.state.ideas;
             res.forEach(idea => {
                 tmp.push(idea);
@@ -46,8 +42,6 @@ class Event extends Component {
 
     getAllManifestations() {
         getApi('/api/manifestation').then(res => {
-            console.log('Manif');
-            console.log(res);
             let tmp = this.state.manifestations;
             res.forEach(idea => {
                 tmp.push(idea);

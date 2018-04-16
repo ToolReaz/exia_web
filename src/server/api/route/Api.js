@@ -52,7 +52,7 @@ router.post('/manifestation/update', (req, res) => {
     ManifestationController.update(req, res);
 });
 // Subscribe to a manifestation
-router.post('/manifestation/subscribe/:id', (req, res) => {
+router.get('/manifestation/subscribe/:id', (req, res) => {
     ManifestationController.subscribe(req, res);
 });
 // Validate to a manifestation

@@ -1,5 +1,5 @@
+const sendMail = require('../lib/mail');
 const DB = require('../model/DB');
-const nodemailer = require('nodemailer');
 
 module.exports = {
 
@@ -14,7 +14,7 @@ module.exports = {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.AddProduct(id, reqName, reqDescription, reqPrice).then((productId) => {
                     DB.Shop.GetCategorieFromName(reqCategory).then(category => {
-                        DB.Shop.AddItemToCategorie(id, category.dataValues.ID, productId).then(() => {
+                        DB.Shop.AddItemToCategorie(id, parseInt(category.dataValues.ID), productId).then(() => {
                             res.json({'error': null, 'content': null});
                         }).catch(reason => {
                             res.json({'error': reason.message, 'content': null});
@@ -93,45 +93,14 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.CommitPurchase(id).then((order) => {
-
-                    /*
-                    nodemailer.createTestAccount((err, account) => {
-                        let transporter = nodemailer.createTransport({
-                            host: 'smtp.ethereal.email',
-                            port: 587,
-                            secure: false,
-                            auth: {
-                                user: account.user,
-                                pass: account.pass
-                            }
-                        });
-
-                        // setup email data with unicode symbols
-                        let mailOptions = {
-                            from: '"Fred Foo 👻" <foo@example.com>', // sender address
-                            to: 'bar@example.com, baz@example.com', // list of receivers
-                            subject: 'Hello ✔', // Subject line
-                            text: 'Hello world?', // plain text body
-                            html: '<b>Hello world?</b>' // html body
-                        };
-
-                        // send mail with defined transport object
-                        transporter.sendMail(mailOptions, (error, info) => {
-                            if (error) {
-                                return console.log(error);
-                            }
-                            console.log('Message sent: %s', info.messageId);
-                            // Preview only available when sending through an Ethereal account
-                            console.log('Preview URL: %s', nodemailer.getTestMessageUrl(info));
-
-                            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-                            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-                        });
-                    });*/
-
-
-
-
+                    let message = {
+                        from: '"ToolReaz" <contact@toolreaz.space>', // sender address
+                        to: 'thomas.weidmann@viacesi.fr', // list of receivers
+                        subject: 'Hello from the new BDE website !', // Subject line
+                        text: 'Hello world?', // plain text body
+                        html: '<b>Hello world?</b>' // html body
+                    };
+                    sendMail(message);
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

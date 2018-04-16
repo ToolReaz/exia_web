@@ -15,10 +15,10 @@ class Manifestation extends Component {
 
     subscribe() {
         getApi('/api/manifestation/subscribe/' + this.state.id).then(res => {
-            console.log(res);
+            alert('Vous êtes inscrit !')
             this.setState({subscribed: true});
         }).catch(reason => {
-            console.log(reason);
+            alert(reason);
         })
     }
 
@@ -34,7 +34,7 @@ class Manifestation extends Component {
                 <p>Date: {this.props.values.Date}</p>
                 <p>Intreval: {this.props.values.Intervale}</p>
                 <p>Prix: {this.props.values.Prix}</p>
-                <button onClick={this.subscribe}>S'inscrire</button>
+                <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
             </div>
         );
     }

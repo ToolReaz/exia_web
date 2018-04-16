@@ -1,9 +1,27 @@
 import React, { Component } from 'react';
 import {Link} from "react-router-dom";
+import * as cookies from "react-cookie";
 
 class Nav extends Component {
 
     render() {
+        let account = [];
+        if (cookies.load('token')) {
+            account.push(
+                <div className="nav-links-right">
+                    <p className="s"><input name="search" id="search" type="search"/></p>
+                    <Link to="/user/account">Mon compte</Link>
+                </div>
+            )
+        } else {
+            account.push(
+                <div className="nav-links-right">
+                    <p className="s"><input name="search" id="search" type="search"/></p>
+                    <Link to="/user/connect">Connexion</Link>
+                    <Link to="/user/register">Inscription</Link>
+                </div>
+            )
+        }
         return (
             <nav>
                 <div className="nav">
@@ -27,12 +45,7 @@ class Nav extends Component {
                             <button id="boutonsearchid">C'est parti !</button>
                         </form>
                     </div>
-
-                    <div className="nav-links-right">
-                        <p className="s"><input name="search" id="search" type="search"/></p>
-                        <Link to="/user/connect">Connexion</Link>
-                        <Link to="/user/register">Inscription</Link>
-                    </div>
+                    {account}
                 </div>
             </nav>
         );
