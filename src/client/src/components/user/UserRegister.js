@@ -93,7 +93,7 @@ class UserRegister extends Component {
 
     render() {
         return (
-            <div className="grid-container">
+            <div className="flex-container">
                         <form id="register-form" onSubmit={this.handleSubmit}>
                             <legend>Inscrivez vous !</legend>
                             <fieldset>

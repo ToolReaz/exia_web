@@ -1,56 +1,44 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700);
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
 
-html {
-  font-size: 10px;
-  height: 100%;
-  background:#212531;
-  background: linear-gradient(to right bottom, #F5F5F5 70%, #C2242A 30%);
-}
-
-.grid-container{
+.flex-container{
   display: flex;
   padding-top: 50px;
   align-items: center;
   justify-content: center;
   text-align: center;
-
 }
-form {
+
+#register-form {
   font-family: "roboto", sans-serif;
   background-color: rgba(153, 153, 153, 0.6);
   width: 400px;
   color: #111111;
   margin: 0;
 }
-form label {
-  font-size: 1.6rem;
+#register-form label {
+  font-size: 2px;
   color: #777777;
   margin-left: 0.8rem;
 }
-form label a:link,
-form label a:visited,
-form label a:hover {
-  font-size: 1.6rem;
+#register-form label a:link,
+#register-form label a:visited,
+#register-form label a:hover {
+  font-size: 2px;
   color: #7FDBFF;
   text-decoration: none;
 }
-form fieldset {
+#register-form fieldset {
   border: none;
-  padding: 1.6rem 1.2rem;
+  padding: 5px 10px 5px 10px;
 }
-form legend {
+#register-form legend {
   font-size: 3.6rem;
   font-weight: 100;
   text-transform: none;
   color: #474040;
-  padding: 1.6rem 0 1.6rem 0;
+  padding: 2px 0 2px 0;
 }
-form p {
+#register-form p {
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.05rem;
@@ -59,7 +47,7 @@ form p {
   margin: 0;
   text-align: left;
 }
-form button {
+#register-form input[type=submit] {
   background-color: #2ECC40;
   color: #F5F5F5;
   text-transform: uppercase;
@@ -73,86 +61,86 @@ form button {
   outline: none;
   margin: 1.2rem 0;
   transition: all 0.5s ease;
-  border-radius: 0.4rem;
+  border-radius: 8px;
 }
-form button[disabled] {
+#register-form button[disabled] {
   cursor: auto;
   background-color: #777777;
   opacity: 0.25;
 }
-form input {
+#register-form input {
   display: block;
   padding: 1.2rem;
-  margin: 0.4rem 0 1.6rem 0;
+  margin: 8px 0 8px 0;
   font-size: 1.8rem;
   font-weight: 400;
   width: 100%;
   outline: none;
   color: #111111;
-  border-radius: 0.2rem;
+  border-radius: 4px;
   transition: border 0.5s ease 0.125s;
 }
-form input[type=checkbox] {
+#register-form input[type=checkbox] {
   width: auto;
   display: inline-block;
   border: none;
-  margin-top: 1.4rem;
+  margin-top: 4px;
 }
-form input::-webkit-input-placeholder {
+#register-form input::-webkit-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:-moz-placeholder {
+#register-form input:-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input::-moz-placeholder {
+#register-form input::-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:-ms-input-placeholder {
+#register-form input:-ms-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus::-webkit-input-placeholder {
+#register-form input:focus::-webkit-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus:-moz-placeholder {
+#register-form input:focus:-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus::-moz-placeholder {
+#register-form input:focus::-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus:-ms-input-placeholder {
+#register-form input:focus:-ms-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:required:focus:invalid {
+#register-form input:required:focus:invalid {
   border: 1px solid #FF4136;
 }
-form input:required:invalid {
+#register-form input:required:invalid {
   border: 1px solid #F5F5F5;
 }
-form input:required:valid {
+#register-form input:required:valid {
   border: 1px solid #2ECC40;
 }
 #logo {
@@ -160,7 +148,7 @@ form input:required:valid {
   right:5%;
   bottom:5%;
 }
-a {
+#register-form a {
   text-decoration: none;
   color: #474040;
   font-size: 13px;

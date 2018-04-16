@@ -54,16 +54,16 @@ class Idea extends Component {
             validBtn = (<button onClick={this.validateIdea}>Valider l'idée</button>);
         }
         return (
-            <div className="col-3">
-                <div className="event">
+                <div className="event2">
                     {validBtn}
-                    <h2>Nom: {this.props.values.Titre}</h2>
-                    <p>Soumis le: {this.props.values.Soumis_le}</p>
+                    <h2 className="event2Title">Nom: {this.props.values.Titre}</h2>
+                    <p className="eventDate">Soumis le: {this.props.values.Soumis_le}</p>
                     <p>Texte: {this.props.values.Texte}</p>
-                    <button id="against" onClick={this.vote}>Vote contre: {this.state.voteAgainst}</button>
-                    <button id="for" onClick={this.vote}>Vote pour: {this.state.voteFor}</button>
+                    <div className="event2Vote">
+                        <button id="against" onClick={this.vote}>Vote contre: {this.state.voteAgainst}</button>
+                        <button id="for" onClick={this.vote}>Vote pour: {this.state.voteFor}</button>
+                    </div>
                 </div>
-            </div>
         );
     }
 }

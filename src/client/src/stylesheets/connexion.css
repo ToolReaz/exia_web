@@ -1,56 +1,36 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700);
-*,
-*:before,
-*:after {
-  box-sizing: border-box;
-}
 
-html {
-  font-size: 10px;
-  height: 100%;
-  background:#212531;
-  background: linear-gradient(to right bottom, #F5F5F5 70%, #C2242A 30%);
-}
-
-.grid-container{
-  display: flex;
-  padding-top: 50px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-
-}
-form {
+#connect-form {
   font-family: "roboto", sans-serif;
   background-color: rgba(153, 153, 153, 0.6);
   width: 400px;
   color: #111111;
   margin: 0;
 }
-form label {
+#connect-form label {
   font-size: 1.6rem;
   color: #777777;
   margin-left: 0.8rem;
 }
-form label a:link,
-form label a:visited,
-form label a:hover {
+#connect-form label a:link,
+#connect-form label a:visited,
+#connect-form label a:hover {
   font-size: 1.6rem;
   color: #7FDBFF;
   text-decoration: none;
 }
-form fieldset {
+#connect-form fieldset {
   border: none;
   padding: 1.6rem 1.2rem;
 }
-form legend {
+#connect-form legend {
   font-size: 3.6rem;
   font-weight: 100;
   text-transform: none;
   color: #474040;
   padding: 1.6rem 0 1.6rem 0;
 }
-form p {
+#connect-form p {
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.05rem;
@@ -59,7 +39,7 @@ form p {
   margin: 0;
   text-align: left;
 }
-form button {
+#connect-form button {
   background-color: #2ECC40;
   color: #F5F5F5;
   text-transform: uppercase;
@@ -75,12 +55,12 @@ form button {
   transition: all 0.5s ease;
   border-radius: 0.4rem;
 }
-form button[disabled] {
+#connect-form button[disabled] {
   cursor: auto;
   background-color: #777777;
   opacity: 0.25;
 }
-form input {
+#connect-form input {
   display: block;
   padding: 1.2rem;
   margin: 0.4rem 0 1.6rem 0;
@@ -92,67 +72,67 @@ form input {
   border-radius: 0.2rem;
   transition: border 0.5s ease 0.125s;
 }
-form input[type=checkbox] {
+#connect-form input[type=checkbox] {
   width: auto;
   display: inline-block;
   border: none;
   margin-top: 1.4rem;
 }
-form input::-webkit-input-placeholder {
+#connect-form input::-webkit-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:-moz-placeholder {
+#connect-form input:-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input::-moz-placeholder {
+#connect-form input::-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:-ms-input-placeholder {
+#connect-form input:-ms-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus::-webkit-input-placeholder {
+#connect-form input:focus::-webkit-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus:-moz-placeholder {
+#connect-form input:focus:-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus::-moz-placeholder {
+#connect-form input:focus::-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:focus:-ms-input-placeholder {
+#connect-form input:focus:-ms-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-form input:required:focus:invalid {
+#connect-form input:required:focus:invalid {
   border: 1px solid #FF4136;
 }
-form input:required:invalid {
+#connect-form input:required:invalid {
   border: 1px solid #F5F5F5;
 }
-form input:required:valid {
+#connect-form input:required:valid {
   border: 1px solid #2ECC40;
 }
 #logo {
