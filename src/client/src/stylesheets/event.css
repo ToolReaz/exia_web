@@ -1,0 +1,180 @@
+.event {
+  transition: 0.5s;
+  width: 55%;
+  border: 1px grey solid;
+  margin: 10% 0% 3% 22.5%;
+  background-color: rgb(255, 243, 242);
+  text-align: justify;
+  position: relative;
+  box-shadow: 0px 0px 15px rgb(180, 180, 180);
+}
+
+.event:hover {
+  transition: 0.5s;
+  box-shadow: 0px 0px 20px #C2242A;
+  transform: translateY(-5px) scale(1.03);
+}
+
+.event p, span {
+  font-size: 0.7em;
+}
+
+.event a {
+  width: 100%;
+  height: auto;
+  background-color: #C2242A;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 5px 0px 4px 0px;
+  position: absolute;
+  bottom: -0.5px;
+  border: 1px #C2242A solid;
+}
+
+.event a:hover {
+  background-color: #D7282F;
+  box-shadow: none;
+}
+
+.event p {
+  font-weight: 420;
+  font-size: 0.6em;
+  height: 9.5em;
+  overflow: hidden;
+  padding: 5px 15px 5px 15px;
+  margin-bottom: 5px;
+}
+
+.event .eventTitle {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #C2242A;
+  color: white;
+  padding: 5px;
+  font-size: 1.2em;
+  box-shadow: 2px 2px 5px black;
+  border: 1px #C2242A solid;
+}
+
+.eventImg {
+  width: 100%;
+  height: auto;
+  box-shadow: 0px 3px 5px black;
+}
+
+.eventDate {
+  padding-left: 15px;
+}
+
+.eventPrix {
+  padding-left: 30px;
+}
+
+.event2 {
+  width: 80%;
+  transition: 0.5s;
+  border: 1px grey solid;
+  margin: 10% 0% 3% 10%;
+  background-color: rgb(255, 243, 242);
+  text-align: justify;
+  position: relative;
+  box-shadow: 0px 0px 15px rgb(180, 180, 180);
+}
+
+.event2:hover {
+  transition: 0.5s;
+  box-shadow: 0px 0px 20px #C2242A;
+  transform: translateY(-5px) scale(1.03);
+}
+
+.event2 p, span {
+  font-size: 0.7em;
+}
+
+.event2 a {
+  width: 100%;
+  height: auto;
+  background-color: #C2242A;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 5px 0px 4px 0px;
+  position: absolute;
+  bottom: 2.5em;
+  border: 1px #C2242A solid;
+  margin-bottom: 15px;
+}
+
+.event2 a:hover {
+  background-color: #D7282F;
+  box-shadow: none;
+}
+
+.event2 p {
+  font-weight: 420;
+  font-size: 0.6em;
+  height: 9.5em;
+  overflow: hidden;
+  padding: 5px 15px 5px 15px;
+  margin-bottom: 5px;
+}
+
+.event2 .event2Title {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background-color: #C2242A;
+  color: white;
+  padding: 5px;
+  font-size: 1.2em;
+  box-shadow: 2px 2px 5px black;
+  border: 1px #C2242A solid;
+}
+
+.event2Prix {
+  padding-left: 30px;
+}
+
+.event2Vote {
+  text-align: center;
+  margin-bottom: 5px;
+  transform: scale(1.1);
+}
+
+.event2Margin {
+  margin-bottom: 45px;
+}
+
+.h1Event {
+  color: white;
+  text-align: center;
+  background: linear-gradient(to bottom, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, #C2242A, white);
+  height: 5em;
+  padding-top: 2em;
+  z-index: -1;
+}
+
+.green {
+  color: green;
+}
+
+.red {
+  color: red;
+}
+
+.grey {
+  color: grey;
+}
+
+@media only screen and (max-width: 1000px) {
+  .event2 {
+    border: 1px grey solid;
+    margin: 3% 0% 3% 0%;
+    width: 100%;
+  }
+  .event2 p, span {
+    font-size: 0.7em;
+  }
+}
