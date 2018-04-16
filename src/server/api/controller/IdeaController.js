@@ -22,18 +22,25 @@ module.exports = {
     },
 
     create: (req, res) => {
+        let reqToken = req.cookies.token;
         let reqName = req.body.name;
         let reqText = req.body.text;
-        let reqToken = req.cookies.token;
+        let reqManifName = req.body.manifName;
+        let reqmanifDescription = req.body.manifDescription;
+        let reqManifImagePath = req.body.manifImagePath;
+        let reqManifDate = req.body.manifDate;
+        let reqManifInterval = req.body.manifInterval;
+        let reqManifPrice = req.body.manifPrice;
 
-        if (!reqName || !reqText || !reqToken) {
-            res.json({'error': 'Champs incorrect ou connectez vous !'});
-        } else {
+        if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then((id) => {
-                DB.Idea.CreateIdea(id, reqName, reqText, null).then((success) => {
+                let manif = [DB.Manifestation.CreateManifestation(reqManifName, reqmanifDescription, reqManifImagePath, reqManifDate, reqManifInterval, reqManifPrice)];
+                DB.Idea.CreateIdea(id, reqName, reqText, manif).then(() => {
                     res.json({'error': null, 'content': null});
                 })
             }).catch((reason) => res.json({'error': reason, 'content': null}));
+        } else {
+            res.json({'error': 'Pas connecté = pas créer idée !'});
         }
     },
 
