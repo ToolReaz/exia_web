@@ -70,11 +70,11 @@ module.exports = {
 
     addToCart: (req, res) => {
         let reqToken = req.cookies.token;
-        let reqID= req.params.ID;
+        let reqID= req.params.id;
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Shop.AddItemToPurchaseList(id, reqID, 1).then(() => {
+                DB.Shop.AddItemToPurchaseList(id, parseInt(reqID), 1).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
@@ -92,7 +92,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Shop.CommitPurchase(id).then((res) => {
+                DB.Shop.CommitPurchase(id).then((order) => {
 
                     /*
                     nodemailer.createTestAccount((err, account) => {

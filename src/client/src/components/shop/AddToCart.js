@@ -5,6 +5,7 @@ class AddToCart extends Component {
 
     constructor(props) {
         super(props);
+        console.log(props.value);
         this.state = {
             articleID: props.value
         };
@@ -14,7 +15,7 @@ class AddToCart extends Component {
 
     handleClick(e) {
         e.preventDefault();
-        getApi('/api/shop/addtocart/' + this.state.articleID).then(res => {
+        getApi('/api/shop/addtocart/' + this.state.articleID.toString()).then(res => {
             alert('Article ajouté au panier !');
         }).catch(reason => {
             alert(reason);
