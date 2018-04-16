@@ -25,10 +25,11 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_ACTIVITE")) {
                 var r = dataObject.Idee.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } });
                 if (manifestationArray != null) {
-                    manifestationArray.forEach(manifestation => {
+                    for (let i = 0; i < manifestationArray.length; i++) {
+                        const manifestation = manifestationArray[i];
                         var s = await dataObject.Manifestation.findOrCreate({ where: manifestation });
                         var t = await dataObject.Comprend.findOrCreate({ where: { ID: r[0].ID, ID_Manifestation: s[0].ID } });
-                    });
+                    }
                 }
             } else {
                 Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_ADD_ACTIVITE\""));

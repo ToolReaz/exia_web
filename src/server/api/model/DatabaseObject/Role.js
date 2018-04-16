@@ -33,8 +33,12 @@ module.exports = (dataObject, permissions) => {
          */
         GetRolesFromUser: async (idAccount) => {
             var r = await here.GetRolesIDFromUser(idAccount);
-            var s = r.map(d=>await here.GetRoleFromID(d));
-            return s;
+            var result = [];
+            for (let i = 0; i < r.length; i++) {
+                const element = r[i];
+                result.push(await here.GetRoleFromID(d));
+            }
+            return result;
         },
 
     };

@@ -9,11 +9,8 @@ module.exports = (dataObject, permissions) => {
          * @param {String} firstname Prénom de l'utilisateur dont il faut créer le compte
          * @param {String} lastname Nom de l'utilisateur dont il faut créer le compte
          */
-        CreateUser: async(email, password, firstname, lastname) => {
-            var r = await dataObject.Compte.findOrCreate({
-                where: { Adresse_Mail: email },
-                defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password }
-            });
+        CreateUser: async (email, password, firstname, lastname) => {
+            var r = await dataObject.Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password } });
             if (!r[1]) Promise.reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
         },
 
@@ -21,7 +18,7 @@ module.exports = (dataObject, permissions) => {
          * Récupère le compte (brut) d'une personne
          * @param {String} email Adresse E-Mail de la personne dont il faut récupérer le compte
          */
-        GetAccount: async(email) => {
+        GetAccount: async (email) => {
             var r = await dataObject.Compte.findOne({ where: { Adresse_Mail: email } });
             if (r) return r;
             else Promise.reject(new Error("L'utilisateur \"" + email + "\" n'existe pas."));
@@ -31,7 +28,7 @@ module.exports = (dataObject, permissions) => {
          * Récupère les données brutes liées au compte
          * @param {Number} idAccount ID du compte
          */
-        GetAccountFromId: async(idAccount) => {
+        GetAccountFromId: async (idAccount) => {
             var r = await dataObject.Compte.findOne({ where: { ID: idAccount } });
             if (r) return r;
             else Promise.reject(new Error("L'ID #" + idAccount + " n'existe pas."));
@@ -42,7 +39,7 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} idCompte ID du compte associé au token
          * @param {String=} token Token à insérer pour l'utilisateur spécifié
          */
-        SetToken: async(idAccount, token) => {
+        SetToken: async (idAccount, token) => {
             if (await permissions.FilterPermission(idAccount, "P_CONNECT")) {
                 if (token) {
                     await dataObject.Session.upsert({ Token: token, Derniere_connexion: Date.now(), ID_Compte: idAccount })
@@ -58,7 +55,7 @@ module.exports = (dataObject, permissions) => {
          * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
          * @param {Number} idAccount ID de l'utilisateur
          */
-        ListeInscriptions: async(idAccount) => {
+        ListeInscriptions: async (idAccount) => {
             return await dataObject.Participe.findAll({ where: { ID: idAccount } });
         },
     };
