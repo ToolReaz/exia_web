@@ -21,6 +21,34 @@ module.exports = {
 
     },
 
+    getInvalidated: (req, res) => {
+        let reqToken = req.cookies.token;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Idea.GetAllIdeas(id).then((ideas) => {
+                    let invalidatedIdeas = [];
+                    let ideaCount = ideas.length;
+                    ideas.forEach(idea => {
+                        ideaCount--;
+                        if (!idea.Approuve) {
+                            invalidatedIdeas.push(idea);
+                        }
+                        if(ideaCount===0){
+                            res.json({'error': null, 'content': invalidatedIdeas});
+                        }
+                    });
+                }).catch((reason) => {
+                    res.json({'error': reason, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason, 'content': null});
+            });
+        } else {
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
+        }
+    },
+
     create: (req, res) => {
         let reqToken = req.cookies.token;
         let reqName = req.body.name;
@@ -84,11 +112,12 @@ module.exports = {
 
     validate: (req, res) => {
         let reqToken = req.cookies.token;
-        let reqId = req.params.id;
+        let reqId = req.body.id;
 
         if (reqToken) {
-            DB.Compte.GetAccountFromToken(reqToken).then(id => {
-                DB.Idee.ValideIdee(id, reqId).then(() => {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                console.log(reqId);
+                DB.Idea.ValideIdee(id, reqId).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

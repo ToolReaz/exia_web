@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import CreateShopCategory from "../../components/bde/CreateShopCategory";
 import CreateShopProduct from "../../components/bde/CreateShopProduct";
 import ValidateIdea from "../../components/bde/ValidateIdea";
+import ModifyManifestation from "../../components/bde/ModifyManifestation";
 
 class Bde extends Component {
 
@@ -30,6 +31,20 @@ class Bde extends Component {
                     <div className="row">
                         <ValidateIdea/>
                     </div>
+
+
+
+                    <div className="row">
+                        <div className="col-12">
+                            <h2>Modifier une manifestation</h2>
+                            <hr/>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <ModifyManifestation/>
+                    </div>
+
+
 
 
                     <div className="row">

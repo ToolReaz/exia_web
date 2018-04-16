@@ -19,6 +19,10 @@ router.post('/idea', (req, res) => {
 router.post('/idea/validate', (req, res) => {
     IdeaController.validate(req, res);
 });
+// Get all unvalidated idea
+router.get('/idea/invalidated', (req, res) => {
+    IdeaController.getInvalidated(req, res);
+});
 // Get number of votes for an idea
 router.get('/idea/votes/:id', (req, res) => {
     IdeaController.getVotes(req, res);
@@ -42,6 +46,10 @@ router.get('/manifestation', (req, res) => {
 // Create a manifestation
 router.post('/manifestation', (req, res) => {
     ManifestationController.create(req, res);
+});
+// Update an existing manifestation
+router.post('/manifestation/update', (req, res) => {
+    ManifestationController.update(req, res);
 });
 // Subscribe to a manifestation
 router.post('/manifestation/subscribe/:id', (req, res) => {

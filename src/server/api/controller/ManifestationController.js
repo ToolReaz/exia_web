@@ -74,5 +74,26 @@ module.exports = {
         } else {
             res.json({'error': 'Pas connecté = pas valider idée !', 'content': null});
         }
+    },
+
+    update: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqId = req.params.id;
+        let reqTitle = req.body.name;
+        let reqDescription = req.body.description;
+        let reqImagePath = req.body.imagePath;
+        let reqDate = req.body.date;
+        let reqPrice = req.body.price;
+        let reqInterval = req.body.interval;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.EditManifestation(reqId, reqTitle, reqDescription, reqImagePath, reqDate, reqInterval, reqPrice, true)
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas valider idée !', 'content': null});
+        }
     }
 };
