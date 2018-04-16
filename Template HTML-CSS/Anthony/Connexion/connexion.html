@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link href="style.css" type="text/css" rel="stylesheet">
+  <meta charset="utf-8" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <title>Connexion</title>
+
+
+</head>
+<body>
+
+  <div class="grid-container">
+    <form method="post">
+
+      <fieldset>
+
+        <legend>Connectez vous !</legend>
+
+        <p>Adresse Email</p>
+        <input class="input-regular" type="mail" name="email" pattern="[A-Za-z0-9._+-]+@(via)?cesi.fr" placeholder="Email Viacesi" required onChange={this.handleChange}/>
+
+        <p>Mot de passe</p>
+        <input id="password" type="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" title="6 caractères 1 majuscule 1 chiffre minimum requis" name="password" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required onChange={this.handleChange}/>
+
+        <button type="submit" name="sign up" id="ca_btn" >Se connecter !</button>
+        <div>
+          <a href="" target="_blank">Pas encore inscrit ?</a>
+        </div>
+      </fieldset>
+
+    </form>
+
+  </div>
+
+
+</body>
+
+
+</html>
