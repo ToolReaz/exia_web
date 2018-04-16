@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {postApi} from '../../lib/api/requestApi';
-import {Redirect, Switch} from "react-router-dom";
+import {Link, Redirect, Switch} from "react-router-dom";
 import cookies from 'react-cookie';
+import '../../stylesheets/connexion.css';
 
 class UserConnect extends Component {
 
@@ -79,15 +80,19 @@ class UserConnect extends Component {
         } else {
             return (
                 <div className="grid-container">
-                    <div className="row">
-                        <div className="col-6">
-                            <form id="connect-form" onSubmit={this.handleSubmit}><br/>
-                                <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/><br/><br/>
-                                <input className="input-regular" type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/><br/><br/>
-                                <input className="input-submit-regular" type="submit" value="Connexion"/><br/><br/>
-                            </form>
-                        </div>
-                    </div>
+                    <form id="connect-form" onSubmit={this.handleSubmit}>
+                        <fieldset>
+                            <legend>Connectez vous !</legend>
+                            <p>Adresse Email</p>
+                            <input className="input-regular" type="mail" name="email" placeholder="Email" pattern="[A-Za-z0-9._+-]+@(via)?cesi.fr" onChange={this.handleChange}/>
+                            <p>Mot de passe</p>
+                            <input className="input-regular" type="text" name="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Mot de passe" onChange={this.handleChange}/>
+                            <input className="input-submit-regular" type="submit" value="Connexion"/>
+                            <div>
+                                <Link from="/user/connect" to="/user/register">Pas encore inscrit ?</Link>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             )
         }

@@ -8,7 +8,13 @@ class CreateIdea extends Component {
         this.state = {
             error: null,
             name: '',
-            text: ''
+            text: '',
+            manifName: '',
+            manifDescription: '',
+            panifImagePath: '',
+            manifDate: null,
+            manifInterval: 0,
+            manifPrice: 0
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -23,6 +29,18 @@ class CreateIdea extends Component {
             break;
             case 'name': this.setState({name: e.target.value});
             break;
+            case 'manifName': this.setState({manifName: e.target.value});
+                break;
+            case 'manifDescription': this.setState({manifDescription: e.target.value});
+                break;
+            case 'panifImagePath': this.setState({panifImagePath: e.target.value});
+                break;
+            case 'manifInterval': this.setState({manifInterval: e.target.value});
+                break;
+            case 'manifPrice': this.setState({manifPrice: e.target.value});
+                break;
+            case 'manifDate': this.setState({manifDate: e.target.value});
+                break;
             default:
                 break;
         }
@@ -31,10 +49,21 @@ class CreateIdea extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        postApi('/api/idea', {name: this.state.name, text: this.state.text}).then(res => {
-            console.log(res);
+        let data = {
+            name: this.state.name,
+            text: this.state.text,
+            manifName: this.state.manifName,
+            manifDescription: this.state.manifDescription,
+            manifImagePath: this.state.panifImagePath,
+            manifInterval: this.state.manifInterval,
+            manifPrice: this.state.manifPrice,
+            manifDate: this.state.manifDate
+        };
+        console.log(data);
+        postApi('/api/idea', data).then(res => {
+            alert('Idée crée !');
         }).catch(reason => {
-            console.log(reason);
+            alert(reason);
         });
     }
 
@@ -47,6 +76,13 @@ class CreateIdea extends Component {
                 <form id="create-idea-form" onSubmit={this.handleSubmit}>
                     <input type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
                     <textarea name="text" placeholder="Text" onChange={this.handleChange}/><br/>
+                    <p>Manifestation liée:</p>
+                    <input type="text" placeholder="Nom" name="manifName" onChange={this.handleChange}/>
+                    <textarea name="manifDescription" placeholder="Description" onChange={this.handleChange}/><br/>
+                    <input type="text" placeholder="Lien image" name="manifImagePath" onChange={this.handleChange}/>
+                    <input type="date" name="manifDate" onChange={this.handleChange}/>
+                    <input type="integer" placeholder="Intervale" name="manifInterval" onChange={this.handleChange}/>
+                    <input type="integer" placeholder="Prix" name="manifPrice" onChange={this.handleChange}/>
                     <input type="submit" value="Envoyer"/>
                 </form>
                 <br/>

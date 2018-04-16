@@ -102,15 +102,60 @@ class Event extends Component {
                 </div>
             </div>
         );
+
+
+
+
+
+        let manifs = [];
         this.state.manifestations.forEach((manifestation) =>  {
-            view.push(
-                <div className="grid-container">
-                    <div className="row">
+            if (Date.parse(manifestation.Quand.toString()) >= Date.now()) {
+                manifs.push(
+                    <div className="col-4">
                         <Manifestation values={manifestation} />
                     </div>
-                </div>
-            );
+                );
+            }
         });
+
+        view.push(
+            <div className="grid-container">
+                <div className="row">
+                    <h2>Manifestations actuelles</h2>
+                </div>
+                <div className="row">
+                    {manifs}
+                </div>
+            </div>
+        );
+
+
+
+        
+
+
+        let oldManifs = [];
+        this.state.manifestations.forEach((manifestation) =>  {
+            if (Date.parse(manifestation.Quand.toString()) < Date.now()) {
+                oldManifs.push(
+                    <div className="col-4">
+                        <Manifestation values={manifestation} />
+                    </div>
+                );
+            }
+        });
+
+        view.push(
+            <div className="grid-container">
+                <div className="row">
+                    <h2>Anciennes manifestations</h2>
+                </div>
+                <div className="row">
+                    {oldManifs}
+                </div>
+            </div>
+        );
+
         view.push(<Footer/>);
         return view;
     }

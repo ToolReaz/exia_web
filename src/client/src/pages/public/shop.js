@@ -10,7 +10,7 @@ class Shop extends Component {
         this.state = {
             products: [],
             search: ''
-        }
+        };
 
         this.handleChange = this.handleChange.bind(this);
     }
