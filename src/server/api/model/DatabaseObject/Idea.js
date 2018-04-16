@@ -48,7 +48,7 @@ module.exports = (dataObject, permissions) => {
                                 }).then(s => {
                                     dataObject.Comprend.findOrCreate({
                                         where: {
-                                            ID: r.ID,
+                                            ID: r[0].ID,
                                             ID_Manifestation: s.ID
                                         }
                                     }).then(t => {
