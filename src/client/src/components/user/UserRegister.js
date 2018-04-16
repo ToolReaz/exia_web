@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import {Link} from "react-router-dom";
 
 class UserRegister extends Component {
 
@@ -92,18 +93,25 @@ class UserRegister extends Component {
     render() {
         return (
             <div className="grid-container">
-                <div className="row">
-                    <div className="col-6">
-                        <form className="grp-container" id="register-form" onSubmit={this.handleSubmit}><br/>
-                            <input className="input-regular" type="text" name="firstname" placeholder="Prenom" onChange={this.handleChange}/><br/><br/>
-                            <input className="input-regular" type="text" name="lastname" placeholder="Nom" onChange={this.handleChange}/><br/><br/>
-                            <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/><br/><br/>
-                            <input className="input-regular" type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/><br/><br/>
-                            <input className="input-regular" type="text" name="password_bis" placeholder="Retaper le mot de passe" onChange={this.handleChange}/><br/><br/>
-                            <input className="input-submit-regular" type="submit" value="Valider"/><br/><br/>
+                        <form id="register-form" onSubmit={this.handleSubmit}>
+                            <legend>Inscrivez vous !</legend>
+                            <fieldset>
+                                <p>Prénom</p>
+                                <input className="input-regular" type="text" name="firstname" placeholder="Prenom" onChange={this.handleChange}/>
+                                <p>Nom</p>
+                                <input className="input-regular" type="text" name="lastname" placeholder="Nom" onChange={this.handleChange}/>
+                                <p>Adresse Email</p>
+                                <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/>
+                                <p>Mot de passe</p>
+                                <input className="input-regular" type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/>
+                                <p>Confirmez le mot de passe</p>
+                                <input className="input-regular" type="text" name="password_bis" placeholder="Retaper le mot de passe" onChange={this.handleChange}/>
+                                <input className="input-submit-regular" type="submit" value="Valider"/>
+                                <div>
+                                    <Link from="/user/register" to="/user/connect">Déjà inscrit ?</Link>
+                                </div>
+                            </fieldset>
                         </form>
-                    </div>
-                </div>
             </div>
         )
     }
