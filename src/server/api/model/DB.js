@@ -57,8 +57,8 @@ connection.sync({ force: false, logging: false }).then(() => {
         //DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Nom de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
         //DataBase.Idea.ValideIdee(2, 8)
         //DataBase.Manifestation.EditManifestation(2, 9, "NAME", "DESC", "IMAGE", Date.now(), 0, 100, true)
-        /*DataBase.Shop.AddItemToPurchaseList(2, 2, 10)
-        .then(()=>{
+        //DataBase.Shop.AddItemToPurchaseList(2, 2, 10)
+        /*.then(()=>{
             console.log('ok');
         })
         .catch((err)=>{
