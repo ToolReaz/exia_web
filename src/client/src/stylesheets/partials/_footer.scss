@@ -11,7 +11,6 @@ body {
   margin: 0;
   font-family: 'segoe ui', serif;
   position: relative;
-  padding-bottom: 6rem;
   min-height: 100%;
 }
 *,
@@ -320,7 +319,8 @@ p.s:hover:after {
 }
 
 .footer-distributed {
-  position: absolute;
+  margin-top: 10px;
+  position: static;
   right: 0;
   bottom: 0;
   left: 0;
