@@ -119,6 +119,7 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Edite les données d'une manifestation
+         * @param {Number} idAccount ID de la personne souhaitant ajouter la manif
          * @param {Number} idManif ID de la manifestation
          * @param {string} name Nouveau nom de la manifestation (ou NULL)
          * @param {string} description Nouvelle description (ou NULL)
@@ -128,7 +129,7 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} price Nouveau prix pour la manifestation (ou NULL)
          * @param {boolean} public Si la manifestation est publique (visible sur la page) ou non (ou NULL)
          */
-        EditManifestation: (idManif, name, description, imagePath, date, timespan, price, public) => {
+        EditManifestation: (idAccount, idManif, name, description, imagePath, date, timespan, price, public) => {
             return new Promise((resolve, reject) => {
                 permissions.FilterPermission(idAccount, "P_VALID_MANIF").then(() => {
                     var m = {};

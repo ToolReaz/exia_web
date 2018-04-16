@@ -55,7 +55,7 @@ connection.sync({ force: false, logging: false }).then(() => {
         console.log("Successfully initialized DB connection !");
         //DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000)
         //DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Nom de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
-        //DataBase.Idea.ValideIdee(2, 7)
+        //DataBase.Idea.ValideIdee(2, 8)
         /*.then(()=>{
             console.log('ok');
         })
