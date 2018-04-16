@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {postApi} from '../../lib/api/requestApi';
 import {Link, Redirect, Switch} from "react-router-dom";
 import cookies from 'react-cookie';
+import '../../stylesheets/connexion.css';
 
 class UserConnect extends Component {
 
@@ -88,7 +89,7 @@ class UserConnect extends Component {
                             <input className="input-regular" type="text" name="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Mot de passe" onChange={this.handleChange}/>
                             <input className="input-submit-regular" type="submit" value="Connexion"/>
                             <div>
-                                <Link from="/user/connect" to="/user/register" target="_blank">Pas encore inscrit ?</Link>
+                                <Link from="/user/connect" to="/user/register">Pas encore inscrit ?</Link>
                             </div>
                         </fieldset>
                     </form>

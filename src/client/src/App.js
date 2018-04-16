@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './stylesheets/index.css';
 import {Route, Switch} from "react-router-dom";
 import UserRegister from "./components/user/UserRegister";
 import UserConnect from "./components/user/UserConnect";

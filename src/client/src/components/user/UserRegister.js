@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import {Link} from "react-router-dom";
+import '../../stylesheets/inscription.css';
 
 class UserRegister extends Component {
 
@@ -97,15 +98,15 @@ class UserRegister extends Component {
                             <legend>Inscrivez vous !</legend>
                             <fieldset>
                                 <p>Prénom</p>
-                                <input className="input-regular" type="text" name="firstname" placeholder="Prenom" onChange={this.handleChange}/>
+                                <input className="input-regular" type="text" name="firstname" placeholder="Prenom" required onChange={this.handleChange}/>
                                 <p>Nom</p>
-                                <input className="input-regular" type="text" name="lastname" placeholder="Nom" onChange={this.handleChange}/>
+                                <input className="input-regular" type="text" name="lastname" placeholder="Nom" required onChange={this.handleChange}/>
                                 <p>Adresse Email</p>
-                                <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/>
+                                <input className="input-regular" type="mail" name="email" placeholder="Email" required onChange={this.handleChange}/>
                                 <p>Mot de passe</p>
-                                <input className="input-regular" type="text" name="password" placeholder="Mot de passe" onChange={this.handleChange}/>
+                                <input className="input-regular" type="text" name="password" placeholder="Mot de passe" required onChange={this.handleChange}/>
                                 <p>Confirmez le mot de passe</p>
-                                <input className="input-regular" type="text" name="password_bis" placeholder="Retaper le mot de passe" onChange={this.handleChange}/>
+                                <input className="input-regular" type="text" name="password_bis" placeholder="Retaper le mot de passe" required onChange={this.handleChange}/>
                                 <input className="input-submit-regular" type="submit" value="Valider"/>
                                 <div>
                                     <Link from="/user/register" to="/user/connect">Déjà inscrit ?</Link>
