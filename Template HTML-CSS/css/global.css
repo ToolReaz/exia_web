@@ -437,7 +437,7 @@ p.s:hover:after {
   z-index: -1;
 }
 .conteneur-titres-fond{
-  background-image:url('../img/redback.png');
+  background-color: #C2242A;
 }
 .titre {
   text-align: center;
