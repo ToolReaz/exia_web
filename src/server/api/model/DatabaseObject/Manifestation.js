@@ -140,7 +140,7 @@ module.exports = (dataObject, permissions) => {
                     if (timespan) m.Intervale = timespan;
                     if (price) m.Prix = price;
                     if (public) m.Public = public;
-                    dataObject.Manifestations.update(m, {
+                    dataObject.Manifestation.update(m, {
                         where: {
                             ID: idManif
                         }
