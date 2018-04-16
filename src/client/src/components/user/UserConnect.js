@@ -84,9 +84,9 @@ class UserConnect extends Component {
                         <fieldset>
                             <legend>Connectez vous !</legend>
                             <p>Adresse Email</p>
-                            <input className="input-regular" type="mail" name="email" placeholder="Email" pattern="[A-Za-z0-9._+-]+@(via)?cesi.fr" onChange={this.handleChange}/>
+                            <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/>
                             <p>Mot de passe</p>
-                            <input className="input-regular" type="text" name="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Mot de passe" onChange={this.handleChange}/>
+                            <input className="input-regular" type="text" name="password"  placeholder="Mot de passe" onChange={this.handleChange}/>
                             <input className="input-submit-regular" type="submit" value="Connexion"/>
                             <div>
                                 <Link from="/user/connect" to="/user/register">Pas encore inscrit ?</Link>
