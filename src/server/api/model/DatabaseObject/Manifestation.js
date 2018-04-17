@@ -140,6 +140,10 @@ module.exports = (dataObject, permissions) => {
          */
         GetAllManifestations: async () => {
             return await dataObject.Manifestation.findAll();
+        },
+
+        GetManifestationFromID : async(idManifestation) => {
+            return await dataObject.Manifestation.findOne({where: {ID: idManifestation}});
         }
     };
 
