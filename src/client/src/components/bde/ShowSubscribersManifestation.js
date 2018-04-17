@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getApi, postApi} from "../../lib/api/requestApi";
+import {getApi} from "../../lib/api/requestApi";
 
 class ShowSubscribersManifestation extends Component {
 

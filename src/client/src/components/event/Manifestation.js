@@ -29,7 +29,16 @@ class Manifestation extends Component {
 
     render() {
         if (this.state.fullPage) {
-
+            return (
+                <div>
+                    <h2><strong>Page détaillé de: {this.props.values.Nom}</strong></h2>
+                    <p>Description: {this.props.values.Description}</p>
+                    <p>Date: {this.props.values.Date}</p>
+                    <p>Intreval: {this.props.values.Intervale}</p>
+                    <p>Prix: {this.props.values.Prix}</p>
+                    <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
+                </div>
+            );
         } else {
             return (
                 <div>
