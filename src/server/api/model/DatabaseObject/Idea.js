@@ -29,7 +29,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_ACTIVITE")) {
                 let r = await dataObject.Idea.findOrCreate({
                     where: {Title: title, Text: text},
-                    defaults: {SubmitOn: Date.now(), ID: idAccount, Approved: false}
+                    defaults: {SubmitOn: Date.now(), ID_Account: idAccount, Approved: false}
                 });
                 if (manifestationArray != null) {
                     for (let i = 0; i < manifestationArray.length; i++) {
