@@ -109,7 +109,7 @@ module.exports = (dataObject, permissions) => {
                         ID_Purchase: r[0].ID
                     }, defaults: {Quantity: quantity}
                 });
-                if (!s[1]) await dataObject.Basket.update({Quantity: (r[0].Quantity + quantity)}, {
+                if (!s[1]) await dataObject.Basket.update({Quantity: (s[0].Quantity + quantity)}, {
                     where: {
                         ID: idAccount,
                         ID_Product: idProduct
