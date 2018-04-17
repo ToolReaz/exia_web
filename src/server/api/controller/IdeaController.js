@@ -129,7 +129,7 @@ module.exports = {
                 let manif = [DB.Manifestation.CreateManifestation(reqManifName, reqmanifDescription, reqManifImagePath, reqManifDate, reqManifInterval, reqManifPrice)];
                 DB.Idea.CreateIdea(id, reqName, reqText, manif).then(() => {
                     res.json({'error': null, 'content': null});
-                })
+                }).catch((reason) => res.json({'error': reason, 'content': null}));
                 // Catch DB errors
             }).catch((reason) => res.json({'error': reason, 'content': null}));
         } else {
