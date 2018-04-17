@@ -1,17 +1,17 @@
 import React, {Component} from "react";
 import Manifestation from "../../components/event/Manifestation";
 import {getApi} from "../../lib/api/requestApi";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 
 class ManifestationDetails extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            id: props.values.ID,
+            id: props.match.params.id,
             manifestation: null
         };
-
-        this.subscribe = this.subscribe.bind(this);
     }
 
     componentDidMount() {
@@ -24,9 +24,17 @@ class ManifestationDetails extends Component {
 
     render() {
         return (
-            <div className="grid-container">
-                <Manifestation fullPage={true} values={this.state.manifestation}/>
+            <div>
+                <Header/>
+
+                <div className="grid-container">
+                    <h1>Hey !</h1>
+                    <Manifestation fullPage={true} values={this.state.manifestation}/>
+                </div>
+
+                <Footer/>
             </div>
+
         )
     }
 }
