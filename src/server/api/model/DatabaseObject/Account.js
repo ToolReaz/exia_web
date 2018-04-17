@@ -17,7 +17,7 @@ module.exports = (dataObject, permissions) => {
                 defaults: {LastName: lastName, FirstName: firstName, Password: password}
             });
             if (!r[1]) return Promise.reject(new Error("The user with the following email address : \"" + email + "\" already exists."));
-            else return r.ID;
+            else return r[1].ID;
         },
 
         /**
