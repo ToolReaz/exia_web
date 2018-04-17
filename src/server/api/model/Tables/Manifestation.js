@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-        Nom: {
+        Name: {
             type: DataTypes.STRING(32),
             allowNull: false
         },
@@ -16,19 +16,19 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING(1024),
             allowNull: false
         },
-        Chemin_Image: {
+        ImagePath: {
             type: DataTypes.STRING(256),
             allowNull: false
         },
-        Quand: {
+        When: {
             type: DataTypes.DATE,
             allowNull: false
         },
-        Intervale: {
+        TimeSpan: {
             type: DataTypes.INTEGER(11),
             allowNull: false
         },
-        Prix: {
+        Price: {
             type: DataTypes.INTEGER(11),
             allowNull: false
         },

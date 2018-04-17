@@ -1,13 +1,13 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Comprend', {
-        ID: {
+    return sequelize.define('Idea_Manifestation', {
+        ID_Idea: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Idee',
+                model: 'Idea',
                 key: 'ID'
             }
         },
@@ -21,6 +21,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     }, {
-        tableName: 'Comprend'
+        tableName: 'Idea_Manifestation'
     });
 };

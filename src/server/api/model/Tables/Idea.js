@@ -1,38 +1,38 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Idee', {
+    return sequelize.define('Idea', {
         ID: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        Soumis_le: {
+        SubmitOn: {
             type: DataTypes.DATE,
             allowNull: false
         },
-        Titre: {
+        Title: {
             type: DataTypes.STRING(32),
             allowNull: false
         },
-        Texte: {
+        Text: {
             type: DataTypes.STRING(1024),
             allowNull: false
         },
-        ID_Compte: {
+        ID_Account: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             references: {
-                model: 'Compte',
+                model: 'Account',
                 key: 'ID'
             }
         },
-        Approuve: {
+        Approved: {
             type: DataTypes.INTEGER(1),
             allowNull: false
         }
     }, {
-        tableName: 'Idee'
+        tableName: 'Idea'
     });
 };

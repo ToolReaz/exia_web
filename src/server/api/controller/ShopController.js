@@ -13,8 +13,8 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.AddProduct(id, reqName, reqDescription, reqPrice).then((productId) => {
-                    DB.Shop.GetCategorieFromName(reqCategory).then(category => {
-                        DB.Shop.AddItemToCategorie(id, parseInt(category.dataValues.ID), productId).then(() => {
+                    DB.Shop.GetCategoryFromName(reqCategory).then(category => {
+                        DB.Shop.AddItemToCategory(id, parseInt(category.ID), productId).then(() => {
                             res.json({'error': null, 'content': null});
                         }).catch(reason => {
                             res.json({'error': reason.message, 'content': null});
@@ -39,7 +39,7 @@ module.exports = {
         console.log(req.body.name);
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Shop.CreateCategorie(id, reqName).then(() => {
+                DB.Shop.CreateCategory(id, reqName).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

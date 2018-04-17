@@ -1,26 +1,26 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Achats', {
-        ID: {
+    return sequelize.define('Product_Category', {
+        ID_Product: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
-            autoIncrement: true
+            references: {
+                model: 'Product',
+                key: 'ID'
+            }
         },
-        Realise: {
-            type: DataTypes.INTEGER(1),
-            allowNull: false
-        },
-        ID_Compte: {
+        ID_Category: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
+            primaryKey: true,
             references: {
-                model: 'Compte',
+                model: 'Category',
                 key: 'ID'
             }
         }
     }, {
-        tableName: 'Achats'
+        tableName: 'Product_Category'
     });
 };

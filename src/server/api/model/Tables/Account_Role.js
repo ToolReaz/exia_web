@@ -1,13 +1,13 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Appartient', {
-        ID: {
+    return sequelize.define('Account_Role', {
+        ID_Account: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Compte',
+                model: 'Account',
                 key: 'ID'
             }
         },
@@ -21,6 +21,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     }, {
-        tableName: 'Appartient'
+        tableName: 'Account_Role'
     });
 };

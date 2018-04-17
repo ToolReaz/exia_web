@@ -1,74 +1,86 @@
 module.exports = (dataObject) => {
-    var here = {
+    const here = {
 
-        /**     
-         * Filtre les executions de requête en fonction des permissions     
-         * @param {Number} userID ID de l'utilisateur executant la requête     
-         * @param {String} permission Permission requise pour executer la requête     
+        /**
+         * Filter request execution based on the permissions
+         * @param {Number} userID ID of the user
+         * @param {String} permission Name of the required permission
+         * @returns {Promise<boolean>}
+         * @constructor
          */
         FilterPermission: async (userID, permission) => {
-            var r = await dataObject.Permission.findOne({ where: { Code_permission: permission } });
-            var s = await dataObject.Possede.findAll({ where: { ID: r.ID } });
-            var t = await dataObject.Compte.findOne({ where: { ID: userID } });
-            var u = await dataObject.Appartient.findAll({ where: { ID: t.ID } });
+            let r = await dataObject.Permission.findOne({where: {PermissionCode: permission}});
+            let s = await dataObject.Permission_Role.findAll({where: {ID_Permission: r.ID}});
+            let t = await dataObject.Account.findOne({where: {ID: userID}});
+            let u = await dataObject.Account_Role.findAll({where: {ID_Account: t.ID}});
 
-            return Contains(s, u, (s_) => {return s_.ID_Role;}, (u_) => {return u_.ID_Role;});
+            return Contains(s, u, (s_) => {
+                return s_.ID_Role;
+            }, (u_) => {
+                return u_.ID_Role;
+            });
         },
 
-        /**     
-         * Définit les permissions     
-         * @param {String} role Nom du role     
-         * @param {String} permission Nom de la permission     
+        /**
+         * Define user permissions
+         * @param {String} role Role of the user
+         * @param {String} permission Permission to add
+         * @returns {Promise<void>}
+         * @constructor
          */
         SetPermissions: async (role, permission) => {
-            var r = await dataObject.Role.findOrCreate({ where: { Nom_role: role } });
-            var s = await dataObject.Permission.findOrCreate({ where: { Code_permission: permission } });
-            await dataObject.Possede.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } });
+            let r = await dataObject.Role.findOrCreate({where: {Nom_role: role}});
+            let s = await dataObject.Permission.findOrCreate({where: {PermissionCode: permission}});
+            await dataObject.Permission_Role.findOrCreate({where: {ID_Permission: s[0].ID, ID_Role: r[0].ID}});
         },
 
-        /**     
-         * Met les permissions de base     
+        /**
+         * Setup basic permission system
+         * @returns {Promise<void>}
+         * @constructor
          */
         SetupPermissions: async () => {
-            await here.SetPermissions("R_STUDENT", "P_CONNECT")
-            await here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE")
-            await here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE")
-            await here.SetPermissions("R_STUDENT", "P_VOTE_IDEE")
-            await here.SetPermissions("R_STUDENT", "P_ADD_PHOTO")
-            await here.SetPermissions("R_STUDENT", "P_LIST_PHOTO")
-            await here.SetPermissions("R_STUDENT", "P_LIKE_PHOTO")
-            await here.SetPermissions("R_STUDENT", "P_COMMENT_PHOTO")
-            await here.SetPermissions("R_STUDENT", "P_ADD_MANIF")
-            await here.SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF")
-            await here.SetPermissions("R_BDE", "P_VALID_MANIF")
-            await here.SetPermissions("R_BDE", "P_LISTE_INSCRITS")
-            await here.SetPermissions("R_BDE", "P_COMMENT_LAST")
-            await here.SetPermissions("R_BDE", "P_ADMIN_PHOTO")
-            await here.SetPermissions("R_EXIA", "P_REPORT")
-            await here.SetPermissions("R_EXIA", "P_DUMP_PHOTO")
-            await here.SetPermissions("R_BDE", "P_ADD_SHOP")
-            await here.SetPermissions("R_BDE", "P_SET_CATEGORIE_SHOP")
-            await here.SetPermissions("R_BDE", "P_DELETE_SHOP")
-            await here.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP")
+            await here.SetPermissions("R_STUDENT", "P_CONNECT");
+            await here.SetPermissions("R_STUDENT", "P_ADD_ACTIVITE");
+            await here.SetPermissions("R_STUDENT", "P_LIST_ACTIVITE");
+            await here.SetPermissions("R_STUDENT", "P_VOTE_IDEE");
+            await here.SetPermissions("R_STUDENT", "P_ADD_PHOTO");
+            await here.SetPermissions("R_STUDENT", "P_LIST_PHOTO");
+            await here.SetPermissions("R_STUDENT", "P_LIKE_PHOTO");
+            await here.SetPermissions("R_STUDENT", "P_COMMENT_PHOTO");
+            await here.SetPermissions("R_STUDENT", "P_ADD_MANIF");
+            await here.SetPermissions("R_STUDENT", "P_PARTICIPE_MANIF");
+            await here.SetPermissions("R_BDE", "P_VALID_MANIF");
+            await here.SetPermissions("R_BDE", "P_LISTE_INSCRITS");
+            await here.SetPermissions("R_BDE", "P_COMMENT_LAST");
+            await here.SetPermissions("R_BDE", "P_ADMIN_PHOTO");
+            await here.SetPermissions("R_EXIA", "P_REPORT");
+            await here.SetPermissions("R_EXIA", "P_DUMP_PHOTO");
+            await here.SetPermissions("R_BDE", "P_ADD_SHOP");
+            await here.SetPermissions("R_BDE", "P_SET_CATEGORIE_SHOP");
+            await here.SetPermissions("R_BDE", "P_DELETE_SHOP");
+            await here.SetPermissions("R_STUDENT", "P_PURCHASE_SHOP");
         }
     };
     return here;
-}
+};
 
-/**     
- * Détermine si deux membres de deux tableaux différents sont identiques     
- * @param {Array} arrayLeft Premier tableau     
- * @param {Array} arrayRight Deuxième tableau     
- * @param {} transformLeft Transformée à appliquer au premier tableau     
- * @param {} transformRight Transformée à appliquer au deuxième tableau     
+/**
+ * Check if two members of a table are the same after a transformation
+ * @param {Array} arrayLeft First array
+ * @param {Array} arrayRight Second array
+ * @param {Function} transformLeft Transformation applied to the first array
+ * @param {Function} transformRight Transformation applied to the second array
+ * @returns {boolean}
+ * @constructor
  */
 function Contains(arrayLeft, arrayRight, transformLeft, transformRight) {
-    var ret = false;
-    var transformedLeft = arrayLeft.map(d => transformLeft(d));
-    var transformedRight = arrayRight.map(d => transformRight(d));
+    let ret = false;
+    let transformedLeft = arrayLeft.map(d => transformLeft(d));
+    let transformedRight = arrayRight.map(d => transformRight(d));
     transformedLeft.forEach(entityLeft => {
         transformedRight.forEach(entityRight => {
-            ret |= entityRight == entityLeft;
+            ret |= entityRight === entityLeft;
         });
     });
     return ret;
