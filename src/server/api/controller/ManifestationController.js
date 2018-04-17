@@ -28,7 +28,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Manifestation.GetManifestationFromID(reqID).then(manifestation => {
-                res.json({'error': null, 'content': manifestation.dataValues});
+                res.json({'error': null, 'content': manifestation});
             }).catch(reason => {
                 res.json({'error': reason.message, 'content': null});
             });

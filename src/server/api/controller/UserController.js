@@ -12,7 +12,7 @@ module.exports = {
             res.json({'error': 'Pseudo ou mot de passe invalide !'});
         } else {
             DB.Account.GetAccount(reqEmail).then(account => {
-                let dbPassword = account.dataValues.Password;
+                let dbPassword = account.Password;
                 bcrypt.compare(reqPassword, dbPassword, (err, ok) => {
                     if (ok) {
                         let newToken = require('crypto').randomBytes(64).toString('hex');

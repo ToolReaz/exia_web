@@ -14,7 +14,7 @@ module.exports = {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.AddProduct(id, reqName, reqDescription, reqPrice).then((productId) => {
                     DB.Shop.GetCategoryFromName(reqCategory).then(category => {
-                        DB.Shop.AddItemToCategory(id, parseInt(category.dataValues.ID), productId).then(() => {
+                        DB.Shop.AddItemToCategory(id, parseInt(category.ID), productId).then(() => {
                             res.json({'error': null, 'content': null});
                         }).catch(reason => {
                             res.json({'error': reason.message, 'content': null});
