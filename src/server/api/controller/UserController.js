@@ -78,7 +78,7 @@ module.exports = {
                 } else {
                     // If token is EXPIRED
                     // Get user ID form token
-                    DB.Account.GetAccountFromToken(reqToken).then(id => {
+                    DB.Token.GetAccountFromToken(reqToken).then(id => {
                         // Delete the user's token
                         DB.Account.SetToken(id, '').then(() => {
                             // Delete session token

@@ -22,6 +22,25 @@ module.exports = {
         }
     },
 
+    get: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqID = req.params.id;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.GetAllManifestations().then(manifestations => {
+                    res.json({'error': null, 'content': manifestations});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                })
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas getallmanif !', 'content': null});
+        }
+    },
+
     create: (req, res) => {
         let reqToken = req.cookies.token;
         let reqTitle = req.body.title;

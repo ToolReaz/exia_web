@@ -1,13 +1,21 @@
 import React, {Component} from "react";
 import {getApi} from "../../lib/api/requestApi";
+import {Link} from "react-router-dom";
 
 class Manifestation extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            id: props.values.ID,
-            subscribed: false
+            id: (props.match) ? props.match.params.ID : null,
+            name: (props.values) ? props.values.Nom : null,
+            description: (props.values) ? props.values.Description : null,
+            date: (props.values) ? props.values.Quand : null,
+            interval: (props.values) ? props.values.Intervale : null,
+            price: (props.values) ? props.values.Prix : null,
+            subscribed: false,
+            fullPage: !!(props.fullPage),
+            photos: []
         };
 
         this.subscribe = this.subscribe.bind(this);
@@ -15,28 +23,62 @@ class Manifestation extends Component {
 
     subscribe() {
         getApi('/api/manifestation/subscribe/' + this.state.id).then(res => {
-            alert('Vous êtes inscrit !')
+            alert('Vous êtes inscrit !');
             this.setState({subscribed: true});
         }).catch(reason => {
             alert(reason);
         })
     }
 
+
+    getAllPhotos() {
+        getApi('/api/photos/' + this.state.id).then(res => {
+            this.setState({subscribed: true});
+        }).catch(reason => {
+            alert(reason);
+        })
+    }
+
+
+
     componentDidMount() {
 
     }
 
     render() {
-        return (
-            <div>
-                <p><strong>{this.props.values.Nom}</strong></p>
-                <p>Description: {this.props.values.Description}</p>
-                <p>Date: {this.props.values.Date}</p>
-                <p>Intreval: {this.props.values.Intervale}</p>
-                <p>Prix: {this.props.values.Prix}</p>
-                <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
-            </div>
-        );
+        if (this.state.fullPage) {
+            let photos = [];
+            this.state.photos.forEach((photo, index) => {
+                photos.push(
+                    <div>
+                        <p>Photo n°{index}</p>
+                        <img src={photo.Chemin_Image} alt={'photo'+index.toString()}/>
+                    </div>
+                );
+            });
+            return (
+                <div>
+                    <h2><strong>Page détaillé de: {this.state.name}</strong></h2>
+                    <p>Description: {this.state.description}</p>
+                    <p>Date: {this.state.date}</p>
+                    <p>Intreval: {this.state.interval}</p>
+                    <p>Prix: {this.state.price}</p>
+                    {photos}
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <p><strong>{this.state.name}</strong></p>
+                    <p>Description: {this.state.description}</p>
+                    <p>Date: {this.state.date}</p>
+                    <p>Intreval: {this.state.interval}</p>
+                    <p>Prix: {this.state.price}</p>
+                    <Link to={'/event/'+this.state.id}>Page détaillé</Link>
+                    <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
+                </div>
+            );
+        }
     }
 }
 

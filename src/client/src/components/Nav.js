@@ -36,7 +36,7 @@ class Nav extends Component {
                     <div className="nav-links">
                         <Link to="/" >Accueil</Link>
                         <Link to="/team" >L'équipe</Link>
-                        <Link to="/event" >Evènements</Link>
+                        <Link to="/events" >Evènements</Link>
                         <Link to="/shop" >Boutique</Link>
                         <Link to="/user/connect" className="caché">Connexion</Link>
                         <Link to="/user/register" className="caché">Inscription</Link>
