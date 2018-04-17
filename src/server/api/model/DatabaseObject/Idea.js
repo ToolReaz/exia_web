@@ -42,8 +42,8 @@ module.exports = (dataObject, permissions) => {
                             }
                         });
                     }
-                    return t.ID;
                 }
+                return r.ID;
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_ADD_ACTIVITE\""));
             }
