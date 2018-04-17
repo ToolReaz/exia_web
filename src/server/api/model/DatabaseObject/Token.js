@@ -11,7 +11,7 @@ module.exports = (dataObject, permissions) => {
         GetAccountFromToken: async (token) => {
             let r = await dataObject.Session.findOne({where: {Token: token}});
             if (r) {
-                let c = await dataObject.Account.findOne({where: {ID: r.ID}});
+                let c = await dataObject.Account.findOne({where: {ID: r.ID_Account}});
                 if (c) {
                     return c.ID;
                 } else {
