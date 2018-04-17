@@ -24,6 +24,7 @@ body {
 }
 
 .nav > .nav-links {
+  z-index: 1000;
   display: inline;
   float: left;
   margin-left: 5%;
