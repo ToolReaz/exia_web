@@ -21,6 +21,28 @@ module.exports = {
 
     },
 
+
+    get: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqID = req.params.id;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Idea.GetIdeaFromId(id, reqID).then((idea) => {
+                    res.json({'error': null, 'content': idea});
+                }).catch((reason) => {
+                    res.json({'error': reason, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason, 'content': null});
+            });
+        } else {
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
+        }
+
+    },
+
+
     getInvalidated: (req, res) => {
         let reqToken = req.cookies.token;
 
@@ -98,7 +120,7 @@ module.exports = {
         if (reqToken) {
             DB.Idea.GetVoteForCount(reqId).then(votesFor => {
                 DB.Idea.GetVoteAgainstCount(reqId).then(votesAgainst => {
-                    res.json({'error': null, 'content': {'votesFor': votesFor, 'votesAgainst': votesAgainst}})
+                    res.json({'error': null, 'content': {'votesFor': votesFor, 'votesAgainst': votesAgainst}});
                 }).catch(reason => {
                     res.json({'error': reason, 'content': null});
                 });

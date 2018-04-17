@@ -11,8 +11,6 @@ class Idea extends Component {
             id: props.values.ID,
             roles: props.values.roles
         };
-        console.log(props.values);
-
         this.vote = this.vote.bind(this);
         this.validateIdea = this.validateIdea.bind(this);
     }
@@ -26,7 +24,6 @@ class Idea extends Component {
     }
 
     componentDidMount() {
-        console.log(this.props.values);
         this.getVotes();
     }
 

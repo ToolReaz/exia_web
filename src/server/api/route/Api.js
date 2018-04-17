@@ -11,6 +11,10 @@ let PhotoController = require('../controller/PhotoController');
 router.get('/idea', (req, res) => {
     IdeaController.getAll(req, res);
 });
+// Get a specific ideas
+router.get('/idea/:id', (req, res) => {
+    IdeaController.get(req, res);
+});
 // Create an idea
 router.post('/idea', (req, res) => {
     IdeaController.create(req, res);

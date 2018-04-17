@@ -7,7 +7,8 @@ class Manifestation extends Component {
         super(props);
         this.state = {
             id: props.values.ID,
-            subscribed: false
+            subscribed: false,
+            fullPage: props.fullPage || false
         };
 
         this.subscribe = this.subscribe.bind(this);
@@ -27,16 +28,20 @@ class Manifestation extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <p><strong>{this.props.values.Nom}</strong></p>
-                <p>Description: {this.props.values.Description}</p>
-                <p>Date: {this.props.values.Date}</p>
-                <p>Intreval: {this.props.values.Intervale}</p>
-                <p>Prix: {this.props.values.Prix}</p>
-                <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
-            </div>
-        );
+        if (this.state.fullPage) {
+
+        } else {
+            return (
+                <div>
+                    <p><strong>{this.props.values.Nom}</strong></p>
+                    <p>Description: {this.props.values.Description}</p>
+                    <p>Date: {this.props.values.Date}</p>
+                    <p>Intreval: {this.props.values.Intervale}</p>
+                    <p>Prix: {this.props.values.Prix}</p>
+                    <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
+                </div>
+            );
+        }
     }
 }
 
