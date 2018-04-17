@@ -30,7 +30,6 @@ class Footer extends Component {
 
                         <a className="mentionslegales" href="" target="_blank">Mentions légales</a>
 
-                        <a href="#"></a>
                 </div>
                 <div className="footer-right">
 
@@ -42,10 +41,10 @@ class Footer extends Component {
 
                     <div className="footer-icons">
 
-                        <a href="#"><i className="fab fa-facebook"></i></a>
-                        <a href="#"><i className="fab fa-twitter"></i></a>
-                        <a href="#"><i className="fab fa-linkedin"></i></a>
-                        <a href="#"><i className="fab fa-snapchat"></i></a>
+                        <a href=""><i className="fab fa-facebook"></i></a>
+                        <a href=""><i className="fab fa-twitter"></i></a>
+                        <a href=""><i className="fab fa-linkedin"></i></a>
+                        <a href=""><i className="fab fa-snapchat"></i></a>
 
                     </div>
 

@@ -3,35 +3,35 @@ const DB = require('../model/DB');
 module.exports = {
 
     add: (req, res) => {
-        let reqPath = req.body.imagePath;
-        let reqIdManifestation = req.body.idManifestation;
         let reqToken = req.cookies.token;
+        let reqPath = req.body.imagePath;
+        let reqID = req.body.id;
 
-        if (!reqIdManifestation || !reqPath) {
-            res.json({'error': 'Image invalide !'});
-        } else {
+        if (reqToken) {
+
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Photo.AddPhoto(id, reqPath, reqIdManifestation).then(() => {
+                DB.Photo.AddPhoto(id, reqPath, reqID).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => res.json({'error': reason}));
             }).catch(reason => res.json({'error': reason}));
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter photo !'});
         }
     },
 
     comment: (req, res) => {
-        let reqText = req.body.text;
-        let reqPublic = req.body.public;
-        let reqIdPhoto = req.body.idPhoto;
         let reqToken = req.cookies.token;
+        let reqComment = req.body.comment;
+        let reqID = req.body.id;
 
-        if (!reqText) {
-            res.json({'error': 'Commentaire non valide !'});
-        } else {
+        if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Photo.CommentPhoto(id, reqIdPhoto, reqText).then(() => {
+                DB.Photo.CommentPhoto(id, reqID, reqComment).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => res.json({'error': reason}));
             }).catch(reason => res.json({'error': reason}));
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter commentaire'});
         }
     },
 
@@ -59,6 +59,21 @@ module.exports = {
             DB.Photo.GetLikeCount(reqIdPhoto).then(photo => {
                 res.json({'error': null, 'content': null});
             }).catch(reason => res.json({'error': reason}));
+        }
+    },
+
+    getAllPhoto: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqID = req.params.id;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Photo.CommentPhoto(id, reqID, reqComment).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => res.json({'error': reason}));
+            }).catch(reason => res.json({'error': reason}));
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter commentaire'});
         }
     }
 

@@ -11,6 +11,10 @@ let PhotoController = require('../controller/PhotoController');
 router.get('/idea', (req, res) => {
     IdeaController.getAll(req, res);
 });
+// Get a specific ideas
+router.get('/idea/:id', (req, res) => {
+    IdeaController.get(req, res);
+});
 // Create an idea
 router.post('/idea', (req, res) => {
     IdeaController.create(req, res);
@@ -39,9 +43,13 @@ router.get('/idea/vote/against/:id', (req, res) => {
 
 
 // MANIFESTATION
-// Create a manifestation
+// Get all manifestation
 router.get('/manifestation', (req, res) => {
     ManifestationController.getAll(req, res);
+});
+// Get a specific manifestation
+router.get('/manifestation/:id', (req, res) => {
+    ManifestationController.get(req, res);
 });
 // Create a manifestation
 router.post('/manifestation', (req, res) => {
@@ -96,10 +104,13 @@ router.get('/shop/order', (req, res) => {
 
 
 // PHOTO
-router.post('/photo/add', (req, res) => {
+router.get('/photos/:id', (req, res) => {
+    PhotoController.getAllPhoto(req, res);
+});
+router.post('/photo', (req, res) => {
     PhotoController.add(req, res);
 });
-router.post('/photo/comment/:id', (req, res) => {
+router.post('/photo/comment', (req, res) => {
     PhotoController.comment(req, res);
 });
 router.get('/photo/like/:id', (req, res) => {

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import {getApi, postApi} from "../../lib/api/requestApi";
+import {getApi} from "../../lib/api/requestApi";
 import AddToCart from "../../components/shop/AddToCart";
 
 class Shop extends Component {
