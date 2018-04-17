@@ -68,7 +68,7 @@ function Contains(arrayLeft, arrayRight, transformLeft, transformRight) {
     var transformedRight = arrayRight.map(d => transformRight(d));
     transformedLeft.forEach(entityLeft => {
         transformedRight.forEach(entityRight => {
-            ret |= tRight == tLeft;
+            ret |= entityRight == entityLeft;
         });
     });
     return ret;
