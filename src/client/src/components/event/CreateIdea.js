@@ -6,12 +6,11 @@ class CreateIdea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
             name: '',
             text: '',
             manifName: '',
             manifDescription: '',
-            panifImagePath: '',
+            manifImagePath: '',
             manifDate: null,
             manifInterval: 0,
             manifPrice: 0
@@ -33,7 +32,7 @@ class CreateIdea extends Component {
                 break;
             case 'manifDescription': this.setState({manifDescription: e.target.value});
                 break;
-            case 'panifImagePath': this.setState({panifImagePath: e.target.value});
+            case 'manifImagePath': this.setState({manifImagePath: e.target.value});
                 break;
             case 'manifInterval': this.setState({manifInterval: e.target.value});
                 break;
@@ -54,16 +53,25 @@ class CreateIdea extends Component {
             text: this.state.text,
             manifName: this.state.manifName,
             manifDescription: this.state.manifDescription,
-            manifImagePath: this.state.panifImagePath,
+            manifImagePath: this.state.manifImagePath,
             manifInterval: this.state.manifInterval,
             manifPrice: this.state.manifPrice,
             manifDate: this.state.manifDate
         };
-        console.log(data);
         postApi('/api/idea', data).then(res => {
-            alert('Idée crée !');
+            this.setState({
+                name: '',
+                text: '',
+                manifName: '',
+                manifDescription: '',
+                manifImagePath: '',
+                manifDate: null,
+                manifInterval: 0,
+                manifPrice: 0
+            });
+            console.log('Idée crée !');
         }).catch(reason => {
-            alert(reason);
+            console.log(reason);
         });
     }
 
@@ -74,15 +82,15 @@ class CreateIdea extends Component {
                 <br/>
                 <h1>Créer une idée</h1><br/>
                 <form id="create-idea-form" onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
-                    <textarea name="text" placeholder="Text" onChange={this.handleChange}/><br/>
+                    <input type="text" name="name" placeholder="Nom" value={this.state.name} onChange={this.handleChange}/><br/>
+                    <textarea name="text" placeholder="Text" value={this.state.text} onChange={this.handleChange}/><br/>
                     <p>Manifestation liée:</p>
-                    <input type="text" placeholder="Nom" name="manifName" onChange={this.handleChange}/>
-                    <textarea name="manifDescription" placeholder="Description" onChange={this.handleChange}/><br/>
-                    <input type="text" placeholder="Lien image" name="manifImagePath" onChange={this.handleChange}/>
+                    <input type="text" placeholder="Nom" name="manifName" value={this.state.manifName} onChange={this.handleChange}/>
+                    <textarea name="manifDescription" placeholder="Description" value={this.state.manifDescription} onChange={this.handleChange}/><br/>
+                    <input type="text" placeholder="Lien image" name="manifImagePath" value={this.state.manifImagePath} onChange={this.handleChange}/>
                     <input type="date" name="manifDate" onChange={this.handleChange}/>
-                    <input type="integer" placeholder="Intervale" name="manifInterval" onChange={this.handleChange}/>
-                    <input type="integer" placeholder="Prix" name="manifPrice" onChange={this.handleChange}/>
+                    <input type="integer" placeholder="Intervale" name="manifInterval" value={this.state.manifInterval} onChange={this.handleChange}/>
+                    <input type="integer" placeholder="Prix" name="manifPrice" value={this.state.manifPrice} onChange={this.handleChange}/>
                     <input type="submit" value="Envoyer"/>
                 </form>
                 <br/>
