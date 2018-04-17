@@ -23,7 +23,7 @@ class Event extends Component {
         getApi('/user/roles').then(res => {
             this.setState({roles: res});
         }).catch(reason => {
-            alert(reason);
+            console.log(reason);
         });
     }
 
