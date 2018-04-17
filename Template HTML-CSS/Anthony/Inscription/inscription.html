@@ -10,8 +10,8 @@
 </head>
 <body>
 
-  <div class="grid-container">
-    <form method="post">
+  <div class="conteneurform">
+    <form class="formsolo" method="post">
 
       <fieldset>
 
@@ -32,10 +32,9 @@
         <p>Confirmez le mot de passe</p>
         <input id="confirm_password" type="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" name="password confirm" placeholder="&#8226;&#8226;&#8226;&#8226;&#8226;&#8226;" required onChange={this.handleChange}/>
 
-
         <button type="submit" name="sign up" id="ca_btn" >S'inscrire !</button>
         <div>
-          <a href="" target="_blank">Déjà inscrit ?</a>
+          <a class="liendeja" href="" target="_blank">Déjà inscrit ?</a>
         </div>
       </fieldset>
 
