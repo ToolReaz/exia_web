@@ -17,7 +17,7 @@ module.exports = (dataObject, permissions) => {
                 defaults: {LastName: lastName, FirstName: firstName, Password: password}
             });
             if (!r[1]) return Promise.reject(new Error("The user with the following email address : \"" + email + "\" already exists."));
-            else return r.ID;
+            else return r[0].ID;
         },
 
         /**
@@ -54,9 +54,9 @@ module.exports = (dataObject, permissions) => {
         SetToken: async (idAccount, token) => {
             if (await permissions.FilterPermission(idAccount, "P_CONNECT")) {
                 if (token) {
-                    await dataObject.Session.upsert({ Token: token, LastConnection: Date.now(), ID: idAccount })
+                    await dataObject.Session.upsert({ Token: token, LastConnection: Date.now(), ID_Account: idAccount });
                 } else {
-                    await dataObject.Session.destroy({ where: { ID: idAccount } })
+                    await dataObject.Session.destroy({ where: { ID: idAccount } });
                 }
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_CONNECT\""));
