@@ -22,6 +22,18 @@ module.exports = (dataObject, permissions) => {
             }
         },
 
+        GetPhotoById: async (idPhoto) => {
+            return await dataObject.Photo.findOne({where: {ID: idPhoto}});
+        },
+
+        GetCommentsOfPhoto: async (idPhoto) => {
+            return await dataObject.Commente.findAll({where: {ID_Photos: idPhoto}});
+        },
+
+        GetCommentContent: async (idComment) => {
+            return await dataObject.Commentaires.findOne({where: {ID: idComment }});
+        }
+
         /**
          * Commente une photo
          * @param {Number} idAccount ID du compte
