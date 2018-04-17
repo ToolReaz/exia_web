@@ -12,7 +12,7 @@ module.exports = (dataObject, permissions) => {
             if (r) {
                 await dataObject.Compte_PayPal.upsert({ GUID: paypalApiKey, ID_Compte: r.ID });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'existe pas."));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'existe pas."));
             }
         },
 

@@ -13,10 +13,10 @@ module.exports = (dataObject, permissions) => {
                 if (c) {
                     return c.ID;
                 } else {
-                    Promise.reject(new Error("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ"));
+                    return Promise.reject(new Error("Le token n'est apparement pas associé à une personne valide. ಠ_ಠ"));
                 }
             } else {
-                Promise.reject(new Error("Le token \"" + token + "\" n'existe pas."));
+                return Promise.reject(new Error("Le token \"" + token + "\" n'existe pas."));
             }
         },
 
@@ -29,7 +29,7 @@ module.exports = (dataObject, permissions) => {
             if (r) {
                 return new Date(r.Derniere_connexion);
             } else {
-                Promise.reject(new Error("Le token \"" + token + "\" n'existe pas."));
+                return Promise.reject(new Error("Le token \"" + token + "\" n'existe pas."));
             }
         },
 
