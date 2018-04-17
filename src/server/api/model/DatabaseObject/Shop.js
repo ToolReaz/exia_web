@@ -138,7 +138,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         CommitPurchase: async (idAccount) => {
-            await dataObject.Purchase.update({Done: true}, {where: {ID: idAccount}});
+            await dataObject.Purchase.update({Done: true}, {where: {ID_Account: idAccount}});
         },
 
         /**
