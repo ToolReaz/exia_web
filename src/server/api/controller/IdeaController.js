@@ -84,9 +84,9 @@ module.exports = {
                 console.log(id);
                 DB.Idea.GetAllIdeas(id).then((ideas) => {
                     console.log(ideas);
-                    let invalidatedIdeas = [];
-                    let ideaCount = ideas.length;
-                    ideas.forEach(idea => {
+                    //let invalidatedIdeas = [];
+                    //let ideaCount = ideas.length;
+                    /*ideas.forEach(idea => {
                         ideaCount--;
                         if (!idea.Approved) {
                             invalidatedIdeas.push(idea);
@@ -94,7 +94,8 @@ module.exports = {
                         if(ideaCount===0){
                             res.json({'error': null, 'content': invalidatedIdeas});
                         }
-                    });
+                    });*/
+                    res.json({'error': null, 'content': ideas});
                 }).catch((reason) => {
                     // Catch DB errors
                     res.json({'error': reason, 'content': null});

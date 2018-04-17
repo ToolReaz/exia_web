@@ -18,12 +18,12 @@ class ValidateIdea extends Component {
 
     componentDidMount() {
         getApi('/api/idea/invalidated').then(res => {
-            let tmp = [];
-            console.log(res);
-            res.forEach(idea => {
-                tmp.push(idea);
-            });
-            this.setState({ideas: tmp});
+            //let tmp = [];
+            //console.log(res);
+            //res.forEach(idea => {
+            //    tmp.push(idea);
+            //});
+            this.setState({ideas: res.content});
         }).catch(reason => {
             console.log(reason);
         });
@@ -50,7 +50,7 @@ class ValidateIdea extends Component {
         let options = [];
         this.state.ideas.forEach((idea, index) => {
             options.push(
-                <option value={index}>{idea.Titre}</option>
+                <option value={index}>{idea.Title}</option>
             )
         });
         return (
