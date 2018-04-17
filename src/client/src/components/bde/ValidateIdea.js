@@ -18,7 +18,8 @@ class ValidateIdea extends Component {
 
     componentDidMount() {
         getApi('/api/idea/invalidated').then(res => {
-            let tmp = this.state.ideas;
+            let tmp = [];
+            console.log(res);
             res.forEach(idea => {
                 tmp.push(idea);
             });
@@ -30,7 +31,6 @@ class ValidateIdea extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        console.log(this.state.id);
         postApi('/api/idea/validate', {id: this.state.id}).then(res => {
             alert('Idée validée !');
         }).catch(reason => {

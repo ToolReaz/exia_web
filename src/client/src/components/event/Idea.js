@@ -46,16 +46,13 @@ class Idea extends Component {
 
 
     render() {
-        let validBtn = '';
-        if (this.state.roles.includes('R_BDE')) {
-            validBtn = (<button onClick={this.validateIdea}>Valider l'idée</button>);
-        }
         return (
                 <div className="event2">
-                    {validBtn}
                     <h2 className="event2Title">Nom: {this.props.values.Titre}</h2>
+                    <img className="eventImg" src="https://picsum.photos/300/200" alt="image"/>
                     <p className="eventDate">Soumis le: {this.props.values.Soumis_le}</p>
                     <p>Texte: {this.props.values.Texte}</p>
+                    <a>Lire</a>
                     <div className="event2Vote">
                         <button id="against" onClick={this.vote}>Vote contre: {this.state.voteAgainst}</button>
                         <button id="for" onClick={this.vote}>Vote pour: {this.state.voteFor}</button>

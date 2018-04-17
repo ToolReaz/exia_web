@@ -81,12 +81,15 @@ class Manifestation extends Component {
 
         } else {
             return (
-                <div>
-                    <p><strong>{this.state.name}</strong></p>
+                <div className="event">
+                    <h2 className="eventTitle">{this.state.name}</h2>
+                    <img className="eventImg" src="https://picsum.photos/300/200" alt="image"/>
                     <p>Description: {this.state.description}</p>
-                    <p>Date: {this.state.date}</p>
-                    <p>Intreval: {this.state.interval}</p>
-                    <p>Prix: {this.state.price}</p>
+                    <div>
+                        <span className="eventDate">Date: {this.state.date}</span>
+                        <span>Intreval: {this.state.interval}</span>
+                        <span className="eventPrix">Prix: {this.state.price}</span>
+                    </div>
                     <Link to={'/event/'+this.state.id}>Page détaillé</Link>
                     <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
                 </div>

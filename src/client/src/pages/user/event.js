@@ -63,12 +63,13 @@ class Event extends Component {
         let view = [];
         let ideas = [];
         view.push(<Header/>);
+
+
         view.push(
-            <div className="grid-container">
-                <div className="row">
-                    <div className="col-12">
-                        <CreateIdea/>
-                    </div>
+            <div>
+                <h1 className="h1Event">Proposer une idée</h1>
+                <div className="grid-flex">
+                    <CreateIdea/>
                 </div>
             </div>
         );
@@ -83,34 +84,20 @@ class Event extends Component {
 
 
         view.push(
-            <div className="grid-container">
-                <div className="row">
-                    <div className="col-12">
-                        <h2 className="eventTitle">Liste des idées</h2>
-                    </div>
-                </div>
-                <div className="row">
-                    <div className="col-12">
-                        <div>
-                            {ideas}
-                        </div>
-                    </div>
+            <div>
+                <h1 className="h1Event">Boite à idées</h1>
+                <div className="grid-flex">
+                    {ideas}
                 </div>
             </div>
         );
-
 
 
 
 
         view.push(
-            <div className="grid-container">
-                <div className="row">
-                    <h2>Liste des manifestations</h2>
-                </div>
-            </div>
+            <h2 className="h1Event">Liste des manifestations</h2>
         );
-
 
 
 
@@ -118,20 +105,14 @@ class Event extends Component {
         let manifs = [];
         this.state.manifestations.forEach((manifestation) =>  {
             if (Date.parse(manifestation.When.toString()) >= Date.now()) {
-                manifs.push(
-                    <div className="col-4">
-                        <Manifestation values={manifestation} />
-                    </div>
-                );
+                manifs.push(<Manifestation values={manifestation} />);
             }
         });
 
         view.push(
-            <div className="grid-container">
-                <div className="row">
-                    <h2>Manifestations actuelles</h2>
-                </div>
-                <div className="row">
+            <div>
+                <h2 className="center">Manifestations actuelles</h2>
+                <div className="grid-flex">
                     {manifs}
                 </div>
             </div>
@@ -145,20 +126,14 @@ class Event extends Component {
         let oldManifs = [];
         this.state.manifestations.forEach((manifestation) =>  {
             if (Date.parse(manifestation.When.toString()) < Date.now()) {
-                oldManifs.push(
-                    <div className="col-4">
-                        <Manifestation values={manifestation} />
-                    </div>
-                );
+                oldManifs.push(<Manifestation values={manifestation} />);
             }
         });
 
         view.push(
-            <div className="grid-container">
-                <div className="row">
-                    <h2>Anciennes manifestations</h2>
-                </div>
-                <div className="row">
+            <div>
+                <h2 className="center">Anciennes manifestations</h2>
+                <div className="grid-flex">
                     {oldManifs}
                 </div>
             </div>

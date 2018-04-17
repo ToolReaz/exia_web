@@ -25,6 +25,7 @@ router.post('/idea/validate', (req, res) => {
 });
 // Get all unvalidated idea
 router.get('/idea/invalidated', (req, res) => {
+    console.log('zzfzf');
     IdeaController.getInvalidated(req, res);
 });
 // Get number of votes for an idea

@@ -93,6 +93,7 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.CommitPurchase(id).then((order) => {
+                    /*
                     let message = {
                         from: '"ToolReaz" <contact@toolreaz.space>', // sender address
                         to: 'thomas.weidmann@viacesi.fr', // list of receivers
@@ -100,7 +101,7 @@ module.exports = {
                         text: 'Hello world?', // plain text body
                         html: '<b>Hello world?</b>' // html body
                     };
-                    sendMail(message);
+                    sendMail(message);*/
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

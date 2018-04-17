@@ -77,10 +77,13 @@ module.exports = {
     getInvalidated: (req, res) => {
         // The token set in the cookies
         let reqToken = req.cookies.token;
+        console.log(reqToken);
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
+                console.log(id);
                 DB.Idea.GetAllIdeas(id).then((ideas) => {
+                    console.log(ideas);
                     let invalidatedIdeas = [];
                     let ideaCount = ideas.length;
                     ideas.forEach(idea => {
