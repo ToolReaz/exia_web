@@ -35,12 +35,10 @@ class UserConnect extends Component {
             email: this.state.email
         };
         postApi('/user/connect', data).then(response => {
-            console.log('R'+response);
             this.setState({
                 email: '',
                 password: ''
             });
-            document.getElementById("connect-form").reset();
         }).catch(error => {
             console.log('E'+error);
         });
@@ -84,9 +82,9 @@ class UserConnect extends Component {
                         <fieldset>
                             <legend>Connectez vous !</legend>
                             <p>Adresse Email</p>
-                            <input className="input-regular" type="mail" name="email" placeholder="Email" onChange={this.handleChange}/>
+                            <input className="input-regular" type="mail" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange}/>
                             <p>Mot de passe</p>
-                            <input className="input-regular" type="text" name="password"  placeholder="Mot de passe" onChange={this.handleChange}/>
+                            <input className="input-regular" type="password" name="password"  placeholder="Mot de passe" value={this.state.password} onChange={this.handleChange}/>
                             <input className="input-submit-regular" type="submit" value="Connexion"/>
                             <div>
                                 <Link from="/user/connect" to="/user/register">Pas encore inscrit ?</Link>
