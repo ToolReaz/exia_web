@@ -6,7 +6,6 @@ class CreateIdea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
             name: '',
             text: '',
             manifName: '',
@@ -59,8 +58,17 @@ class CreateIdea extends Component {
             manifPrice: this.state.manifPrice,
             manifDate: this.state.manifDate
         };
-        console.log(data);
         postApi('/api/idea', data).then(res => {
+            this.setState({
+                name: '',
+                text: '',
+                manifName: '',
+                manifDescription: '',
+                panifImagePath: '',
+                manifDate: null,
+                manifInterval: 0,
+                manifPrice: 0
+            });
             alert('Idée crée !');
         }).catch(reason => {
             alert(reason);
@@ -74,15 +82,15 @@ class CreateIdea extends Component {
                 <br/>
                 <h1>Créer une idée</h1><br/>
                 <form id="create-idea-form" onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
-                    <textarea name="text" placeholder="Text" onChange={this.handleChange}/><br/>
+                    <input type="text" name="name" placeholder="Nom" value={this.state.name} onChange={this.handleChange}/><br/>
+                    <textarea name="text" placeholder="Text" value={this.state.text} onChange={this.handleChange}/><br/>
                     <p>Manifestation liée:</p>
-                    <input type="text" placeholder="Nom" name="manifName" onChange={this.handleChange}/>
-                    <textarea name="manifDescription" placeholder="Description" onChange={this.handleChange}/><br/>
-                    <input type="text" placeholder="Lien image" name="manifImagePath" onChange={this.handleChange}/>
+                    <input type="text" placeholder="Nom" name="manifName" value={this.state.manifName} onChange={this.handleChange}/>
+                    <textarea name="manifDescription" placeholder="Description" value={this.state.manifDescription} onChange={this.handleChange}/><br/>
+                    <input type="text" placeholder="Lien image" name="manifImagePath" value={this.state.manifImagePath} onChange={this.handleChange}/>
                     <input type="date" name="manifDate" onChange={this.handleChange}/>
-                    <input type="integer" placeholder="Intervale" name="manifInterval" onChange={this.handleChange}/>
-                    <input type="integer" placeholder="Prix" name="manifPrice" onChange={this.handleChange}/>
+                    <input type="integer" placeholder="Intervale" name="manifInterval" value={this.state.manifInterval} onChange={this.handleChange}/>
+                    <input type="integer" placeholder="Prix" name="manifPrice" value={this.state.manifPrice} onChange={this.handleChange}/>
                     <input type="submit" value="Envoyer"/>
                 </form>
                 <br/>

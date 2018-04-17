@@ -117,7 +117,7 @@ class Event extends Component {
 
         let manifs = [];
         this.state.manifestations.forEach((manifestation) =>  {
-            if (Date.parse(manifestation.Quand.toString()) >= Date.now()) {
+            if (Date.parse(manifestation.When.toString()) >= Date.now()) {
                 manifs.push(
                     <div className="col-4">
                         <Manifestation values={manifestation} />
@@ -144,7 +144,7 @@ class Event extends Component {
 
         let oldManifs = [];
         this.state.manifestations.forEach((manifestation) =>  {
-            if (Date.parse(manifestation.Quand.toString()) < Date.now()) {
+            if (Date.parse(manifestation.When.toString()) < Date.now()) {
                 oldManifs.push(
                     <div className="col-4">
                         <Manifestation values={manifestation} />
