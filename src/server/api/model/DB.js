@@ -5,7 +5,7 @@ const connection = new sql({
     username: 'exia',
     password: 'ingenieur123*',
     database: 'exia',
-    host: 'localhost',
+    host: 'toolreaz.space',
     port: '3306',
     logging: false
 });
