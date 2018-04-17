@@ -79,9 +79,8 @@ module.exports = {
         let reqID = req.params.id;
 
         if (reqID) {
-            DB.Photo.Get(reqID).then((photos) => {
-                console.log(photos);
-                res.json({'error': null, 'content': photos});
+            DB.Photo.GetPhotoById(reqID).then((photo) => {
+                res.json({'error': null, 'content': photo});
             }).catch(reason => res.json({'error': reason}));
         } else {
             res.json({'error': 'Pas connecté = pas ajouter commentaire'});
