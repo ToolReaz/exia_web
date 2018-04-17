@@ -44,7 +44,9 @@
 
 .fondExia {
   background-image: url('../img/aaaa.png');
+  background-position: center;
   background-repeat: repeat-x;
+  background-size: 1920px;
 }
 
 .membreBDE {
