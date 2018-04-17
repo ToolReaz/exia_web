@@ -10,9 +10,9 @@ module.exports = (dataObject) => {
          */
         FilterPermission: async (userID, permission) => {
             let r = await dataObject.Permission.findOne({where: {PermissionCode: permission}});
-            let s = await dataObject.Permission_Role.findAll({where: {ID: r.ID}});
+            let s = await dataObject.Permission_Role.findAll({where: {ID_Permission: r.ID}});
             let t = await dataObject.Account.findOne({where: {ID: userID}});
-            let u = await dataObject.Account_Role.findAll({where: {ID: t.ID}});
+            let u = await dataObject.Account_Role.findAll({where: {ID_Account: t.ID}});
 
             return Contains(s, u, (s_) => {
                 return s_.ID_Role;
@@ -31,7 +31,7 @@ module.exports = (dataObject) => {
         SetPermissions: async (role, permission) => {
             let r = await dataObject.Role.findOrCreate({where: {Nom_role: role}});
             let s = await dataObject.Permission.findOrCreate({where: {PermissionCode: permission}});
-            await dataObject.Permission_Role.findOrCreate({where: {ID: s[0].ID, ID_Role: r[0].ID}});
+            await dataObject.Permission_Role.findOrCreate({where: {ID_Permission: s[0].ID, ID_Role: r[0].ID}});
         },
 
         /**

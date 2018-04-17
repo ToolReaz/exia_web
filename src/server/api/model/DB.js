@@ -65,7 +65,7 @@ connection.sync({ force: false, logging: false }).then(() => {
         .catch((err)=>{
             console.error(err.message);
         });*/
-    }).catch(err=>console.error(err.message));
+    })//.catch(err=>console.error(err.message));
 
 }).catch(err=>{console.log('MASTER ERROR !!! : '+err.message);});
 
