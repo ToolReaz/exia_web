@@ -2,27 +2,27 @@
 
 module.exports = function(sequelize, DataTypes) {
     return sequelize.define('Vote', {
-        Pour: {
+        ID_Account: {
+            type: DataTypes.INTEGER(11),
+            allowNull: false,
+            primaryKey: true,
+            references: {
+                model: 'Account',
+                key: 'ID'
+            }
+        },
+        ID_Idea: {
+            type: DataTypes.INTEGER(11),
+            allowNull: false,
+            primaryKey: true,
+            references: {
+                model: 'Idea',
+                key: 'ID'
+            }
+        },
+        Pro: {
             type: DataTypes.INTEGER(1),
             allowNull: false
-        },
-        ID: {
-            type: DataTypes.INTEGER(11),
-            allowNull: false,
-            primaryKey: true,
-            references: {
-                model: 'Compte',
-                key: 'ID'
-            }
-        },
-        ID_Idee: {
-            type: DataTypes.INTEGER(11),
-            allowNull: false,
-            primaryKey: true,
-            references: {
-                model: 'Idee',
-                key: 'ID'
-            }
         }
     }, {
         tableName: 'Vote'

@@ -1,7 +1,7 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Likes', {
+    return sequelize.define('Comments_Account_Photo', {
         ID_Account: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
@@ -19,8 +19,17 @@ module.exports = function(sequelize, DataTypes) {
                 model: 'Photo',
                 key: 'ID'
             }
+        },
+        ID_Comments: {
+            type: DataTypes.INTEGER(11),
+            allowNull: false,
+            primaryKey: true,
+            references: {
+                model: 'Comments',
+                key: 'ID'
+            }
         }
     }, {
-        tableName: 'Likes'
+        tableName: 'Comments_Account_Photo'
     });
 };

@@ -1,8 +1,8 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Panier', {
-        Quantite: {
+    return sequelize.define('Basket', {
+        Quantity: {
             type: DataTypes.INTEGER(11),
             allowNull: false
         },
@@ -11,29 +11,29 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Compte',
+                model: 'Account',
                 key: 'ID'
             }
         },
-        ID_Produit: {
+        ID_Product: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Produit',
+                model: 'Product',
                 key: 'ID'
             }
         },
-        ID_Achat: {
+        ID_Purchase: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Achats',
+                model: 'Purchase',
                 key: 'ID'
             }
         }
     }, {
-        tableName: 'Panier'
+        tableName: 'Basket'
     });
 };

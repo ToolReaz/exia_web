@@ -1,8 +1,8 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Possede', {
-        ID: {
+    return sequelize.define('Permission_Role', {
+        ID_Permission: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
@@ -21,6 +21,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     }, {
-        tableName: 'Possede'
+        tableName: 'Permission_Role'
     });
 };

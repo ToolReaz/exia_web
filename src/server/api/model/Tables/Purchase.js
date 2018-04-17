@@ -1,34 +1,26 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Produit', {
+    return sequelize.define('Purchase', {
         ID: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        Nom: {
-            type: DataTypes.STRING(32),
+        Done: {
+            type: DataTypes.INTEGER(1),
             allowNull: false
         },
-        Description: {
-            type: DataTypes.STRING(1024),
-            allowNull: false
-        },
-        Prix: {
-            type: DataTypes.INTEGER(11),
-            allowNull: false
-        },
-        ID_Compte: {
+        ID_Account: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             references: {
-                model: 'Compte',
+                model: 'Account',
                 key: 'ID'
             }
         }
     }, {
-        tableName: 'Produit'
+        tableName: 'Purchase'
     });
 };

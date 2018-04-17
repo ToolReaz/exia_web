@@ -1,20 +1,23 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Session', {
+    return sequelize.define('Product', {
         ID: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        Token: {
-            type: DataTypes.STRING(128),
-            allowNull: false,
-            unique: true
+        Name: {
+            type: DataTypes.STRING(32),
+            allowNull: false
         },
-        LastConnection: {
-            type: DataTypes.DATE,
+        Description: {
+            type: DataTypes.STRING(1024),
+            allowNull: false
+        },
+        Price: {
+            type: DataTypes.INTEGER(11),
             allowNull: false
         },
         ID_Account: {
@@ -23,10 +26,9 @@ module.exports = function(sequelize, DataTypes) {
             references: {
                 model: 'Account',
                 key: 'ID'
-            },
-            unique: true
+            }
         }
     }, {
-        tableName: 'Session'
+        tableName: 'Product'
     });
 };

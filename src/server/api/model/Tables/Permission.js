@@ -8,7 +8,7 @@ module.exports = function(sequelize, DataTypes) {
             primaryKey: true,
             autoIncrement: true
         },
-        Code_permission: {
+        PermissionCode: {
             type: DataTypes.STRING(25),
             allowNull: false,
             unique: true
