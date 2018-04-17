@@ -29,7 +29,7 @@ module.exports = (dataObject) => {
          * @constructor
          */
         SetPermissions: async (role, permission) => {
-            let r = await dataObject.Role.findOrCreate({where: {Nom_role: role}});
+            let r = await dataObject.Role.findOrCreate({where: {RoleName: role}});
             let s = await dataObject.Permission.findOrCreate({where: {PermissionCode: permission}});
             await dataObject.Permission_Role.findOrCreate({where: {ID_Permission: s[0].ID, ID_Role: r[0].ID}});
         },

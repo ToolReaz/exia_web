@@ -129,7 +129,7 @@ module.exports = {
                 DB.Role.GetRolesFromUser(id).then((roles) => {
                     let userRoles = [];
                     roles.forEach(role => {
-                        userRoles.push(role.Nom_role);
+                        userRoles.push(role.RoleName);
                     });
                     res.json({'error': null, 'content': userRoles});
                 }).catch(reason => {

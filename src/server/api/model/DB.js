@@ -53,14 +53,16 @@ connection.sync({ force: false, logging: false }).then(() => {
 
     Permissions.SetupPermissions().then(()=>{
         console.log("Successfully initialized DB connection !");
-        //DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000)
-        //DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Name de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
+        //DataBase.Shop.AddProduct(3, "helloworld", "jonskeet", 250000)
+        //DataBase.Idea.CreateIdea(3, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Name de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
         //DataBase.Idea.ValidateIdea(2, 8)
         //DataBase.Manifestation.EditManifestation(2, 9, "NAME", "DESC", "IMAGE", Date.now(), 0, 100, true)
         //DataBase.Shop.AddItemToPurchaseList(2, 2, 10)
-        //DataBase.Token.GetAccountFromToken('c3ecbebb542cf94e9d8e60b09cc95db0689b9c0ad56cee450600787ad80f88a10e271c34268b738e5d651f08a647d70639c05ebd1d085d366642c979e461d91f')
-        /*DataBase.Account.CreateUser("this.is@a.test", '123', 'Jean', 'Doe')
-        .then((r)=>{
+        //DataBase.Token.GetAccountFromToken('3b46267bd98b2aac0cee3a9324c65839ee3089c07333eec2c683fb09d6c377c3b3db8c7f1c7f1064e59d81c081df99a3cec12942f4fa891e6d8616a4a846262a')
+        //DataBase.Account.CreateUser("this.is@a.test", '123', 'Jean', 'Doe')
+        //DataBase.Role.GetRolesFromUser(3)
+        //DataBase.Shop.AddItemToPurchaseList(3, 1, 1)
+        /*.then((r)=>{
             console.log(r);
         })
         .catch((err)=>{

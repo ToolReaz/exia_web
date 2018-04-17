@@ -20,7 +20,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetRoleFromName: async (role) => {
-            return await dataObject.Role.findOne({where: {Nom_role: role}});
+            return await dataObject.Role.findOne({where: {RoleName: role}});
         },
 
         /**
