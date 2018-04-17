@@ -146,7 +146,7 @@ p.s:hover:after {
     padding-top: 20px;
     float: right;
     margin-right: 5%;
-
+    max-height: 100px;
   }
   .nav > .nav-btn > label {
     display: inline-block;
