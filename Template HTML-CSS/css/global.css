@@ -453,6 +453,24 @@ p.s:hover:after {
 
 }
 .titre h3{
+  padding: 5px;
+  font-weight: normal;
+}
+.titremilieupage {
+  text-align: center;
+  color: white;
+  background-color: #C2242A;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-family: 'Roboto', sans-serif;
+}
+.titremilieupage h2{
+  font-weight: normal;
+  font-size: 36px;
+
+}
+.titremilieupage h3{
+  padding: 5px;
   font-weight: normal;
 }
 /*===================================== Footer ========================================*/
