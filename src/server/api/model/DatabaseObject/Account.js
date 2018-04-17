@@ -54,9 +54,9 @@ module.exports = (dataObject, permissions) => {
         SetToken: async (idAccount, token) => {
             if (await permissions.FilterPermission(idAccount, "P_CONNECT")) {
                 if (token) {
-                    await dataObject.Session.upsert({ Token: token, LastConnection: Date.now(), ID: idAccount })
+                    await dataObject.Session.upsert({ Token: token, LastConnection: Date.now(), ID_Account: idAccount });
                 } else {
-                    await dataObject.Session.destroy({ where: { ID: idAccount } })
+                    await dataObject.Session.destroy({ where: { ID: idAccount } });
                 }
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_CONNECT\""));
