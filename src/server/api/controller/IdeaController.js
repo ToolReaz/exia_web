@@ -118,7 +118,7 @@ module.exports = {
         let reqName = req.body.name;
         let reqText = req.body.text;
         let reqManifName = req.body.manifName;
-        let reqmanifDescription = req.body.manifDescription;
+        let reqManifDescription = req.body.manifDescription;
         let reqManifImagePath = req.body.manifImagePath;
         let reqManifDate = req.body.manifDate;
         let reqManifInterval = req.body.manifInterval;
@@ -126,12 +126,12 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then((id) => {
-                let manif = [DB.Manifestation.CreateManifestation(reqManifName, reqmanifDescription, reqManifImagePath, reqManifDate, reqManifInterval, reqManifPrice)];
+                let manif = [DB.Manifestation.CreateManifestation(reqManifName, reqManifDescription, reqManifImagePath, reqManifDate, reqManifInterval, reqManifPrice)];
                 DB.Idea.CreateIdea(id, reqName, reqText, manif).then(() => {
                     res.json({'error': null, 'content': null});
-                }).catch((reason) => res.json({'error': reason, 'content': null}));
+                }).catch((reason) => res.json({'error': reason.message, 'content': null}));
                 // Catch DB errors
-            }).catch((reason) => res.json({'error': reason, 'content': null}));
+            }).catch((reason) => res.json({'error': reason.message, 'content': null}));
         } else {
             res.json({'error': 'Pas connecté = pas créer idée !'});
         }

@@ -10,7 +10,7 @@ class CreateIdea extends Component {
             text: '',
             manifName: '',
             manifDescription: '',
-            panifImagePath: '',
+            manifImagePath: '',
             manifDate: null,
             manifInterval: 0,
             manifPrice: 0
@@ -32,7 +32,7 @@ class CreateIdea extends Component {
                 break;
             case 'manifDescription': this.setState({manifDescription: e.target.value});
                 break;
-            case 'panifImagePath': this.setState({panifImagePath: e.target.value});
+            case 'manifImagePath': this.setState({manifImagePath: e.target.value});
                 break;
             case 'manifInterval': this.setState({manifInterval: e.target.value});
                 break;
@@ -53,7 +53,7 @@ class CreateIdea extends Component {
             text: this.state.text,
             manifName: this.state.manifName,
             manifDescription: this.state.manifDescription,
-            manifImagePath: this.state.panifImagePath,
+            manifImagePath: this.state.manifImagePath,
             manifInterval: this.state.manifInterval,
             manifPrice: this.state.manifPrice,
             manifDate: this.state.manifDate
@@ -64,7 +64,7 @@ class CreateIdea extends Component {
                 text: '',
                 manifName: '',
                 manifDescription: '',
-                panifImagePath: '',
+                manifImagePath: '',
                 manifDate: null,
                 manifInterval: 0,
                 manifPrice: 0
