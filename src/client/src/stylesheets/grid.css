@@ -4,6 +4,10 @@
     margin: 0;
 }
 
+body {
+    margin: 120px 0 200px 0;
+}
+
 .grid-container {
     z-index: 1;
     max-width: 1500px;
