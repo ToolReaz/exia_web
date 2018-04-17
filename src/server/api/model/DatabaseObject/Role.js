@@ -30,7 +30,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetRolesIDFromUser: async (idAccount) => {
-            let r = await dataObject.Account_Role.findAll({where: {ID: idAccount}});
+            let r = await dataObject.Account_Role.findAll({where: {ID_Account: idAccount}});
             return r.map(d => d.ID_Role);
         },
 

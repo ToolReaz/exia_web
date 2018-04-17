@@ -43,8 +43,8 @@ module.exports = {
             res.json({'error': 'Champs invalides !', 'content': null});
         } else {
             bcrypt.hash(reqPassword, 10, (err, hashPassword) => {
-                DB.Account.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname).then(() =>  {
-                    res.json({'status': 'success', 'message': 'Votre compte à bien été créer'});
+                DB.Account.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname).then((accountID) =>  {
+                    res.json({'status': 'success', 'message': 'Votre compte a bien été crée !'});
                 }).catch(reason => res.json({'error': reason, 'content': null}));
             });
         }

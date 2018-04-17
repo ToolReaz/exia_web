@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import {Link} from "react-router-dom";
+import {Link, Redirect, Switch} from "react-router-dom";
 import '../../stylesheets/inscription.css';
+import cookies from "react-cookie";
 
 class UserRegister extends Component {
 
@@ -52,6 +53,7 @@ class UserRegister extends Component {
                         email: ''
                     });
                     document.getElementById("register-form").reset();
+
                 }
             }, "json");
         } catch (e) {
@@ -92,29 +94,42 @@ class UserRegister extends Component {
 
 
     render() {
-        return (
-            <div className="flex-container">
-                        <form id="register-form" onSubmit={this.handleSubmit}>
-                            <legend>Inscrivez vous !</legend>
-                            <fieldset>
-                                <p>Prénom</p>
-                                <input className="input-regular" type="text" name="firstname" placeholder="Prenom" required onChange={this.handleChange}/>
-                                <p>Nom</p>
-                                <input className="input-regular" type="text" name="lastname" placeholder="Nom" required onChange={this.handleChange}/>
-                                <p>Adresse Email</p>
-                                <input className="input-regular" type="mail" name="email" placeholder="Email" required onChange={this.handleChange}/>
-                                <p>Mot de passe</p>
-                                <input className="input-regular" type="text" name="password" placeholder="Mot de passe" required onChange={this.handleChange}/>
-                                <p>Confirmez le mot de passe</p>
-                                <input className="input-regular" type="text" name="password_bis" placeholder="Retaper le mot de passe" required onChange={this.handleChange}/>
-                                <input className="input-submit-regular" type="submit" value="Valider"/>
-                                <div>
-                                    <Link from="/user/register" to="/user/connect">Déjà inscrit ?</Link>
-                                </div>
-                            </fieldset>
-                        </form>
-            </div>
-        )
+        if (cookies.load('token')) {
+            return (
+                <Switch>
+                    <Redirect from="/user/register" to="/user/account" push />
+                </Switch>
+            )
+        } else {
+            return (
+                <div className="flex-container">
+                    <form id="register-form" onSubmit={this.handleSubmit}>
+                        <legend>Inscrivez vous !</legend>
+                        <fieldset>
+                            <p>Prénom</p>
+                            <input className="input-regular" type="text" name="firstname" placeholder="Prenom" required
+                                   onChange={this.handleChange}/>
+                            <p>Nom</p>
+                            <input className="input-regular" type="text" name="lastname" placeholder="Nom" required
+                                   onChange={this.handleChange}/>
+                            <p>Adresse Email</p>
+                            <input className="input-regular" type="mail" name="email" placeholder="Email" required
+                                   onChange={this.handleChange}/>
+                            <p>Mot de passe</p>
+                            <input className="input-regular" type="text" name="password" placeholder="Mot de passe"
+                                   required onChange={this.handleChange}/>
+                            <p>Confirmez le mot de passe</p>
+                            <input className="input-regular" type="text" name="password_bis"
+                                   placeholder="Retaper le mot de passe" required onChange={this.handleChange}/>
+                            <input className="input-submit-regular" type="submit" value="Valider"/>
+                            <div>
+                                <Link from="/user/register" to="/user/connect">Déjà inscrit ?</Link>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            )
+        }
     }
 }
 

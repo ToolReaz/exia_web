@@ -17,7 +17,6 @@ class UserAccount extends Component {
 
     componentDidMount() {
         getApi('/user/account').then(res => {
-            console.log(res);
             this.setState({account: res});
         }).catch(reason => {
             console.log(reason);
@@ -39,8 +38,8 @@ class UserAccount extends Component {
         if (cookies.load('token') || this.state.logged) {
             return (
                 <div>
-                    <h1>Nom: {this.state.account.Nom}</h1>
-                    <h1>Prenom: {this.state.account.Prenom}</h1>
+                    <h1>Nom: {this.state.account.LastName}</h1>
+                    <h1>Prenom: {this.state.account.FirstName}</h1>
                     <button onClick={this.logOut}>Déconnexion</button>
                 </div>
             );
