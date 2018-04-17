@@ -4,7 +4,7 @@ import {getApi} from "../../lib/api/requestApi";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 
-class ManifestationDetails extends Component {
+class ManifestationPhoto extends Component {
 
     constructor(props) {
         super(props);
@@ -16,6 +16,7 @@ class ManifestationDetails extends Component {
 
     componentDidMount() {
         getApi('/api/manifestation/' + this.state.id.toString()).then(res => {
+            console.log('hey');
             console.log(res);
             this.setState({manifestation: res});
         }).catch(reason => {
@@ -40,4 +41,4 @@ class ManifestationDetails extends Component {
     }
 }
 
-export default ManifestationDetails;
+export default ManifestationPhoto;

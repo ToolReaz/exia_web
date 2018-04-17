@@ -7,14 +7,15 @@ class Manifestation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: (props.match) ? props.match.params.id : null,
-            name: (props.values) ? props.values.id : null,
-            description: (props.values) ? props.values.description : null,
-            date: (props.values) ? props.values.date : null,
-            interval: (props.values) ? props.values.interval : null,
-            price: (props.values) ? props.values.price : null,
+            id: (props.match) ? props.match.params.ID : null,
+            name: (props.values) ? props.values.Nom : null,
+            description: (props.values) ? props.values.Description : null,
+            date: (props.values) ? props.values.Quand : null,
+            interval: (props.values) ? props.values.Intervale : null,
+            price: (props.values) ? props.values.Prix : null,
             subscribed: false,
             fullPage: !!(props.fullPage),
+            photos: []
         };
 
         this.subscribe = this.subscribe.bind(this);
@@ -30,6 +31,15 @@ class Manifestation extends Component {
     }
 
 
+    getAllPhotos() {
+        getApi('/api/photos/' + this.state.id).then(res => {
+            this.setState({subscribed: true});
+        }).catch(reason => {
+            alert(reason);
+        })
+    }
+
+
 
     componentDidMount() {
 
@@ -37,6 +47,15 @@ class Manifestation extends Component {
 
     render() {
         if (this.state.fullPage) {
+            let photos = [];
+            this.state.photos.forEach((photo, index) => {
+                photos.push(
+                    <div>
+                        <p>Photo n°{index}</p>
+                        <img src={photo.Chemin_Image} alt={'photo'+index.toString()}/>
+                    </div>
+                );
+            });
             return (
                 <div>
                     <h2><strong>Page détaillé de: {this.state.name}</strong></h2>
@@ -44,6 +63,7 @@ class Manifestation extends Component {
                     <p>Date: {this.state.date}</p>
                     <p>Intreval: {this.state.interval}</p>
                     <p>Prix: {this.state.price}</p>
+                    {photos}
                 </div>
             );
         } else {

@@ -29,7 +29,7 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Idea.GetIdeaFromId(id, reqID).then((idea) => {
-                    res.json({'error': null, 'content': idea});
+                    res.json({'error': null, 'content': idea.dataValues});
                 }).catch((reason) => {
                     res.json({'error': reason, 'content': null});
                 });
