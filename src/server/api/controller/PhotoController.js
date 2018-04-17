@@ -68,7 +68,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Photo.CommentPhoto(id, reqID, reqComment).then(() => {
+                DB.Photo.GetAll(id, reqID).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => res.json({'error': reason}));
             }).catch(reason => res.json({'error': reason}));

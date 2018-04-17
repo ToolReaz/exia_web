@@ -16,7 +16,6 @@ class ManifestationDetails extends Component {
 
     componentDidMount() {
         getApi('/api/manifestation/' + this.state.id.toString()).then(res => {
-            console.log(res);
             this.setState({manifestation: res});
         }).catch(reason => {
             alert(reason);
@@ -24,19 +23,26 @@ class ManifestationDetails extends Component {
     }
 
     render() {
-        return (
-            <div>
-                <Header/>
+        if (this.state.manifestation) {
+            return (
+                <div>
+                    <Header/>
 
-                <div className="grid-container">
-                    <h1>Hey !</h1>
-                    <Manifestation fullPage={true} values={this.state.manifestation}/>
+                    <div className="grid-container">
+                        <h1>Hey !</h1>
+                        <Manifestation fullPage={true} id={this.state.id} values={this.state.manifestation}/>
+                    </div>
+
+                    <Footer/>
                 </div>
-
-                <Footer/>
-            </div>
-
-        )
+            );
+        } else {
+            return (
+                <div>
+                    <h1>Chargement ...</h1>
+                </div>
+            );
+        }
     }
 }
 

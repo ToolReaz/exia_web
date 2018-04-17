@@ -10,7 +10,7 @@ class ManifestationPhoto extends Component {
         super(props);
         this.state = {
             id: props.match.params.id,
-            manifestation: null
+            imagePath: ''
         };
     }
 
@@ -27,14 +27,7 @@ class ManifestationPhoto extends Component {
     render() {
         return (
             <div>
-                <Header/>
-
-                <div className="grid-container">
-                    <h1>Hey !</h1>
-                    <Manifestation fullPage={true} values={this.state.manifestation}/>
-                </div>
-
-                <Footer/>
+                <img src="" alt=""/>
             </div>
 
         )

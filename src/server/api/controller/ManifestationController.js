@@ -27,12 +27,8 @@ module.exports = {
         let reqID = req.params.id;
 
         if (reqToken) {
-            DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Manifestation.GetAllManifestations().then(manifestations => {
-                    res.json({'error': null, 'content': manifestations});
-                }).catch(reason => {
-                    res.json({'error': reason.message, 'content': null});
-                })
+            DB.Manifestation.GetManifestationFromID(reqID).then(manifestation => {
+                res.json({'error': null, 'content': manifestation.dataValues});
             }).catch(reason => {
                 res.json({'error': reason.message, 'content': null});
             });

@@ -104,7 +104,7 @@ router.get('/shop/order', (req, res) => {
 
 
 // PHOTO
-router.get('/photos/:id', (req, res) => {
+router.get('/photo', (req, res) => {
     PhotoController.getAllPhoto(req, res);
 });
 router.post('/photo', (req, res) => {
