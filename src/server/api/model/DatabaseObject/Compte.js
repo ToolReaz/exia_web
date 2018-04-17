@@ -3,41 +3,50 @@ module.exports = (dataObject, permissions) => {
     var here = {
 
         /**
-         * Crée un utilisateur et l'insère dans la base de données
-         * @param {String} email Adresse E-Mail de l'utilisateur dont il faut créer le compte
-         * @param {String} password Mot de passe (haché) de l'utilisateur dont il faut créer le compte
-         * @param {String} firstname Prénom de l'utilisateur dont il faut créer le compte
-         * @param {String} lastname Nom de l'utilisateur dont il faut créer le compte
+         * Create an user and insert it in the database
+         * @param {String} email Email address of the account
+         * @param {String} password Password of the account
+         * @param {String} firstName First name of the account owner
+         * @param {String} lastName Last name of the account owner
+         * @returns {Promise<Number>} The ID of the account
+         * @constructor
          */
-        CreateUser: async (email, password, firstname, lastname) => {
-            var r = await dataObject.Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password } });
-            if (!r[1]) return Promise.reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
+        CreateUser: async (email, password, firstName, lastName) => {
+            var r = await dataObject.Account.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastName, Prenom: firstName, Mot_de_passe: password } });
+            if (!r[1]) return Promise.reject(new Error("The user with the following email address : \"" + email + "\" already exists."));
+            else return r.ID;
         },
 
         /**
-         * Récupère le compte (brut) d'une personne
-         * @param {String} email Adresse E-Mail de la personne dont il faut récupérer le compte
+         * Find the raw account of an user
+         * @param {String} email Email address of the account
+         * @returns {Promise<Model>}
+         * @constructor
          */
         GetAccount: async (email) => {
-            var r = await dataObject.Compte.findOne({ where: { Adresse_Mail: email } });
+            var r = await dataObject.Account.findOne({ where: { Adresse_Mail: email } });
             if (r) return r;
-            else return Promise.reject(new Error("L'utilisateur \"" + email + "\" n'existe pas."));
+            else return Promise.reject(new Error("The user with the following email address : \"" + email + "\" does not exist."));
         },
 
         /**
-         * Récupère les données brutes liées au compte
-         * @param {Number} idAccount ID du compte
+         * Find the raw account of an user
+         * @param {Number} idAccount ID of the account in the database
+         * @returns {Promise<Model>}
+         * @constructor
          */
         GetAccountFromId: async (idAccount) => {
-            var r = await dataObject.Compte.findOne({ where: { ID: idAccount } });
+            var r = await dataObject.Account.findOne({ where: { ID: idAccount } });
             if (r) return r;
-            else return Promise.reject(new Error("L'ID #" + idAccount + " n'existe pas."));
+            else return Promise.reject(new Error("The user with the following ID : \"" + idAccount + "\" does not exist."));
         },
 
         /**
-         * Crée un token pour un utilisateur
-         * @param {Number} idCompte ID du compte associé au token
-         * @param {String=} token Token à insérer pour l'utilisateur spécifié
+         * Create a token for an user
+         * @param {Number} idAccount ID of the user account
+         * @param {String=} token Token for this account
+         * @returns {Promise<never>}
+         * @constructor
          */
         SetToken: async (idAccount, token) => {
             if (await permissions.FilterPermission(idAccount, "P_CONNECT")) {
@@ -47,18 +56,20 @@ module.exports = (dataObject, permissions) => {
                     await dataObject.Session.destroy({ where: { ID_Compte: idAccount } })
                 }
             } else {
-                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_CONNECT\""));
+                return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_CONNECT\""));
             }
         },
 
         /**
-         * Récupère l'ensemble des manifestations auxquelles l'utilisateur participe
-         * @param {Number} idAccount ID de l'utilisateur
+         * Find the list of manifestation where the user take part
+         * @param {Number} idAccount ID of the user account
+         * @returns {Promise<Array<Model>>}
+         * @constructor
          */
-        ListeInscriptions: async (idAccount) => {
-            return await dataObject.Participe.findAll({ where: { ID: idAccount } });
+        InscriptionList: async (idAccount) => {
+            return await dataObject.Account_Manifestation.findAll({ where: { ID: idAccount } });
         },
     };
 
     return here;
-}
+};

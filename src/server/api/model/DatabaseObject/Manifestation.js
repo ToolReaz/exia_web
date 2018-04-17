@@ -3,13 +3,15 @@ module.exports = (dataObject, permissions) => {
     var here = {
 
         /**
-         * Crée une manifestation
-         * @param {String} name Nom de la manifestation à créer
-         * @param {String} description Description de la manifestation à créer
-         * @param {String} imagePath Chemin de l'image associée à la manifestation
-         * @param {Date} date Date de la première (ou seule) occurence de la manifestation
-         * @param {Number} interval_seconds Interval en secondes entre deux occurences de la manifestation (0 = pas de répétition)
-         * @param {Number} price Prix de participation à la manifestation
+         * Create a manifestation
+         * @param {String} name Name of the manifestation
+         * @param {String} description Description of the manifestation
+         * @param {String} imagePath Path to the image of the manifestation
+         * @param {Date} date Date of the first time the event is happening
+         * @param {Number} interval_seconds Time (in seconds) between two repetitions of the same event (or 0 if the event should not repeat)
+         * @param {Number} price Price of the participation in the manifestation
+         * @returns {{Nom: String, Description: String, Chemin_Image: String, Quand: Date, Intervale: Number, Prix: Number, Public: Boolean}}
+         * @constructor
          */
         CreateManifestation: (name, description, imagePath, date, interval_seconds, price) => {
             return {
@@ -24,45 +26,54 @@ module.exports = (dataObject, permissions) => {
         },
 
         /**
-         * Poste une manifestation
-         * @param {Number} idAccount ID du compte souhaitant créer directement une manif
-         * @param {any} Manifestation Manifestation issue de CreateManifestation
+         * Post a single manifestation without an idea
+         * @param {Number} idAccount ID of the account wanting to post the manifestation
+         * @param {{Nom: String, Description: String, Chemin_Image: String, Quand: Date, Intervale: Number, Prix: Number, Public: Boolean}} manifestation Manifestation being added
+         * @returns {Promise<Number>} ID of the manifestation
+         * @constructor
          */
-        PosteManifestation: async (idAccount, Manifestation) => {
+        PostManifestation: async (idAccount, manifestation) => {
             if (await permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
-                await dataObject.Manifestation.findOrCreate({ where: Manifestation });
+                var r = await dataObject.Manifestation.findOrCreate({ where: manifestation });
+                return r.ID;
             } else {
-                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
+                return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_VALID_MANIF\""));
             }
         },
 
         /**
-         * Inscrit une personne à une manif
-         * @param {Number} idAccount ID du compte voulant s'inscrire à une manif
-         * @param {Number} idManif ID de la manif
+         * Enroll someone in the manifestation
+         * @param {Number} idAccount ID of the user account wishing to be enrolled in the manifestation
+         * @param {Number} idManifestation ID of the manifestation the user is being enrolled in
+         * @returns {Promise<never>}
+         * @constructor
          */
-        InscrireManif: async (idAccount, idManif) => {
+        EnrollManifestation: async (idAccount, idManifestation) => {
             if (permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF")) {
-                await dataObject.Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } });
+                await dataObject.Account_Manifestation.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManifestation } });
             } else {
-                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
+                return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_PARTICIPE_MANIF\""));
             }
         },
 
         /**
-         * Détermine si l'utilisateur participe à une manif
-         * @param {Number} idAccount ID de l'utilisateur
-         * @param {Number} idManif ID de la manif
+         * Check if an user is enrolled in a manifestation
+         * @param {Number} idAccount ID of the user account
+         * @param {Number} idManifestation ID of the manifestation
+         * @returns {Promise<boolean>}
+         * @constructor
          */
-        Participe: async (idAccount, idManif) => {
-            return await dataObject.Participe.findOne({ where: { ID: idAccount, ID_Manifestation: idManif } }) == null;
+        IsUserEnrolled: async (idAccount, idManifestation) => {
+            return await dataObject.Account_Manifestation.findOne({ where: { ID: idAccount, ID_Manifestation: idManifestation } }) == null;
         },
 
         /**
-         * retourne les évenements du mois (passés et futurs) et les répétitions d'anciens events
+         * Return the list of event for the current month
+         * @returns {Promise<Array<Model>>}
+         * @constructor
          */
         GetThisMonthEvents: async () => {
-            var r = await dataObject.Manifestation.findAll();
+            var events = await dataObject.Manifestation.findAll();
             var dateInit = Date.now();
             var year = new Date(Date.now()).getUTCFullYear();
             var month = new Date(Date.now()).getUTCMonth();
@@ -72,71 +83,79 @@ module.exports = (dataObject, permissions) => {
                 dateInit > minDate &&
                 dateInit < maxDate ||
                 dateInit < minDate &&
-                Math.floor(minDate - dateInit / element.Intervale) < Math.floor(maxDate - dateInit / element.Intervale)
+                Math.floor(minDate - dateInit / d.Intervale) < Math.floor(maxDate - dateInit / d.Intervale)
             );
         },
 
         /**
-         * Edite les données d'une manifestation
-         * @param {Number} idAccount ID de la personne souhaitant ajouter la manif
-         * @param {Number} idManif ID de la manifestation
-         * @param {String=} name Nouveau nom de la manifestation (ou NULL)
-         * @param {String=} description Nouvelle description (ou NULL)
-         * @param {String=} imagePath Nouveau path vers l'image (ou NULL)
-         * @param {Date=} date Nouvelle date de début pour la manif (ou NULL)
-         * @param {Number=} timespan Nouvel interval entre deux répétitions de la manifestation (ou NULL)
-         * @param {Number=} price Nouveau prix pour la manifestation (ou NULL)
-         * @param {Boolean=} public Si la manifestation est publique (visible sur la page) ou non (ou NULL)
+         * Edit a manifestation
+         * @param {Number} idAccount ID of the user account wishing to edit a manifestation
+         * @param {Number} idManifestation ID of the manifestation
+         * @param {String=} name Name of the manifestation
+         * @param {String=} description Description of the manifestation
+         * @param {String=} imagePath Path to the manifestation picture
+         * @param {Date=} date Date of the first time the event should happen
+         * @param {Number=} timeSpan Time (in seconds) between two repetitions of the manifestation
+         * @param {Number=} price Price of the manifestation
+         * @param {Boolean=} public If the manifestation should be publicly visible
+         * @returns {Promise<never>}
+         * @constructor
          */
-        EditManifestation: async (idAccount, idManif, name, description, imagePath, date, timespan, price, public) => {
+        EditManifestation: async (idAccount, idManifestation, name, description, imagePath, date, timeSpan, price, public) => {
             if (permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
                 var m = {};
                 if (name) m.Nom = name;
                 if (description) m.Description = description;
                 if (imagePath) m.Chemin_Image = imagePath;
                 if (date) m.Quand = date;
-                if (timespan) m.Intervale = timespan;
+                if (timeSpan) m.Intervale = timeSpan;
                 if (price) m.Prix = price;
                 if (public) m.Public = public;
-                await dataObject.Manifestation.update(m, { where: { ID: idManif } });
+                await dataObject.Manifestation.update(m, { where: { ID: idManifestation } });
             } else {
-                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
+                return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_PARTICIPE_MANIF\""));
             }
         },
 
         /**
-         * Récupère l'ID de l'utilisateur ayant proposé la manif
-         * @param {Number} idManif ID de la manif dont on cherche à déterminer l'auteur
+         * Get the ID of the user who posted the manifestation
+         * @param {Number} idManifestation ID of the manifestation
+         * @returns {Promise<Number>}
+         * @constructor
          */
-        GetManifestationAuthor: async (idManif) => {
-            var r = await dataObject.Comprend.findOne({ where: { ID: idManif } });
+        GetManifestationAuthor: async (idManifestation) => {
+            var r = await dataObject.Idea_Manifestation.findOne({ where: { ID: idManifestation } });
             if (r) {
-                var s = await dataObject.Idee.findOne({ where: { ID: r.ID } });
+                var s = await dataObject.Idea.findOne({ where: { ID: r.ID } });
                 if (s) {
                     return s.ID_Compte;
                 } else {
-                    return Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'a pas d'idée associée"));
+                    return Promise.reject(new Error("The manifestation #" + idManifestation + " does not have an idea related"));
                 }
             } else {
-                return Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'existe pas"));
+                return Promise.reject(new Error("The manifestation #" + idManifestation + " does not exist"));
             }
         },
 
         /**
-         * Récupère la liste des personnes inscrites à un évènement
-         * @param {Number} idAccount ID du compte de la personne souhaitant récupérer la liste des personnes inscrites
-         * @param {Number} idManif ID de la manif dont il faut récupérer les participants
+         * Get the list of participant in the manifestation
+         * @param {Number} idAccount ID of the account wishing to get the dump
+         * @param {Number} idManifestation ID of the manifestation
+         * @returns {Promise<Array<Model>>}
+         * @constructor
          */
-        GetInscriptions: async (idAccount, idManif) => {
+        GetInscriptions: async (idAccount, idManifestation) => {
             if (await permissions.FilterPermission(idAccount, "P_LISTE_INSCRITS")) {
-                return await dataObject.Participe.findAll({ where: { ID_Manifestation: idManif } });
+                return await dataObject.Account_Manifestation.findAll({ where: { ID_Manifestation: idManifestation } });
             } else {
-                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_LISTE_INSCRITS\""));
+                return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_LISTE_INSCRITS\""));
             }
         },
 
         /**
-         * Retourne toutes les manifestations
+         * Get every manifestation
+         * @returns {Promise<Array<Model>>}
+         * @constructor
          */
         GetAllManifestations: async () => {
             return await dataObject.Manifestation.findAll();
@@ -144,4 +163,4 @@ module.exports = (dataObject, permissions) => {
     };
 
     return here;
-}
+};

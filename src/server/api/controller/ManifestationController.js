@@ -30,7 +30,7 @@ module.exports = {
         let reqDate = req.body.date;
 
         if (reqToken) {
-            DB.Compte.GetAccountFromToken(reqToken).then(id => {
+            DB.Account.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.CreateManifestation();
             }).catch(reason => {
                 res.json({'error': reason.message, 'content': null});
@@ -46,7 +46,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Manifestation.Participe(id, reqManifId).then(ok => {
+                DB.Manifestation.EnrollManifestation(id, reqManifId).then(ok => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
@@ -65,7 +65,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Idea.ValideIdee(id, reqIdeaId).then(ok => {
+                DB.Idea.ValidateIdea(id, reqIdeaId).then(ok => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

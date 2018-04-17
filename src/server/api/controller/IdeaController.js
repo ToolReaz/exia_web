@@ -117,7 +117,7 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 console.log(reqId);
-                DB.Idea.ValideIdee(id, reqId).then(() => {
+                DB.Idea.ValidateIdea(id, reqId).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

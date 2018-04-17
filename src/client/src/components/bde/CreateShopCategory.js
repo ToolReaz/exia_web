@@ -28,7 +28,7 @@ class CreateShopCategory extends Component {
             this.setState({
                 catName: ''
             });
-            alert('Categorie ajouté !');
+            alert('Category ajouté !');
         }).catch(reason => {
             alert(reason);
         });

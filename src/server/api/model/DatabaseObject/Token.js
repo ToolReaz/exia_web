@@ -3,13 +3,15 @@ module.exports = (dataObject, permissions) => {
     var here = {
 
         /**
-         * Retourne un compte à partir d'un token (penser à vérifier la validité du token avec GetTokenTime)
-         * @param {String} token Token de connexion
+         * Return an account based on a token (after validating it with GetTokenTime)
+         * @param {String} token Token of the account
+         * @returns {Promise<Number>}
+         * @constructor
          */
         GetAccountFromToken: async (token) => {
             var r = await dataObject.Session.findOne({ where: { Token: token } });
             if (r) {
-                var c = await dataObject.Compte.findOne({ where: { ID: r.ID_Compte } });
+                var c = await dataObject.Account.findOne({ where: { ID: r.ID_Compte } });
                 if (c) {
                     return c.ID;
                 } else {
@@ -21,8 +23,10 @@ module.exports = (dataObject, permissions) => {
         },
 
         /**
-         * Récupère le timestamp d'un token
-         * @param {String} token Token dont il faut récupérer le temps
+         * Return the timestamp of a token
+         * @param {String} token Value of the token
+         * @returns {Promise<Date>}
+         * @constructor
          */
         GetTokenTime: async (token) => {
             var r = await dataObject.Session.findOne({ where: { Token: token } });
@@ -38,10 +42,18 @@ module.exports = (dataObject, permissions) => {
          * @param {String} token Valeur du token
          * @param {Date} timestamp Nouveau timestamp
          */
+
+        /**
+         * Change the timestamp of a token
+         * @param {String} token
+         * @param {Date} timestamp Date of the timestamp
+         * @returns {Promise<never>}
+         * @constructor
+         */
         SetTokenTimestamp: async (token, timestamp) => {
-            return await dataObject.Session.update({ Derniere_connexion: timestamp }, { where: { Token: token } });
+            await dataObject.Session.update({ Derniere_connexion: timestamp }, { where: { Token: token } });
         }
     };
 
     return here;
-}
+};
