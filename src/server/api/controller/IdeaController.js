@@ -53,7 +53,7 @@ module.exports = {
                     let ideaCount = ideas.length;
                     ideas.forEach(idea => {
                         ideaCount--;
-                        if (!idea.Approuve) {
+                        if (!idea.Approved) {
                             invalidatedIdeas.push(idea);
                         }
                         if(ideaCount===0){
@@ -139,7 +139,7 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 console.log(reqId);
-                DB.Idea.ValideIdee(id, reqId).then(() => {
+                DB.Idea.ValidateIdea(id, reqId).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

@@ -1,7 +1,7 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Compte_PayPal', {
+    return sequelize.define('PayPalAccount', {
         ID: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
@@ -13,16 +13,16 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true
         },
-        ID_Compte: {
+        ID_Account: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             references: {
-                model: 'Compte',
+                model: 'Account',
                 key: 'ID'
             },
             unique: true
         }
     }, {
-        tableName: 'Compte_PayPal'
+        tableName: 'PayPalAccount'
     });
 };

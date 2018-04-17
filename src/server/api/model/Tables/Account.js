@@ -1,31 +1,31 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Compte', {
+    return sequelize.define('Account', {
         ID: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        Adresse_Mail: {
+        Mail: {
             type: DataTypes.STRING(64),
             allowNull: false,
             unique: true
         },
-        Nom: {
+        LastName: {
             type: DataTypes.STRING(32),
             allowNull: false
         },
-        Prenom: {
+        FirstName: {
             type: DataTypes.STRING(32),
             allowNull: false
         },
-        Mot_de_passe: {
+        Password: {
             type: DataTypes.STRING(64),
             allowNull: false
         }
     }, {
-        tableName: 'Compte'
+        tableName: 'Account'
     });
 };

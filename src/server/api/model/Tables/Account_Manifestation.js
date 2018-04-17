@@ -1,22 +1,13 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Photographie', {
-        ID: {
+    return sequelize.define('Account_Manifestation', {
+        ID_Account: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Compte',
-                key: 'ID'
-            }
-        },
-        ID_Photos: {
-            type: DataTypes.INTEGER(11),
-            allowNull: false,
-            primaryKey: true,
-            references: {
-                model: 'Photos',
+                model: 'Account',
                 key: 'ID'
             }
         },
@@ -30,6 +21,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         }
     }, {
-        tableName: 'Photographie'
+        tableName: 'Account_Manifestation'
     });
 };

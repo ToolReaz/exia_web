@@ -1,35 +1,35 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Commente', {
-        ID: {
+    return sequelize.define('Account_Manifestation_Photo', {
+        ID_Account: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Compte',
+                model: 'Account',
                 key: 'ID'
             }
         },
-        ID_Photos: {
+        ID_Photo: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Photos',
+                model: 'Photo',
                 key: 'ID'
             }
         },
-        ID_Commentaires: {
+        ID_Manifestation: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             references: {
-                model: 'Commentaires',
+                model: 'Manifestation',
                 key: 'ID'
             }
         }
     }, {
-        tableName: 'Commente'
+        tableName: 'Account_Manifestation_Photo'
     });
 };

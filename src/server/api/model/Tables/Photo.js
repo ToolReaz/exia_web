@@ -1,15 +1,15 @@
 
 
 module.exports = function(sequelize, DataTypes) {
-    return sequelize.define('Commentaires', {
+    return sequelize.define('Photo', {
         ID: {
             type: DataTypes.INTEGER(11),
             allowNull: false,
             primaryKey: true,
             autoIncrement: true
         },
-        Texte: {
-            type: DataTypes.STRING(25),
+        ImagePath: {
+            type: DataTypes.STRING(256),
             allowNull: false
         },
         Public: {
@@ -17,6 +17,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false
         }
     }, {
-        tableName: 'Commentaires'
+        tableName: 'Photo'
     });
 };
