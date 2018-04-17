@@ -139,7 +139,7 @@ class Event extends Component {
 
 
 
-        
+
 
 
         let oldManifs = [];
