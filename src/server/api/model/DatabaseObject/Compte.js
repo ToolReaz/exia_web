@@ -14,7 +14,7 @@ module.exports = (dataObject, permissions) => {
         CreateUser: async (email, password, firstName, lastName) => {
             let r = await dataObject.Account.findOrCreate({
                 where: {Mail: email},
-                defaults: {Name: lastName, FirstName: firstName, Password: password}
+                defaults: {LastName: lastName, FirstName: firstName, Password: password}
             });
             if (!r[1]) return Promise.reject(new Error("The user with the following email address : \"" + email + "\" already exists."));
             else return r.ID;
