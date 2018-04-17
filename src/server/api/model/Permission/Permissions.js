@@ -12,7 +12,7 @@ module.exports = (dataObject) => {
             var t = await dataObject.Compte.findOne({ where: { ID: userID } });
             var u = await dataObject.Appartient.findAll({ where: { ID: t.ID } });
 
-            return Contains(s, u, (s_) => s_.ID_Role, (u_) => u_.ID_Role);
+            return Contains(s, u, (s_) => {return s_.ID_Role;}, (u_) => {return u_.ID_Role;});
         },
 
         /**     
