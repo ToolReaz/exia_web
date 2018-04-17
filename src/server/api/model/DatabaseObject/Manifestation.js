@@ -144,6 +144,10 @@ module.exports = (dataObject, permissions) => {
 
         GetManifestationFromID : async(idManifestation) => {
             return await dataObject.Manifestation.findOne({where: {ID: idManifestation}});
+        },
+
+        GetPhotos: async(idManifestation) => {
+            return await dataObject.Photographie.findAll({where: {ID_Manifestation: idManifestation}});
         }
     };
 
