@@ -51,7 +51,7 @@ class Manifestation extends Component {
 
             let photos = [];
             // Create a photo component for each of them
-            this.state.photos.forEach((photo) => {
+            this.state.photos.forEach(photo => {
                 photos.push(
                     // The ManifestationPhoto module manage itself the comments
                     <ManifestationPhoto values={photo}/>

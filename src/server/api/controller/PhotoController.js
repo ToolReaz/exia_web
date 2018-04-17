@@ -28,8 +28,8 @@ module.exports = {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Photo.CommentPhoto(id, reqID, reqComment).then(() => {
                     res.json({'error': null, 'content': null});
-                }).catch(reason => res.json({'error': reason}));
-            }).catch(reason => res.json({'error': reason}));
+                }).catch(reason => res.json({'error': reason.message}));
+            }).catch(reason => res.json({'error': reason.message}));
         } else {
             res.json({'error': 'Pas connecté = pas ajouter commentaire'});
         }
@@ -45,8 +45,8 @@ module.exports = {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Photo.LikePhoto(id, reqIdPhoto, true).then(() => {
                     res.json({'error': null, 'content': null});
-                }).catch(reason => res.json({'error': reason}));
-            }).catch(reason => res.json({'error': reason}));
+                }).catch(reason => res.json({'error': reason.message}));
+            }).catch(reason => res.json({'error': reason.message}));
         }
     },
 
@@ -58,7 +58,7 @@ module.exports = {
         }  else {
             DB.Photo.GetLikeCount(reqIdPhoto).then(photo => {
                 res.json({'error': null, 'content': null});
-            }).catch(reason => res.json({'error': reason}));
+            }).catch(reason => res.json({'error': reason.message}));
         }
     },
 
@@ -67,9 +67,8 @@ module.exports = {
 
         if (reqID) {
             DB.Manifestation.GetPhotos(reqID).then((photos) => {
-                console.log(photos);
                 res.json({'error': null, 'content': photos});
-            }).catch(reason => res.json({'error': reason}));
+            }).catch(reason => res.json({'error': reason.message}));
         } else {
             res.json({'error': 'Pas connecté = pas ajouter commentaire'});
         }
@@ -79,9 +78,10 @@ module.exports = {
         let reqID = req.params.id;
 
         if (reqID) {
-            DB.Photo.GetPhotoById(reqID).then((photo) => {
+            DB.Photo.GetPhotoById(reqID).then(photo => {
+                console.log(photo);
                 res.json({'error': null, 'content': photo});
-            }).catch(reason => res.json({'error': reason}));
+            }).catch(reason => res.json({'error': reason.message}));
         } else {
             res.json({'error': 'Pas connecté = pas ajouter commentaire'});
         }
