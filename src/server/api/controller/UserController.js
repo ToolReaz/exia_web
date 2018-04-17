@@ -12,7 +12,7 @@ module.exports = {
             res.json({'error': 'Pseudo ou mot de passe invalide !'});
         } else {
             DB.Account.GetAccount(reqEmail).then(account => {
-                let dbPassword = account.dataValues.Mot_de_passe;
+                let dbPassword = account.dataValues.Password;
                 bcrypt.compare(reqPassword, dbPassword, (err, ok) => {
                     if (ok) {
                         let newToken = require('crypto').randomBytes(64).toString('hex');
@@ -21,7 +21,7 @@ module.exports = {
                             res.json({'error': null, 'content': 'connexion effectuée !'});
                         }).catch(reason => res.json({'error': 'Token pas set correctement' + reason}));
                     } else {
-                        res.json({'error': "Nom d'utilisateur ou mot de passe incorrect !"});
+                        res.json({'error': "Name d'utilisateur ou mot de passe incorrect !"});
                     }
                 });
             }).catch(reason => {

@@ -1,5 +1,5 @@
 module.exports = (dataObject) => {
-    var here = {
+    const here = {
 
         /**
          * Filter request execution based on the permissions
@@ -9,12 +9,16 @@ module.exports = (dataObject) => {
          * @constructor
          */
         FilterPermission: async (userID, permission) => {
-            var r = await dataObject.Permission.findOne({ where: { Code_permission: permission } });
-            var s = await dataObject.Permission_Role.findAll({ where: { ID: r.ID } });
-            var t = await dataObject.Account.findOne({ where: { ID: userID } });
-            var u = await dataObject.Account_Role.findAll({ where: { ID: t.ID } });
+            let r = await dataObject.Permission.findOne({where: {PermissionCode: permission}});
+            let s = await dataObject.Permission_Role.findAll({where: {ID: r.ID}});
+            let t = await dataObject.Account.findOne({where: {ID: userID}});
+            let u = await dataObject.Account_Role.findAll({where: {ID: t.ID}});
 
-            return Contains(s, u, (s_) => {return s_.ID_Role;}, (u_) => {return u_.ID_Role;});
+            return Contains(s, u, (s_) => {
+                return s_.ID_Role;
+            }, (u_) => {
+                return u_.ID_Role;
+            });
         },
 
         /**
@@ -25,9 +29,9 @@ module.exports = (dataObject) => {
          * @constructor
          */
         SetPermissions: async (role, permission) => {
-            var r = await dataObject.Role.findOrCreate({ where: { Nom_role: role } });
-            var s = await dataObject.Permission.findOrCreate({ where: { Code_permission: permission } });
-            await dataObject.Permission_Role.findOrCreate({ where: { ID: s[0].ID, ID_Role: r[0].ID } });
+            let r = await dataObject.Role.findOrCreate({where: {Nom_role: role}});
+            let s = await dataObject.Permission.findOrCreate({where: {PermissionCode: permission}});
+            await dataObject.Permission_Role.findOrCreate({where: {ID: s[0].ID, ID_Role: r[0].ID}});
         },
 
         /**
@@ -71,9 +75,9 @@ module.exports = (dataObject) => {
  * @constructor
  */
 function Contains(arrayLeft, arrayRight, transformLeft, transformRight) {
-    var ret = false;
-    var transformedLeft = arrayLeft.map(d => transformLeft(d));
-    var transformedRight = arrayRight.map(d => transformRight(d));
+    let ret = false;
+    let transformedLeft = arrayLeft.map(d => transformLeft(d));
+    let transformedRight = arrayRight.map(d => transformRight(d));
     transformedLeft.forEach(entityLeft => {
         transformedRight.forEach(entityRight => {
             ret |= entityRight === entityLeft;

@@ -1,6 +1,6 @@
 module.exports = (dataObject, permissions) => {
 
-    var here = {
+    const here = {
 
 
         /**
@@ -10,7 +10,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetRoleFromID: async (idRole) => {
-            return await dataObject.Role.findOne({ where: { ID: idRole } });
+            return await dataObject.Role.findOne({where: {ID: idRole}});
         },
 
         /**
@@ -20,17 +20,17 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetRoleFromName: async (role) => {
-            return await dataObject.Role.findOne({ where: { Nom_role: role } });
+            return await dataObject.Role.findOne({where: {Nom_role: role}});
         },
 
         /**
          * Return the roles ID of an user
          * @param {Number} idAccount ID of the user account
-         * @returns {Promise<(Possede.ID_Role|{type, allowNull, primaryKey, references}|Appartient.ID_Role)[]>}
+         * @returns {Array<Number>}
          * @constructor
          */
         GetRolesIDFromUser: async (idAccount) => {
-            var r = await dataObject.Account_Role.findAll({ where: { ID: idAccount } });
+            let r = await dataObject.Account_Role.findAll({where: {ID: idAccount}});
             return r.map(d => d.ID_Role);
         },
 
@@ -41,8 +41,8 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetRolesFromUser: async (idAccount) => {
-            var r = await here.GetRolesIDFromUser(idAccount);
-            var result = [];
+            let r = await here.GetRolesIDFromUser(idAccount);
+            let result = [];
             for (let i = 0; i < r.length; i++) {
                 const element = r[i];
                 result.push(await here.GetRoleFromID(element.ID));

@@ -12,7 +12,10 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         CreateUser: async (email, password, firstName, lastName) => {
-            var r = await dataObject.Account.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastName, Prenom: firstName, Mot_de_passe: password } });
+            let r = await dataObject.Account.findOrCreate({
+                where: {Mail: email},
+                defaults: {Name: lastName, FirstName: firstName, Password: password}
+            });
             if (!r[1]) return Promise.reject(new Error("The user with the following email address : \"" + email + "\" already exists."));
             else return r.ID;
         },
@@ -24,7 +27,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetAccount: async (email) => {
-            var r = await dataObject.Account.findOne({ where: { Adresse_Mail: email } });
+            let r = await dataObject.Account.findOne({where: {Mail: email}});
             if (r) return r;
             else return Promise.reject(new Error("The user with the following email address : \"" + email + "\" does not exist."));
         },
@@ -36,7 +39,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetAccountFromId: async (idAccount) => {
-            var r = await dataObject.Account.findOne({ where: { ID: idAccount } });
+            let r = await dataObject.Account.findOne({where: {ID: idAccount}});
             if (r) return r;
             else return Promise.reject(new Error("The user with the following ID : \"" + idAccount + "\" does not exist."));
         },
@@ -45,15 +48,15 @@ module.exports = (dataObject, permissions) => {
          * Create a token for an user
          * @param {Number} idAccount ID of the user account
          * @param {String=} token Token for this account
-         * @returns {Promise<never>}
+         * @returns {Promise<void>}
          * @constructor
          */
         SetToken: async (idAccount, token) => {
             if (await permissions.FilterPermission(idAccount, "P_CONNECT")) {
                 if (token) {
-                    await dataObject.Session.upsert({ Token: token, Derniere_connexion: Date.now(), ID_Compte: idAccount })
+                    await dataObject.Session.upsert({ Token: token, LastConnection: Date.now(), ID: idAccount })
                 } else {
-                    await dataObject.Session.destroy({ where: { ID_Compte: idAccount } })
+                    await dataObject.Session.destroy({ where: { ID: idAccount } })
                 }
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_CONNECT\""));

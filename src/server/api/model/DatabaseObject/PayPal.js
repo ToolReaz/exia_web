@@ -1,6 +1,6 @@
 module.exports = (dataObject, permissions) => {
 
-    var here = {
+    return {
 
         /**
          * Create a link between an account and a PayPal API key
@@ -10,9 +10,9 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         SetPayPal: async (idAccount, payPalApiKey) => {
-            var r = dataObject.Account.findOne({ where: { ID: idAccount } });
+            let r = dataObject.Account.findOne({where: {ID: idAccount}});
             if (r) {
-                var s = await dataObject.PayPalAccount.upsert({ GUID: payPalApiKey, ID_Compte: r.ID });
+                let s = await dataObject.PayPalAccount.upsert({GUID: payPalApiKey, ID: r.ID});
                 return s.ID;
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not exist."));
@@ -26,10 +26,8 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetPayPalFromAccount: async (idAccount) => {
-            return await dataObject.PayPalAccount.findOne({ where: { ID_Compte: idAccount } });
+            return await dataObject.PayPalAccount.findOne({where: {ID: idAccount}});
         }
 
     };
-
-    return here;
 };

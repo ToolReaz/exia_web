@@ -5,31 +5,31 @@ const connection = new sql({
     username: 'exia',
     password: 'ingenieur123*',
     database: 'exia',
-    host: 'toolreaz.space',
+    host: 'localhost',
     port: '3306',
     logging: false
 });
 
 const database = {
-    Purchase :          require('./Tables/Achats')          (connection, sql),
-    Account_Role :      require('./Tables/Appartient')      (connection, sql),
-    Category :       require('./Tables/Categorie')       (connection, sql),
-    Comments :    require('./Tables/Commentaires')    (connection, sql),
-    Comments_Account_Photo :        require('./Tables/Commente')        (connection, sql),
-    Idea_Manifestation :        require('./Tables/Comprend')        (connection, sql),
-    Account :          require('./Tables/Compte')          (connection, sql),
-    PayPalAccount :   require('./Tables/Compte_PayPal')   (connection, sql),
-    Idea :            require('./Tables/Idee')            (connection, sql),
+    Purchase :          require('./Tables/Purchase')          (connection, sql),
+    Account_Role :      require('./Tables/Account_Role')      (connection, sql),
+    Category :       require('./Tables/Category')       (connection, sql),
+    Comments :    require('./Tables/Comments')    (connection, sql),
+    Comments_Account_Photo :        require('./Tables/Comments_Account_Photo')        (connection, sql),
+    Idea_Manifestation :        require('./Tables/Idea_Manifestation')        (connection, sql),
+    Account :          require('./Tables/Account')          (connection, sql),
+    PayPalAccount :   require('./Tables/PayPalAccount')   (connection, sql),
+    Idea :            require('./Tables/Idea')            (connection, sql),
     Likes :           require('./Tables/Likes')           (connection, sql),
     Manifestation :   require('./Tables/Manifestation')   (connection, sql),
-    Basket :          require('./Tables/Panier')          (connection, sql),
-    Account_Manifestation :       require('./Tables/Participe')       (connection, sql),
+    Basket :          require('./Tables/Basket')          (connection, sql),
+    Account_Manifestation :       require('./Tables/Account_Manifestation')       (connection, sql),
     Permission :      require('./Tables/Permission')      (connection, sql),
-    Account_Manifestation_Photo :    require('./Tables/Photographie')    (connection, sql),
-    Photo :          require('./Tables/Photos')          (connection, sql),
-    Permission_Role :         require('./Tables/Possede')         (connection, sql),
-    Product :         require('./Tables/Produit')         (connection, sql),
-    Product_Category :        require('./Tables/Regroupe')        (connection, sql),
+    Account_Manifestation_Photo :    require('./Tables/Account_Manifestation_Photo')    (connection, sql),
+    Photo :          require('./Tables/Photo')          (connection, sql),
+    Permission_Role :         require('./Tables/Permission_Role')         (connection, sql),
+    Product :         require('./Tables/Product')         (connection, sql),
+    Product_Category :        require('./Tables/Product_Category')        (connection, sql),
     Role :            require('./Tables/Role')            (connection, sql),
     Session :         require('./Tables/Session')         (connection, sql),
     Vote :            require('./Tables/Vote')            (connection, sql)
@@ -54,7 +54,7 @@ connection.sync({ force: false, logging: false }).then(() => {
     Permissions.SetupPermissions().then(()=>{
         console.log("Successfully initialized DB connection !");
         //DataBase.Shop.AddProduct(2, "helloworld", "jonskeet", 250000)
-        //DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Nom de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
+        //DataBase.Idea.CreateIdea(2, "Nouvelle idée", "Contenu de la nouvelle idée", [DataBase.Manifestation.CreateManifestation("Name de la manif", "Description de la manif", "/dev/image", Date.now(), 0, 500)])
         //DataBase.Idea.ValidateIdea(2, 8)
         //DataBase.Manifestation.EditManifestation(2, 9, "NAME", "DESC", "IMAGE", Date.now(), 0, 100, true)
         //DataBase.Shop.AddItemToPurchaseList(2, 2, 10)

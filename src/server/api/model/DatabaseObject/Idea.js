@@ -1,6 +1,6 @@
 module.exports = (dataObject, permissions) => {
 
-    var here = {
+    return {
 
         /**
          * Gather every idea stored in the database
@@ -27,14 +27,22 @@ module.exports = (dataObject, permissions) => {
          */
         CreateIdea: async (idAccount, title, text, manifestationArray) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_ACTIVITE")) {
-                let r = dataObject.Idea.findOrCreate({ where: { Titre: title, Texte: text }, defaults: { Soumis_le: Date.now(), ID_Compte: idAccount, Approuve: false } });
+                let r = dataObject.Idea.findOrCreate({
+                    where: {Title: title, Text: text},
+                    defaults: {SubmitOn: Date.now(), ID: idAccount, Approved: false}
+                });
                 if (manifestationArray != null) {
                     for (let i = 0; i < manifestationArray.length; i++) {
                         const manifestation = manifestationArray[i];
-                        let s = await dataObject.Manifestation.findOrCreate({ where: manifestation });
-                        let t = await dataObject.Idea_Manifestation.findOrCreate({ where: { ID: r[0].ID, ID_Manifestation: s[0].ID } });
-                        return t.ID;
+                        let s = await dataObject.Manifestation.findOrCreate({where: manifestation});
+                        await dataObject.Idea_Manifestation.findOrCreate({
+                            where: {
+                                ID: r[0].ID,
+                                ID_Manifestation: s[0].ID
+                            }
+                        });
                     }
+                    return t.ID;
                 }
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_ADD_ACTIVITE\""));
@@ -46,12 +54,12 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} idAccount ID of the user account voting
          * @param {Number} idIdea ID of the idea voted
          * @param {Boolean} vote True : For, False : Against
-         * @returns {Promise<never>}
+         * @returns {Promise<void>}
          * @constructor
          */
         VoteIdea: async (idAccount, idIdea, vote) => {
             if (await permissions.FilterPermission(idAccount, "P_VOTE_IDEE")) {
-                await dataObject.Vote.findOrCreate({ where: { ID: idAccount, ID_Idee: idIdea }, defaults: { Pour: vote } });
+                await dataObject.Vote.findOrCreate({where: {ID: idAccount, ID_Idea: idIdea}, defaults: {Pro: vote}});
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_VOTE_IDEE\""));
             }
@@ -61,12 +69,12 @@ module.exports = (dataObject, permissions) => {
          * Validate an idea
          * @param {Number} idAccount ID of the user account validating the idea
          * @param {Number} idIdea ID of the idea being validated
-         * @returns {Promise<never>}
+         * @returns {Promise<void>}
          * @constructor
          */
         ValidateIdea: async (idAccount, idIdea) => {
             if (permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
-                await dataObject.Idea.update({ Approuve: true }, { where: { ID: idIdea } });
+                await dataObject.Idea.update({Approved: true}, {where: {ID: idIdea}});
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_VALID_MANIF\""));
             }
@@ -79,7 +87,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetVoteForCount: async (idIdea) => {
-            return await dataObject.Vote.count({ where: { Pour: true, ID_Idee: idIdea } });
+            return await dataObject.Vote.count({where: {Pro: true, ID_Idea: idIdea}});
         },
 
         /**
@@ -89,7 +97,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetVoteAgainstCount: async (idIdea) => {
-            return await dataObject.Vote.count({ where: { Pour: false, ID_Idee: idIdea } });
+            return await dataObject.Vote.count({where: {Pro: false, ID_Idea: idIdea}});
         },
 
         /**
@@ -103,6 +111,4 @@ module.exports = (dataObject, permissions) => {
         }
 
     };
-
-    return here;
 };

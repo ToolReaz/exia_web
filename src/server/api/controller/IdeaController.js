@@ -31,7 +31,7 @@ module.exports = {
                     let ideaCount = ideas.length;
                     ideas.forEach(idea => {
                         ideaCount--;
-                        if (!idea.Approuve) {
+                        if (!idea.Approved) {
                             invalidatedIdeas.push(idea);
                         }
                         if(ideaCount===0){
