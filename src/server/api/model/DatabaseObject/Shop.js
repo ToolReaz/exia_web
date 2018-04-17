@@ -101,7 +101,7 @@ module.exports = (dataObject, permissions) => {
          */
         AddItemToPurchaseList: async (idAccount, idProduct, quantity) => {
             if (await permissions.FilterPermission(idAccount, "P_PURCHASE_SHOP")) {
-                let r = await dataObject.Purchase.findOrCreate({where: {Done: false, ID: idAccount}});
+                let r = await dataObject.Purchase.findOrCreate({where: {Done: false, ID_Account: idAccount}});
                 let s = await dataObject.Basket.findOrCreate({
                     where: {
                         ID_Product: idProduct,
