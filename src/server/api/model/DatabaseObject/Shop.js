@@ -13,12 +13,12 @@ module.exports = (dataObject, permissions) => {
          */
         AddProduct: async (idAccount, name, description, price) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_SHOP")) {
-                let r = dataObject.Product.findOrCreate({
+                let r = await dataObject.Product.findOrCreate({
                     where: {
                         Name: name,
                         Description: description,
                         Price: price,
-                        ID: idAccount
+                        ID_Account: idAccount
                     }
                 });
                 return r[0].ID;
