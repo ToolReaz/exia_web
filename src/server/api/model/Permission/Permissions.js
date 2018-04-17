@@ -65,7 +65,7 @@ module.exports = (dataObject) => {
 function Contains(arrayLeft, arrayRight, transformLeft, transformRight) {
     var ret = false;
     var transformedLeft = arrayLeft.map(d => transformLeft(d));
-    var transformedRight = arrayRight.map(d => transformedRight(d));
+    var transformedRight = arrayRight.map(d => transformRight(d));
     transformedLeft.forEach(entityLeft => {
         transformedRight.forEach(entityRight => {
             ret |= tRight == tLeft;

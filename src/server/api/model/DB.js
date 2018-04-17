@@ -58,8 +58,9 @@ connection.sync({ force: false, logging: false }).then(() => {
         //DataBase.Idea.ValideIdee(2, 8)
         //DataBase.Manifestation.EditManifestation(2, 9, "NAME", "DESC", "IMAGE", Date.now(), 0, 100, true)
         //DataBase.Shop.AddItemToPurchaseList(2, 2, 10)
-        /*.then(()=>{
-            console.log('ok');
+        //DataBase.Token.GetAccountFromToken('c3ecbebb542cf94e9d8e60b09cc95db0689b9c0ad56cee450600787ad80f88a10e271c34268b738e5d651f08a647d70639c05ebd1d085d366642c979e461d91f')
+        /*.then((r)=>{
+            console.log(r);
         })
         .catch((err)=>{
             console.error(err.message);
