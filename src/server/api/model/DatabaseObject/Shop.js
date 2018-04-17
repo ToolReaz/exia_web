@@ -14,7 +14,7 @@ module.exports = (dataObject, permissions) => {
                 var r = dataObject.Produit.findOrCreate({ where: { Nom: name, Description: description, Prix: price, ID_Compte: idAccount } });
                 return r[0].ID;
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_ADD_SHOP\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_ADD_SHOP\""));
             }
         },
 
@@ -28,7 +28,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_DELETE_SHOP")) {
                 await dataObject.Produit.destroy({ where: { ID: idProduct } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_DELETE_SHOP\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_DELETE_SHOP\""));
             }
         },
 
@@ -83,7 +83,7 @@ module.exports = (dataObject, permissions) => {
                 var s = await dataObject.Panier.findOrCreate({ where: { ID_Produit: idProduct, ID: idAccount, ID_Achat: r[0].ID }, defaults: { Quantite: quantity } });
                 if (!s[1]) var t = await dataObject.Panier.update({ Quantite: r[0].Quantite + quantity }, { where: { ID: idAccount, ID_Produit: idProduct } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PURCHASE_SHOP\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PURCHASE_SHOP\""));
             }
         },
 
@@ -118,7 +118,7 @@ module.exports = (dataObject, permissions) => {
             } else if (s.Quantite == quantity) {
                 var t = await dataObject.Panier.destroy({ where: { ID: s.ID, ID_Produit: idProduct } });
             } else {
-                Promise.reject(new Error("L'utilisateur ne peut pas supprimer plus de produits qu'il n'en a commandé"));
+                return Promise.reject(new Error("L'utilisateur ne peut pas supprimer plus de produits qu'il n'en a commandé"));
             }
         },
 
@@ -139,7 +139,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
                 var r = await dataObject.Categorie.findOrCreate({ where: { Nom: categorie } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
             }
         },
 
@@ -152,7 +152,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
                 var r = await dataObject.Categorie.destroy({ where: { ID: idCategorie } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
             }
         },
 
@@ -166,7 +166,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
                 var r = await dataObject.Regroupe.findOrCreate({ where: { ID: idProduct, ID_Categorie: idCategorie } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
             }
         },
 
@@ -180,7 +180,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
                 var r = await dataObject.Regroupe.destroy({ where: { ID: idProduct, ID_Categorie: idCategorie } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_SET_CATEGORIE_SHOP\""));
             }
         },
 

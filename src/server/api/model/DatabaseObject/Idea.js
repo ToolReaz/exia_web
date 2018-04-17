@@ -10,7 +10,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_LIST_ACTIVITE")) {
                 return await dataObject.Idee.findAll();
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_LIST_ACTIVITE\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_LIST_ACTIVITE\""));
             }
         },
 
@@ -32,7 +32,7 @@ module.exports = (dataObject, permissions) => {
                     }
                 }
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_ADD_ACTIVITE\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_ADD_ACTIVITE\""));
             }
         },
 
@@ -46,7 +46,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_VOTE_IDEE")) {
                 await dataObject.Vote.findOrCreate({ where: { ID: idAccount, ID_Idee: idIdea }, defaults: { Pour: vote } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VOTE_IDEE\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VOTE_IDEE\""));
             }
         },
 
@@ -59,7 +59,7 @@ module.exports = (dataObject, permissions) => {
             if (permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
                 await dataObject.Idee.update({ Approuve: true }, { where: { ID: idIdee } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
             }
         },
 
@@ -76,8 +76,12 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} idIdee ID de la idée dont il faut récupérer le nombre de vote défavorable
          */
         GetVoteAgainstCount: async (idIdee) => {
-            return await dataObject.vote.count({ where: { Pour: false, ID_Idee: idIdee } });
+            return await dataObject.Vote.count({ where: { Pour: false, ID_Idee: idIdee } });
         },
+
+        GetIdeaFromId: async (idIdee) => {
+            return await dataObject.Idee.findOne({where: {ID: idIdee}});
+        }
 
     };
 

@@ -11,7 +11,7 @@ module.exports = (dataObject, permissions) => {
          */
         CreateUser: async (email, password, firstname, lastname) => {
             var r = await dataObject.Compte.findOrCreate({ where: { Adresse_Mail: email }, defaults: { Nom: lastname, Prenom: firstname, Mot_de_passe: password } });
-            if (!r[1]) Promise.reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
+            if (!r[1]) return Promise.reject(new Error("L'utilisateur \"" + email + "\" existe déjà."));
         },
 
         /**
@@ -21,7 +21,7 @@ module.exports = (dataObject, permissions) => {
         GetAccount: async (email) => {
             var r = await dataObject.Compte.findOne({ where: { Adresse_Mail: email } });
             if (r) return r;
-            else Promise.reject(new Error("L'utilisateur \"" + email + "\" n'existe pas."));
+            else return Promise.reject(new Error("L'utilisateur \"" + email + "\" n'existe pas."));
         },
 
         /**
@@ -31,7 +31,7 @@ module.exports = (dataObject, permissions) => {
         GetAccountFromId: async (idAccount) => {
             var r = await dataObject.Compte.findOne({ where: { ID: idAccount } });
             if (r) return r;
-            else Promise.reject(new Error("L'ID #" + idAccount + " n'existe pas."));
+            else return Promise.reject(new Error("L'ID #" + idAccount + " n'existe pas."));
         },
 
         /**
@@ -47,7 +47,7 @@ module.exports = (dataObject, permissions) => {
                     await dataObject.Session.destroy({ where: { ID_Compte: idAccount } })
                 }
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_CONNECT\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_CONNECT\""));
             }
         },
 

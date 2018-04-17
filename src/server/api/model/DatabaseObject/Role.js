@@ -36,7 +36,7 @@ module.exports = (dataObject, permissions) => {
             var result = [];
             for (let i = 0; i < r.length; i++) {
                 const element = r[i];
-                result.push(await here.GetRoleFromID(d));
+                result.push(await here.GetRoleFromID(element));
             }
             return result;
         },

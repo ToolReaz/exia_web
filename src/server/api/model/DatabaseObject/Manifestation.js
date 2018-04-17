@@ -32,7 +32,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
                 await dataObject.Manifestation.findOrCreate({ where: Manifestation });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_VALID_MANIF\""));
             }
         },
 
@@ -45,7 +45,7 @@ module.exports = (dataObject, permissions) => {
             if (permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF")) {
                 await dataObject.Participe.findOrCreate({ where: { ID: idAccount, ID_Manifestation: idManif } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
             }
         },
 
@@ -100,7 +100,7 @@ module.exports = (dataObject, permissions) => {
                 if (public) m.Public = public;
                 await dataObject.Manifestation.update(m, { where: { ID: idManif } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_PARTICIPE_MANIF\""));
             }
         },
 
@@ -115,10 +115,10 @@ module.exports = (dataObject, permissions) => {
                 if (s) {
                     return s.ID_Compte;
                 } else {
-                    Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'a pas d'idée associée"));
+                    return Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'a pas d'idée associée"));
                 }
             } else {
-                Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'existe pas"));
+                return Promise.reject(new Error("L'id de la manifestation #" + idManif + " n'existe pas"));
             }
         },
 
@@ -131,7 +131,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_LISTE_INSCRITS")) {
                 return await dataObject.Participe.findAll({ where: { ID_Manifestation: idManif } });
             } else {
-                Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_LISTE_INSCRITS\""));
+                return Promise.reject(new Error("L'utilisateur #" + idAccount + " n'a pas la permission \"P_LISTE_INSCRITS\""));
             }
         },
 
