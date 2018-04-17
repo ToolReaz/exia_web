@@ -32,7 +32,7 @@ module.exports = (dataObject, permissions) => {
 
         GetCommentContent: async (idComment) => {
             return await dataObject.Commentaires.findOne({where: {ID: idComment }});
-        }
+        },
 
         /**
          * Commente une photo
