@@ -33,13 +33,43 @@
   padding-top: 15px;
 }
 
-.h1Event{
-  color: white;
-  text-align: center;
-  background-color: #c2242a;
-  height: 5em;
-  padding-top: 2em;
+
+
+
+
+
+
+.scrollbar::-webkit-scrollbar {
+    width: 10px;
 }
+
+/* Track */
+.scrollbar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+}
+
+/* Handle */
+.scrollbar::-webkit-scrollbar-thumb {
+    background: rgb(230,230,230);
+    border-radius: 10px;
+}
+
+/* Handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgb(240,240,240);
+    border-radius: 10px;
+}
+
+
+
+
+
+
+
+
+
+
 
 .green{
   color: green;
