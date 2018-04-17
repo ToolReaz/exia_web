@@ -59,8 +59,8 @@ module.exports = (dataObject) => {
  * Détermine si deux membres de deux tableaux différents sont identiques     
  * @param {Array} arrayLeft Premier tableau     
  * @param {Array} arrayRight Deuxième tableau     
- * @param {Function} transformLeft Transformée à appliquer au premier tableau     
- * @param {Function} transformRight Transformée à appliquer au deuxième tableau     
+ * @param {} transformLeft Transformée à appliquer au premier tableau     
+ * @param {} transformRight Transformée à appliquer au deuxième tableau     
  */
 function Contains(arrayLeft, arrayRight, transformLeft, transformRight) {
     var ret = false;
