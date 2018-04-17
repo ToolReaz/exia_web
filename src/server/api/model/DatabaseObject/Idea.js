@@ -29,7 +29,7 @@ module.exports = (dataObject, permissions) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_ACTIVITE")) {
                 let r = await dataObject.Idea.findOrCreate({
                     where: {Title: title, Text: text},
-                    defaults: {SubmitOn: Date.now(), ID: idAccount, Approved: false}
+                    defaults: {SubmitOn: Date.now(), ID_Account: idAccount, Approved: false}
                 });
                 if (manifestationArray != null) {
                     for (let i = 0; i < manifestationArray.length; i++) {
@@ -37,7 +37,7 @@ module.exports = (dataObject, permissions) => {
                         let s = await dataObject.Manifestation.findOrCreate({where: manifestation});
                         await dataObject.Idea_Manifestation.findOrCreate({
                             where: {
-                                ID: r[0].ID,
+                                ID_Idea: r[0].ID,
                                 ID_Manifestation: s[0].ID
                             }
                         });
