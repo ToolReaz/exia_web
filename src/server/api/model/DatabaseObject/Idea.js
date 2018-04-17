@@ -76,8 +76,12 @@ module.exports = (dataObject, permissions) => {
          * @param {Number} idIdee ID de la idée dont il faut récupérer le nombre de vote défavorable
          */
         GetVoteAgainstCount: async (idIdee) => {
-            return await dataObject.vote.count({ where: { Pour: false, ID_Idee: idIdee } });
+            return await dataObject.Vote.count({ where: { Pour: false, ID_Idee: idIdee } });
         },
+
+        GetIdeaFromId: async (idIdee) => {
+            return await dataObject.Idee.findOne({where: {ID: idIdee}});
+        }
 
     };
 
