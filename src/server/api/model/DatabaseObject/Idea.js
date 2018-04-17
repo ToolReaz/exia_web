@@ -27,7 +27,7 @@ module.exports = (dataObject, permissions) => {
          */
         CreateIdea: async (idAccount, title, text, manifestationArray) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_ACTIVITE")) {
-                let r = dataObject.Idea.findOrCreate({
+                let r = await dataObject.Idea.findOrCreate({
                     where: {Title: title, Text: text},
                     defaults: {SubmitOn: Date.now(), ID: idAccount, Approved: false}
                 });
