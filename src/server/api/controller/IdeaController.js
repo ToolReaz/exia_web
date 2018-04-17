@@ -50,7 +50,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Idea.GetIdeaFromId(id, reqID).then((idea) => {
+                DB.Idea.GetIdeaFromId(reqID).then((idea) => {
                     res.json({'error': null, 'content': idea});
                 }).catch((reason) => {
                     // Catch DB errors
@@ -82,27 +82,16 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 console.log(id);
-                DB.Idea.GetAllIdeas(id).then((ideas) => {
+                DB.Idea.GetAllIdeas(id).then(ideas => {
                     console.log(ideas);
-                    //let invalidatedIdeas = [];
-                    //let ideaCount = ideas.length;
-                    /*ideas.forEach(idea => {
-                        ideaCount--;
-                        if (!idea.Approved) {
-                            invalidatedIdeas.push(idea);
-                        }
-                        if(ideaCount===0){
-                            res.json({'error': null, 'content': invalidatedIdeas});
-                        }
-                    });*/
                     res.json({'error': null, 'content': ideas});
                 }).catch((reason) => {
                     // Catch DB errors
-                    res.json({'error': reason, 'content': null});
+                    res.json({'error': reason.message, 'content': null});
                 });
             }).catch(reason => {
                 // Catch DB errors
-                res.json({'error': reason, 'content': null});
+                res.json({'error': reason.message, 'content': null});
             });
         } else {
             res.json({'error': "Vous n'êtes pas connecté !", 'content': null});

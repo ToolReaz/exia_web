@@ -49,7 +49,7 @@ class Idea extends Component {
         return (
                 <div className="event2">
                     <h2 className="event2Title">Nom: {this.props.values.Titre}</h2>
-                    <img className="eventImg" src="https://picsum.photos/300/200" alt="image"/>
+                    <img className="eventImg" src="https://picsum.photos/300/200" alt="afd"/>
                     <p className="eventDate">Soumis le: {this.props.values.Soumis_le}</p>
                     <p>Texte: {this.props.values.Texte}</p>
                     <a>Lire</a>

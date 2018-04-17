@@ -16,18 +16,7 @@ class ValidateIdea extends Component {
         this.selectIdea = this.selectIdea.bind(this);
     }
 
-    componentDidMount() {
-        getApi('/api/idea/invalidated').then(res => {
-            //let tmp = [];
-            //console.log(res);
-            //res.forEach(idea => {
-            //    tmp.push(idea);
-            //});
-            this.setState({ideas: res.content});
-        }).catch(reason => {
-            console.log(reason);
-        });
-    }
+
 
     handleSubmit(e) {
         e.preventDefault();
@@ -41,18 +30,34 @@ class ValidateIdea extends Component {
     selectIdea(e) {
         this.setState({
             id: this.state.ideas[e.target.value].ID,
-            title: this.state.ideas[e.target.value].Titre,
-            description: this.state.ideas[e.target.value].Texte
+            title: this.state.ideas[e.target.value].Title,
+            description: this.state.ideas[e.target.value].Text
+        });
+    }
+
+    componentDidMount() {
+        getApi('/api/idea/invalidated').then(res => {
+            console.log("putin");
+            console.log(res);
+            if (res) {
+                this.setState({ideas: res});
+            }
+        }).catch(reason => {
+            console.log('ERREEZROEREOREOR DE MORT');
+            console.log(reason);
         });
     }
 
     render() {
         let options = [];
-        this.state.ideas.forEach((idea, index) => {
-            options.push(
-                <option value={index}>{idea.Title}</option>
-            )
-        });
+        console.log(this.state.ideas);
+        if (this.state.ideas) {
+            this.state.ideas.forEach((idea, index) => {
+                options.push(
+                    <option value={index}>{idea.Title}</option>
+                );
+            });
+        }
         return (
             <div>
                 <select onChange={this.selectIdea} name="id">

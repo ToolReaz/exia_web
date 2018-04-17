@@ -83,7 +83,7 @@ class Manifestation extends Component {
             return (
                 <div className="event">
                     <h2 className="eventTitle">{this.state.name}</h2>
-                    <img className="eventImg" src="https://picsum.photos/300/200" alt="image"/>
+                    <img className="eventImg" src="https://picsum.photos/300/200" alt="imadadaage"/>
                     <p>Description: {this.state.description}</p>
                     <div>
                         <span className="eventDate">Date: {this.state.date}</span>

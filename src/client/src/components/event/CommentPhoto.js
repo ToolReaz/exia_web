@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {getApi, postApi} from "../../lib/api/requestApi";
+import {postApi} from "../../lib/api/requestApi";
 
 class CommentPhoto extends Component {
 
