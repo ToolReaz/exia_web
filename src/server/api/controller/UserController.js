@@ -43,8 +43,12 @@ module.exports = {
             res.json({'error': 'Champs invalides !', 'content': null});
         } else {
             bcrypt.hash(reqPassword, 10, (err, hashPassword) => {
-                DB.Account.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname).then(() =>  {
-                    res.json({'status': 'success', 'message': 'Votre compte à bien été créer'});
+                DB.Account.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname).then((accountID) =>  {
+                    let newToken = require('crypto').randomBytes(64).toString('hex');
+                    DB.Account.SetToken(accountID, newToken).then(session => {
+                        res.cookie('token', newToken);
+                        res.json({'status': 'success', 'message': 'Votre compte à bien été crée et vous avez été connecté !'});
+                    }).catch(reason => res.json({'error': 'Token pas set correctement' + reason}));
                 }).catch(reason => res.json({'error': reason, 'content': null}));
             });
         }
