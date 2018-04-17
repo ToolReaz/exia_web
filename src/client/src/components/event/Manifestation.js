@@ -15,13 +15,14 @@ class Manifestation extends Component {
             price: (props.values) ? props.values.Prix : null,
             subscribed: false,
             fullPage: !!(props.fullPage),
-            photos: []
+            photos: [],
+            wasSubscriber: false
         };
 
         this.subscribe = this.subscribe.bind(this);
     }
 
-    subscribe() {
+    wasSubscribe() {
         getApi('/api/manifestation/subscribe/' + this.state.id).then(res => {
             alert('Vous êtes inscrit !');
             this.setState({subscribed: true});
@@ -31,9 +32,13 @@ class Manifestation extends Component {
     }
 
 
-    getAllPhotos() {
+    getPhotos() {
         getApi('/api/photos/' + this.state.id).then(res => {
-            this.setState({subscribed: true});
+            let tmp = [];
+            res.forEach(photo => {
+                tmp.push(photo);
+            });
+            this.setState({photos: tmp});
         }).catch(reason => {
             alert(reason);
         })
@@ -47,6 +52,7 @@ class Manifestation extends Component {
 
     render() {
         if (this.state.fullPage) {
+            this.getPhotos();
             let photos = [];
             this.state.photos.forEach((photo, index) => {
                 photos.push(
@@ -63,6 +69,7 @@ class Manifestation extends Component {
                     <p>Date: {this.state.date}</p>
                     <p>Intreval: {this.state.interval}</p>
                     <p>Prix: {this.state.price}</p>
+                    {if}
                     {photos}
                 </div>
             );

@@ -7,6 +7,7 @@ body {
 }
 
 .nav {
+    z-index: 1000;
   width: 100%;
   line-height: 100px;
   height: 100px;
@@ -24,6 +25,7 @@ body {
 }
 
 .nav > .nav-links {
+    z-index: 1000;
   display: inline;
   float: left;
   margin-left: 5%;
