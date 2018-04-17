@@ -37,7 +37,7 @@ module.exports = (dataObject, permissions) => {
                         let s = await dataObject.Manifestation.findOrCreate({where: manifestation});
                         await dataObject.Idea_Manifestation.findOrCreate({
                             where: {
-                                ID: r[0].ID,
+                                ID_Idea: r[0].ID,
                                 ID_Manifestation: s[0].ID
                             }
                         });
