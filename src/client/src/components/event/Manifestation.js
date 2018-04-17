@@ -20,34 +20,35 @@ class Manifestation extends Component {
             photos: [],
             wasSubscriber: false
         };
-
     }
 
 
     getPhotos() {
-        getApi('/api/photo').then(res => {
+        getApi('/api/photos/' + this.state.id.toString()).then(res => {
             let tmp = [];
+            console.log(res);
             res.forEach(photo => {
                 tmp.push(photo);
             });
             this.setState({photos: tmp});
         }).catch(reason => {
-            alert(reason);
-        })
+            console.log(reason);
+        });
     }
 
 
 
     componentDidMount() {
-
-    }
-
-    render() {
-
         if (this.state.fullPage) {
-
             // Get all photos of the manifestation
             this.getPhotos();
+        }
+    }
+
+
+    render() {
+        if (this.state.fullPage) {
+
             let photos = [];
             // Create a photo component for each of them
             this.state.photos.forEach((photo) => {

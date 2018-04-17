@@ -6,7 +6,7 @@ class CommentPhoto extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: props.values.id,
+            id: props.id,
             comment: ''
         };
 
@@ -40,6 +40,7 @@ class CommentPhoto extends Component {
             <div>
                 <form onSubmit={this.handleSubmit}>
                     <input type="text" name="comment" placeholder="Commentaire" onChange={this.handleChange}/>
+                    <input type="submit" value="Commenter"/>
                 </form>
             </div>
         )

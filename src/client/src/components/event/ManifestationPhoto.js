@@ -1,36 +1,36 @@
 import React, {Component} from "react";
-import Manifestation from "../../components/event/Manifestation";
+import CommentPhoto from "./CommentPhoto";
 import {getApi} from "../../lib/api/requestApi";
-import Footer from "../../components/Footer";
-import Header from "../../components/Header";
 
 class ManifestationPhoto extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            id: props.match.params.id,
-            imagePath: ''
+            id: props.values.ID_Photos,
+            imagePath: '',
+            title: '',
+            comments: []
         };
     }
 
     componentDidMount() {
-        getApi('/api/manifestation/' + this.state.id.toString()).then(res => {
-            console.log('hey');
+        getApi('/api/photo/' + this.state.id.toString()).then(res => {
             console.log(res);
-            this.setState({manifestation: res});
+            this.setState({imagePath: res.Chemin_Image, title: res.Titre});
         }).catch(reason => {
-            alert(reason);
-        })
+            console.log(reason);
+        });
     }
 
     render() {
         return (
             <div>
-                <img src="" alt=""/>
+                <p>Titre: {this.state.title}</p>
+                <p>Chemin: {this.state.imagePath}</p>
+                <CommentPhoto id={this.state.id}/>
             </div>
-
-        )
+        );
     }
 }
 

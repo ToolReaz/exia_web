@@ -63,14 +63,25 @@ module.exports = {
     },
 
     getAllPhoto: (req, res) => {
-        let reqToken = req.cookies.token;
         let reqID = req.params.id;
 
-        if (reqToken) {
-            DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Photo.GetAll(id, reqID).then(() => {
-                    res.json({'error': null, 'content': null});
-                }).catch(reason => res.json({'error': reason}));
+        if (reqID) {
+            DB.Manifestation.GetPhotos(reqID).then((photos) => {
+                console.log(photos);
+                res.json({'error': null, 'content': photos});
+            }).catch(reason => res.json({'error': reason}));
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter commentaire'});
+        }
+    },
+
+    getOne: (req, res) => {
+        let reqID = req.params.id;
+
+        if (reqID) {
+            DB.Photo.Get(reqID).then((photos) => {
+                console.log(photos);
+                res.json({'error': null, 'content': photos});
             }).catch(reason => res.json({'error': reason}));
         } else {
             res.json({'error': 'Pas connecté = pas ajouter commentaire'});
