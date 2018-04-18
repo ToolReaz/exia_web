@@ -1,26 +1,28 @@
-# eXia BDE Website - A Web Project
+# Projet Web : le site du BDE eXia Strasbourg
 
 
 
-<img src="https://exia.cesi.fr/wp-content/themes/eice/assets/images/logo-header.png" alt="Logo BoulderDash" align="middle">
+<img src="https://exia.cesi.fr/wp-content/themes/eice/assets/images/logo-header.png" alt="Logo eXia" align="middle">
+<img src="https://pbs.twimg.com/profile_images/740904177350643712/AgsnAE3U_400x400.jpg" alt="Logo BDE" align="middle">
 
-# Summary
+# Sommaire
 
-- [About the project](#about-the-project)
+- [Contexte](#Contexte)
 
-- [Our (dream) team](#our-dream-team)
+- [Contraintes](##Contraintes)
 
-- [UML](#uml)
+- [Livrables](##Livrables)
 
-- [Maps](#maps)
+- [Evaluations](##Evaluations)
 
-- [Deliverables](#deliverables)
+- [Notre (dream) team](#notre-dream-team)
 
+# Contexte
+Notre BDE souhaite un site internet à la hauteur d’une école d’ingénieur informatique afin de gérer principalement la promotion des manifestations et une boutique de vente en ligne. Les personnes qui auront un rôle seront bien sûr les membres du BDE mais aussi les étudiants et certains salariés du CESI.
 
-# About the project
-###### [Back to top](#boulderdash---a-java-project)
+L’objectif est de faciliter l’organisation et la communication de manifestation au sein de l’école. D’autre part, le site doit également avoir une partie dédiée à la vente en ligne de goodies.
 
-## Constraints
+## Contraintes
 
 Les membres du BDE souhaitent avoir un site vitrine attrayant, ergonomique et utilisant des technologies modernes pour une navigation fluide et homogène quel que soit le support utilisé (ordinateur, tablette ou smartphone). La charte graphique doit être cohérente avec celle du CESI, de l’EI ou de l’EXIA.
 
@@ -29,12 +31,12 @@ Ils souhaitent également savoir comment le site peut être rapidement visible d
 Enfin ils veulent connaitre exactement le coût annuel tout compris.
 
 
-**Start of the project:** Monday, the 9h of April.
+**Start of the project:** Lundi 9 avril
 
-**End of the project:** Friday, the 20th of April.
+**End of the project:** Vendredi 20 avril
 
 
-## Project deliverables
+## Livrables
 
 Dossier de conception intégrant un MCD (à rendre pour le lundi 16 avril en fin de journée) et donnera lieu à une note à part
 Maquette fonctionnelle qui participera à la note du projet
@@ -42,31 +44,17 @@ Maquette fonctionnelle qui participera à la note du projet
 Chaque livrable devra être de qualité et uniforme (charte graphique, police…). Le code source sera lisible et commenté.
 Les choix des technologies utilisées devront être justifiés.
 
-All the documents, as the code, shall be written in English. 
-
-### Git deposit - Monday, the 26th of June - 17H00
-
-An access will be open as reader on the git deposit of your team.
-
-### Presentation of your project - Monday, the 26th of June
-
-The mark you'll get will not affect the UE "Conception d'applications orientées objets". (And not only java 8 :) )
 
 ## Evaluation
 
-This project is covered by three evaluations :
-- A personal grade (**Yes**/**No**)
-- Two group grades (**A**/**B**/**C**/**D**)
-	- A test booklet (with the **JavaDoc**, the **JXR of our tests**, and the **SureFire report**) 	
-	- The project (**Functional**/**Design**/**Code**)
-	
+3 notes :
+- Soutenance technique en français
+- Soutenance en anglais
+- Livrables
 
-# Our (dream) team
-###### [Back to top](#boulderdash---a-java-project)
+# Notre (dream) team
+###### [Back to top](#Projet-Web-:-le-site-du-BDE-eXia-Strasbourg)
 
-![alt text](https://googletonstagiaire.fr/exia/dream-team.png "DreamTeam")
-
-From upper left:
 - Thomas Weidmann
 - Anthony Derroy
 - Jerome Zilliox
