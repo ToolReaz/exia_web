@@ -9,6 +9,7 @@ class Shop extends Component {
         super(props);
         this.state = {
             products: [],
+            top3: [],
             search: ''
         };
 
@@ -25,7 +26,12 @@ class Shop extends Component {
             this.setState({products: tmp});
         }).catch(reason => {
             alert(reason);
-        })
+        });
+        getApi('/api/shop/top3').then(res => {
+            this.setState({top3: res});
+        }).catch(reason => {
+            alert(reason);
+        });
     }
 
     handleChange(e) {
@@ -48,12 +54,13 @@ class Shop extends Component {
 
         if (this.state.search !== '') {
             this.state.products.forEach((product, index) => {
-                if (product.Prix.toString().includes(this.state.search) || product.Nom.includes(this.state.search)) {
+                if (product.Price.toString().toLowerCase().includes(this.state.search.toLowerCase()) || product.Name.toString().toLowerCase().includes(this.state.search.toLowerCase())) {
                     productsView.push(
                         <div key={index} className="col-4">
-                            <h2>{product.Nom}</h2>
+                            <h2>{product.Name}</h2>
                             <p>{product.Description}</p>
-                            <p>{product.Prix}</p>
+                            <p>{product.Price} €</p>
+                            <AddToCart value={product.ID}/>
                         </div>
                     );
                 }
@@ -62,14 +69,29 @@ class Shop extends Component {
             this.state.products.forEach((product, index) => {
                 productsView.push(
                     <div key={index} className="col-4">
-                        <h2>{product.Nom}</h2>
+                        <h2>{product.Name}</h2>
                         <p>{product.Description}</p>
-                        <p>{product.Prix}</p>
+                        <p>{product.Price} €</p>
                         <AddToCart value={product.ID}/>
                     </div>
                 )
             });
         }
+
+
+
+        let top3 = [];
+        this.state.top3.forEach((article, index) => {
+            top3.push(<div key={index} className="col-4">
+                <h2>{this.state.products[article].Name}</h2>
+                <p>{this.state.products[article].Description}</p>
+                <p>{this.state.products[article].Price} €</p>
+                <AddToCart value={this.state.products[article].ID}/>
+            </div>)
+        });
+
+
+
         return (
             <div>
                 <Header/>
@@ -90,7 +112,14 @@ class Shop extends Component {
                             </div>
                         </div>
                     </div>
-                    {productsView}
+                    <div>
+                        <h2>Top 3 des ventes</h2>
+                        {top3}
+                    </div>
+                    <div>
+                        <h2>Autres produits</h2>
+                        {productsView}
+                    </div>
                 </div>
 
             </div>

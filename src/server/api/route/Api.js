@@ -116,6 +116,9 @@ router.get('/shop/addtocart/:id', (req, res) => {
 router.get('/shop/order', (req, res) => {
     ShopController.order(req, res);
 });
+router.get('/shop/top3', (req, res) => {
+    ShopController.top3(req, res);
+});
 
 
 

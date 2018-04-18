@@ -56,7 +56,6 @@ class CreateShopProduct extends Component {
             price: this.state.price,
             category: this.state.category
         };
-        console.log(this.state.category);
         postApi('/api/shop/article', data).then(res => {
             this.setState({
                 name: '',
@@ -74,7 +73,7 @@ class CreateShopProduct extends Component {
         let catSelector = [];
         this.state.categories.forEach(cat => {
             catSelector.push(
-                <option value={cat.Nom}>{cat.Nom}</option>
+                <option value={cat.Name}>{cat.Name}</option>
             );
         });
         return (

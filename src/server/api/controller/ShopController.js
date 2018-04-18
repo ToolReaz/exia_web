@@ -112,5 +112,14 @@ module.exports = {
         } else {
             res.json({'error': 'Pas connecté = pas ajouter article au panier !', 'content': null});
         }
+    },
+
+    top3: (req, res) => {
+
+                DB.Shop.GetTopThree().then(top3 => {
+                    res.json({'error': null, 'content': top3});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
     }
 };
