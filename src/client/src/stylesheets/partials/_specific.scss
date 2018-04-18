@@ -1,0 +1,25 @@
+.divImgIndex{
+  width: 100%;
+  height: auto;
+}
+
+.relative{
+  position: relative;
+}
+
+.relative .accueil{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top: 35%;
+}
+
+.accueil h1{
+  font-size: 6em;
+  color : white
+}
+
+.accueil p{
+  font-size: 3.5em;
+  color : white
+}
