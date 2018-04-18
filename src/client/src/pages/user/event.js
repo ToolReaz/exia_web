@@ -92,7 +92,7 @@ class Event extends Component {
 
             view.push(
                 <div>
-                    <h2 className="center">Manifestations actuelles</h2>
+                    <h2 className="center">Manifestations à venir</h2>
                     <div className="grid-flex">
                         {manifs}
                     </div>
