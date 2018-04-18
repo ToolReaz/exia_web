@@ -1,6 +1,6 @@
 const DB = require('../model/DB');
 const PDFDocument = require('pdfkit');
-const Json2csvParser = require('json2csv').Parser;
+const csvString = require('csv-string');
 
 module.exports = {
 
@@ -144,7 +144,7 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
-                    res.json({'error': null, 'content': subscribers});
+                    res.json({'error': null, 'content': subscribers.length});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
@@ -163,12 +163,28 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
-                    let doc = new PDFDocument;
-                    let fs=require('fs');
-                    doc.pipe(fs.createWriteStream(res));
-                    doc.fontSize(8);
-                    doc.text(subscribers.toString());
-                    doc.end();
+                    let inscritID = subscribers.map(d=>d.ID_Account);
+                    let doc = new PDFDocument();
+                    doc.pipe(res);
+                    doc.fontSize(14);
+                    let i = inscritID.length;
+                    doc.text("Nom            Prénom            Email");
+                    doc.text(" ");
+                    inscritID.forEach(element=>{
+
+                        DB.Account.GetAccountFromId(element).then(d=>{
+                            let k = JSON.stringify(d);
+                            doc.text(d.LastName + "   " + d.FirstName + "   " + d.Mail);
+                            doc.text(" ");
+                            i--;
+                            if(i===0){
+                                doc.end();
+                            }
+                        }).catch(reason=>{
+                            res.json({'error': reason.message, 'content': null});
+                        });
+                    });
+
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
@@ -183,20 +199,35 @@ module.exports = {
     getSubscribersCSV: (req, res) => {
         let reqToken = req.cookies.token;
         let reqId = req.params.id;
-        console.log(id);
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
-                    console.log(subscribers);
-                    try {
-                        const parser = new Json2csvParser();
-                        const csv = parser.parse(subscribers);
-                        console.log(csv);
-                        res.sendFile(csv);
-                    } catch (err) {
-                        console.error(err);
-                    }
+
+
+                    let inscritID = subscribers.map(d=>d.ID_Account);
+                    let i = inscritID.length;
+                    let users = [];
+                    inscritID.forEach(element=> {
+                        DB.Account.GetAccountFromId(element).then(d => {
+                            console.log(d);
+                            let content = {
+                                Nom: d.LastName,
+                                Prenom: d.FirstName,
+                                EMail: d.Mail
+                            };
+                            users.push(content);
+                            i--;
+                            if(i===0){
+                                let csv = csvString.stringify(users).replace(/"/g, '').replace(/([{}])/g, '');
+                                res.set('Content-Type', 'text/csv');
+                                res.send(csv);
+                            }
+                        }).catch(reason => {
+                            res.json({'error': reason.message, 'content': null});
+                        });
+                    });
+
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
