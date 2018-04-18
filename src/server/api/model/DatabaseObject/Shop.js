@@ -284,6 +284,32 @@ module.exports = (dataObject, permissions) => {
          */
         GetCategoryFromName: async (category) => {
             return await dataObject.Category.findOne({where: {Name: category}});
+        },
+
+        GetTopThree: async () => {
+            var m = [];
+            var allPurchases = await dataObject.Basket.findAll();
+            for (var i = 0; i < allPurchases.length; i++) {
+                var purchase = allPurchases[i];
+                m[purchase.ID_Product]+=purchase.Quantity;
+            }
+            var first = 0;
+            var second = 0;
+            var third = 0;
+            for (var i = 0; i < m.length; i++) {
+                var product = m[i];
+                if(product>m[first]){
+                    third = second;
+                    second = first;
+                    first = i;
+                } else if(product>m[second]){
+                    third = second;
+                    second = i;
+                } else if(product>m[third]){
+                    third = i;
+                }
+            }
+            return [first, second, third];
         }
 
     };
