@@ -87,7 +87,7 @@ class Manifestation extends Component {
                     <p>Description: {this.state.description}</p>
                     <div>
                         <span className="eventDate">Date: {this.state.date}</span>
-                        <span>Intreval: {this.state.interval}</span>
+                        <span className="eventInter">Intreval: {this.state.interval}</span>
                         <span className="eventPrix">Prix: {this.state.price}</span>
                     </div>
                     <Link to={'/event/'+this.state.id}>Page détaillé</Link>
