@@ -53,6 +53,7 @@ module.exports = (dataObject) => {
             await here.SetPermissions("R_BDE", "P_VALID_MANIF");
             await here.SetPermissions("R_BDE", "P_LISTE_INSCRITS");
             await here.SetPermissions("R_BDE", "P_COMMENT_LAST");
+            await here.SetPermissions("R_BDE", "P_REPORT");
             await here.SetPermissions("R_BDE", "P_ADMIN_PHOTO");
             await here.SetPermissions("R_EXIA", "P_REPORT");
             await here.SetPermissions("R_EXIA", "P_DUMP_PHOTO");
