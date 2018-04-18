@@ -14,7 +14,8 @@ class ManifestationPhoto extends Component {
             comments: [],
             likes: 0,
             likedByUser: false,
-            userLike: null
+            userLike: null,
+            isAdmin: props.isAdmin
         };
 
         this.likePhoto = this.likePhoto.bind(this);
@@ -75,12 +76,17 @@ class ManifestationPhoto extends Component {
             likeBtn.push(<button onClick={this.likePhoto}>Like</button>);
         }
 
+        let reportBtn = [];
+        if (this.state.isAdmin) {
+            reportBtn.push(<button onClick={this.report}>Signaler cette photo</button>)
+        }
 
         return (
             <div>
                 <p>Titre: {this.state.title}</p>
                 <p>Chemin: {this.state.imagePath}</p>
-                {likeBtn}
+                <div>{reportBtn}</div>
+                <div>{likeBtn}</div>
                 <p>Nombre de like: {this.state.likes}</p>
                 <img src={this.state.imagePath} alt={'image'+this.state.id.toString()}/>
                 <CommentPhoto key={this.state.id} id={this.state.id}/>
