@@ -30,7 +30,7 @@ class ManifestationDetails extends Component {
 
                     <div className="grid-container">
                         <h1>Hey !</h1>
-                        <Manifestation fullPage={true} id={this.state.id} values={this.state.manifestation}/>
+                        <Manifestation currentEvent={true} fullPage={true} id={this.state.id} values={this.state.manifestation}/>
                     </div>
 
                     <Footer/>

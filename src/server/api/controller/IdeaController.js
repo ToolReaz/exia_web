@@ -164,14 +164,11 @@ module.exports = {
      * @param res Represent the response
      */
     getVotes: (req, res) => {
-        // The token set in the cookies
-        let reqToken = req.cookies.token;
         let reqId = req.params.id;
 
-        if (reqToken) {
             DB.Idea.GetVoteForCount(reqId).then(votesFor => {
                 DB.Idea.GetVoteAgainstCount(reqId).then(votesAgainst => {
-                    res.json({'error': null, 'content': {'votesFor': votesFor, 'votesAgainst': votesAgainst}});
+                    res.json({'error': null, 'content': (votesFor-votesAgainst)});
                 }).catch(reason => {
                     // Catch DB errors
                     res.json({'error': reason, 'content': null});
@@ -180,9 +177,6 @@ module.exports = {
                 // Catch DB errors
                 res.json({'error': reason, 'content': null});
             });
-        } else {
-            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
-        }
     },
 
 

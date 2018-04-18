@@ -63,11 +63,14 @@ module.exports = {
         } else {
             bcrypt.hash(reqPassword, 10, (err, hashPassword) => {
                 DB.Account.CreateUser(reqEmail, hashPassword, reqFirstname, reqLastname).then((accountID) =>  {
-                    res.json({'status': 'success', 'message': 'Votre compte a bien été crée !'});
+                    DB.Role.AddRole(accountID, 1).then(() => {
+                        res.json({'status': 'success', 'message': 'Votre compte a bien été crée !'});
+                    }).catch(reason => res.json({'error': reason, 'content': null}));
                 }).catch(reason => res.json({'error': reason, 'content': null}));
             });
         }
     },
+
 
     getAccount: (req, res) => {
         let reqToken = req.cookies.token;

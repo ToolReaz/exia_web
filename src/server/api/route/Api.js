@@ -24,10 +24,6 @@ router.post('/idea', (req, res) => {
 router.post('/idea/validate', (req, res) => {
     IdeaController.validate(req, res);
 });
-// Get number of votes for an idea
-router.get('/idea/votes/:id', (req, res) => {
-    IdeaController.getVotes(req, res);
-});
 // Vote for an idea
 router.get('/idea/vote/for/:id', (req, res) => {
     IdeaController.vote(req, res, true);
@@ -35,6 +31,10 @@ router.get('/idea/vote/for/:id', (req, res) => {
 // Vote against an idea
 router.get('/idea/vote/against/:id', (req, res) => {
     IdeaController.vote(req, res, false);
+});
+// Get number of votes for an idea
+router.get('/idea/votes/:id', (req, res) => {
+    IdeaController.getVotes(req, res);
 });
 // Get a specific ideas
 router.get('/idea/:id', (req, res) => {
@@ -61,18 +61,22 @@ router.post('/manifestation/update', (req, res) => {
 router.get('/manifestation/subscribe/:id', (req, res) => {
     ManifestationController.subscribe(req, res);
 });
+// Check if a user is subscribed to a manifestation
+router.get('/manifestation/issubscribed/:id', (req, res) => {
+    ManifestationController.isSubscribed(req, res);
+});
 // Validate to a manifestation
 router.get('/manifestation/validate/:id', (req, res) => {
     ManifestationController.validate(req, res);
 });
-router.get('/manifestation/subscribers/:id', (req, res) => {
-    ManifestationController.getSubscribers(req, res);
-});
 router.get('/manifestation/subscribers/csv/:id', (req, res) => {
-    ManifestationController.getSubscribersPDF(req, res);
+    ManifestationController.getSubscribersCSV(req, res);
 });
 router.get('/manifestation/subscribers/pdf/:id', (req, res) => {
-    ManifestationController.getSubscribersCSV(req, res);
+    ManifestationController.getSubscribersPDF(req, res);
+});
+router.get('/manifestation/subscribers/:id', (req, res) => {
+    ManifestationController.getSubscribers(req, res);
 });
 // Get a specific manifestation
 router.get('/manifestation/:id', (req, res) => {

@@ -6,18 +6,22 @@ class Idea extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            voteFor: props.values.voteFor,
-            voteAgainst: props.values.voteAgainst,
+            votes: 0,
             id: props.values.ID,
-            roles: props.values.roles
+            roles: props.values.roles,
+            title: props.values.Title,
+            text: props.values.Text,
+            submit_date: props.values.SubmitOn,
+            approved: props.values.Approved
         };
-        this.vote = this.vote.bind(this);
+        this.voteFor = this.voteFor.bind(this);
+        this.voteAgainst = this.voteAgainst.bind(this);
         this.validateIdea = this.validateIdea.bind(this);
     }
 
     getVotes() {
         getApi('/api/idea/votes/' + this.state.id).then(res => {
-            this.setState({voteFor: res.votesFor, voteAgainst: res.votesAgainst});
+            this.setState({votes: res});
         }).catch(reason => {
             console.log(reason);
         })
@@ -27,9 +31,16 @@ class Idea extends Component {
         this.getVotes();
     }
 
-    vote(e) {
-        let type = e.target.id;
-        getApi('/api/idea/vote/' + type + '/' + this.state.id.toString()).then(res => {
+    voteAgainst() {
+        getApi('/api/idea/vote/against' + this.state.id.toString()).then(res => {
+            this.getVotes();
+        }).catch(reason => {
+            console.log(reason.toString());
+        });
+    }
+
+    voteFor() {
+        getApi('/api/idea/vote/for' + this.state.id.toString()).then(res => {
             this.getVotes();
         }).catch(reason => {
             console.log(reason.toString());
@@ -48,15 +59,17 @@ class Idea extends Component {
     render() {
         return (
                 <div className="event2">
-                    <h2 className="event2Title">Nom: {this.props.values.Titre}</h2>
+                    <h2 className="event2Title">Nom: {this.state.title}</h2>
                     <img className="eventImg" src="https://picsum.photos/300/200" alt="afd"/>
-                    <p className="eventDate">Soumis le: {this.props.values.Soumis_le}</p>
-                    <p>Texte: {this.props.values.Texte}</p>
-                    <a>Lire</a>
+                    <p className="eventDate">Soumis le: {this.state.submit_date}</p>
+                    <p>Texte: {this.state.text}</p>
+                    <p>Approuvé: {(this.state.approved)?("OUI"):("NON")}</p>
                     <div className="event2Vote">
-                        <button id="against" onClick={this.vote}>Vote contre: {this.state.voteAgainst}</button>
-                        <button id="for" onClick={this.vote}>Vote pour: {this.state.voteFor}</button>
+                        <button id="against" onClick={this.voteFor}>+</button>
+                        <p>{this.state.votes}</p>
+                        <button id="for" onClick={this.voteAgainst}>-</button>
                     </div>
+                    <a>Lire</a>
                 </div>
         );
     }

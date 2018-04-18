@@ -59,12 +59,29 @@ module.exports = {
         let reqToken = req.cookies.token;
         let reqManifId = req.params.id;
 
-        console.log(reqManifId);
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Manifestation.EnrollManifestation(id, parseInt(reqManifId)).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => {
+                    res.json({'error': reason.message, 'content': null});
+                });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas subscribe !', 'content': null});
+        }
+    },
+
+    isSubscribed: (req, res) => {
+        let reqToken = req.cookies.token;
+        let reqManifId = req.params.id;
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Manifestation.EnrollManifestation(id, reqManifId).then(ok => {
-                    res.json({'error': null, 'content': null});
+                DB.Manifestation.IsUserEnrolled(id, parseInt(reqManifId)).then((enrolled) => {
+                    res.json({'error': null, 'content': enrolled});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
@@ -146,13 +163,12 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
-                    let pdf = new PDFDocument;
+                    let doc = new PDFDocument;
                     let fs=require('fs');
-                    pdf.pipe(fs.createWriteStream(res));
-                    pdf.fontSize(8);
-                    pdf.text(subscribers.toString());
-                    pdf.end();
-                    res.sendFile(pdf);
+                    doc.pipe(fs.createWriteStream(res));
+                    doc.fontSize(8);
+                    doc.text(subscribers.toString());
+                    doc.end();
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
