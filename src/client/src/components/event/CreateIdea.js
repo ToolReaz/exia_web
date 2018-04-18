@@ -78,19 +78,23 @@ class CreateIdea extends Component {
 
     render() {
         return (
-            <div className="conteneurform">
-                <form id="create-idea-form" className="formsolo" onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom" value={this.state.name} onChange={this.handleChange}/>
-                    <textarea name="text" placeholder="Text" value={this.state.text} onChange={this.handleChange}/>
-                    <p>Manifestation liée:</p>
-                    <input type="text" placeholder="Nom" name="manifName" value={this.state.manifName} onChange={this.handleChange}/>
-                    <textarea name="manifDescription" placeholder="Description" value={this.state.manifDescription} onChange={this.handleChange}/>
-                    <input type="text" placeholder="Lien image" name="manifImagePath" value={this.state.manifImagePath} onChange={this.handleChange}/>
-                    <input type="date" name="manifDate" onChange={this.handleChange}/>
-                    <input type="integer" placeholder="Intervale" name="manifInterval" value={this.state.manifInterval} onChange={this.handleChange}/>
-                    <input type="integer" placeholder="Prix" name="manifPrice" value={this.state.manifPrice} onChange={this.handleChange}/>
-                    <input type="submit" value="Envoyer"/>
-                </form>
+            <div className="grid-container">
+                <div className="row">
+                        <div className="">
+                            <form id="create-idea-form" className="formsolo" onSubmit={this.handleSubmit}>
+                                <input type="text" name="name" placeholder="Nom" value={this.state.name} onChange={this.handleChange}/>
+                                <textarea name="text" placeholder="Text" value={this.state.text} onChange={this.handleChange}/>
+                                <p>Manifestation liée:</p>
+                                <input type="text" placeholder="Nom" name="manifName" value={this.state.manifName} onChange={this.handleChange}/>
+                                <textarea name="manifDescription" placeholder="Description" value={this.state.manifDescription} onChange={this.handleChange}/>
+                                <input type="text" placeholder="Lien image" name="manifImagePath" value={this.state.manifImagePath} onChange={this.handleChange}/>
+                                <input type="date" name="manifDate" onChange={this.handleChange}/>
+                                <input type="integer" placeholder="Intervale" name="manifInterval" value={this.state.manifInterval} onChange={this.handleChange}/>
+                                <input type="integer" placeholder="Prix" name="manifPrice" value={this.state.manifPrice} onChange={this.handleChange}/>
+                                <input type="submit" value="Envoyer"/>
+                            </form>
+                        </div>
+                </div>
             </div>
         )
     }

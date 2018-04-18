@@ -104,7 +104,6 @@ router.get('/shop/order', (req, res) => {
 
 
 
-
 // PHOTO
 router.get('/photos/:id', (req, res) => {
     PhotoController.getAllPhoto(req, res);

@@ -6,7 +6,7 @@ import Manifestation from "../../components/event/Manifestation";
 import * as cookies from "react-cookie";
 import {Link} from "react-router-dom";
 
-class Event extends Component {
+class Oldevents extends Component {
 
     constructor(props) {
         super(props);
@@ -66,49 +66,33 @@ class Event extends Component {
         if (cookies.load('token')) {
 
 
-            let manifs = [];
+            let oldManifs = [];
             this.state.manifestations.forEach((manifestation, index) =>  {
-                if (Date.parse(manifestation.When.toString()) >= Date.now()) {
-                    manifs.push(<Manifestation key={index} values={manifestation} />);
+                if (Date.parse(manifestation.When.toString()) < Date.now()) {
+                    oldManifs.push(<Manifestation key={index} values={manifestation} />);
                 }
             });
 
             view.push(
                 <div>
                     <div className="titre">
-                        <h2>Manifestations à venir</h2>
+                        <h2>Anciennes manifestations</h2>
                     </div>
                     <div className="grid-flex">
-                        {manifs}
+                        {oldManifs}
                     </div>
                 </div>
             );
-
         } else {
             view.push(
                 <div className="center">
-                    <h1>Vous devez être connecté pour consulter les évenements !</h1>
+                    <h1>Vous devez être connecté pour consulter les évenements passé !</h1>
                     <Link to="/user/connect">Se connecter</Link><br/>
                     <Link to="/user/register">S'inscrire</Link>
                 </div>
             )
         }
 
-        view.push(
-            <div className="divboutoneventpast">
-                <Link className="boutonafondblanc" to="/oldevents">Voir les événements passés</Link>
-            </div>
-        );
-
-        view.push(
-            <div className="titremilieupage">
-                <h2>La boite à idées</h2>
-                <h3>C'est encore mieux des idées venant de vous !</h3>
-                <div className="boutontitre">
-                    <Link to="/ideabox" className="boutonafondrouge">Proposer une idée d'événement !</Link>
-                </div>
-            </div>
-        );
 
 
         view.push(<Footer/>);
@@ -116,4 +100,4 @@ class Event extends Component {
     }
 }
 
-export default Event;
+export default Oldevents;
