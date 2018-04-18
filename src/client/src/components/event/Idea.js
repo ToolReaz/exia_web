@@ -50,8 +50,8 @@ class Idea extends Component {
                 <div className="event2">
                     <h2 className="event2Title">Nom: {this.props.values.Titre}</h2>
                     <img className="eventImg" src="https://picsum.photos/300/200" alt="image"/>
-                    <p className="eventDate">Soumis le: {this.props.values.Soumis_le}</p>
-                    <p>Texte: {this.props.values.Texte}</p>
+                    <div class="event2Margin"><span class="event2Date">Soumis le: {this.props.values.Soumis_le}</span></div>
+                    <p>Description: {this.props.values.Texte}</p>
                     <a>Lire</a>
                     <div className="event2Vote">
                         <button id="against" onClick={this.vote}>Vote contre: {this.state.voteAgainst}</button>
