@@ -6,6 +6,7 @@ import './stylesheets/formSolo.css';
 import './stylesheets/event.css';
 import './stylesheets/global.css';
 import './stylesheets/shop.css';
+import './stylesheets/team.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import {BrowserRouter} from "react-router-dom";

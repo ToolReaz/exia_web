@@ -9,7 +9,7 @@ class Team extends Component {
             <div>
                 <Header/>
                 <div>
-                    <img alt="" src="https://scontent-mrs1-1.xx.fbcdn.net/v/t31.0-8/22339559_1517810414976542_6327557607105310968_o.jpg?_nc_cat=0&oh=636dde4af9903697e4ad756f7bd48748&oe=5B696581"/>
+                    <img className="fullwidth" alt="" src="https://scontent-mrs1-1.xx.fbcdn.net/v/t31.0-8/22339559_1517810414976542_6327557607105310968_o.jpg?_nc_cat=0&oh=636dde4af9903697e4ad756f7bd48748&oe=5B696581"/>
                 </div>
                 <h1 className="h1Event">Les 8 membres de l'équipe.</h1>
                 <div className="fondExia">
