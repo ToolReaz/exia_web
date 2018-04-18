@@ -17,9 +17,8 @@ class ManifestationPhoto extends Component {
 
     componentDidMount() {
         getApi('/api/photo/' + this.state.id.toString()).then(res => {
-            console.log('hey');
             console.log(res);
-            this.setState({imagePath: res.Chemin_Image, title: res.Titre});
+            this.setState({imagePath: res.ImagePath, title: res.Title});
         }).catch(reason => {
             console.log(reason);
         });

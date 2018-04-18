@@ -120,12 +120,6 @@ router.get('/shop/order', (req, res) => {
 
 
 // PHOTO
-router.get('/photos/:id', (req, res) => {
-    PhotoController.getAllPhoto(req, res);
-});
-router.get('/photo/:id', (req, res) => {
-    PhotoController.getOne(req, res);
-});
 router.post('/photo', (req, res) => {
     PhotoController.add(req, res);
 });
@@ -137,6 +131,12 @@ router.get('/photo/like/:id', (req, res) => {
 });
 router.get('/photo/likes/:id', (req, res) => {
     PhotoController.getLikeCount(req, res);
+});
+router.get('/photos/:id', (req, res) => {
+    PhotoController.getAllPhoto(req, res);
+});
+router.get('/photo/:id', (req, res) => {
+    PhotoController.getOne(req, res);
 });
 
 

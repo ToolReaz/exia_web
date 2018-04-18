@@ -30,7 +30,7 @@ class ManifestationDetails extends Component {
 
                     <div className="grid-container">
                         <h1>Hey !</h1>
-                        <Manifestation currentEvent={true} fullPage={true} id={this.state.id} values={this.state.manifestation}/>
+                        <Manifestation currentEvent={(Date.parse(this.state.manifestation.When.toString()) >= Date.now())} fullPage={true} id={this.state.id} values={this.state.manifestation}/>
                     </div>
 
                     <Footer/>

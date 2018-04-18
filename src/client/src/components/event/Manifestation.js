@@ -44,12 +44,8 @@ class Manifestation extends Component {
 
     getPhotos() {
         getApi('/api/photos/' + this.state.id.toString()).then(res => {
-            let tmp = [];
             console.log(res);
-            res.forEach(photo => {
-                tmp.push(photo);
-            });
-            this.setState({photos: tmp});
+            this.setState({photos: res});
         }).catch(reason => {
             console.error(reason);
         });
@@ -67,7 +63,6 @@ class Manifestation extends Component {
 
 
     render() {
-        let addPhoto = [];
         let subscribeBtn = [];
 
         if (this.state.currentEvent) {
@@ -76,12 +71,8 @@ class Manifestation extends Component {
             } else {
                 subscribeBtn.push(<button onClick={this.subscribe}>S'inscrire</button>);
             }
-        } else {
-            // Show or not the button to add photo if the user was subscribed to the manifestation
-            if (this.state.isSubscribed) {
-                addPhoto.push(<AddPhoto values={this.state.id}/>);
-            }
         }
+
 
 
 
@@ -99,6 +90,11 @@ class Manifestation extends Component {
             });
 
 
+            let addPhoto = [];
+            if (this.state.isSubscribed) {
+                addPhoto.push(<AddPhoto values={this.state.id}/>);
+            }
+
 
             return (
                 <div>
@@ -112,6 +108,9 @@ class Manifestation extends Component {
                     {photos}
                 </div>
             );
+
+
+
 
 
         } else {
