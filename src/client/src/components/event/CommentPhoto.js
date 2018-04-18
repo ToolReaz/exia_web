@@ -31,7 +31,7 @@ class CommentPhoto extends Component {
             this.setState({comment: ''});
             alert('Commentaire ajouté !');
         }).catch(reason => {
-            alert(reason);
+            console.error(reason);
         })
     }
 
