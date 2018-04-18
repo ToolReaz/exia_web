@@ -102,7 +102,7 @@ class Shop extends Component {
                 <div>
                     <Header/>
 
-                    <div className="grid-container">
+                    <div className="page-container">
                         <div className="row">
                             <div className="col-6">
                                 <h1>Boutique</h1>

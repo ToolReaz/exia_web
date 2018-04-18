@@ -8,7 +8,7 @@ class UserAccount extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            account: {},
+            account: null,
             logged: true,
             roles: []
         };
@@ -43,18 +43,33 @@ class UserAccount extends Component {
 
     render() {
         if (cookies.load('token') || this.state.logged) {
+            if (this.state.account) {
+
             let privileges = [];
             if (this.state.roles.includes('R_BDE')) {
                 privileges.push(<Link to="/bde">Gérer le bde</Link>);
             }
             return (
-                <div>
-                    <h1>Nom: {this.state.account.LastName}</h1>
-                    <h1>Prenom: {this.state.account.FirstName}</h1>
-                    {privileges}
-                    <br/><button onClick={this.logOut}>Déconnexion</button>
+                <div className="page-container">
+                    <div className="row">
+                        <div className="col-12">
+                            <h1>Nom: {this.state.account.LastName}</h1>
+                            <h1>Prenom: {this.state.account.FirstName}</h1>
+                            {privileges}
+                            <br/>
+                            <button onClick={this.logOut}>Déconnexion</button>
+                        </div>
+                    </div>
                 </div>
             );
+            } else {
+                    return (
+                        <div id="preloader">
+                            <div id="loader"></div>
+                        </div>
+                    );
+            }
+
         } else {
             return (
                 <Switch>

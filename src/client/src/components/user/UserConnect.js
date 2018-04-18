@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {postApi} from '../../lib/api/requestApi';
 import {Link, Redirect, Switch} from "react-router-dom";
 import cookies from 'react-cookie';
+import { withAlert } from "react-alert";
 
 class UserConnect extends Component {
 
@@ -69,6 +70,7 @@ class UserConnect extends Component {
 
     render() {
         if (cookies.load('token')) {
+            this.props.alert.success("Connexion réussie !");
             return (
                 <Switch>
                     <Redirect from="/user/connect" to="/user/account" push />
@@ -96,4 +98,4 @@ class UserConnect extends Component {
     }
 }
 
-export default UserConnect;
+export default withAlert(UserConnect);
