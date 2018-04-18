@@ -44,7 +44,7 @@ module.exports = (dataObject, permissions) => {
         },
 
         GetCommentsOfPhoto: async (idPhoto) => {
-            return await dataObject.Comments_Account_Photo.findAll({where: {ID_Photos: idPhoto}});
+            return await dataObject.Comments_Account_Photo.findAll({where: {ID_Photo: idPhoto}});
         },
 
         GetCommentContent: async (idComment) => {
