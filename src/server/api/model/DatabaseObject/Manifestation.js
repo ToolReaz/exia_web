@@ -74,7 +74,7 @@ module.exports = (dataObject, permissions) => {
                     ID_Account: idAccount,
                     ID_Manifestation: idManifestation
                 }
-            }) == null;
+            }) != null;
         },
 
         /**
