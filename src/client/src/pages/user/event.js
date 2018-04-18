@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import Idea from "../../components/event/Idea";
 import {getApi} from "../../lib/api/requestApi";
-import CreateIdea from "../../components/event/CreateIdea";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Manifestation from "../../components/event/Manifestation";
@@ -86,9 +84,9 @@ class Event extends Component {
 
 
             let manifs = [];
-            this.state.manifestations.forEach((manifestation) =>  {
+            this.state.manifestations.forEach((manifestation, index) =>  {
                 if (Date.parse(manifestation.When.toString()) >= Date.now()) {
-                    manifs.push(<Manifestation values={manifestation} />);
+                    manifs.push(<Manifestation key={index} values={manifestation} />);
                 }
             });
 
@@ -107,9 +105,9 @@ class Event extends Component {
 
 
             let oldManifs = [];
-            this.state.manifestations.forEach((manifestation) =>  {
+            this.state.manifestations.forEach((manifestation, index) =>  {
                 if (Date.parse(manifestation.When.toString()) < Date.now()) {
-                    oldManifs.push(<Manifestation values={manifestation} />);
+                    oldManifs.push(<Manifestation key={index} values={manifestation} />);
                 }
             });
 

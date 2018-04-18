@@ -47,10 +47,10 @@ class Shop extends Component {
         let productsView = [];
 
         if (this.state.search !== '') {
-            this.state.products.forEach(product => {
+            this.state.products.forEach((product, index) => {
                 if (product.Prix.toString().includes(this.state.search) || product.Nom.includes(this.state.search)) {
                     productsView.push(
-                        <div className="col-4">
+                        <div key={index} className="col-4">
                             <h2>{product.Nom}</h2>
                             <p>{product.Description}</p>
                             <p>{product.Prix}</p>
@@ -59,9 +59,9 @@ class Shop extends Component {
                 }
             });
         } else {
-            this.state.products.forEach(product => {
+            this.state.products.forEach((product, index) => {
                 productsView.push(
-                    <div className="col-4">
+                    <div key={index} className="col-4">
                         <h2>{product.Nom}</h2>
                         <p>{product.Description}</p>
                         <p>{product.Prix}</p>

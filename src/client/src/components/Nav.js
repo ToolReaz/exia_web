@@ -8,7 +8,7 @@ class Nav extends Component {
         let account = [];
         if (cookies.load('token')) {
             account.push(
-                <div className="nav-links-right">
+                <div key={51616716112} className="nav-links-right">
                     <p className="s"><input name="search" id="search" type="search"/></p>
                     <Link to="/user/account">Mon compte</Link>
                 </div>

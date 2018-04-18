@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {getApi, postApi} from "../../lib/api/requestApi";
+import {getApi} from "../../lib/api/requestApi";
 import Idea from "../../components/event/Idea";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -35,7 +35,7 @@ class IdeaBox extends Component {
         this.state.ideas.forEach((idea, index) =>  {
             idea.roles = this.state.roles;
             ideas.push(
-                <Idea values={idea} />
+                <Idea key={index} values={idea} />
             );
         });
 
