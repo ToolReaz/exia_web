@@ -9,36 +9,47 @@ let PhotoController = require('../controller/PhotoController');
 // IDEA
 // Get all unvalidated idea
 router.get('/idea/invalidated', (req, res) => {
+    console.log('GET /idea/invalidated');
     IdeaController.getInvalidated(req, res);
 });
-// Get all ideas
-router.get('/idea', (req, res) => {
-    IdeaController.getAll(req, res);
-});
-
 // Create an idea
 router.post('/idea', (req, res) => {
+    console.log('POST /idea');
     IdeaController.create(req, res);
 });
 // Validate an idea
 router.post('/idea/validate', (req, res) => {
+    console.log('POST /idea/validate');
     IdeaController.validate(req, res);
 });
 // Vote for an idea
 router.get('/idea/vote/for/:id', (req, res) => {
+    console.log('GET /idea/vote/for/:id');
     IdeaController.vote(req, res, true);
 });
 // Vote against an idea
 router.get('/idea/vote/against/:id', (req, res) => {
+    console.log('GET /idea/vote/against/:id');
     IdeaController.vote(req, res, false);
+});
+// Get if user has voted for and idea
+router.get('/idea/hasvoted/:id', (req, res) => {
+    console.log('GET /idea/hasvoted/:id');
+    IdeaController.hasVoted(req, res);
 });
 // Get number of votes for an idea
 router.get('/idea/votes/:id', (req, res) => {
+    console.log('GET /idea/votes/:id');
     IdeaController.getVotes(req, res);
 });
 // Get a specific ideas
 router.get('/idea/:id', (req, res) => {
+    console.log('GET /idea/:id');
     IdeaController.get(req, res);
+});
+// Get all ideas
+router.get('/idea', (req, res) => {
+    IdeaController.getAll(req, res);
 });
 
 

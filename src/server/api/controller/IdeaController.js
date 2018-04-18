@@ -133,6 +133,7 @@ module.exports = {
      *
      * @param req Represent the request
      * @param res Represent the response
+     * @param type
      */
     vote: (req, res, type) => {
         let reqVoteId = req.params.id;
@@ -142,14 +143,37 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then((id) => {
                 DB.Idea.VoteIdea(id, reqVoteId, type).then(() => {
-                    res.json({'error': null, 'content': 'ok'});
+                    res.json({'error': null, 'content': null});
                 }).catch((reason => {
                     // Catch DB errors
-                    res.json({'error': 'Error: ' + reason, 'content': null})
+                    res.json({'error': reason.message, 'content': null})
                 }));
             }).catch(reason => {
                 // Catch DB errors
-                res.json({'error': 'Error: ' + reason, 'content': null});
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
+        }
+    },
+
+
+    hasVoted: (req, res) => {
+        let reqVoteId = req.params.id;
+        // The token set in the cookies
+        let reqToken = req.cookies.token;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then((id) => {
+                DB.Idea.GetVoteOfUser(id, reqVoteId).then((asVoted) => {
+                    res.json({'error': null, 'content': asVoted});
+                }).catch((reason => {
+                    // Catch DB errors
+                    res.json({'error': reason.message, 'content': null})
+                }));
+            }).catch(reason => {
+                // Catch DB errors
+                res.json({'error': reason.message, 'content': null});
             });
         } else {
             res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
