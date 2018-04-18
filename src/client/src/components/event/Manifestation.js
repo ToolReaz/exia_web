@@ -9,7 +9,7 @@ class Manifestation extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            id: (props.values) ? props.id : null,
+            id: (props.values) ? props.values.ID : null,
             name: (props.values) ? props.values.Name : 'erreur de chargement',
             description: (props.values) ? props.values.Description : 'erreur de chargement',
             date: (props.values) ? props.values.When : 'erreur de chargement',
@@ -18,15 +18,25 @@ class Manifestation extends Component {
             subscribed: false,
             fullPage: !!(props.fullPage),
             photos: [],
-            wasSubscriber: false
+            isSubscribed: false,
+            currentEvent: props.currentEvent
         };
-    }
 
+        this.subscribe = this.subscribe.bind(this);
+    }
 
     subscribe() {
         getApi('/api/manifestation/subscribe/' + this.state.id.toString()).then(res => {
-            alert('Inscription réussie !');
-            console.log(res);
+            alert('Inscription validée !');
+            this.setState({subscribed: true});
+        }).catch(reason => {
+            console.error(reason);
+        });
+    }
+
+    isSubscribed() {
+        getApi('/api/manifestation/issubscribed/' + this.state.id.toString()).then(res => {
+            this.setState({isSubscribed: res});
         }).catch(reason => {
             console.error(reason);
         });
@@ -41,7 +51,7 @@ class Manifestation extends Component {
             });
             this.setState({photos: tmp});
         }).catch(reason => {
-            console.log(reason);
+            console.error(reason);
         });
     }
 
@@ -51,11 +61,32 @@ class Manifestation extends Component {
         if (this.state.fullPage) {
             // Get all photos of the manifestation
             this.getPhotos();
+            this.isSubscribed();
         }
     }
 
 
     render() {
+        let addPhoto = [];
+        let subscribeBtn = [];
+
+        if (this.state.currentEvent) {
+            if (this.state.isSubscribed) {
+                subscribeBtn.push(<button disabled onClick={this.subscribe}>Déja inscrit !</button>);
+            } else {
+                subscribeBtn.push(<button onClick={this.subscribe}>S'inscrire</button>);
+            }
+        } else {
+            // Show or not the button to add photo if the user was subscribed to the manifestation
+            if (this.state.isSubscribed) {
+                addPhoto.push(<AddPhoto values={this.state.id}/>);
+            }
+        }
+
+
+
+
+        // If display in full page
         if (this.state.fullPage) {
 
             let photos = [];
@@ -67,14 +98,8 @@ class Manifestation extends Component {
                 );
             });
 
-            // Show or not the button to add photo if the user was subscribed to the manifestation
-            let addPhoto = [];
-            if (this.state.wasSubscriber || true) {
-                addPhoto.push(<AddPhoto values={this.state.id}/>);
-            }
 
 
-            // Finaly render the page
             return (
                 <div>
                     <h2><strong>Page détaillé de: {this.state.name}</strong></h2>
@@ -82,7 +107,7 @@ class Manifestation extends Component {
                     <p>Date: {this.state.date}</p>
                     <p>Intreval: {this.state.interval}</p>
                     <p>Prix: {this.state.price}</p>
-                    <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
+                    {subscribeBtn}
                     {addPhoto}
                     {photos}
                 </div>
@@ -100,7 +125,7 @@ class Manifestation extends Component {
                         <span className="eventInter">Intreval: {this.state.interval}</span>
                         <span className="eventPrix">Prix: {this.state.price}</span>
                     </div>
-                    <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
+                    {subscribeBtn}
                     <Link to={'/event/'+this.state.id}>Page détaillé</Link>
                 </div>
             );

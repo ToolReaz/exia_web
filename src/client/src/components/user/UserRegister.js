@@ -9,6 +9,7 @@ class UserRegister extends Component {
         super(props);
         this.state = {
             error: null,
+            finished: false,
             firstname: '',
             lastname: '',
             email: '',
@@ -52,7 +53,7 @@ class UserRegister extends Component {
                         email: ''
                     });
                     document.getElementById("register-form").reset();
-
+                    this.setState({finished: true});
                 }
             }, "json");
         } catch (e) {
@@ -94,11 +95,9 @@ class UserRegister extends Component {
 
     render() {
         if (cookies.load('token')) {
-            return (
-                <Switch>
-                    <Redirect from="/user/register" to="/user/account" push />
-                </Switch>
-            )
+            return (<Redirect from="/user/register" to="/user/account" push/>);
+        } else if (this.state.finished) {
+            return (<Redirect from="/user/register" to="/user/connect" push/>);
         } else {
             return (
                 <div className="conteneurform">
@@ -115,10 +114,10 @@ class UserRegister extends Component {
                             <input className="input-regular" type="mail" name="email" placeholder="Email" required
                                    onChange={this.handleChange}/>
                             <p>Mot de passe</p>
-                            <input className="input-regular" type="text" name="password" placeholder="Mot de passe"
+                            <input className="input-regular" type="password" name="password" placeholder="Mot de passe"
                                    required onChange={this.handleChange}/>
                             <p>Confirmez le mot de passe</p>
-                            <input className="input-regular" type="text" name="password_bis"
+                            <input className="input-regular" type="password" name="password_bis"
                                    placeholder="Retaper le mot de passe" required onChange={this.handleChange}/>
                             <input className="input-submit-regular" type="submit" value="Valider"/>
                             <div>

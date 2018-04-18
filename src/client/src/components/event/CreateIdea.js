@@ -69,7 +69,7 @@ class CreateIdea extends Component {
                 manifInterval: 0,
                 manifPrice: 0
             });
-            console.log('Idée crée !');
+            alert('Idée crée !');
         }).catch(reason => {
             console.log(reason);
         });

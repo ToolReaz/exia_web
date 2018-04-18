@@ -61,6 +61,10 @@ router.post('/manifestation/update', (req, res) => {
 router.get('/manifestation/subscribe/:id', (req, res) => {
     ManifestationController.subscribe(req, res);
 });
+// Check if a user is subscribed to a manifestation
+router.get('/manifestation/issubscribed/:id', (req, res) => {
+    ManifestationController.isSubscribed(req, res);
+});
 // Validate to a manifestation
 router.get('/manifestation/validate/:id', (req, res) => {
     ManifestationController.validate(req, res);

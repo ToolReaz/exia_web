@@ -69,7 +69,7 @@ class Oldevents extends Component {
             let oldManifs = [];
             this.state.manifestations.forEach((manifestation, index) =>  {
                 if (Date.parse(manifestation.When.toString()) < Date.now()) {
-                    oldManifs.push(<Manifestation key={index} values={manifestation} />);
+                    oldManifs.push(<Manifestation currentEvent={false} key={index} values={manifestation} />);
                 }
             });
 
