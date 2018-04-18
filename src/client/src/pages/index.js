@@ -8,9 +8,12 @@ class Index extends Component {
         return (
             <div>
                 <Header/>
-                <div>
-                    <h1>Home Page</h1>
-                    <p>test</p>
+                <div className="relative">
+                <img className="divImgIndex" src='https://www.cesi-alternance.fr/wp-content/uploads/2015/02/photo-1.jpg' alt="" />
+                <div className="accueil">
+                    <h1>Bienvenue sur le site du BDE</h1>
+                    <p>Cesi eXia Strasbourg</p>
+                </div>
                 </div>
                 <Footer />
             </div>
