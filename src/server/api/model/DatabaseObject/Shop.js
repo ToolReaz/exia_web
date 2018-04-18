@@ -117,13 +117,13 @@ module.exports = (dataObject, permissions) => {
                 let s = await dataObject.Basket.findOrCreate({
                     where: {
                         ID_Product: idProduct,
-                        ID_Account: idAccount,
+                        ID: idAccount,
                         ID_Purchase: r[0].ID
                     }, defaults: {Quantity: quantity}
                 });
                 if (!s[1]) await dataObject.Basket.update({Quantity: (s[0].Quantity + quantity)}, {
                     where: {
-                        ID_Account: idAccount,
+                        ID: idAccount,
                         ID_Product: idProduct
                     }
                 });
@@ -311,6 +311,5 @@ module.exports = (dataObject, permissions) => {
             }
             return [first, second, third];
         }
-
     };
 };
