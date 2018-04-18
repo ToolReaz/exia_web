@@ -10,11 +10,11 @@ class Manifestation extends Component {
         super(props);
         this.state = {
             id: (props.values) ? props.id : null,
-            name: (props.values) ? props.values.Nom : 'erreur de chargement',
+            name: (props.values) ? props.values.Name : 'erreur de chargement',
             description: (props.values) ? props.values.Description : 'erreur de chargement',
-            date: (props.values) ? props.values.Quand : 'erreur de chargement',
-            interval: (props.values) ? props.values.Intervale : 'erreur de chargement',
-            price: (props.values) ? props.values.Prix : 'erreur de chargement',
+            date: (props.values) ? props.values.When : 'erreur de chargement',
+            interval: (props.values) ? props.values.TimeSpan : 'erreur de chargement',
+            price: (props.values) ? props.values.Price : 'erreur de chargement',
             subscribed: false,
             fullPage: !!(props.fullPage),
             photos: [],
@@ -22,6 +22,15 @@ class Manifestation extends Component {
         };
     }
 
+
+    subscribe() {
+        getApi('/api/manifestation/subscribe/' + this.state.id.toString()).then(res => {
+            alert('Inscription réussie !');
+            console.log(res);
+        }).catch(reason => {
+            console.error(reason);
+        });
+    }
 
     getPhotos() {
         getApi('/api/photos/' + this.state.id.toString()).then(res => {
@@ -73,6 +82,7 @@ class Manifestation extends Component {
                     <p>Date: {this.state.date}</p>
                     <p>Intreval: {this.state.interval}</p>
                     <p>Prix: {this.state.price}</p>
+                    <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
                     {addPhoto}
                     {photos}
                 </div>
@@ -90,8 +100,8 @@ class Manifestation extends Component {
                         <span className="eventInter">Intreval: {this.state.interval}</span>
                         <span className="eventPrix">Prix: {this.state.price}</span>
                     </div>
-                    <Link to={'/event/'+this.state.id}>Page détaillé</Link>
                     <button disabled={this.state.subscribed} onClick={this.subscribe}>S'inscrire</button>
+                    <Link to={'/event/'+this.state.id}>Page détaillé</Link>
                 </div>
             );
         }

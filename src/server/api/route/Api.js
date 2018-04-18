@@ -48,10 +48,7 @@ router.get('/idea/:id', (req, res) => {
 router.get('/manifestation', (req, res) => {
     ManifestationController.getAll(req, res);
 });
-// Get a specific manifestation
-router.get('/manifestation/:id', (req, res) => {
-    ManifestationController.get(req, res);
-});
+
 // Create a manifestation
 router.post('/manifestation', (req, res) => {
     ManifestationController.create(req, res);
@@ -77,6 +74,10 @@ router.get('/manifestation/subscribers/csv/:id', (req, res) => {
 router.get('/manifestation/subscribers/pdf/:id', (req, res) => {
     ManifestationController.getSubscribersCSV(req, res);
 });
+// Get a specific manifestation
+router.get('/manifestation/:id', (req, res) => {
+    ManifestationController.get(req, res);
+});
 
 
 
@@ -100,7 +101,6 @@ router.get('/shop/addtocart/:id', (req, res) => {
 router.get('/shop/order', (req, res) => {
     ShopController.order(req, res);
 });
-
 
 
 

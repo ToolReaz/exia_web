@@ -59,6 +59,8 @@ module.exports = {
         let reqToken = req.cookies.token;
         let reqManifId = req.params.id;
 
+        console.log(reqManifId);
+
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.EnrollManifestation(id, reqManifId).then(ok => {

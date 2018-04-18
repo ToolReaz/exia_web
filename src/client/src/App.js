@@ -11,6 +11,7 @@ import Account from "./pages/account";
 import Bde from "./pages/bde/bde";
 import Shop from "./pages/public/shop";
 import IdeaBox from "./pages/user/ideaBox";
+import Oldevents from "./pages/user/oldevents";
 
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
             <Route path="/bde" component={Bde} />
             <Route path="/shop" component={Shop} />
             <Route path="/ideabox" component={IdeaBox} />
+            <Route path="/oldevents" component={Oldevents} />
         </Switch>
     );
   }

@@ -43,7 +43,9 @@ class IdeaBox extends Component {
 
         view.push(
             <div>
-                <h1 className="h1Event">Boite à idées</h1>
+                <div className="titre">
+                    <h2>Boite à idées</h2>
+                </div>
                 <div className="grid-flex">
                     {ideas}
                 </div>
@@ -52,7 +54,9 @@ class IdeaBox extends Component {
 
         view.push(
             <div>
-                <h1 className="h1Event">Proposer une idée</h1>
+                <div className="titre">
+                    <h2>Proposer une idée</h2>
+                </div>
                 <div className="grid-flex">
                     <CreateIdea/>
                 </div>
