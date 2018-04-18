@@ -124,7 +124,8 @@ module.exports = (dataObject, permissions) => {
                 if (!s[1]) await dataObject.Basket.update({Quantity: (s[0].Quantity + quantity)}, {
                     where: {
                         ID: idAccount,
-                        ID_Product: idProduct
+                        ID_Product: idProduct,
+                        ID_Purchase: r[0].ID
                     }
                 });
             } else {
@@ -174,7 +175,8 @@ module.exports = (dataObject, permissions) => {
                 await dataObject.Basket.update({Quantity: s.Quantity - quantity}, {
                     where: {
                         ID: s.ID,
-                        ID_Product: idProduct
+                        ID_Product: idProduct,
+                        ID_Purchase: r[0].ID
                     }
                 });
             } else if (s.Quantity === quantity) {
