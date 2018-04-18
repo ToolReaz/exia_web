@@ -3,35 +3,36 @@ module.exports = (dataObject, permissions) => {
     return {
 
         /**
-         * Ajoute une photo à une manif
-         * SUSPECT
-         * TODO
-         * @param {Number} idAccount ID du compte souhaitant uploader l'image
-         * @param {String} photoPath Path de l'image
-         * @param {Number} idManif ID de la manifestation
+         * Add a photo to a manifestation
+         * @param {Number} idAccount ID of the account
+         * @param {String} photoPath Path to the file
+         * @param {Number} idManif ID of the manifestation
+         * @returns {Number} ID of the inserted photo
          */
         AddPhoto: async (idAccount, photoPath, idManif) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_PHOTO")) {
-                let r = await dataObject.Photo.findOrCreate({
-                    where: {ImagePath: photoPath},
-                    defaults: {Public: false}
-                });
-                await dataObject.Account_Manifestation_Photo.findOrCreate({
-                    where: {
-                        ID_Photo: r.ID,
-                        ID_Manifestation: idManif,
-                        ID: idAccount
-                    }
-                });
                 let t = await dataObject.Account_Manifestation.findOne({
                     where: {
-                        ID: idAccount,
+                        ID_Account: idAccount,
                         ID_Manifestation: idManif
                     }
                 });
-                // SUSPECT
+
                 if (!t) {
-                    return Promise.reject(new Error("ERREUR A DEFINIR")) // TODO : Remplacer l'erreur
+                    return Promise.reject(new Error("This user (#"+idAccount+") did not take part in this manifestation (#"+idManif+")"));
+                } else {
+                    let r = await dataObject.Photo.findOrCreate({
+                        where: {ImagePath: photoPath},
+                        defaults: {Public: false}
+                    });
+                    await dataObject.Account_Manifestation_Photo.findOrCreate({
+                        where: {
+                            ID_Photo: r.ID,
+                            ID_Manifestation: idManif,
+                            ID_Account: idAccount
+                        }
+                    });
+                    return r.ID;
                 }
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_ADD_PHOTO\""));
@@ -43,11 +44,11 @@ module.exports = (dataObject, permissions) => {
         },
 
         GetCommentsOfPhoto: async (idPhoto) => {
-            return await dataObject.Commente.findAll({where: {ID_Photos: idPhoto}});
+            return await dataObject.Comments_Account_Photo.findAll({where: {ID_Photos: idPhoto}});
         },
 
         GetCommentContent: async (idComment) => {
-            return await dataObject.Commentaires.findOne({where: {ID: idComment }});
+            return await dataObject.Comments.findOne({where: {ID: idComment }});
         },
 
         /**
@@ -63,7 +64,7 @@ module.exports = (dataObject, permissions) => {
                 let r = await dataObject.Comments.findOrCreate({where: {Text: comment}});
                 await dataObject.Comments_Account_Photo.findOrCreate({
                     where: {
-                        ID: idAccount,
+                        ID_Account: idAccount,
                         ID_Photo: idPhoto,
                         ID_Comments: r[0].ID
                     }
@@ -85,9 +86,9 @@ module.exports = (dataObject, permissions) => {
         LikePhoto: async (idAccount, idPhoto, like) => {
             if (await permissions.FilterPermission(idAccount, "P_LIKE_PHOTO")) {
                 if (like) {
-                    await dataObject.Likes.findOrCreate({where: {ID: idAccount, ID_Photo: idPhoto}});
+                    await dataObject.Likes.findOrCreate({where: {ID_Account: idAccount, ID_Photo: idPhoto}});
                 } else {
-                    await dataObject.Likes.destroy({where: {ID: idAccount, ID_Photo: idPhoto}});
+                    await dataObject.Likes.destroy({where: {ID_Account: idAccount, ID_Photo: idPhoto}});
                 }
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_LIKE_PHOTO\""));

@@ -12,7 +12,7 @@ module.exports = (dataObject, permissions) => {
         SetPayPal: async (idAccount, payPalApiKey) => {
             let r = dataObject.Account.findOne({where: {ID: idAccount}});
             if (r) {
-                let s = await dataObject.PayPalAccount.upsert({GUID: payPalApiKey, ID: r.ID});
+                let s = await dataObject.PayPalAccount.upsert({GUID: payPalApiKey, ID_Account: r.ID});
                 return s.ID;
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not exist."));
@@ -26,7 +26,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetPayPalFromAccount: async (idAccount) => {
-            return await dataObject.PayPalAccount.findOne({where: {ID: idAccount}});
+            return await dataObject.PayPalAccount.findOne({where: {ID_Account: idAccount}});
         }
 
     };

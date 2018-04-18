@@ -3,6 +3,8 @@ module.exports = (dataObject, permissions) => {
     const here = {
 
 
+        // TESTED
+
         /**
          * Get the role from the role ID
          * @param {Number} idRole ID of the role
@@ -12,6 +14,8 @@ module.exports = (dataObject, permissions) => {
         GetRoleFromID: async (idRole) => {
             return await dataObject.Role.findOne({where: {ID: idRole}});
         },
+
+        // TESTED
 
         /**
          * Return the role from the name of the role
@@ -23,6 +27,8 @@ module.exports = (dataObject, permissions) => {
             return await dataObject.Role.findOne({where: {RoleName: role}});
         },
 
+        // TESTED
+
         /**
          * Return the roles ID of an user
          * @param {Number} idAccount ID of the user account
@@ -33,6 +39,8 @@ module.exports = (dataObject, permissions) => {
             let r = await dataObject.Account_Role.findAll({where: {ID_Account: idAccount}});
             return r.map(d => d.ID_Role);
         },
+
+        // TESTED
 
         /**
          * Return the roles of an user
@@ -49,6 +57,12 @@ module.exports = (dataObject, permissions) => {
             }
             return result;
         },
+
+        // TESTED
+
+        AddRole : async (idAccount, idRole) => {
+            await dataObject.Account_Role.findOrCreate({where: {ID_Account: idAccount, ID_Role: idRole}});
+        }
 
     };
 
