@@ -124,8 +124,8 @@ module.exports = (dataObject, permissions) => {
             var s = await here.GetCommentsOfPhoto(idPhoto);
             var ret = [];
             for (var i = 0; i < s.length; i++) {
-                var commentID = s[i];
-                var commentText = await here.GetCommentContent(commentID);
+                var comment = s[i];
+                var commentText = await here.GetCommentContent(comment.ID_Comments);
                 ret.push(commentText);
             }
             return ret;
