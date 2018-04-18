@@ -18,7 +18,7 @@ class ManifestationPhoto extends Component {
     componentDidMount() {
         getApi('/api/photo/' + this.state.id.toString()).then(res => {
             console.log(res);
-            this.setState({imagePath: res.ImagePath, isPublic: res.Public, comments: res.comments});
+            this.setState({imagePath: res.photo.ImagePath, isPublic: res.photo.Public, comments: res.comments});
         }).catch(reason => {
             console.log(reason);
         });
@@ -26,10 +26,10 @@ class ManifestationPhoto extends Component {
 
     render() {
         let comments = [];
-        this.state.comments.forEach((comment) => {
+        this.state.comments.forEach((comment, index) => {
             comments.push(
                 <div>
-                    <PhotoComment values={comment}/>
+                    <PhotoComment key={index} values={comment}/>
                 </div>
             )
         });

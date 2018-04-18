@@ -27,7 +27,6 @@ class CommentPhoto extends Component {
             comment: this.state.comment
         };
         postApi('/api/photo/comment', data).then(res => {
-            console.log(res);
             this.setState({comment: ''});
             alert('Commentaire ajouté !');
         }).catch(reason => {
@@ -39,7 +38,7 @@ class CommentPhoto extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="comment" placeholder="Commentaire" onChange={this.handleChange}/>
+                    <input type="text" name="comment" placeholder="Commentaire" value={this.state.comment} onChange={this.handleChange}/>
                     <input type="submit" value="Commenter"/>
                 </form>
             </div>

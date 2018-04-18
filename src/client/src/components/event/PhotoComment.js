@@ -5,7 +5,7 @@ class PhotoComment extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            text: props.Text
+            text: props.values.Text
         };
     }
 

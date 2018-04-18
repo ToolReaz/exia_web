@@ -80,8 +80,7 @@ module.exports = {
         if (reqID) {
             DB.Photo.GetPhotoById(reqID).then(photo => {
                 DB.Photo.GetAllCommentsTextFromPhoto(photo.ID_Photo).then(comments => {
-                    photo['comments'] = comments;
-                    res.json({'error': null, 'content': photo});
+                    res.json({'error': null, 'content': {photo, comments}});
                 }).catch(reason => res.json({'error': reason.message}));
             }).catch(reason => res.json({'error': reason.message}));
         } else {
