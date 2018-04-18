@@ -163,13 +163,12 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.GetInscriptions(id, reqId).then(subscribers => {
-                    let pdf = new PDFDocument;
+                    let doc = new PDFDocument;
                     let fs=require('fs');
-                    pdf.pipe(fs.createWriteStream(res));
-                    pdf.fontSize(8);
-                    pdf.text(subscribers.toString());
-                    pdf.end();
-                    res.sendFile(pdf);
+                    doc.pipe(fs.createWriteStream(res));
+                    doc.fontSize(8);
+                    doc.text(subscribers.toString());
+                    doc.end();
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });

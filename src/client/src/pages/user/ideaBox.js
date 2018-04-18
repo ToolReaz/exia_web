@@ -17,11 +17,7 @@ class IdeaBox extends Component {
 
     componentDidMount() {
         getApi('/api/idea').then(res => {
-            let tmp = this.state.ideas;
-            res.forEach(idea => {
-                tmp.push(idea);
-            });
-            this.setState({ideas: tmp});
+            this.setState({ideas: res});
         }).catch(reason => {
             console.log(reason);
         });
