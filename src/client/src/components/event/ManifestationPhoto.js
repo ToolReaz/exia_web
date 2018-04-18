@@ -75,7 +75,7 @@ class ManifestationPhoto extends Component {
             likeBtn.push(<button onClick={this.likePhoto}>Like</button>);
         }
 
-        
+
         return (
             <div>
                 <p>Titre: {this.state.title}</p>

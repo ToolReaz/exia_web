@@ -103,6 +103,38 @@ module.exports = {
         } else {
             res.json({'error': 'Pas connecté = pas ajouter commentaire'});
         }
+    },
+
+    reportPhoto: (req, res) => {
+        let reqID = req.params.id;
+        let reqToken = req.cookies.token;
+
+        if (reqID && reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Photo.GetPhotoById(reqID).then(photo => {
+                    DB.Photo.Report(id, photo.ID_Photo).then(() => {
+                        res.json({'error': null, 'content': null});
+                    }).catch(reason => res.json({'error': reason.message}));
+                }).catch(reason => res.json({'error': reason.message}));
+            }).catch(reason => res.json({'error': reason.message}));
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter commentaire'});
+        }
+    },
+
+    reportComment: (req, res) => {
+        let reqID = req.params.id;
+        let reqToken = req.cookies.token;
+
+        if (reqID && reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Photo.ReportComment(id, reqID).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => res.json({'error': reason.message}));
+            }).catch(reason => res.json({'error': reason.message}));
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter commentaire'});
+        }
     }
 
 };

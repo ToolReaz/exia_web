@@ -126,6 +126,12 @@ router.post('/photo', (req, res) => {
 router.post('/photo/comment', (req, res) => {
     PhotoController.comment(req, res);
 });
+router.get('/photo/comment/report/:id', (req, res) => {
+    PhotoController.reportComment(req, res);
+});
+router.get('/photo/report/:id', (req, res) => {
+    PhotoController.reportPhoto(req, res);
+});
 router.get('/photo/likes/:id', (req, res) => {
     PhotoController.getLikeCount(req, res);
 });
