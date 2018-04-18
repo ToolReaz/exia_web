@@ -95,6 +95,10 @@ module.exports = (dataObject, permissions) => {
             }
         },
 
+        HasLiked: async(idAccount, idPhoto) => {
+            return !!(await dataObject.Likes.findOne({where: {ID_Account: idAccount, ID_Photo: idPhoto}}));
+        },
+
         /**
          * Get the number of like for a photo
          * @param idPhoto ID of the photo
