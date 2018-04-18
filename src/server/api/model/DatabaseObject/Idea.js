@@ -122,6 +122,12 @@ module.exports = (dataObject, permissions) => {
          */
         GetIdeaFromId: async (idIdea) => {
             return await dataObject.Idea.findOne({where: {ID: idIdea}});
+        },
+
+        GetVoteOfUser: async (idAccount, idIdea) => {
+            let status = await dataObject.Vote.findOne({where: {ID_Account: idAccount, ID_Idea: idIdea}});
+            
+            return {Voted: (!!status), Vote: ((!!status)?(!!status.Pro):null)};
         }
 
     };
