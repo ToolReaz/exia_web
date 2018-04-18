@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import {Link, Redirect, Switch} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import cookies from "react-cookie";
+import {postApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class UserRegister extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
             finished: false,
             firstname: '',
             lastname: '',
@@ -42,25 +42,18 @@ class UserRegister extends Component {
             password_bis: this.state.password_bis,
             email: this.state.email
         };
-        try {
-            $.post('/user/register', data, res => {
-                console.log(res);
-                if (res.status === 'success') {
-                    this.setState({
-                        username: '',
-                        password: '',
-                        password_bis: '',
-                        email: ''
-                    });
-                    document.getElementById("register-form").reset();
-                    this.setState({finished: true});
-                }
-            }, "json");
-        } catch (e) {
+        postApi('/user/register', data).then(res => {
             this.setState({
-                error: e
+                username: '',
+                password: '',
+                password_bis: '',
+                email: ''
             });
-        }
+            document.getElementById("register-form").reset();
+            this.setState({finished: true});
+        }).catch(reason => {
+            this.props.alert.error(reason);
+        });
     }
 
 
@@ -131,4 +124,4 @@ class UserRegister extends Component {
     }
 }
 
-export default UserRegister;
+export default withAlert(UserRegister);

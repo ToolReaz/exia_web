@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {getApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class ShowSubscribersManifestation extends Component {
 
@@ -19,13 +20,12 @@ class ShowSubscribersManifestation extends Component {
     componentDidMount() {
         getApi('/api/manifestation').then(res => {
             let tmp = this.state.manifestations;
-            console.log(res);
             res.forEach(manifestation => {
                 tmp.push(manifestation);
             });
             this.setState({manifestations: tmp});
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error('Impossible de charger les inscrit à la manifestation');
         });
     }
 
@@ -33,7 +33,6 @@ class ShowSubscribersManifestation extends Component {
     showSubscribersOf(e) {
         let id = e.target.value;
         getApi('/api/manifestation/subscribers/' + id).then(res => {
-            console.log(res);
             this.setState({
                 id: id,
                 subscribers: res,
@@ -41,30 +40,40 @@ class ShowSubscribersManifestation extends Component {
                 csvUrl: 'http://localhost:4000/api/manifestation/subscribers/csv/' + id.toString(),
             });
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error('Impossible de charger les inscrits à la manifestation');
         });
     }
 
 
     render() {
-        let options = [];
-        this.state.manifestations.forEach((manifestation, index) => {
-            options.push(
-                <option key={index} value={manifestation.ID}>{manifestation.Name}</option>
+
+        if (this.state.manifestations.length === 0) {
+            return (
+                <div id="preloader">
+                    <div id="loader"></div>
+                </div>
+            );
+        } else {
+
+            let options = [];
+            this.state.manifestations.forEach((manifestation, index) => {
+                options.push(
+                    <option key={index} value={manifestation.ID}>{manifestation.Name}</option>
+                )
+            });
+            return (
+                <div>
+                    <select name="id" onChange={this.showSubscribersOf}>
+                        {options}
+                    </select>
+                    <p><strong>Nombre d'inscrit: {this.state.subscribers}</strong></p>
+                    <a href={this.state.csvUrl} target="_blank"><strong>CSV</strong></a><br/>
+                    <a href={this.state.pdfUrl} target="_blank"><strong>PDF</strong></a>
+                    <br/>
+                </div>
             )
-        });
-        return (
-            <div>
-                <select name="id" onChange={this.showSubscribersOf}>
-                    {options}
-                </select>
-                <p><strong>Nombre d'inscrit: {this.state.subscribers}</strong></p>
-                <a href={this.state.csvUrl} target="_blank"><strong>CSV</strong></a><br/>
-                <a href={this.state.pdfUrl} target="_blank"><strong>PDF</strong></a>
-                <br/>
-            </div>
-        )
+        }
     }
 }
 
-export default ShowSubscribersManifestation;
+export default withAlert(ShowSubscribersManifestation);

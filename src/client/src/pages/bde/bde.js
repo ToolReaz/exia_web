@@ -14,7 +14,7 @@ class Bde extends Component {
         return (
             <div>
                 <Header/>
-                <div className="grid-container">
+                <div className="page-container">
                     <div className="row">
                         <div className="col-12">
                             <h1>Bde</h1>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {getApi, postApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class ValidateIdea extends Component {
 
@@ -21,9 +22,9 @@ class ValidateIdea extends Component {
     handleSubmit(e) {
         e.preventDefault();
         postApi('/api/idea/validate', {id: this.state.id}).then(res => {
-            alert('Idée validée !');
+            this.props.alert.success('Idée validée !');
         }).catch(reason => {
-            alert(reason);
+            this.props.alert.error('Impossible de valider l\'idée');
         })
     }
 
@@ -41,32 +42,42 @@ class ValidateIdea extends Component {
                 this.setState({ideas: res});
             }
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error('Impossible de charger les idées non validée')
         });
     }
 
     render() {
-        let options = [];
-        if (this.state.ideas) {
-            this.state.ideas.forEach((idea, index) => {
-                options.push(
-                    <option value={index}>{idea.Title}</option>
-                );
-            });
+
+        if (this.state.ideas.length === 0) {
+            return (
+                <div id="preloader">
+                    <div id="loader"></div>
+                </div>
+            );
+        } else {
+            
+            let options = [];
+            if (this.state.ideas) {
+                this.state.ideas.forEach((idea, index) => {
+                    options.push(
+                        <option value={index}>{idea.Title}</option>
+                    );
+                });
+            }
+            return (
+                <div>
+                    <select onChange={this.selectIdea} name="id">
+                        {options}
+                    </select>
+                    <form id="validate-idea-form" onSubmit={this.handleSubmit}>
+                        <input disabled type="text" name="title" placeholder="Titre" value={this.state.title}/><br/>
+                        <textarea disabled name="description" placeholder="Text" value={this.state.description}/><br/>
+                        <input type="submit" value="Valider"/>
+                    </form>
+                </div>
+            );
         }
-        return (
-            <div>
-                <select onChange={this.selectIdea} name="id">
-                    {options}
-                </select>
-                <form id="validate-idea-form" onSubmit={this.handleSubmit}>
-                    <input disabled type="text" name="title" placeholder="Titre" value={this.state.title}/><br/>
-                    <textarea disabled name="description" placeholder="Text" value={this.state.description}/><br/>
-                    <input type="submit" value="Valider"/>
-                </form>
-            </div>
-        );
     }
 }
 
-export default ValidateIdea;
+export default withAlert(ValidateIdea);

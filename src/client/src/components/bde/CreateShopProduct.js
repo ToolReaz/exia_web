@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {getApi, postApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class CreateShopProduct extends Component {
 
@@ -63,9 +64,9 @@ class CreateShopProduct extends Component {
                 price: 0,
                 category: ''
             });
-            alert('Article ajouté !');
+            this.props.alert.success('Article crée avec succès');
         }).catch(reason => {
-            alert(reason);
+            this.props.alert.error('Impossible de créer le produit');
         });
     }
 
@@ -92,4 +93,4 @@ class CreateShopProduct extends Component {
     }
 }
 
-export default CreateShopProduct;
+export default withAlert(CreateShopProduct);

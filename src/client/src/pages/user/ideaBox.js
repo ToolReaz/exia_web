@@ -4,6 +4,7 @@ import Idea from "../../components/event/Idea";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import CreateIdea from "../../components/event/CreateIdea";
+import {withAlert} from "react-alert";
 
 class IdeaBox extends Component {
 
@@ -19,51 +20,60 @@ class IdeaBox extends Component {
         getApi('/api/idea').then(res => {
             this.setState({ideas: res});
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error(reason);
         });
     }
 
     render() {
 
-        let view = [];
-        let ideas = [];
-
-        this.state.ideas.forEach((idea, index) =>  {
-            idea.roles = this.state.roles;
-            ideas.push(
-                <Idea key={index} values={idea} />
+        if (this.state.ideas.length === 0) {
+            return (
+                <div id="preloader">
+                    <div id="loader"></div>
+                </div>
             );
-        });
+        } else {
 
-        view.push(<Header/>);
+            let view = [];
+            let ideas = [];
 
-        view.push(
-            <div>
-                <div className="titre">
-                    <h2>Boite à idées</h2>
+            this.state.ideas.forEach((idea, index) => {
+                idea.roles = this.state.roles;
+                ideas.push(
+                    <Idea key={index} values={idea}/>
+                );
+            });
+
+            view.push(<Header/>);
+
+            view.push(
+                <div>
+                    <div className="titre">
+                        <h2>Boite à idées</h2>
+                    </div>
+                    <div className="grid-flex">
+                        {ideas}
+                    </div>
                 </div>
-                <div className="grid-flex">
-                    {ideas}
+            );
+
+            view.push(
+                <div>
+                    <div className="titre">
+                        <h2>Proposer une idée</h2>
+                    </div>
+                    <div className="grid-flex">
+                        <CreateIdea/>
+                    </div>
                 </div>
-            </div>
-        );
+            );
 
-        view.push(
-            <div>
-                <div className="titre">
-                    <h2>Proposer une idée</h2>
-                </div>
-                <div className="grid-flex">
-                    <CreateIdea/>
-                </div>
-            </div>
-        );
-
-        view.push(<Footer/>);
+            view.push(<Footer/>);
 
 
-        return view;
+            return view;
+        }
     }
 }
 
-export default IdeaBox;
+export default withAlert(IdeaBox);

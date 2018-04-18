@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {postApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class CreateShopCategory extends Component {
 
@@ -28,9 +29,9 @@ class CreateShopCategory extends Component {
             this.setState({
                 catName: ''
             });
-            console.log('Category ajouté !');
+            this.props.alert.success('Categorie ajoutée');
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error('Impossible de créer la catégorie');
         });
     }
 
@@ -46,4 +47,4 @@ class CreateShopCategory extends Component {
     }
 }
 
-export default CreateShopCategory;
+export default withAlert(CreateShopCategory);

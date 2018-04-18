@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {getApi, postApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class ModifyManifestation extends Component {
 
@@ -30,7 +31,7 @@ class ModifyManifestation extends Component {
             });
             this.setState({manifestations: tmp});
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error('Impossible de charger les manifestations existantes');
         });
     }
 
@@ -66,7 +67,6 @@ class ModifyManifestation extends Component {
             interval: this.state.interval,
             price: this.state.price
         };
-        console.log(data);
         postApi('/api/manifestation/update', data).then(res => {
             this.setState({
                 name: '',
@@ -76,8 +76,9 @@ class ModifyManifestation extends Component {
                 price: 0,
                 imagePath: ''
             });
+            this.props.alert.success('Manifestation modifiée');
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error('Impossible de publier la manifestation');
         });
     }
 
@@ -96,30 +97,45 @@ class ModifyManifestation extends Component {
 
 
     render() {
-        let options = [];
-        this.state.manifestations.forEach((manifestation, index) => {
-            options.push(
-                <option key={index} value={index}>{manifestation.Name}</option>
+
+        if (this.state.manifestations.length === 0) {
+            return (
+                <div id="preloader">
+                    <div id="loader"></div>
+                </div>
+            );
+        } else {
+
+            let options = [];
+            this.state.manifestations.forEach((manifestation, index) => {
+                options.push(
+                    <option key={index} value={index}>{manifestation.Name}</option>
+                )
+            });
+            return (
+                <div>
+                    <select name="id" onChange={this.selectManifestation}>
+                        {options}
+                    </select>
+                    <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
+                        <input type="text" name="name" placeholder="Nom" value={this.state.name}
+                               onChange={this.handleChange}/><br/>
+                        <textarea name="description" placeholder="Description" value={this.state.description}
+                                  onChange={this.handleChange}/><br/>
+                        <input type="text" name="date" value={this.state.date} onChange={this.handleChange}/><br/>
+                        <input type="integer" name="interval" placeholder="Interval" value={this.state.interval}
+                               onChange={this.handleChange}/><br/>
+                        <input type="text" name="imagePath" placeholder="Url image" value={this.state.imagePath}
+                               onChange={this.handleChange}/><br/>
+                        <input type="integer" name="price" placeholder="Prix" value={this.state.price}
+                               onChange={this.handleChange}/><br/>
+                        <input type="submit" value="Modifier"/>
+                    </form>
+                    <br/>
+                </div>
             )
-        });
-        return (
-            <div>
-                <select name="id" onChange={this.selectManifestation}>
-                    {options}
-                </select>
-                <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom" value={this.state.name} onChange={this.handleChange}/><br/>
-                    <textarea name="description" placeholder="Description" value={this.state.description} onChange={this.handleChange}/><br/>
-                    <input type="text" name="date" value={this.state.date} onChange={this.handleChange}/><br/>
-                    <input type="integer" name="interval" placeholder="Interval" value={this.state.interval} onChange={this.handleChange}/><br/>
-                    <input type="text" name="imagePath" placeholder="Url image" value={this.state.imagePath} onChange={this.handleChange}/><br/>
-                    <input type="integer" name="price" placeholder="Prix" value={this.state.price} onChange={this.handleChange}/><br/>
-                    <input type="submit" value="Modifier"/>
-                </form>
-                <br/>
-            </div>
-        )
+        }
     }
 }
 
-export default ModifyManifestation;
+export default withAlert(ModifyManifestation);

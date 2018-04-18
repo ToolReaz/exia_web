@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {postApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class CreateManifestation extends Component {
 
@@ -47,7 +48,6 @@ class CreateManifestation extends Component {
             price: this.state.price
         };
         postApi('/api/manifestation', data).then(res => {
-            console.log(res);
             this.setState({
                 name: '',
                 description: '',
@@ -55,8 +55,9 @@ class CreateManifestation extends Component {
                 interval: '',
                 price: 0
             });
+            this.props.alert.success('Manifestation ajoutée');
         }).catch(reason => {
-            console.log(reason);
+            this.props.alert.error('Impossible de créer la manifestation');
         });
     }
 
@@ -78,4 +79,4 @@ class CreateManifestation extends Component {
     }
 }
 
-export default CreateManifestation;
+export default withAlert(CreateManifestation);
