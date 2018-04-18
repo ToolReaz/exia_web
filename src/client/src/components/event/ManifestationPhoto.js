@@ -18,7 +18,7 @@ class ManifestationPhoto extends Component {
     componentDidMount() {
         getApi('/api/photo/' + this.state.id.toString()).then(res => {
             console.log(res);
-            this.setState({imagePath: res.ImagePath, isPublic: res.Public});
+            this.setState({imagePath: res.ImagePath, isPublic: res.Public, comments: res.comments});
         }).catch(reason => {
             console.log(reason);
         });

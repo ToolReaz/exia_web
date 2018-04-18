@@ -79,8 +79,16 @@ module.exports = {
 
         if (reqID) {
             DB.Photo.GetPhotoById(reqID).then(photo => {
-                console.log(photo);
-                res.json({'error': null, 'content': photo});
+                DB.Photo.GetCommentsOfPhoto(photo.ID_Photo).then(comments => {
+                    let commentsText = [];
+                    for(let i = 0; i<comments.length; i++){
+                        DB.Photo.GetCommentContent(comments.ID_Comments)
+                            .then(text=>commentsText.push(text))
+                            .catch();
+                    }
+                    photo.comments = commentsText;
+                    res.json({'error': null, 'content': photo});
+                })
             }).catch(reason => res.json({'error': reason.message}));
         } else {
             res.json({'error': 'Pas connecté = pas ajouter commentaire'});
