@@ -15,7 +15,7 @@ class ManifestationPhoto extends Component {
             likes: 0,
             likedByUser: false,
             userLike: null,
-            isAdmin: props.isAdmin
+            isAdmin: false
         };
 
         this.likePhoto = this.likePhoto.bind(this);
@@ -37,6 +37,13 @@ class ManifestationPhoto extends Component {
             this.setState({likedByUser: res});
         }).catch(reason => {
             console.log(reason);
+        });
+        getApi('/user/roles').then(res => {
+            if (res.includes('R_BDE') || res.includes('R_EXIA')) {
+                this.setState({isAdmin: true});
+            }
+        }).catch(reason => {
+            console.error(reason);
         });
     }
 
@@ -68,6 +75,7 @@ class ManifestationPhoto extends Component {
             );
         });
 
+        console.log(this.state.isAdmin);
 
         let likeBtn = [];
         if (this.state.likedByUser) {

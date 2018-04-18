@@ -9,7 +9,7 @@ class PhotoComment extends Component {
             id: props.values.ID,
             text: props.values.Text,
             isPublic: props.values.Public,
-            isAdmin: props.isAdmin
+            isAdmin: false
         };
         this.report = this.report.bind(this);
     }
@@ -20,6 +20,16 @@ class PhotoComment extends Component {
             this.setState({isPublic: false});
         }).catch(reason => {
             console.log(reason);
+        });
+    }
+
+    componentDidMount() {
+        getApi('/user/roles').then(res => {
+            if (res.includes('R_BDE') || res.includes('R_EXIA')) {
+                this.setState({isAdmin: true});
+            }
+        }).catch(reason => {
+            console.error(reason);
         });
     }
 

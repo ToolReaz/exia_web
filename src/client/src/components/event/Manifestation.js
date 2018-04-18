@@ -19,11 +19,12 @@ class Manifestation extends Component {
             fullPage: !!(props.fullPage),
             photos: [],
             isSubscribed: false,
-            currentEvent: props.currentEvent,
-            isAdmin: false
+            currentEvent: props.currentEvent
         };
 
         this.subscribe = this.subscribe.bind(this);
+        this.isSubscribed = this.isSubscribed.bind(this);
+        this.getPhotos = this.getPhotos.bind(this);
     }
 
     subscribe() {
@@ -51,24 +52,12 @@ class Manifestation extends Component {
         });
     }
 
-    checkIsAdmin() {
-        getApi('/user/roles').then(res => {
-            if (res.includes('R_BDE') || res.includes('R_EXIA')) {
-                this.setState({isAdmin: true});
-            }
-        }).catch(reason => {
-            console.error(reason);
-        });
-    }
-
-
 
     componentDidMount() {
         if (this.state.fullPage) {
             // Get all photos of the manifestation
             this.getPhotos();
             this.isSubscribed();
-            this.checkIsAdmin();
         }
     }
 
@@ -96,7 +85,7 @@ class Manifestation extends Component {
             this.state.photos.forEach(photo => {
                 photos.push(
                     // The ManifestationPhoto module manage itself the comments
-                    <ManifestationPhoto isAdmin={this.state.isAdmin} values={photo}/>
+                    <ManifestationPhoto values={photo}/>
                 );
             });
 
