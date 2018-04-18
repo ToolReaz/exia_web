@@ -12,20 +12,28 @@ class ManifestationPhoto extends Component {
             imagePath: '',
             isPublic: true,
             comments: [],
-            likes: 0
+            likes: 0,
+            likedByUser: false,
+            userLike: null
         };
+
+        this.likePhoto = this.likePhoto.bind(this);
+        this.dislikePhoto = this.dislikePhoto.bind(this);
     }
 
     componentDidMount() {
         getApi('/api/photo/' + this.state.id.toString()).then(res => {
-            console.log(res);
             this.setState({imagePath: res.photo.ImagePath, isPublic: res.photo.Public, comments: res.comments});
         }).catch(reason => {
             console.log(reason);
         });
         getApi('/api/photo/likes/' + this.state.id.toString()).then(res => {
-            console.log(res);
             this.setState({likes: res});
+        }).catch(reason => {
+            console.log(reason);
+        });
+        getApi('/api/photo/hasliked/' + this.state.id.toString()).then(res => {
+            this.setState({likedByUser: res});
         }).catch(reason => {
             console.log(reason);
         });
@@ -33,7 +41,8 @@ class ManifestationPhoto extends Component {
 
     likePhoto() {
         getApi('/api/photo/like/' + this.state.id.toString()).then(res => {
-            this.setState({likedByUser: true});
+            alert('Photo like !');
+            this.setState({userLike: true});
         }).catch(reason => {
             console.log(reason);
         });
@@ -41,7 +50,8 @@ class ManifestationPhoto extends Component {
 
     dislikePhoto() {
         getApi('/api/photo/dislike/' + this.state.id.toString()).then(res => {
-            this.setState({likedByUser: true});
+            alert('Photo délike !');
+            this.setState({userLike: false});
         }).catch(reason => {
             console.log(reason);
         });
@@ -54,14 +64,26 @@ class ManifestationPhoto extends Component {
                 <div>
                     <PhotoComment key={index} values={comment}/>
                 </div>
-            )
+            );
         });
+
+
+        let likeBtn = [];
+        if (this.state.likedByUser) {
+            likeBtn.push(<button onClick={this.dislikePhoto}>Dislike</button>);
+        } else {
+            likeBtn.push(<button onClick={this.likePhoto}>Like</button>);
+        }
+
+        
         return (
             <div>
                 <p>Titre: {this.state.title}</p>
                 <p>Chemin: {this.state.imagePath}</p>
+                {likeBtn}
+                <p>Nombre de like: {this.state.likes}</p>
                 <img src={this.state.imagePath} alt={'image'+this.state.id.toString()}/>
-                <CommentPhoto id={this.state.id}/>
+                <CommentPhoto key={this.state.id} id={this.state.id}/>
                 <p>Commentaires</p>
                 <div>{comments}</div>
             </div>

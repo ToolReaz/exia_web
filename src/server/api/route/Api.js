@@ -126,17 +126,17 @@ router.post('/photo', (req, res) => {
 router.post('/photo/comment', (req, res) => {
     PhotoController.comment(req, res);
 });
-router.get('/photo/like/:id', (req, res) => {
-    PhotoController.like(req, res);
-});
 router.get('/photo/likes/:id', (req, res) => {
-    PhotoController.getLikeCount(req, res, true);
+    PhotoController.getLikeCount(req, res);
 });
-router.get('/photo/dislikes/:id', (req, res) => {
-    PhotoController.getLikeCount(req, res, false);
+router.get('/photo/like/:id', (req, res) => {
+    PhotoController.like(req, res, true);
+});
+router.get('/photo/dislike/:id', (req, res) => {
+    PhotoController.like(req, res, false);
 });
 router.get('/photo/hasliked/:id', (req, res) => {
-    PhotoController.getLikeCount(req, res, false);
+    PhotoController.hasliked(req, res);
 });
 router.get('/photos/:id', (req, res) => {
     PhotoController.getAllPhoto(req, res);

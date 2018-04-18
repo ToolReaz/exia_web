@@ -59,8 +59,8 @@ module.exports = {
             res.json({'error': 'Photo sélectionner invalide OU connecter vous !'});
         }  else {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Photo.HasLiked(id, reqIdPhoto, type).then(() => {
-                    res.json({'error': null, 'content': null});
+                DB.Photo.HasLiked(id, reqIdPhoto).then((isLiked) => {
+                    res.json({'error': null, 'content': isLiked});
                 }).catch(reason => res.json({'error': reason.message}));
             }).catch(reason => res.json({'error': reason.message}));
         }
