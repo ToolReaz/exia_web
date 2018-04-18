@@ -133,6 +133,14 @@ module.exports = (dataObject, permissions) => {
                 ret.push(commentText);
             }
             return ret;
+        },
+
+        ReportComment: async(idAccount, idComment) => {
+            if (await permissions.FilterPermission(idAccount, "P_REPORT")) {
+                await dataObject.Comments.update({Public: false}, {where: {ID: idComment}});
+            } else {
+                return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_REPORT\""));
+            }
         }
 
     };
