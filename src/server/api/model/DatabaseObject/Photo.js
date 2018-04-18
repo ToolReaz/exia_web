@@ -61,7 +61,7 @@ module.exports = (dataObject, permissions) => {
          */
         CommentPhoto: async (idAccount, idPhoto, comment) => {
             if (await permissions.FilterPermission(idAccount, "P_COMMENT_PHOTO")) {
-                let r = await dataObject.Comments.findOrCreate({where: {Text: comment}});
+                let r = await dataObject.Comments.findOrCreate({where: {Text: comment}, defaults: {Public: true}});
                 await dataObject.Comments_Account_Photo.findOrCreate({
                     where: {
                         ID_Account: idAccount,
