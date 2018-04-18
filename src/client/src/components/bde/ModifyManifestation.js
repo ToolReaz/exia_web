@@ -85,12 +85,12 @@ class ModifyManifestation extends Component {
     selectManifestation(e) {
         this.setState({
             id: this.state.manifestations[e.target.value].ID,
-            name: this.state.manifestations[e.target.value].Nom,
+            name: this.state.manifestations[e.target.value].Name,
             description: this.state.manifestations[e.target.value].Description,
-            date: this.state.manifestations[e.target.value].Quand,
-            imagePath: this.state.manifestations[e.target.value].Chemin_Image,
-            interval: this.state.manifestations[e.target.value].Intervale,
-            price: this.state.manifestations[e.target.value].Prix
+            date: this.state.manifestations[e.target.value].When,
+            imagePath: this.state.manifestations[e.target.value].ImagePath,
+            interval: this.state.manifestations[e.target.value].TimeSpan,
+            price: this.state.manifestations[e.target.value].Price
         });
     }
 
@@ -99,7 +99,7 @@ class ModifyManifestation extends Component {
         let options = [];
         this.state.manifestations.forEach((manifestation, index) => {
             options.push(
-                <option value={index}>{manifestation.Nom}</option>
+                <option key={index} value={index}>{manifestation.Name}</option>
             )
         });
         return (

@@ -37,13 +37,10 @@ class ValidateIdea extends Component {
 
     componentDidMount() {
         getApi('/api/idea/invalidated').then(res => {
-            console.log("putin");
-            console.log(res);
             if (res) {
                 this.setState({ideas: res});
             }
         }).catch(reason => {
-            console.log('ERREEZROEREOREOR DE MORT');
             console.log(reason);
         });
     }

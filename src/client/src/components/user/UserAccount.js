@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {getApi} from "../../lib/api/requestApi";
 import cookies from 'react-cookie';
-import {Redirect, Switch} from "react-router-dom";
+import {Link, Redirect, Switch} from "react-router-dom";
 
 class UserAccount extends Component {
 
@@ -9,7 +9,8 @@ class UserAccount extends Component {
         super(props);
         this.state = {
             account: {},
-            logged: true
+            logged: true,
+            roles: []
         };
 
         this.logOut = this.logOut.bind(this);
@@ -21,6 +22,12 @@ class UserAccount extends Component {
         }).catch(reason => {
             console.log(reason);
             this.setState({logged: false})
+        });
+        getApi('/user/roles').then(res => {
+            this.setState({roles: res});
+            console.log(res);
+        }).catch(reason => {
+            console.log(reason);
         });
     }
 
@@ -36,11 +43,16 @@ class UserAccount extends Component {
 
     render() {
         if (cookies.load('token') || this.state.logged) {
+            let privileges = [];
+            if (this.state.roles.includes('R_BDE')) {
+                privileges.push(<Link to="/bde">Gérer le bde</Link>);
+            }
             return (
                 <div>
                     <h1>Nom: {this.state.account.LastName}</h1>
                     <h1>Prenom: {this.state.account.FirstName}</h1>
-                    <button onClick={this.logOut}>Déconnexion</button>
+                    {privileges}
+                    <br/><button onClick={this.logOut}>Déconnexion</button>
                 </div>
             );
         } else {
