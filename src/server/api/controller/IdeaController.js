@@ -77,13 +77,10 @@ module.exports = {
     getInvalidated: (req, res) => {
         // The token set in the cookies
         let reqToken = req.cookies.token;
-        console.log(reqToken);
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                console.log(id);
                 DB.Idea.GetAllIdeas(id).then(ideas => {
-                    console.log(ideas);
                     res.json({'error': null, 'content': ideas});
                 }).catch((reason) => {
                     // Catch DB errors

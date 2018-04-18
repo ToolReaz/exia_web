@@ -7,14 +7,15 @@ let PhotoController = require('../controller/PhotoController');
 
 
 // IDEA
+// Get all unvalidated idea
+router.get('/idea/invalidated', (req, res) => {
+    IdeaController.getInvalidated(req, res);
+});
 // Get all ideas
 router.get('/idea', (req, res) => {
     IdeaController.getAll(req, res);
 });
-// Get a specific ideas
-router.get('/idea/:id', (req, res) => {
-    IdeaController.get(req, res);
-});
+
 // Create an idea
 router.post('/idea', (req, res) => {
     IdeaController.create(req, res);
@@ -22,11 +23,6 @@ router.post('/idea', (req, res) => {
 // Validate an idea
 router.post('/idea/validate', (req, res) => {
     IdeaController.validate(req, res);
-});
-// Get all unvalidated idea
-router.get('/idea/invalidated', (req, res) => {
-    console.log('zzfzf');
-    IdeaController.getInvalidated(req, res);
 });
 // Get number of votes for an idea
 router.get('/idea/votes/:id', (req, res) => {
@@ -39,6 +35,10 @@ router.get('/idea/vote/for/:id', (req, res) => {
 // Vote against an idea
 router.get('/idea/vote/against/:id', (req, res) => {
     IdeaController.vote(req, res, false);
+});
+// Get a specific ideas
+router.get('/idea/:id', (req, res) => {
+    IdeaController.get(req, res);
 });
 
 

@@ -50,7 +50,6 @@ class ValidateIdea extends Component {
 
     render() {
         let options = [];
-        console.log(this.state.ideas);
         if (this.state.ideas) {
             this.state.ideas.forEach((idea, index) => {
                 options.push(
