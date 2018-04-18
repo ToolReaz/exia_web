@@ -58,8 +58,8 @@ class ShowSubscribersManifestation extends Component {
                     {options}
                 </select>
                 <p><strong>Nombre d'inscrit: {this.state.subscribers}</strong></p>
-                <a href={this.state.csvUrl} target="_blank"><strong>CSV</strong></a><br/>
-                <a href={this.state.pdfUrl} target="_blank"><strong>PDF</strong></a>
+                <a href={this.state.csvUrl}><strong>CSV</strong></a><br/>
+                <a href={this.state.pdfUrl}><strong>PDF</strong></a>
                 <br/>
             </div>
         )

@@ -12,14 +12,18 @@ class Idea extends Component {
             title: props.values.Title,
             text: props.values.Text,
             submit_date: props.values.SubmitOn,
-            approved: props.values.Approved
+            approved: props.values.Approved,
+            voted: false,
+            userVote: null
         };
         this.voteFor = this.voteFor.bind(this);
         this.voteAgainst = this.voteAgainst.bind(this);
-        this.validateIdea = this.validateIdea.bind(this);
+        this.hasVoted = this.hasVoted.bind(this);
+        this.getVotes = this.getVotes.bind(this);
     }
 
     getVotes() {
+        console.log('dede');
         getApi('/api/idea/votes/' + this.state.id).then(res => {
             this.setState({votes: res});
         }).catch(reason => {
@@ -27,36 +31,70 @@ class Idea extends Component {
         })
     }
 
+    hasVoted() {
+        getApi('/api/idea/hasvoted/' + this.state.id).then(res => {
+            console.log(res);
+            if (res.Voted) {
+                this.setState({voted: true, userVote: res.Vote});
+            }
+        }).catch(reason => {
+            console.log(reason);
+        })
+    }
+
     componentDidMount() {
         this.getVotes();
+        this.hasVoted();
     }
 
     voteAgainst() {
-        getApi('/api/idea/vote/against' + this.state.id.toString()).then(res => {
+        getApi('/api/idea/vote/against/' + this.state.id.toString()).then(res => {
             this.getVotes();
+            this.hasVoted();
         }).catch(reason => {
             console.log(reason.toString());
         });
     }
 
     voteFor() {
-        getApi('/api/idea/vote/for' + this.state.id.toString()).then(res => {
+        getApi('/api/idea/vote/for/' + this.state.id.toString()).then(res => {
             this.getVotes();
+            this.hasVoted();
         }).catch(reason => {
             console.log(reason.toString());
         });
     }
 
-    validateIdea(e) {
-        getApi('/api/manifestation/validate/' + this.state.id).then(res => {
-            alert('Manifestation valider !');
-        }).catch(reason => {
-            alert(reason);
-        })
-    }
-
 
     render() {
+        let votesCount = [];
+        if (this.state.voted) {
+            if (this.state.userVote === true) {
+                votesCount.push(
+                    <div>
+                        <button disabled>+</button>
+                        <p style={{'color': 'green'}}>{this.state.votes}</p>
+                        <button disabled>-</button>
+                    </div>
+
+                );
+            } else if (this.state.userVote === false && this.state.userVote != null) {
+                votesCount.push(
+                    <div>
+                        <button disabled>+</button>
+                        <p style={{'color': 'red'}}>{this.state.votes}</p>
+                        <button disabled>-</button>
+                    </div>
+                );
+            }
+        } else {
+            votesCount.push(
+                <div>
+                    <button onClick={this.voteFor}>+</button>
+                    <p style={{'color': 'black'}}>{this.state.votes}</p>
+                    <button onClick={this.voteAgainst}>-</button>
+                </div>            );
+        }
         return (
                 <div className="event2">
                     <h2 className="event2Title">Nom: {this.state.title}</h2>
@@ -65,9 +103,7 @@ class Idea extends Component {
                     <p>Texte: {this.state.text}</p>
                     <p>Approuvé: {(this.state.approved)?("OUI"):("NON")}</p>
                     <div className="event2Vote">
-                        <button id="against" onClick={this.voteFor}>+</button>
-                        <p>{this.state.votes}</p>
-                        <button id="for" onClick={this.voteAgainst}>-</button>
+                        {votesCount}
                     </div>
                     <a>Lire</a>
                 </div>
