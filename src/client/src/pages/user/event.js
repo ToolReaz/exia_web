@@ -5,6 +5,8 @@ import CreateIdea from "../../components/event/CreateIdea";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import Manifestation from "../../components/event/Manifestation";
+import * as cookies from "react-cookie";
+import {Link} from "react-router-dom";
 
 class Event extends Component {
 
@@ -64,80 +66,90 @@ class Event extends Component {
         let ideas = [];
         view.push(<Header/>);
 
-
-        view.push(
-            <div>
-                <h1 className="h1Event">Proposer une idée</h1>
-                <div className="grid-flex">
-                    <CreateIdea/>
+        if (cookies.load('token')) {
+            view.push(
+                <div>
+                    <h1 className="h1Event">Proposer une idée</h1>
+                    <div className="grid-flex">
+                        <CreateIdea/>
+                    </div>
                 </div>
-            </div>
-        );
-
-
-        this.state.ideas.forEach((idea, index) =>  {
-            idea.roles = this.state.roles;
-            ideas.push(
-                <Idea values={idea} />
             );
-        });
 
 
-        view.push(
-            <div>
-                <h1 className="h1Event">Boite à idées</h1>
-                <div className="grid-flex">
-                    {ideas}
+            this.state.ideas.forEach((idea, index) =>  {
+                idea.roles = this.state.roles;
+                ideas.push(
+                    <Idea values={idea} />
+                );
+            });
+
+
+            view.push(
+                <div>
+                    <h1 className="h1Event">Boite à idées</h1>
+                    <div className="grid-flex">
+                        {ideas}
+                    </div>
                 </div>
-            </div>
-        );
+            );
 
 
 
 
-        view.push(
-            <h2 className="h1Event">Liste des manifestations</h2>
-        );
+            view.push(
+                <h2 className="h1Event">Liste des manifestations</h2>
+            );
 
 
 
 
-        let manifs = [];
-        this.state.manifestations.forEach((manifestation) =>  {
-            if (Date.parse(manifestation.When.toString()) >= Date.now()) {
-                manifs.push(<Manifestation values={manifestation} />);
-            }
-        });
+            let manifs = [];
+            this.state.manifestations.forEach((manifestation) =>  {
+                if (Date.parse(manifestation.When.toString()) >= Date.now()) {
+                    manifs.push(<Manifestation values={manifestation} />);
+                }
+            });
 
-        view.push(
-            <div>
-                <h2 className="center">Manifestations actuelles</h2>
-                <div className="grid-flex">
-                    {manifs}
+            view.push(
+                <div>
+                    <h2 className="center">Manifestations actuelles</h2>
+                    <div className="grid-flex">
+                        {manifs}
+                    </div>
                 </div>
-            </div>
-        );
+            );
 
 
 
 
 
 
-        let oldManifs = [];
-        this.state.manifestations.forEach((manifestation) =>  {
-            if (Date.parse(manifestation.When.toString()) < Date.now()) {
-                oldManifs.push(<Manifestation values={manifestation} />);
-            }
-        });
+            let oldManifs = [];
+            this.state.manifestations.forEach((manifestation) =>  {
+                if (Date.parse(manifestation.When.toString()) < Date.now()) {
+                    oldManifs.push(<Manifestation values={manifestation} />);
+                }
+            });
 
-        view.push(
-            <div>
-                <h2 className="center">Anciennes manifestations</h2>
-                <div className="grid-flex">
-                    {oldManifs}
+            view.push(
+                <div>
+                    <h2 className="center">Anciennes manifestations</h2>
+                    <div className="grid-flex">
+                        {oldManifs}
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        } else {
+            view.push(
+                <div className="center">
+                    <h1>Vous devez être connecté pour consulter les évenements !</h1>
+                    <Link to="/user/connect">Se connecter</Link><br/>
+                    <Link to="/user/register">S'inscrire</Link>
+                </div>
+            )
+        }
+
 
         view.push(<Footer/>);
         return view;

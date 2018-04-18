@@ -3,28 +3,47 @@ let bcrypt = require('bcrypt');
 
 module.exports = {
 
+    /**
+     * Connect a user
+     * @param req The Request
+     * @param res The Response
+     */
     connect: (req, res) => {
-
+        // User email
         let reqEmail = req.body.email;
+        // User password
         let reqPassword = req.body.password;
 
+        // Verify if values are set
         if (!reqEmail || !reqPassword) {
             res.json({'error': 'Pseudo ou mot de passe invalide !'});
         } else {
+            // Get the account's properties with the user email
             DB.Account.GetAccount(reqEmail).then(account => {
+                // Get the user's password
                 let dbPassword = account.Password;
+                // Compare the DB's hashed password with the user's provided password
                 bcrypt.compare(reqPassword, dbPassword, (err, ok) => {
+                    // If passwords match
                     if (ok) {
+                        // Create new unique token
                         let newToken = require('crypto').randomBytes(64).toString('hex');
-                        DB.Account.SetToken(account.ID, newToken).then(session => {
+                        // Save the new token in the DB
+                        DB.Account.SetToken(account.ID, newToken).then(() => {
+                            // Save the new token in the cookies
                             res.cookie('token', newToken);
                             res.json({'error': null, 'content': 'connexion effectuée !'});
-                        }).catch(reason => res.json({'error': 'Token pas set correctement' + reason}));
+                        }).catch(reason => {
+                            // Catch DB errors
+                            res.json({'error': 'Token pas set correctement' + reason})
+                        });
                     } else {
+                        // If passwords doesn't match
                         res.json({'error': "Name d'utilisateur ou mot de passe incorrect !"});
                     }
                 });
             }).catch(reason => {
+                // Catch DB errors
                 res.json({'error': reason.message, 'content': null});
             });
         }
@@ -54,7 +73,7 @@ module.exports = {
         let reqToken = req.cookies.token;
 
         if (!reqToken) {
-            res.json({'error': "Vous n'êtes aps connecté !", 'content': null});
+            res.json({'error': "Vous n'êtes pas connecté !", 'content': null});
         } else {
             // Get user ID from token
             DB.Token.GetTokenTime(reqToken).then(date => {
