@@ -33,6 +33,7 @@ class ShowSubscribersManifestation extends Component {
     showSubscribersOf(e) {
         let id = e.target.value;
         getApi('/api/manifestation/subscribers/' + id).then(res => {
+            console.log(res);
             this.setState({
                 id: id,
                 subscribers: res,
@@ -49,7 +50,7 @@ class ShowSubscribersManifestation extends Component {
         let options = [];
         this.state.manifestations.forEach((manifestation, index) => {
             options.push(
-                <option value={index}>{manifestation.Nom}</option>
+                <option key={index} value={manifestation.ID}>{manifestation.Name}</option>
             )
         });
         return (
@@ -58,8 +59,8 @@ class ShowSubscribersManifestation extends Component {
                     {options}
                 </select>
                 <p><strong>Nombre d'inscrit: {this.state.subscribers}</strong></p>
-                <a href={this.state.csvUrl}><strong>CSV</strong></a><br/>
-                <a href={this.state.pdfUrl}><strong>PDF</strong></a>
+                <a href={this.state.csvUrl} target="_blank"><strong>CSV</strong></a><br/>
+                <a href={this.state.pdfUrl} target="_blank"><strong>PDF</strong></a>
                 <br/>
             </div>
         )
