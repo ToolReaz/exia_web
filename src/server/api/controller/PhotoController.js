@@ -35,29 +35,46 @@ module.exports = {
         }
     },
 
-    like: (req, res) => {
-        let reqIdPhoto = req.params.idPhoto;
+    like: (req, res, type) => {
+        let reqIdPhoto = req.params.id;
         let reqToken = req.cookies.token;
 
-        if (!reqIdPhoto) {
-            res.json({'error': 'Photo sélectionner invalide !'});
+        if (!reqIdPhoto || !reqToken) {
+            res.json({'error': 'Photo sélectionner invalide OU connecter vous !'});
         }  else {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Photo.LikePhoto(id, reqIdPhoto, true).then(() => {
+                DB.Photo.LikePhoto(id, reqIdPhoto, type).then(() => {
                     res.json({'error': null, 'content': null});
                 }).catch(reason => res.json({'error': reason.message}));
             }).catch(reason => res.json({'error': reason.message}));
         }
     },
 
+
+    hasliked: (req, res) => {
+        let reqIdPhoto = req.params.id;
+        let reqToken = req.cookies.token;
+
+        if (!reqIdPhoto || !reqToken) {
+            res.json({'error': 'Photo sélectionner invalide OU connecter vous !'});
+        }  else {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Photo.HasLiked(id, reqIdPhoto, type).then(() => {
+                    res.json({'error': null, 'content': null});
+                }).catch(reason => res.json({'error': reason.message}));
+            }).catch(reason => res.json({'error': reason.message}));
+        }
+    },
+
+
     getLikeCount: (req, res) => {
-        let reqIdPhoto = req.params.idPhoto;
+        let reqIdPhoto = req.params.id;
 
         if (!reqIdPhoto) {
-            res.json({'error': 'Photo sélectionner invalide !'});
+            res.json({'error': 'Photo sélectionnée invalide !'});
         }  else {
-            DB.Photo.GetLikeCount(reqIdPhoto).then(photo => {
-                res.json({'error': null, 'content': null});
+            DB.Photo.GetLikeCount(reqIdPhoto).then(likes => {
+                res.json({'error': null, 'content': likes});
             }).catch(reason => res.json({'error': reason.message}));
         }
     },
@@ -79,7 +96,7 @@ module.exports = {
 
         if (reqID) {
             DB.Photo.GetPhotoById(reqID).then(photo => {
-                DB.Photo.GetAllCommentsTextFromPhoto(photo.ID_Photo).then(comments => {
+                DB.Photo.GetAllCommentsTextFromPhoto(reqID).then(comments => {
                     res.json({'error': null, 'content': {photo, comments}});
                 }).catch(reason => res.json({'error': reason.message}));
             }).catch(reason => res.json({'error': reason.message}));

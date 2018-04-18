@@ -11,7 +11,8 @@ class ManifestationPhoto extends Component {
             id: props.values.ID_Photo,
             imagePath: '',
             isPublic: true,
-            comments: []
+            comments: [],
+            likes: 0
         };
     }
 
@@ -19,6 +20,28 @@ class ManifestationPhoto extends Component {
         getApi('/api/photo/' + this.state.id.toString()).then(res => {
             console.log(res);
             this.setState({imagePath: res.photo.ImagePath, isPublic: res.photo.Public, comments: res.comments});
+        }).catch(reason => {
+            console.log(reason);
+        });
+        getApi('/api/photo/likes/' + this.state.id.toString()).then(res => {
+            console.log(res);
+            this.setState({likes: res});
+        }).catch(reason => {
+            console.log(reason);
+        });
+    }
+
+    likePhoto() {
+        getApi('/api/photo/like/' + this.state.id.toString()).then(res => {
+            this.setState({likedByUser: true});
+        }).catch(reason => {
+            console.log(reason);
+        });
+    }
+
+    dislikePhoto() {
+        getApi('/api/photo/dislike/' + this.state.id.toString()).then(res => {
+            this.setState({likedByUser: true});
         }).catch(reason => {
             console.log(reason);
         });

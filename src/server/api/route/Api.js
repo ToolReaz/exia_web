@@ -130,7 +130,13 @@ router.get('/photo/like/:id', (req, res) => {
     PhotoController.like(req, res);
 });
 router.get('/photo/likes/:id', (req, res) => {
-    PhotoController.getLikeCount(req, res);
+    PhotoController.getLikeCount(req, res, true);
+});
+router.get('/photo/dislikes/:id', (req, res) => {
+    PhotoController.getLikeCount(req, res, false);
+});
+router.get('/photo/hasliked/:id', (req, res) => {
+    PhotoController.getLikeCount(req, res, false);
 });
 router.get('/photos/:id', (req, res) => {
     PhotoController.getAllPhoto(req, res);
