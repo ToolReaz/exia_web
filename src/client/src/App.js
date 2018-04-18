@@ -10,6 +10,7 @@ import Team from "./pages/team";
 import Account from "./pages/account";
 import Bde from "./pages/bde/bde";
 import Shop from "./pages/public/shop";
+import IdeaBox from "./pages/user/ideaBox";
 
 class App extends Component {
   render() {
@@ -25,6 +26,7 @@ class App extends Component {
             <Route path="/team" component={Team} />
             <Route path="/bde" component={Bde} />
             <Route path="/shop" component={Shop} />
+            <Route path="/ideabox" component={IdeaBox} />
         </Switch>
     );
   }

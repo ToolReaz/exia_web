@@ -63,36 +63,17 @@ class Event extends Component {
 
     render() {
         let view = [];
-        let ideas = [];
         view.push(<Header/>);
 
         if (cookies.load('token')) {
-            view.push(
-                <div>
-                    <h1 className="h1Event">Proposer une idée</h1>
-                    <div className="grid-flex">
-                        <CreateIdea/>
-                    </div>
-                </div>
-            );
-
-
-            this.state.ideas.forEach((idea, index) =>  {
-                idea.roles = this.state.roles;
-                ideas.push(
-                    <Idea values={idea} />
-                );
-            });
 
 
             view.push(
                 <div>
-                    <h1 className="h1Event">Boite à idées</h1>
-                    <div className="grid-flex">
-                        {ideas}
-                    </div>
+                    <Link to="/ideabox">Proposer une idée</Link>
                 </div>
             );
+
 
 
 
