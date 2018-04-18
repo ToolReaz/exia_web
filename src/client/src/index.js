@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './stylesheets/grid.css';
 import './stylesheets/accueil.css';
+import './stylesheets/formSolo.css';
 import './stylesheets/event.css';
 import './stylesheets/global.css';
 import './stylesheets/shop.css';

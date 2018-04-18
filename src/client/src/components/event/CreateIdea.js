@@ -78,8 +78,8 @@ class CreateIdea extends Component {
 
     render() {
         return (
-            <div>
-                <form id="create-idea-form" onSubmit={this.handleSubmit}>
+            <div className="conteneurform">
+                <form id="create-idea-form" className="formsolo" onSubmit={this.handleSubmit}>
                     <input type="text" name="name" placeholder="Nom" value={this.state.name} onChange={this.handleChange}/>
                     <textarea name="text" placeholder="Text" value={this.state.text} onChange={this.handleChange}/>
                     <p>Manifestation liée:</p>

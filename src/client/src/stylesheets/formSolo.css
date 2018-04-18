@@ -1,36 +1,52 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,100,700);
 
-#connect-form {
+html {
+  font-size: 10px;
+}
+
+.conteneurform{
+  height:100vh;
+  margin: 0;
+  background:#212531;
+  background: linear-gradient(to right bottom, #F5F5F5 70%, #C2242A 30%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+}
+.formsolo {
   font-family: "roboto", sans-serif;
   background-color: rgba(153, 153, 153, 0.6);
   width: 400px;
   color: #111111;
   margin: 0;
 }
-#connect-form label {
+.formsolo label {
   font-size: 1.6rem;
   color: #777777;
   margin-left: 0.8rem;
 }
-#connect-form label a:link,
-#connect-form label a:visited,
-#connect-form label a:hover {
+.formsolo label a:link,
+.formsolo label a:visited,
+.formsolo label a:hover {
   font-size: 1.6rem;
   color: #7FDBFF;
   text-decoration: none;
 }
-#connect-form fieldset {
+.formsolo fieldset {
   border: none;
   padding: 1.6rem 1.2rem;
 }
-#connect-form legend {
+.formsolo legend {
   font-size: 3.6rem;
   font-weight: 100;
   text-transform: none;
+  text-align: center;
   color: #474040;
   padding: 1.6rem 0 1.6rem 0;
 }
-#connect-form p {
+.formsolo p {
   font-size: 1.2rem;
   font-weight: 700;
   letter-spacing: 0.05rem;
@@ -39,7 +55,7 @@
   margin: 0;
   text-align: left;
 }
-#connect-form button {
+.formsolo input[type=submit] {
   background-color: #2ECC40;
   color: #F5F5F5;
   text-transform: uppercase;
@@ -55,13 +71,14 @@
   transition: all 0.5s ease;
   border-radius: 0.4rem;
 }
-#connect-form button[disabled] {
+.formsolo input[type=submit][disabled] {
   cursor: auto;
   background-color: #777777;
   opacity: 0.25;
 }
-#connect-form input {
+.formsolo input {
   display: block;
+  box-sizing: border-box;
   padding: 1.2rem;
   margin: 0.4rem 0 1.6rem 0;
   font-size: 1.8rem;
@@ -72,75 +89,71 @@
   border-radius: 0.2rem;
   transition: border 0.5s ease 0.125s;
 }
-#connect-form input[type=checkbox] {
+.formsolo input[type=checkbox] {
   width: auto;
   display: inline-block;
   border: none;
   margin-top: 1.4rem;
 }
-#connect-form input::-webkit-input-placeholder {
+.formsolo input::-webkit-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input:-moz-placeholder {
+.formsolo input:-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input::-moz-placeholder {
+.formsolo input::-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input:-ms-input-placeholder {
+.formsolo input:-ms-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 1;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input:focus::-webkit-input-placeholder {
+.formsolo input:focus::-webkit-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input:focus:-moz-placeholder {
+.formsolo input:focus:-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input:focus::-moz-placeholder {
+.formsolo input:focus::-moz-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input:focus:-ms-input-placeholder {
+.formsolo input:focus:-ms-input-placeholder {
   color: #CCCCCC;
   font-weight: 300;
   opacity: 0.25;
   transition: opacity 0.25s ease 0.125s;
 }
-#connect-form input:required:focus:invalid {
+.formsolo input:required:focus:invalid {
   border: 1px solid #FF4136;
 }
-#connect-form input:required:invalid {
+.formsolo input:required:invalid {
   border: 1px solid #F5F5F5;
 }
-#connect-form input:required:valid {
+.formsolo input:required:valid {
   border: 1px solid #2ECC40;
 }
-#logo {
-  position: absolute;
-  right:5%;
-  bottom:5%;
-}
-a {
+
+.liendeja {
   text-decoration: none;
   color: #474040;
   font-size: 13px;

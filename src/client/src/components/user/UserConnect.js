@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import {postApi} from '../../lib/api/requestApi';
 import {Link, Redirect, Switch} from "react-router-dom";
 import cookies from 'react-cookie';
-import '../../stylesheets/connexion.css';
 
 class UserConnect extends Component {
 
@@ -77,8 +76,8 @@ class UserConnect extends Component {
             )
         } else {
             return (
-                <div className="grid-container">
-                    <form id="connect-form" onSubmit={this.handleSubmit}>
+                <div className="conteneurform">
+                    <form className="formsolo" id="connect-form" onSubmit={this.handleSubmit}>
                         <fieldset>
                             <legend>Connectez vous !</legend>
                             <p>Adresse Email</p>
@@ -87,7 +86,7 @@ class UserConnect extends Component {
                             <input className="input-regular" type="password" name="password"  placeholder="Mot de passe" value={this.state.password} onChange={this.handleChange}/>
                             <input className="input-submit-regular" type="submit" value="Connexion"/>
                             <div>
-                                <Link from="/user/connect" to="/user/register">Pas encore inscrit ?</Link>
+                                <Link className="liendeja" from="/user/connect" to="/user/register">Pas encore inscrit ?</Link>
                             </div>
                         </fieldset>
                     </form>

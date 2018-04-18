@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import {Link, Redirect, Switch} from "react-router-dom";
-import '../../stylesheets/inscription.css';
 import cookies from "react-cookie";
 
 class UserRegister extends Component {
@@ -102,8 +101,8 @@ class UserRegister extends Component {
             )
         } else {
             return (
-                <div className="flex-container">
-                    <form id="register-form" onSubmit={this.handleSubmit}>
+                <div className="conteneurform">
+                    <form className="formsolo" id="register-form" onSubmit={this.handleSubmit}>
                         <legend>Inscrivez vous !</legend>
                         <fieldset>
                             <p>Prénom</p>
@@ -123,7 +122,7 @@ class UserRegister extends Component {
                                    placeholder="Retaper le mot de passe" required onChange={this.handleChange}/>
                             <input className="input-submit-regular" type="submit" value="Valider"/>
                             <div>
-                                <Link from="/user/register" to="/user/connect">Déjà inscrit ?</Link>
+                                <Link className="liendeja" from="/user/register" to="/user/connect">Déjà inscrit ?</Link>
                             </div>
                         </fieldset>
                     </form>
