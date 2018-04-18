@@ -1,5 +1,5 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 let IdeaController = require('../controller/IdeaController');
 let ManifestationController = require('../controller/ManifestationController');
 let ShopController = require('../controller/ShopController');
