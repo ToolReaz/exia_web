@@ -23,6 +23,8 @@ class Manifestation extends Component {
         };
 
         this.subscribe = this.subscribe.bind(this);
+        this.isSubscribed = this.isSubscribed.bind(this);
+        this.getPhotos = this.getPhotos.bind(this);
     }
 
     subscribe() {
@@ -44,13 +46,11 @@ class Manifestation extends Component {
 
     getPhotos() {
         getApi('/api/photos/' + this.state.id.toString()).then(res => {
-            console.log(res);
             this.setState({photos: res});
         }).catch(reason => {
             console.error(reason);
         });
     }
-
 
 
     componentDidMount() {
