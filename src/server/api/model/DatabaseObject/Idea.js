@@ -2,6 +2,8 @@ module.exports = (dataObject, permissions) => {
 
     return {
 
+        // TESTED
+
         /**
          * Gather every idea stored in the database
          * @param {Number} idAccount ID of the user account requesting the dump
@@ -15,6 +17,8 @@ module.exports = (dataObject, permissions) => {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_LIST_ACTIVITE\""));
             }
         },
+
+        // TESTED
 
         /**
          * Create an idea and insert it in the database
@@ -43,11 +47,13 @@ module.exports = (dataObject, permissions) => {
                         });
                     }
                 }
-                return r.ID;
+                return r[0].ID;
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_ADD_ACTIVITE\""));
             }
         },
+
+        // TESTED
 
         /**
          * Vote for an idea
@@ -59,11 +65,13 @@ module.exports = (dataObject, permissions) => {
          */
         VoteIdea: async (idAccount, idIdea, vote) => {
             if (await permissions.FilterPermission(idAccount, "P_VOTE_IDEE")) {
-                await dataObject.Vote.findOrCreate({where: {ID: idAccount, ID_Idea: idIdea}, defaults: {Pro: vote}});
+                await dataObject.Vote.findOrCreate({where: {ID_Account: idAccount, ID_Idea: idIdea}, defaults: {Pro: vote}});
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_VOTE_IDEE\""));
             }
         },
+
+        // TESTED
 
         /**
          * Validate an idea
@@ -80,6 +88,8 @@ module.exports = (dataObject, permissions) => {
             }
         },
 
+        // TESTED 
+
         /**
          * Return the amount of vote for an idea
          * @param {Number} idIdea ID of the idea
@@ -90,6 +100,8 @@ module.exports = (dataObject, permissions) => {
             return await dataObject.Vote.count({where: {Pro: true, ID_Idea: idIdea}});
         },
 
+        // TESTED
+
         /**
          * Return the amount of vote against an idea
          * @param {Number} idIdea ID of the idea
@@ -99,6 +111,8 @@ module.exports = (dataObject, permissions) => {
         GetVoteAgainstCount: async (idIdea) => {
             return await dataObject.Vote.count({where: {Pro: false, ID_Idea: idIdea}});
         },
+
+        // TESTED
 
         /**
          * Return the idea based on the provided ID

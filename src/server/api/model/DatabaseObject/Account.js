@@ -2,6 +2,8 @@ module.exports = (dataObject, permissions) => {
 
     var here = {
 
+        //TESTED
+
         /**
          * Create an user and insert it in the database
          * @param {String} email Email address of the account
@@ -20,6 +22,8 @@ module.exports = (dataObject, permissions) => {
             else return r[0].ID;
         },
 
+        // TESTED
+
         /**
          * Find the raw account of an user
          * @param {String} email Email address of the account
@@ -32,6 +36,8 @@ module.exports = (dataObject, permissions) => {
             else return Promise.reject(new Error("The user with the following email address : \"" + email + "\" does not exist."));
         },
 
+        // TESTED
+
         /**
          * Find the raw account of an user
          * @param {Number} idAccount ID of the account in the database
@@ -43,6 +49,8 @@ module.exports = (dataObject, permissions) => {
             if (r) return r;
             else return Promise.reject(new Error("The user with the following ID : \"" + idAccount + "\" does not exist."));
         },
+
+        // TESTED
 
         /**
          * Create a token for an user
@@ -71,7 +79,7 @@ module.exports = (dataObject, permissions) => {
          */
         InscriptionList: async (idAccount) => {
             return await dataObject.Account_Manifestation.findAll({ where: { ID: idAccount } });
-        },
+        }
     };
 
     return here;

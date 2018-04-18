@@ -52,7 +52,7 @@ module.exports = (dataObject, permissions) => {
             if (permissions.FilterPermission(idAccount, "P_PARTICIPE_MANIF")) {
                 await dataObject.Account_Manifestation.findOrCreate({
                     where: {
-                        ID: idAccount,
+                        ID_Account: idAccount,
                         ID_Manifestation: idManifestation
                     }
                 });
@@ -71,7 +71,7 @@ module.exports = (dataObject, permissions) => {
         IsUserEnrolled: async (idAccount, idManifestation) => {
             return await dataObject.Account_Manifestation.findOne({
                 where: {
-                    ID: idAccount,
+                    ID_Account: idAccount,
                     ID_Manifestation: idManifestation
                 }
             }) == null;
@@ -134,7 +134,7 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetManifestationAuthor: async (idManifestation) => {
-            let r = await dataObject.Idea_Manifestation.findOne({where: {ID: idManifestation}});
+            let r = await dataObject.Idea_Manifestation.findOne({where: {ID_Manifestation: idManifestation}});
             if (r) {
                 let s = await dataObject.Idea.findOne({where: {ID: r.ID}});
                 if (s) {

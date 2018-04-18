@@ -48,6 +48,7 @@ const DataBase = {
     Shop :            require('./DatabaseObject/Shop')            (database, Permissions)
 };
 
+const Tests = require('./Tests/TestsDB')(DataBase);
 
 connection.sync({ force: false, logging: false }).then(() => {
 
@@ -68,6 +69,9 @@ connection.sync({ force: false, logging: false }).then(() => {
         .catch((err)=>{
             console.error(err.message);
         });*/
+
+        //Tests.PerformTests().then().catch(err=>console.error(err));
+
     })//.catch(err=>console.error(err.message));
 
 }).catch(err=>{console.log('MASTER ERROR !!! : '+err.message);});

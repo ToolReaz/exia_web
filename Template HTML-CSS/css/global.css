@@ -473,4 +473,41 @@ p.s:hover:after {
   padding: 5px;
   font-weight: normal;
 }
+.boutontitre {
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+.boutonafondrouge {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  padding: 8px 18px;
+  text-decoration: none;
+  color: #4d4d4d;
+  background-color: #F5F5F5;
+  border-radius: 4px;
+  border: 2px solid #F5F5F5;
+}
+.boutonafondrouge:hover {
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 30px 0 rgba(0,0,0,0.19);
+}
+
+.divboutoneventpast {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 30px;
+}
+.boutonafondblanc {
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  padding: 8px 18px;
+  text-decoration: none;
+  color: white;
+  background-color: #C2242A;
+  border-radius: 4px;
+  border: 2px solid #C2242A;
+}
+.boutonafondblanc:hover {
+    background-color: white;
+    color: #C2242A;
+}
 /*===================================== Footer ========================================*/
