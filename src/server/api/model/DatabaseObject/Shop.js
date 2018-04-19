@@ -13,7 +13,7 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Number>} ID of the product
          * @constructor
          */
-        AddProduct: async (idAccount, name, description, price) => {
+        AddProduct: async(idAccount, name, description, price) => {
             if (await permissions.FilterPermission(idAccount, "P_ADD_SHOP")) {
                 let r = await dataObject.Product.findOrCreate({
                     where: {
@@ -36,9 +36,9 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<void>}
          * @constructor
          */
-        DeleteProduct: async (idAccount, idProduct) => {
+        DeleteProduct: async(idAccount, idProduct) => {
             if (await permissions.FilterPermission(idAccount, "P_DELETE_SHOP")) {
-                await dataObject.Product.destroy({where: {ID: idProduct}});
+                await dataObject.Product.destroy({ where: { ID: idProduct } });
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_DELETE_SHOP\""));
             }
@@ -51,7 +51,7 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Array<Model>>}
          * @constructor
          */
-        GetAllProducts: async () => {
+        GetAllProducts: async() => {
             return await dataObject.Product.findAll();
         },
 
@@ -61,8 +61,8 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Array<Model>>}
          * @constructor
          */
-        GetCategoriesID: async (idProduct) => {
-            return await dataObject.Product_Category.findAll({where: {ID_Product: idProduct}});
+        GetCategoriesID: async(idProduct) => {
+            return await dataObject.Product_Category.findAll({ where: { ID_Product: idProduct } });
         },
 
         // TESTED
@@ -73,8 +73,8 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Model>}
          * @constructor
          */
-        GetCategorieFromID: async (idCategory) => {
-            return await dataObject.Category.findOne({where: {ID: idCategory}});
+        GetCategorieFromID: async(idCategory) => {
+            return await dataObject.Category.findOne({ where: { ID: idCategory } });
         },
 
         // TESTED
@@ -85,8 +85,8 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Array<Model>>}
          * @constructor
          */
-        GetProductsFromCategorieID: async (idCategory) => {
-            return await dataObject.Product_Category.findAll({where: {ID_Category: idCategory}});
+        GetProductsFromCategorieID: async(idCategory) => {
+            return await dataObject.Product_Category.findAll({ where: { ID_Category: idCategory } });
         },
 
         // TESTED
@@ -97,8 +97,8 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Model>}
          * @constructor
          */
-        GetProductFromID: async (idProduct) => {
-            return await dataObject.Product.findOne({where: {ID: idProduct}});
+        GetProductFromID: async(idProduct) => {
+            return await dataObject.Product.findOne({ where: { ID: idProduct } });
         },
 
         // TESTED
@@ -111,17 +111,18 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<void>}
          * @constructor
          */
-        AddItemToPurchaseList: async (idAccount, idProduct, quantity) => {
+        AddItemToPurchaseList: async(idAccount, idProduct, quantity) => {
             if (await permissions.FilterPermission(idAccount, "P_PURCHASE_SHOP")) {
-                let r = await dataObject.Purchase.findOrCreate({where: {Done: false, ID_Account: idAccount}});
+                let r = await dataObject.Purchase.findOrCreate({ where: { Done: false, ID_Account: idAccount } });
                 let s = await dataObject.Basket.findOrCreate({
                     where: {
                         ID_Product: idProduct,
                         ID: idAccount,
                         ID_Purchase: r[0].ID
-                    }, defaults: {Quantity: quantity}
+                    },
+                    defaults: { Quantity: quantity }
                 });
-                if (!s[1]) await dataObject.Basket.update({Quantity: (s[0].Quantity + quantity)}, {
+                if (!s[1]) await dataObject.Basket.update({ Quantity: (s[0].Quantity + quantity) }, {
                     where: {
                         ID: idAccount,
                         ID_Product: idProduct,
@@ -141,9 +142,9 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Array<Model>>}
          * @constructor
          */
-        GetPurchaseListOfUser: async (idAccount) => {
-            let r = await dataObject.Purchase.findOne({where: {ID_Account: idAccount, Done: false}});
-            return await dataObject.Basket.findAll({where: {ID_Purchase: r.ID}});
+        GetPurchaseListOfUser: async(idAccount) => {
+            let r = await dataObject.Purchase.findOne({ where: { ID_Account: idAccount, Done: false } });
+            return await dataObject.Basket.findAll({ where: { ID_Purchase: r.ID } });
         },
 
         // TESTED
@@ -154,8 +155,8 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<void>}
          * @constructor
          */
-        CommitPurchase: async (idAccount) => {
-            await dataObject.Purchase.update({Done: true}, {where: {ID_Account: idAccount}});
+        CommitPurchase: async(idAccount) => {
+            await dataObject.Purchase.update({ Done: true }, { where: { ID_Account: idAccount } });
         },
 
         // TESTED
@@ -168,11 +169,11 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<void>}
          * @constructor
          */
-        RemoveItemFromPurchaseList: async (idAccount, idProduct, quantity) => {
-            let r = await dataObject.Purchase.findOne({where: {ID_Account: idAccount, Done: false}});
-            let s = await dataObject.Basket.findOne({where: {ID_Purchase: r.ID, ID_Product: idProduct}});
+        RemoveItemFromPurchaseList: async(idAccount, idProduct, quantity) => {
+            let r = await dataObject.Purchase.findOne({ where: { ID_Account: idAccount, Done: false } });
+            let s = await dataObject.Basket.findOne({ where: { ID_Purchase: r.ID, ID_Product: idProduct } });
             if (s.Quantity > quantity) {
-                await dataObject.Basket.update({Quantity: s.Quantity - quantity}, {
+                await dataObject.Basket.update({ Quantity: s.Quantity - quantity }, {
                     where: {
                         ID: s.ID,
                         ID_Product: idProduct,
@@ -180,7 +181,7 @@ module.exports = (dataObject, permissions) => {
                     }
                 });
             } else if (s.Quantity === quantity) {
-                await dataObject.Basket.destroy({where: {ID: s.ID, ID_Product: idProduct}});
+                await dataObject.Basket.destroy({ where: { ID: s.ID, ID_Product: idProduct } });
             } else {
                 return Promise.reject(new Error("The user cannot remove more product than he has added"));
             }
@@ -194,8 +195,8 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Array<Model>>}
          * @constructor
          */
-        GetHistoryOfPurchase: async (idAccount) => {
-            return await dataObject.Purchase.findAll({where: {ID_Account: idAccount, Done: true}});
+        GetHistoryOfPurchase: async(idAccount) => {
+            return await dataObject.Purchase.findAll({ where: { ID_Account: idAccount, Done: true } });
         },
 
         // TESTED
@@ -207,9 +208,9 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Model>} The new category
          * @constructor
          */
-        CreateCategory: async (idAccount, category) => {
+        CreateCategory: async(idAccount, category) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
-                let r = await dataObject.Category.findOrCreate({where: {Name: category}});
+                let r = await dataObject.Category.findOrCreate({ where: { Name: category } });
                 return r[0];
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_SET_CATEGORIE_SHOP\""));
@@ -223,9 +224,9 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<void>}
          * @constructor
          */
-        DeleteCategorie: async (idAccount, idCategory) => {
+        DeleteCategorie: async(idAccount, idCategory) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
-                await dataObject.Category.destroy({where: {ID: idCategory}});
+                await dataObject.Category.destroy({ where: { ID: idCategory } });
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_SET_CATEGORIE_SHOP\""));
             }
@@ -241,9 +242,9 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<void>}
          * @constructor
          */
-        AddItemToCategory: async (idAccount, idCategory, idProduct) => {
+        AddItemToCategory: async(idAccount, idCategory, idProduct) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
-                await dataObject.Product_Category.findOrCreate({where: {ID_Product: idProduct, ID_Category: idCategory}});
+                await dataObject.Product_Category.findOrCreate({ where: { ID_Product: idProduct, ID_Category: idCategory } });
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_SET_CATEGORIE_SHOP\""));
             }
@@ -257,9 +258,9 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<void>}
          * @constructor
          */
-        RemoveItemFromCategory: async (idAccount, idCategory, idProduct) => {
+        RemoveItemFromCategory: async(idAccount, idCategory, idProduct) => {
             if (await permissions.FilterPermission(idAccount, "P_SET_CATEGORIE_SHOP")) {
-                await dataObject.Product_Category.destroy({where: {ID_Product: idProduct, ID_Category: idCategory}});
+                await dataObject.Product_Category.destroy({ where: { ID_Product: idProduct, ID_Category: idCategory } });
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_SET_CATEGORIE_SHOP\""));
             }
@@ -272,7 +273,7 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Array<Model>>}
          * @constructor
          */
-        GetAllCategories: async () => {
+        GetAllCategories: async() => {
             return await dataObject.Category.findAll();
         },
 
@@ -284,34 +285,46 @@ module.exports = (dataObject, permissions) => {
          * @returns {Promise<Model>}
          * @constructor
          */
-        GetCategoryFromName: async (category) => {
-            return await dataObject.Category.findOne({where: {Name: category}});
+        GetCategoryFromName: async(category) => {
+            return await dataObject.Category.findOne({ where: { Name: category } });
         },
 
-        GetTopThree: async () => {
-            var m = [];
+        GetTopThree: async() => {
+            var m = {};
+            var keys = [];
             var allPurchases = await dataObject.Basket.findAll();
             for (var i = 0; i < allPurchases.length; i++) {
                 var purchase = allPurchases[i];
-                m[purchase.ID_Product]+=purchase.Quantity;
-            }
-            var first = 0;
-            var second = 0;
-            var third = 0;
-            for (var i = 0; i < m.length; i++) {
-                var product = m[i];
-                if(product>m[first]){
-                    third = second;
-                    second = first;
-                    first = i;
-                } else if(product>m[second]){
-                    third = second;
-                    second = i;
-                } else if(product>m[third]){
-                    third = i;
+
+                if (m[purchase.ID_Product.toString()] == 0 || m[purchase.ID_Product.toString()] == null) {
+                    m[purchase.ID_Product.toString()] = purchase.Quantity;
+                    keys.push(purchase.ID_Product.toString())
+                } else {
+                    m[purchase.ID_Product.toString()] += purchase.Quantity;
                 }
             }
-            return [first, second, third];
+            var first = '0';
+            var second = '0';
+            var third = '0';
+            for (var i = 0; i < keys.length; i++) {
+                var productKey = keys[i];
+                var quantity = m[productKey];
+                var oldQuantity1 = m[first] || 0;
+                var oldQuantity2 = m[second] || 0;
+                var oldQuantity3 = m[third] || 0;
+
+                if (quantity > oldQuantity1) {
+                    third = second;
+                    second = first;
+                    first = productKey;
+                } else if (quantity > oldQuantity2) {
+                    third = second;
+                    second = productKey;
+                } else if (quantity > oldQuantity3) {
+                    third = productKey;
+                }
+            }
+            return [parseInt(first), parseInt(second), parseInt(third)];
         }
     };
 };
