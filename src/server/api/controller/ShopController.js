@@ -115,11 +115,53 @@ module.exports = {
     },
 
     top3: (req, res) => {
+        DB.Shop.GetTopThree().then(top3 => {
+            res.json({'error': null, 'content': top3});
+        }).catch(reason => {
+            res.json({'error': reason.message, 'content': null});
+        });
+    },
 
-                DB.Shop.GetTopThree().then(top3 => {
-                    res.json({'error': null, 'content': top3});
+    getBasketContent: (req, res) => {
+        let reqToken = req.cookies.token;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Shop.GetPurchaseListOfUser(id).then(orderList => {
+                    let products = [];
+                    let purchaseListLength = orderList.length;
+                    orderList.forEach(element=>{
+                        DB.Shop.GetProductFromID(element.ID_Product).then(r=>{
+                            products.push(
+                                {Product: r.Name,
+                                    PriceUnit: r.Price,
+                                    Quantity: element.Quantity,
+                                    SubTotal: element.Quantity*r.Price});
+                            purchaseListLength--;
+                            if(purchaseListLength===0){
+                                res.json({'error': null, 'content': products});
+                            }
+                        })
+                            .catch();
+                    });
+                    /*
+                    let message = {
+                        from: '"ToolReaz" <contact@toolreaz.space>', // sender address
+                        to: 'thomas.weidmann@viacesi.fr', // list of receivers
+                        subject: 'Hello from the new BDE website !', // Subject line
+                        text: 'Hello world?', // plain text body
+                        html: '<b>Hello world?</b>' // html body
+                    };
+                    sendMail(message);*/
+                    res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter article au panier !', 'content': null});
+        }
     }
 };
