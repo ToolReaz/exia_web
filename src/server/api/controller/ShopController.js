@@ -141,18 +141,10 @@ module.exports = {
                             if(purchaseListLength===0){
                                 res.json({'error': null, 'content': products});
                             }
-                        })
-                            .catch();
+                        }).catch(reason => {
+                            res.json({'error': reason.message, 'content': null});
+                        });
                     });
-                    /*
-                    let message = {
-                        from: '"ToolReaz" <contact@toolreaz.space>', // sender address
-                        to: 'thomas.weidmann@viacesi.fr', // list of receivers
-                        subject: 'Hello from the new BDE website !', // Subject line
-                        text: 'Hello world?', // plain text body
-                        html: '<b>Hello world?</b>' // html body
-                    };
-                    sendMail(message);*/
                     res.json({'error': null, 'content': null});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

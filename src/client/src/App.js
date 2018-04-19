@@ -12,6 +12,7 @@ import Bde from "./pages/bde/bde";
 import Shop from "./pages/public/shop";
 import IdeaBox from "./pages/user/ideaBox";
 import Oldevents from "./pages/user/oldevents";
+import Basket from "./pages/user/basket";
 
 class App extends Component {
   render() {
@@ -26,6 +27,7 @@ class App extends Component {
             <Route path="/events" component={Event} />
             <Route path="/team" component={Team} />
             <Route path="/bde" component={Bde} />
+            <Route path="/shop/basket" component={Basket} />
             <Route path="/shop" component={Shop} />
             <Route path="/ideabox" component={IdeaBox} />
             <Route path="/oldevents" component={Oldevents} />

@@ -4,6 +4,7 @@ import {getApi} from "../../lib/api/requestApi";
 import AddToCart from "../../components/shop/AddToCart";
 import {Link} from "react-router-dom";
 import * as cookies from "react-cookie";
+import {withAlert} from "react-alert";
 
 class Shop extends Component {
 
@@ -27,12 +28,13 @@ class Shop extends Component {
             });
             this.setState({products: tmp});
         }).catch(reason => {
-            alert(reason);
+            this.props.alert.error('Impossible de récupérer les produits');
         });
         getApi('/api/shop/top3').then(res => {
+            console.log(res);
             this.setState({top3: res});
         }).catch(reason => {
-            alert(reason);
+            this.props.alert.error('Impossible de récupérer le top 3 des ventes');
         });
     }
 
@@ -45,7 +47,7 @@ class Shop extends Component {
     order(e) {
         e.preventDefault();
         getApi('/api/shop/order').then(res => {
-            alert('Commande validée !');
+            this.props.alert.success('Commande validée');
         }).catch(reason => {
             alert(reason);
         })
@@ -92,10 +94,10 @@ class Shop extends Component {
             let top3 = [];
             this.state.top3.forEach((article, index) => {
                 top3.push(<div key={index} className="col-4">
-                    <h2>{this.state.products[article].Name}</h2>
-                    <p>{this.state.products[article].Description}</p>
-                    <p>{this.state.products[article].Price} €</p>
-                    <AddToCart value={this.state.products[article].ID}/>
+                    <h2>{article.Name}</h2>
+                    <p>{article.Description}</p>
+                    <p>{article.Price} €</p>
+                    <AddToCart value={article.ID}/>
                 </div>)
             });
 
@@ -146,4 +148,4 @@ class Shop extends Component {
     }
 }
 
-export default Shop;
+export default withAlert(Shop);
