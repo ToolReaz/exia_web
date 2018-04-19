@@ -115,11 +115,28 @@ module.exports = {
     },
 
     top3: (req, res) => {
+        DB.Shop.GetTopThree().then(top3 => {
+            res.json({'error': null, 'content': top3});
+        }).catch(reason => {
+            res.json({'error': reason.message, 'content': null});
+        });
+    },
 
-                DB.Shop.GetTopThree().then(top3 => {
-                    res.json({'error': null, 'content': top3});
+    getBasketContent: (req, res) => {
+        let reqToken = req.cookies.token;
+
+        if (reqToken) {
+            DB.Token.GetAccountFromToken(reqToken).then(id => {
+                DB.Shop.GetPurchaseListOfUser(id).then(orderList => {
+                    res.json({'error': null, 'content': orderList});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
+            }).catch(reason => {
+                res.json({'error': reason.message, 'content': null});
+            });
+        } else {
+            res.json({'error': 'Pas connecté = pas ajouter article au panier !', 'content': null});
+        }
     }
 };

@@ -7,7 +7,18 @@
 .page-container {
     z-index: 1;
     max-width: 1500px;
-    margin: 140px auto 40px auto;
+    margin: 0 auto 0 auto;
+    padding-top: 120px;
+    padding-bottom: 240px;
+}
+@media (max-width: 900px) {
+  .page-container {
+    z-index: 1;
+    max-width: 1500px;
+    margin: 0 auto 0 auto;
+    padding-top: 120px;
+    padding-bottom: 600px;
+  }
 }
 
 .row-flex{
@@ -15,7 +26,7 @@
   display:flex;
   flex-wrap: wrap;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
   align-content: space-around;
 }
 .row-flex:after, .row:before {

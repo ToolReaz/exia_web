@@ -186,13 +186,14 @@
 
 /*==================================TITLES===========================================*/
 .titre {
+  width: 80%;
+  margin: auto;
   text-align: center;
-  color: white;
-  background-color: #C2242A;
-  padding-bottom: 15px;
+  color: #C2242A;
+  border-bottom: 2px solid #C2242A;
   font-family: 'Roboto', sans-serif;
 }
-.titre h2{
+.titre h1, .titre h2 {
   font-weight: normal;
   font-size: 36px;
 

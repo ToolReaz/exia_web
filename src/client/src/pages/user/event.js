@@ -93,6 +93,20 @@ class Event extends Component {
                         <div className="row-flex">
                             {manifs}
                         </div>
+                        <div className="row">
+                            <div className="divboutoneventpast">
+                                <Link className="boutonafondblanc" to="/oldevents">Voir les événements passés</Link>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <div className="titremilieupage">
+                                <h2>La boite à idées</h2>
+                                <h3>C'est encore mieux des idées venant de vous !</h3>
+                                <div className="boutontitre">
+                                    <Link to="/ideabox" className="boutonafondrouge">Proposer une idée d'événement !</Link>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 );
 
@@ -111,19 +125,11 @@ class Event extends Component {
             }
 
             view.push(
-                <div className="divboutoneventpast">
-                    <Link className="boutonafondblanc" to="/oldevents">Voir les événements passés</Link>
-                </div>
+
             );
 
             view.push(
-                <div className="titremilieupage">
-                    <h2>La boite à idées</h2>
-                    <h3>C'est encore mieux des idées venant de vous !</h3>
-                    <div className="boutontitre">
-                        <Link to="/ideabox" className="boutonafondrouge">Proposer une idée d'événement !</Link>
-                    </div>
-                </div>
+
             );
 
 

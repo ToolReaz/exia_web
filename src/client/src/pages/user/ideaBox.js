@@ -46,25 +46,37 @@ class IdeaBox extends Component {
 
             view.push(<Header/>);
 
-            view.push(
+            let inset = [];
+
+            inset.push(
                 <div>
-                    <div className="titre">
-                        <h2>Boite à idées</h2>
+                    <div className="row">
+                        <div className="titre">
+                            <h2>Boite à idées</h2>
+                        </div>
                     </div>
-                    <div className="grid-flex">
+                    <div className="row-flex">
                         {ideas}
                     </div>
                 </div>
             );
 
-            view.push(
+            inset.push(
                 <div>
-                    <div className="titre">
-                        <h2>Proposer une idée</h2>
+                    <div className="row">
+                        <div className="titre">
+                            <h2>Proposer une idée</h2>
+                        </div>
                     </div>
                     <div className="grid-flex">
                         <CreateIdea/>
                     </div>
+                </div>
+            );
+
+            view.push(
+                <div className="page-container">
+                    {inset}
                 </div>
             );
 
