@@ -10,6 +10,10 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Manifestation.GetAllManifestations().then(manifestations => {
+                    for (var i = 0; i < manifestations.length; i++) {
+                        var manif = manifestations[i];
+                        manifestations[i].formatedDate = new Date(manif.When).toDateString();
+                    }
                     res.json({'error': null, 'content': manifestations});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
