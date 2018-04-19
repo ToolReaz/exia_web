@@ -128,24 +128,7 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.GetPurchaseListOfUser(id).then(orderList => {
-                    let products = [];
-                    let purchaseListLength = orderList.length;
-                    orderList.forEach(element=>{
-                        DB.Shop.GetProductFromID(element.ID_Product).then(r=>{
-                            products.push(
-                                {Product: r.Name,
-                                    PriceUnit: r.Price,
-                                    Quantity: element.Quantity,
-                                    SubTotal: element.Quantity*r.Price});
-                            purchaseListLength--;
-                            if(purchaseListLength===0){
-                                res.json({'error': null, 'content': products});
-                            }
-                        }).catch(reason => {
-                            res.json({'error': reason.message, 'content': null});
-                        });
-                    });
-                    res.json({'error': null, 'content': products});
+                    res.json({'error': null, 'content': orderList});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });

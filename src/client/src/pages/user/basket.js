@@ -8,7 +8,7 @@ class Basket extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            products: []
+            products: null
         };
 
         this.order = this.order.bind(this);
@@ -33,16 +33,25 @@ class Basket extends Component {
     }
 
     render() {
+        if (this.state.products === null) {
+            return (
+                <div id="preloader">
+                    <div id="loader"></div>
+                </div>
+            );
+        } else {
             let productsView = [];
             if (this.state.products.length === 0) {
                 productsView.push(<div><p>Aucun article sélectionné !</p></div>)
             } else {
                 this.state.products.forEach((product, index) => {
+                    console.log(product);
                     productsView.push(
-                        <div key={index} className="col-4">
-                            <h2>{product.Name}</h2>
-                            <p>{product.Description}</p>
-                            <p>{product.Price} €</p>
+                        <div key={index} className="shop-article">
+                            <h2>{product.Article.Name}</h2>
+                            <p>{product.Article.Description}</p>
+                            <p>{product.Article.Price} €</p>
+                            <p>{product.Quantity} €</p>
                         </div>
                     )
                 });
@@ -70,6 +79,7 @@ class Basket extends Component {
                 </div>
             );
         }
+    }
 }
 
 export default withAlert(Basket);
