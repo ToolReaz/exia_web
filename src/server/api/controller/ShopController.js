@@ -93,23 +93,44 @@ module.exports = {
 
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
-                DB.Shop.CommitPurchase(id).then((order) => {
-                    DB.Account.GetAccountFromId(id).then(account => {
-                        let message = {
-                            from: '"BDE" <bde@firemail.cc>', // sender address
-                            to: account.Mail, // list of receivers
-                            subject: 'Hello from the new BDE website !', // Subject line
-                            html: '<b>Hello world?</b>' // html body
-                        };
-                        const transporter = nodeMailer.createTransport({ host: 'mail.cock.li', port: 465, secure: true, auth: { user: 'bde@firemail.cc', pass: '147258369', type: 'login' } });
-                        transporter.verify((err, success) => {
-                            if (err) {} else {
-                                transporter.sendMail(message).then(() => {
-                                    res.json({ 'error': null, 'content': null });
-                                }).catch(err => {
-                                    res.json({ 'error': err.message, 'content': null });
-                                });
+                DB.Shop.GetPurchaseListOfUser(id).then(PL => {
+                    DB.Shop.CommitPurchase(id).then((order) => {
+                        DB.Account.GetAccountFromId(id).then(account => {
+                            console.log('Sending mail');
+                            let contentMessage = '';
+                            let total = 0;
+                            for (var i = 0; i < PL.length; i++) {
+                                var itemPurchased = PL[i];
+                                contentMessage+='Object : '+itemPurchased.Product.Name+'<br>';
+                                contentMessage+='Description : '+itemPurchased.Product.Description+'<br>';
+                                contentMessage+='Prix unitaire : '+itemPurchased.Product.Price+'<br>';
+                                contentMessage+='Quantité : '+itemPurchased.Quantity+'<br>';
+                                contentMessage+='Sous-total : '+itemPurchased.Quantity*itemPurchased.Product.Price+'<br><br>';
+                                total+=itemPurchased.Quantity*itemPurchased.Product.Price;
                             }
+                            contentMessage+='<br>TOTAL : '+total;
+                            console.log('message : '+contentMessage);
+                            let message = {
+                                from: '"BDE" <bde@firemail.cc>', // sender address
+                                to: account.Mail, // list of receivers
+                                subject: 'Hello from the new BDE website !', // Subject line
+                                html: contentMessage // html body
+                            };
+                            const transporter = nodeMailer.createTransport({ host: 'mail.cock.li', port: 465, secure: true, auth: { user: 'bde@firemail.cc', pass: '147258369', type: 'login' } });
+                            transporter.verify((err, success) => {
+                                console.log('Transporter created');
+                                if (!err) {
+                                    console.log('Mail sent');
+                                    transporter.sendMail(message).then(() => {
+                                        res.json({ 'error': null, 'content': null });
+                                    }).catch(err => {
+                                        console.log('Error');
+                                        res.json({ 'error': err.message, 'content': null });
+                                    });
+                                }
+                            });
+                        }).catch(reason => {
+                            res.json({ 'error': reason.message, 'content': null });
                         });
                     }).catch(reason => {
                         res.json({ 'error': reason.message, 'content': null });
@@ -117,6 +138,7 @@ module.exports = {
                 }).catch(reason => {
                     res.json({ 'error': reason.message, 'content': null });
                 });
+
             }).catch(reason => {
                 res.json({ 'error': reason.message, 'content': null });
             });
