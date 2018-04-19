@@ -128,7 +128,6 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.GetPurchaseListOfUser(id).then(orderList => {
-                    console.log(orderList);
                     res.json({'error': null, 'content': orderList});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});

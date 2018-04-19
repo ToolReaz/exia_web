@@ -39,8 +39,8 @@ class AddPhoto extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="imagePath" placeholder="Url image" onChange={this.handleChange}/>
-                    <input type="submit" value="Ajouter"/>
+                    <input type="text" name="imagePath" placeholder="Url de la photo" onChange={this.handleChange}/>
+                    <input className="btn-primary" type="submit" value="Ajouter"/>
                 </form>
             </div>
         )

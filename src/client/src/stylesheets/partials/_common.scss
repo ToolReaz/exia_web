@@ -27,6 +27,31 @@
 
 
 
+/*=====================================================================================*/
+
+/*==================================LINKS===========================================*/
+.link {
+  font-size: 1.2em;
+  color: #222222;
+  text-decoration: none;
+}
+.link:hover {
+  text-decoration: underline;
+  color: #323232;
+}
+.link:before {
+  content: "> ";
+  color: #222222;
+}
+.link:hover .link:before {
+  content: "> ";
+  color: #323232;
+}
+
+
+
+
+
 
 /*=====================================================================================*/
 
@@ -218,6 +243,16 @@
 .titremilieupage h3{
   padding: 5px;
   font-weight: normal;
+}
+.sub-title {
+  text-align: center;
+  color: #C2242A;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 24px;
+  width: 20%;
+  margin: auto;
+  border-bottom: 2px solid #C2242A;
 }
 
 
@@ -413,7 +448,7 @@
 
 /*=====================================================================================*/
 
-/*==================================TITLES===========================================*/
+/*==================================BUTTONS===========================================*/
 .btn-primary {
   height: 42px;
   padding: 10px;

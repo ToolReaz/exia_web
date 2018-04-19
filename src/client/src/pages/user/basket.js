@@ -11,18 +11,12 @@ class Basket extends Component {
         this.state = {
             products: null
         };
-
         this.order = this.order.bind(this);
     }
 
     componentDidMount() {
         getApi('/api/shop/basket').then(res => {
-            console.log(res);
-            if (res.length !== 0) {
-                this.setState({products: res});
-            } else {
-                this.setState({products: null});
-            }
+            this.setState({products: res});
         }).catch(reason => {
             this.props.alert.error('Impossible de récupérer le panier');
         });
@@ -59,7 +53,7 @@ class Basket extends Component {
                             <p className="shop-article-price">Prix: {product.Product.Price} €</p>
                             <p className="shop-article-quantity">Quantité: {product.Quantity}</p>
                         </div>
-                    )
+                    );
                 });
             }
 

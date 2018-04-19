@@ -115,7 +115,7 @@ class Event extends Component {
                     <div className="page-container">
                         <div className="row">
                             <div className="col-12 center">
-                                <h1>Vous devez être connecté pour consulter les évenements !</h1>
+                                <h1 className="sub-title">Vous devez être connecté pour consulter les évenements !</h1>
                                 <Link to="/user/connect">Se connecter</Link><br/>
                                 <Link to="/user/register">S'inscrire</Link>
                             </div>

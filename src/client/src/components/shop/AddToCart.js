@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {getApi} from "../../lib/api/requestApi";
+import {withAlert} from "react-alert";
 
 class AddToCart extends Component {
 
@@ -15,19 +16,19 @@ class AddToCart extends Component {
     handleClick(e) {
         e.preventDefault();
         getApi('/api/shop/addtocart/' + this.state.articleID.toString()).then(res => {
-            alert('Article ajouté au panier !');
+            this.props.alert.success('Article ajouté au panier');
         }).catch(reason => {
-            alert(reason);
+            this.props.alert.error('Impossible d\'ajouter l\'article au panier');
         });
     }
 
     render() {
         return (
             <div>
-                <button onClick={this.handleClick}>Ajouter au panier</button>
+                <button className="shop-article-btn" onClick={this.handleClick}>Ajouter au panier</button>
             </div>
         );
     }
 }
 
-export default AddToCart;
+export default withAlert(AddToCart);

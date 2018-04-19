@@ -49,7 +49,7 @@ class Shop extends Component {
         getApi('/api/shop/order').then(res => {
             this.props.alert.success('Commande validée');
         }).catch(reason => {
-            alert(reason);
+            this.props.alert.error('Impossible de passer la commande');
         })
     }
 
@@ -80,10 +80,10 @@ class Shop extends Component {
             } else {
                 this.state.products.forEach((product, index) => {
                     productsView.push(
-                        <div key={index} className="col-4">
-                            <h2>{product.Name}</h2>
-                            <p>{product.Description}</p>
-                            <p>{product.Price} €</p>
+                        <div key={index} className="shop-article">
+                            <p className="shop-article-title">{product.Name}</p>
+                            <p className="shop-article-description"> {product.Description}</p>
+                            <p className="shop-article-price">{product.Price} €</p>
                             <AddToCart value={product.ID}/>
                         </div>
                     )
@@ -93,10 +93,11 @@ class Shop extends Component {
 
             let top3 = [];
             this.state.top3.forEach((article, index) => {
-                top3.push(<div key={index} className="col-4">
-                    <h2>{article.Name}</h2>
-                    <p>{article.Description}</p>
-                    <p>{article.Price} €</p>
+                top3.push(
+                    <div key={index} className="shop-article">
+                    <p className="shop-article-title">{article.Name}</p>
+                    <p className="shop-article-description">{article.Description}</p>
+                    <p className="shop-article-price">{article.Price} €</p>
                     <AddToCart value={article.ID}/>
                 </div>)
             });
@@ -116,27 +117,34 @@ class Shop extends Component {
                                 <h1>Boutique</h1>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row margTop">
                             <div className="col-4 center">
-                            {basketLink}
-                        </div>
-                        <div className="col-4 center">
-                            <button className="btn-primary" onClick={this.order}>Valider mes achats !</button>
-                        </div>
-                        <div className="col-4 center">
-                            <div>
-                                <input type="text" name="search" placeholder="Filtrer" value={this.state.search}
-                                       onChange={this.handleChange}/>
+                                {basketLink}
+                            </div>
+                            <div className="col-4 center">
+                                <button className="btn-primary" onClick={this.order}>Valider mes achats !</button>
+                            </div>
+                            <div className="col-4 center">
+                                <div>
+                                    <input type="text" name="search" placeholder="Filtrer" value={this.state.search} onChange={this.handleChange}/>
+                                </div>
                             </div>
                         </div>
+                        <div>
+                            <div className="row margTop">
+                                <h2 className="sub-title">Top 3 des ventes</h2>
+                            </div>
+                            <div className="row-flex">
+                                {top3}
+                            </div>
                         </div>
                         <div>
-                            <h2>Top 3 des ventes</h2>
-                            {top3}
-                        </div>
-                        <div>
-                            <h2>Autres produits</h2>
-                            {productsView}
+                            <div className="row margTop">
+                                <h2 className="sub-title">Nos produits</h2>
+                            </div>
+                            <div className="row-flex">
+                                {productsView}
+                            </div>
                         </div>
                     </div>
 

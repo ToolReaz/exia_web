@@ -3,6 +3,7 @@ import {getApi} from "../../lib/api/requestApi";
 import {Link} from "react-router-dom";
 import AddPhoto from "./AddPhoto";
 import ManifestationPhoto from "./ManifestationPhoto";
+import {withAlert} from "react-alert";
 
 class Manifestation extends Component {
 
@@ -29,10 +30,10 @@ class Manifestation extends Component {
 
     subscribe() {
         getApi('/api/manifestation/subscribe/' + this.state.id.toString()).then(res => {
-            alert('Inscription validée !');
+            this.props.alert.success('Inscription réussie');
             this.setState({subscribed: true});
         }).catch(reason => {
-            console.error(reason);
+            this.props.alert.error('Inscription impossible');
         });
     }
 
@@ -40,7 +41,7 @@ class Manifestation extends Component {
         getApi('/api/manifestation/issubscribed/' + this.state.id.toString()).then(res => {
             this.setState({isSubscribed: res});
         }).catch(reason => {
-            console.error(reason);
+            this.props.alert.error('Impossible de récupérer vos inscriptions');
         });
     }
 
@@ -48,7 +49,7 @@ class Manifestation extends Component {
         getApi('/api/photos/' + this.state.id.toString()).then(res => {
             this.setState({photos: res});
         }).catch(reason => {
-            console.error(reason);
+            this.props.alert.error('Impossible de récupérer les photos');
         });
     }
 
@@ -98,14 +99,29 @@ class Manifestation extends Component {
 
             return (
                 <div>
-                    <h2><strong>Page détaillé de: {this.state.name}</strong></h2>
-                    <p>Description: {this.state.description}</p>
-                    <p>Date: {this.state.date}</p>
-                    <p>Intreval: {this.state.interval}</p>
-                    <p>Prix: {this.state.price}</p>
-                    {subscribeBtn}
-                    {addPhoto}
-                    {photos}
+                    <div className="row margTop">
+                        <p className="sub-title">{this.state.name}</p>
+                    </div>
+                    <div className="row">
+                        <div className="col-2">Date: {this.state.date}</div>
+                        <div className="col-2">Intrevale: {this.state.interval} jour(s)</div>
+                        <div className="col-2">Prix: {this.state.price}</div>
+                        <div className="row">
+                            <div className="col-12">
+                                <h2>Description</h2>
+                                <p>{this.state.description}</p>
+                            </div>
+                        </div>
+                        <div className="row">
+                            {subscribeBtn}
+                        </div>
+
+                        <div className="row">
+                            {addPhoto}
+                        </div>
+
+                        {photos}
+                    </div>
                 </div>
             );
 
@@ -132,4 +148,4 @@ class Manifestation extends Component {
     }
 }
 
-export default Manifestation;
+export default withAlert(Manifestation);

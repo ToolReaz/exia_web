@@ -28,8 +28,10 @@ class ManifestationDetails extends Component {
                 <div>
                     <Header/>
 
-                    <div className="grid-container">
-                        <h1>Hey !</h1>
+                    <div className="page-container">
+                        <div className="titre">
+                            <h1>Détails de la manifestation</h1>
+                        </div>
                         <Manifestation currentEvent={(Date.parse(this.state.manifestation.When.toString()) >= Date.now())} fullPage={true} id={this.state.id} values={this.state.manifestation}/>
                     </div>
 

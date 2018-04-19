@@ -79,27 +79,33 @@ class ManifestationPhoto extends Component {
 
         let likeBtn = [];
         if (this.state.likedByUser) {
-            likeBtn.push(<button onClick={this.dislikePhoto}>Dislike</button>);
+            likeBtn.push(<div><button onClick={this.dislikePhoto}>Dislike</button></div>);
         } else {
-            likeBtn.push(<button onClick={this.likePhoto}>Like</button>);
+            likeBtn.push(<div><button onClick={this.likePhoto}>Like</button></div>);
         }
 
         let reportBtn = [];
         if (this.state.isAdmin) {
-            reportBtn.push(<button onClick={this.report}>Signaler cette photo</button>)
+            reportBtn.push(<div><button onClick={this.report}>Signaler cette photo</button></div>)
         }
 
         return (
-            <div>
-                <p>Titre: {this.state.title}</p>
-                <p>Chemin: {this.state.imagePath}</p>
-                <div>{reportBtn}</div>
-                <div>{likeBtn}</div>
-                <p>Nombre de like: {this.state.likes}</p>
-                <img src={this.state.imagePath} alt={'image'+this.state.id.toString()}/>
-                <CommentPhoto key={this.state.id} id={this.state.id}/>
-                <p>Commentaires</p>
-                <div>{comments}</div>
+            <div className="row">
+                <div className="col-2">
+                    <img src={this.state.imagePath} alt={'image'+this.state.id.toString()}/>
+                </div>
+                <div className="col-8 commentaire scrollbar">
+                    <h3>{this.state.title}</h3>
+                    <p>Chemin: {this.state.imagePath}</p>
+                    {reportBtn}
+                    <p>Commentaires</p>
+                    <div>{comments}</div>
+                    <CommentPhoto key={this.state.id} id={this.state.id}/>
+                </div>
+                <div className="col-1">
+                    <p>Nombre de like: {this.state.likes}</p>
+                    {likeBtn}
+                </div>
             </div>
         );
     }

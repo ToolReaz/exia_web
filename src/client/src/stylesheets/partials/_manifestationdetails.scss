@@ -1,0 +1,82 @@
+.commentaire {
+  height: 12em;
+  overflow: scroll;
+  margin-bottom: 2%;
+  overflow-x: hidden;
+}
+
+.commentaire p {
+  margin-bottom: 2%;
+  text-align: justify;
+}
+
+.inputcom {
+  margin-left: 5px;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 5em;
+}
+
+.commentaire button {
+  background-color: #C2242A;
+  color: white;
+  border: none;
+  height: 2em;
+  width: 4em;
+}
+
+.commentaire button:hover {
+  background-color: #D7282F;
+}
+
+.commentaire h3{
+  padding-top: 15px;
+}
+
+
+
+
+
+.scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+.scrollbar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+/* Handle */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(230,230,230);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(240,240,240);
+  border-radius: 10px;
+}
+
+
+
+
+
+
+
+.green{
+  color: green;
+}
+
+.red{
+  color: red;
+}
+
+.grey{
+  color: grey;
+}
+
+.padTop{
+  padding-top: 30px;
+}
