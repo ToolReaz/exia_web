@@ -94,25 +94,26 @@ module.exports = {
         if (reqToken) {
             DB.Token.GetAccountFromToken(reqToken).then(id => {
                 DB.Shop.CommitPurchase(id).then((order) => {
-                    let message = {
-                        from: '"BDE" <bde@firemail.cc>', // sender address
-                        to: 'jerome.zilliox@viacesi.fr', // list of receivers
-                        subject: 'Hello from the new BDE website !', // Subject line
-                        html: '<b>Hello world?</b>' // html body
-                    };
-                    const transporter = nodeMailer.createTransport({ host: 'mail.cock.li', port: 465, secure: true, auth: { user: 'bde@firemail.cc', pass: '147258369', type: 'login' } });
-                    transporter.verify((err, success) => {
-                        if (err) {
-                        } else {
-                            transporter.sendMail(message).then(() => {
-                                res.json({ 'error': null, 'content': null });
-                            }).catch(err => {
-                                res.json({ 'error': err.message, 'content': null });
-                            });
-                        }
+                    DB.Account.GetAccountFromId(id).then(account => {
+                        let message = {
+                            from: '"BDE" <bde@firemail.cc>', // sender address
+                            to: account.Mail, // list of receivers
+                            subject: 'Hello from the new BDE website !', // Subject line
+                            html: '<b>Hello world?</b>' // html body
+                        };
+                        const transporter = nodeMailer.createTransport({ host: 'mail.cock.li', port: 465, secure: true, auth: { user: 'bde@firemail.cc', pass: '147258369', type: 'login' } });
+                        transporter.verify((err, success) => {
+                            if (err) {} else {
+                                transporter.sendMail(message).then(() => {
+                                    res.json({ 'error': null, 'content': null });
+                                }).catch(err => {
+                                    res.json({ 'error': err.message, 'content': null });
+                                });
+                            }
+                        });
+                    }).catch(reason => {
+                        res.json({ 'error': reason.message, 'content': null });
                     });
-
-
                 }).catch(reason => {
                     res.json({ 'error': reason.message, 'content': null });
                 });
