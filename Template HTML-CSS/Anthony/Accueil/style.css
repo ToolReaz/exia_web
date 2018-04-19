@@ -332,7 +332,7 @@ p.s:hover:after {
 
 .footer-distributed {
   margin-top: 10px;
-  position: static;
+  position: absolute;
   right: 0;
   bottom: 0;
   left: 0;
