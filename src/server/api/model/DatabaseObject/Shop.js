@@ -144,7 +144,17 @@ module.exports = (dataObject, permissions) => {
          */
         GetPurchaseListOfUser: async(idAccount) => {
             let r = await dataObject.Purchase.findOne({ where: { ID_Account: idAccount, Done: false } });
-            return await dataObject.Basket.findAll({ where: { ID_Purchase: r.ID } });
+            let s = await dataObject.Basket.findAll({ where: { ID_Purchase: r.ID } });
+            var ret = [];
+            for (var i = 0; i < s.length; i++) {
+                var purchase = s[i];
+                let p = await dataObject.Product.findOne({where: {ID: purchase.ID_Product}});
+                ret.push({
+                    Article: p,
+                    Quantite: s.Quantity
+                });
+            }
+            return ret;
         },
 
         // TESTED
