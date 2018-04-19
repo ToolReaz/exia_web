@@ -7,7 +7,8 @@
   text-align: justify;
   position: relative;
   box-shadow: 0px 0px 15px rgb(180, 180, 180);
-  padding-bottom: 5px;
+  padding-bottom: 60px;
+  font-size: 1.5em;
 }
 
 .event:hover {
@@ -17,12 +18,12 @@
 }
 
 .event span {
-  font-size: 0.9em;
+  font-size: 1em;
 }
 
 .event a {
-  width: 100%;
-  height: auto;
+  width: 50%;
+  height: 2.7em;
   background-color: #C2242A;
   text-align: center;
   text-decoration: none;
@@ -31,9 +32,33 @@
   position: absolute;
   bottom: -0.5px;
   border: 1px #C2242A solid;
+  right: 0;
+  font-size: 1.2em;
+  font-weight: 800;
+  line-height: 2.0em;
 }
 
 .event a:hover {
+  background-color: #D7282F;
+  box-shadow: none;
+}
+
+.event button {
+  width: 50%;
+  height: 2.7em;
+  background-color: #C2242A;
+  text-align: center;
+  text-decoration: none;
+  color: white;
+  padding: 5px 0px 4px 0px;
+  position: absolute;
+  bottom: -0.5px;
+  border: 1px #C2242A solid;
+  font-size: 1.2em;
+  font-weight: 800;
+}
+
+.event button:hover {
   background-color: #D7282F;
   box-shadow: none;
 }
@@ -70,11 +95,11 @@
 }
 
 .eventPrix {
-  margin-left: 25%;
+  margin-left: 10%;
 }
 
 .eventInter{
-  margin-left: 25%;
+  margin-left: 10%;
 }
 
 .event2 {
