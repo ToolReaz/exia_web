@@ -144,15 +144,17 @@ module.exports = (dataObject, permissions) => {
          */
         GetPurchaseListOfUser: async(idAccount) => {
             let r = await dataObject.Purchase.findOne({ where: { ID_Account: idAccount, Done: false } });
-            let s = await dataObject.Basket.findAll({ where: { ID_Purchase: r.ID } });
             var ret = [];
-            for (var i = 0; i < s.length; i++) {
-                var purchase = s[i];
-                let p = await dataObject.Product.findOne({where: {ID: purchase.ID_Product}});
-                ret.push({
-                    Product: p,
-                    Quantity: purchase.Quantity
-                });
+            if (r != null) {
+                let s = await dataObject.Basket.findAll({ where: { ID_Purchase: r.ID } });
+                for (var i = 0; i < s.length; i++) {
+                    var purchase = s[i];
+                    let p = await dataObject.Product.findOne({ where: { ID: purchase.ID_Product } });
+                    ret.push({
+                        Product: p,
+                        Quantity: purchase.Quantity
+                    });
+                }
             }
             return ret;
         },
@@ -299,6 +301,11 @@ module.exports = (dataObject, permissions) => {
             return await dataObject.Category.findOne({ where: { Name: category } });
         },
 
+        /**
+         * Get the top 3 products in shop
+         * @returns {Promise<Array<Model>>}
+         * @constructor
+         */
         GetTopThree: async() => {
             var m = {};
             var keys = [];
@@ -337,8 +344,8 @@ module.exports = (dataObject, permissions) => {
             var ids = [parseInt(first), parseInt(second), parseInt(third)];
             for (var i = 0; i < ids.length; i++) {
                 var element = ids[i];
-                if(element==0){
-                    ids[i]=1;
+                if (element == 0) {
+                    ids[i] = 1;
                 }
             }
             var firstProduct = await here.GetProductFromID(ids[0]);
