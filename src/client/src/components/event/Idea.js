@@ -93,16 +93,19 @@ class Idea extends Component {
                     <button onClick={this.voteFor}>+</button>
                     <p style={{'color': 'black'}}>{this.state.votes}</p>
                     <button onClick={this.voteAgainst}>-</button>
-                </div>            );
+                </div>
+        );
         }
         return (
-                <div className="event2">
-                    <h2 className="event2Title">Nom: {this.state.title}</h2>
+                <div className="event">
+                    <h2 className="eventTitle">Nom: {this.state.title}</h2>
                     <img className="eventImg" src="https://picsum.photos/300/200" alt="afd"/>
-                    <p className="eventDate">Soumis le: {this.state.submit_date}</p>
-                    <p>Texte: {this.state.text}</p>
-                    <p>Approuvé: {(this.state.approved)?("OUI"):("NON")}</p>
-                    <div className="event2Vote">
+                    <div className="eventInfos">
+                        <p className="eventDate">Soumis le: {this.state.submit_date}</p>
+                        <p>Texte: {this.state.text}</p>
+                        <p>Approuvé: {(this.state.approved)?("OUI"):("NON")}</p>
+                    </div>
+                    <div className="eventVote">
                         {votesCount}
                     </div>
                     <a>Lire</a>

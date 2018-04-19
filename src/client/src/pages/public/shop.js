@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Header from "../../components/Header";
 import {getApi} from "../../lib/api/requestApi";
 import AddToCart from "../../components/shop/AddToCart";
+import {Link} from "react-router-dom";
+import * as cookies from "react-cookie";
 
 class Shop extends Component {
 
@@ -97,6 +99,10 @@ class Shop extends Component {
                 </div>)
             });
 
+            let basketLink = [];
+            if (cookies.load('token')) {
+                basketLink.push(<Link to="/shop/basket">Mon panier</Link>);
+            }
 
             return (
                 <div>
@@ -104,20 +110,25 @@ class Shop extends Component {
 
                     <div className="page-container">
                         <div className="row">
-                            <div className="col-6">
+                            <div className="titre">
                                 <h1>Boutique</h1>
                             </div>
-                            <div className="col-3">
-                                <div>
-                                    <button onClick={this.order}>Valider mes achats !</button>
-                                </div>
+                        </div>
+                        <div className="row">
+                            <div className="col-4">
+                            {basketLink}
+                        </div>
+                        <div className="col-4">
+                            <div>
+                                <button onClick={this.order}>Valider mes achats !</button>
                             </div>
-                            <div className="col-3">
-                                <div>
-                                    <input type="text" name="search" placeholder="Filtrer" value={this.state.search}
-                                           onChange={this.handleChange}/>
-                                </div>
+                        </div>
+                        <div className="col-4">
+                            <div>
+                                <input type="text" name="search" placeholder="Filtrer" value={this.state.search}
+                                       onChange={this.handleChange}/>
                             </div>
+                        </div>
                         </div>
                         <div>
                             <h2>Top 3 des ventes</h2>
