@@ -325,6 +325,12 @@ module.exports = (dataObject, permissions) => {
                 }
             }
             var ids = [parseInt(first), parseInt(second), parseInt(third)];
+            for (var i = 0; i < ids.length; i++) {
+                var element = ids[i];
+                if(element==0){
+                    ids[i]=1;
+                }
+            }
             var firstProduct = await here.GetProductFromID(ids[0]);
             var secondProduct = await here.GetProductFromID(ids[1]);
             var thirdProduct = await here.GetProductFromID(ids[2]);
