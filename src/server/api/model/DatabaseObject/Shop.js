@@ -151,7 +151,7 @@ module.exports = (dataObject, permissions) => {
                 let p = await dataObject.Product.findOne({where: {ID: purchase.ID_Product}});
                 ret.push({
                     Article: p,
-                    Quantite: s.Quantity
+                    Quantite: purchase.Quantity
                 });
             }
             return ret;
