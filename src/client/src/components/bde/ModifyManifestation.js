@@ -113,25 +113,19 @@ class ModifyManifestation extends Component {
                 )
             });
             return (
-                <div>
-                    <select name="id" onChange={this.selectManifestation}>
-                        {options}
-                    </select>
-                    <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
-                        <input type="text" name="name" placeholder="Nom" value={this.state.name}
-                               onChange={this.handleChange}/><br/>
-                        <textarea name="description" placeholder="Description" value={this.state.description}
-                                  onChange={this.handleChange}/><br/>
-                        <input type="text" name="date" value={this.state.date} onChange={this.handleChange}/><br/>
-                        <input type="integer" name="interval" placeholder="Interval" value={this.state.interval}
-                               onChange={this.handleChange}/><br/>
-                        <input type="text" name="imagePath" placeholder="Url image" value={this.state.imagePath}
-                               onChange={this.handleChange}/><br/>
-                        <input type="integer" name="price" placeholder="Prix" value={this.state.price}
-                               onChange={this.handleChange}/><br/>
-                        <input type="submit" value="Modifier"/>
-                    </form>
-                    <br/>
+                <div className="grid-container">
+                    <div className="row">
+                        <div className="col-12 center">
+                            <select onChange={this.selectIdea} name="id">
+                                {options}
+                            </select>
+                            <form id="validate-idea-form" onSubmit={this.handleSubmit}>
+                                <input className="input-regular" disabled type="text" name="title" placeholder="Titre" value={this.state.title}/><br/>
+                                <textarea className="textarea-regular" disabled name="description" placeholder="Text" value={this.state.description}/><br/>
+                                <input className="btn-primary" type="submit" value="Valider"/>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             )
         }

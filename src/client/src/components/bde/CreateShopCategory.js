@@ -37,11 +37,15 @@ class CreateShopCategory extends Component {
 
     render() {
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="catName" placeholder="Nom de la catégorie" value={this.state.catName} onChange={this.handleChange}/>
-                    <input type="submit" value="Créer la catégorie"/>
-                </form>
+            <div className="grid-container">
+                <div className="row">
+                    <div className="col-12 center">
+                        <form onSubmit={this.handleSubmit}>
+                            <input className="input-regular" type="text" name="catName" placeholder="Nom de la catégorie" value={this.state.catName} onChange={this.handleChange}/><br/>
+                            <input className="btn-primary" type="submit" value="Créer la catégorie"/>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }

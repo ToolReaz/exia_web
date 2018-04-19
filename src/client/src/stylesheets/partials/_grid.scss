@@ -59,6 +59,10 @@
     /* border: 1px solid red; */
 }
 
+.center{
+  margin: auto;
+}
+
 @media only screen and (min-width: 1000px) {
     /* For desktop: */
 
@@ -76,8 +80,7 @@
     .col-12 {width: 100%;}
 
     .center{
-        margin-right: auto;
-        margin-left: auto;
+        margin: auto;
     }
 
     .col-hide {

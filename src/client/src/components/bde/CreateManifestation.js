@@ -64,16 +64,19 @@ class CreateManifestation extends Component {
 
     render() {
         return (
-            <div>
-                <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
-                    <textarea name="description" placeholder="Description" onChange={this.handleChange}/><br/>
-                    <input type="date" name="date" onChange={this.handleChange}/><br/>
-                    <input type="integer" name="interval" placeholder="Interval" onChange={this.handleChange}/><br/>
-                    <input type="integer" name="price" placeholder="Prix" onChange={this.handleChange}/><br/>
-                    <input type="submit" value="Créer"/>
-                </form>
-                <br/>
+            <div className="grid-container">
+                <div className="row">
+                    <div className="col-12 center">
+                        <form id="create-manifestation-form" onSubmit={this.handleSubmit}>
+                            <input className="input-regular" type="text" name="name" placeholder="Nom" onChange={this.handleChange}/><br/>
+                            <textarea className="textarea-regular" name="description" placeholder="Description" onChange={this.handleChange}/><br/>
+                            <input className="input-regular" type="date" name="date" onChange={this.handleChange}/><br/>
+                            <input className="input-regular" type="integer" name="interval" placeholder="Interval" onChange={this.handleChange}/><br/>
+                            <input className="input-regular" type="integer" name="price" placeholder="Prix" onChange={this.handleChange}/><br/>
+                            <input className="btn-primary" type="submit" value="Créer"/>
+                        </form>
+                    </div>
+                </div>
             </div>
         )
     }

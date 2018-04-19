@@ -68,9 +68,7 @@ class IdeaBox extends Component {
                             <h2>Proposer une idée</h2>
                         </div>
                     </div>
-                    <div className="grid-flex">
-                        <CreateIdea/>
-                    </div>
+                    <CreateIdea/>
                 </div>
             );
 

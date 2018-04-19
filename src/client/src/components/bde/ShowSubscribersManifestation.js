@@ -62,14 +62,18 @@ class ShowSubscribersManifestation extends Component {
                 )
             });
             return (
-                <div>
-                    <select name="id" onChange={this.showSubscribersOf}>
-                        {options}
-                    </select>
-                    <p><strong>Nombre d'inscrit: {this.state.subscribers}</strong></p>
-                    <a href={this.state.csvUrl} target="_blank"><strong>CSV</strong></a><br/>
-                    <a href={this.state.pdfUrl} target="_blank"><strong>PDF</strong></a>
-                    <br/>
+                <div className="grid-container">
+                    <div className="row">
+                        <div className="col-12 center">
+                            <select name="id" onChange={this.showSubscribersOf}>
+                                {options}
+                            </select><br/><br/>
+                            <p><strong>Nombre d'inscrit: {this.state.subscribers}</strong></p><br/>
+                            <a className="link" href={this.state.csvUrl} target="_blank"><strong>CSV</strong></a><br/>
+                            <a className="link" href={this.state.pdfUrl} target="_blank"><strong>PDF</strong></a>
+                            <br/>
+                        </div>
+                    </div>
                 </div>
             )
         }
