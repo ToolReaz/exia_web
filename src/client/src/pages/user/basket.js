@@ -16,6 +16,7 @@ class Basket extends Component {
 
     componentDidMount() {
         getApi('/api/shop/basket').then(res => {
+            console.log(res);
             this.setState({products: res});
         }).catch(reason => {
             console.error(reason);
@@ -32,16 +33,10 @@ class Basket extends Component {
     }
 
     render() {
-        if (this.state.products.length === 0) {
-            return (
-                <div id="preloader">
-                    <div id="loader"></div>
-                </div>
-            );
-        } else {
-
             let productsView = [];
-
+            if (this.state.products.length === 0) {
+                productsView.push(<div><p>Aucun article sélectionné !</p></div>)
+            } else {
                 this.state.products.forEach((product, index) => {
                     productsView.push(
                         <div key={index} className="col-4">
@@ -51,6 +46,7 @@ class Basket extends Component {
                         </div>
                     )
                 });
+            }
 
             return (
                 <div>
@@ -74,7 +70,6 @@ class Basket extends Component {
                 </div>
             );
         }
-    }
 }
 
 export default withAlert(Basket);

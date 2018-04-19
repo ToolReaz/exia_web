@@ -145,7 +145,7 @@ module.exports = {
                             res.json({'error': reason.message, 'content': null});
                         });
                     });
-                    res.json({'error': null, 'content': null});
+                    res.json({'error': null, 'content': products});
                 }).catch(reason => {
                     res.json({'error': reason.message, 'content': null});
                 });
