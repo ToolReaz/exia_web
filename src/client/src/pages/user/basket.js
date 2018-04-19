@@ -27,6 +27,7 @@ class Basket extends Component {
         getApi('/api/shop/order').then(res => {
             this.props.alert.success('Commande validée');
             this.setState({products: null});
+            this.componentDidMount();
         }).catch(reason => {
             this.props.alert.error('Impossible de valider la commande');
         })

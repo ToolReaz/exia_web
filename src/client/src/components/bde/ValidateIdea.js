@@ -65,15 +65,19 @@ class ValidateIdea extends Component {
                 });
             }
             return (
-                <div>
-                    <select onChange={this.selectIdea} name="id">
-                        {options}
-                    </select>
-                    <form id="validate-idea-form" onSubmit={this.handleSubmit}>
-                        <input disabled type="text" name="title" placeholder="Titre" value={this.state.title}/><br/>
-                        <textarea disabled name="description" placeholder="Text" value={this.state.description}/><br/>
-                        <input type="submit" value="Valider"/>
-                    </form>
+                <div className="grid-container">
+                    <div className="row">
+                        <div className="col-12 center">
+                            <select onChange={this.selectIdea} name="id">
+                                {options}
+                            </select>
+                            <form id="validate-idea-form" onSubmit={this.handleSubmit}>
+                                <input className="input-regular" disabled type="text" name="title" placeholder="Titre" value={this.state.title}/><br/>
+                                <textarea className="textarea-regular" disabled name="description" placeholder="Text" value={this.state.description}/><br/>
+                                <input className="btn-primary" type="submit" value="Valider"/>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             );
         }

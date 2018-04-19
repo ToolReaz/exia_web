@@ -16,17 +16,15 @@ class Bde extends Component {
                 <Header/>
                 <div className="page-container">
                     <div className="row">
-                        <div className="col-12">
+                        <div className="titre">
                             <h1>Bde</h1>
-                            <hr/>
                         </div>
                     </div>
 
 
                     <div className="row">
                         <div className="col-12">
-                            <h2>Valider une idée</h2>
-                            <hr/>
+                            <h2 className="sub-title">Valider une idée</h2>
                         </div>
                     </div>
                     <div className="row">
@@ -37,8 +35,7 @@ class Bde extends Component {
 
                     <div className="row">
                         <div className="col-12">
-                            <h2>Modifier une manifestation</h2>
-                            <hr/>
+                            <h2 className="sub-title">Modifier une manifestation</h2>
                         </div>
                     </div>
                     <div className="row">
@@ -49,8 +46,7 @@ class Bde extends Component {
 
                     <div className="row">
                         <div className="col-12">
-                            <h2>Liste des inscrits</h2>
-                            <hr/>
+                            <h2 className="sub-title">Liste des inscrits</h2>
                         </div>
                     </div>
                     <div className="row">
@@ -62,8 +58,7 @@ class Bde extends Component {
 
                     <div className="row">
                         <div className="col-12">
-                            <h2>Créer une manifestation</h2>
-                            <hr/>
+                            <h2 className="sub-title">Créer une manifestation</h2>
                         </div>
                     </div>
                     <div className="row">
@@ -73,8 +68,7 @@ class Bde extends Component {
 
                     <div className="row">
                         <div className="col-12">
-                            <h2>Ajouter une catégorie</h2>
-                            <hr/>
+                            <h2 className="sub-title">Ajouter une catégorie</h2>
                         </div>
                     </div>
                     <div className="row">
@@ -84,8 +78,7 @@ class Bde extends Component {
 
                     <div className="row">
                         <div className="col-12">
-                            <h2>Ajouter un article</h2>
-                            <hr/>
+                            <h2 className="sub-title">Ajouter un article</h2>
                         </div>
                     </div>
                     <div className="row">

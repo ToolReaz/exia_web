@@ -26,6 +26,53 @@
 
 
 
+/*=====================================================================================*/
+
+/*==================================LINKS===========================================*/
+.input-regular {
+  width: 90%;
+  height: 50px;
+  display: block;
+  font-size: 1.4em;
+  color: #222222;
+  border-radius: 6px;
+  border: 1px solid #323232;
+  margin: 15px auto 0 auto;
+  padding: 10px;
+  font-family: Roboto sans-serif;
+}
+.input-regular:focus {
+  border: 3px solid #0074d9;
+}
+.label-regular {
+  width: 90%;
+  display: block;
+  margin: 15px auto 0 auto;
+  font-size: 1.2em;
+  color: #C2242A;
+}
+.textarea-regular {
+  width: 90%;
+  height: 200px;
+  display: block;
+  font-size: 1.2em;
+  font-weight: 400;
+  color: #222222;
+  border-radius: 6px;
+  border: 1px solid #323232;
+  margin: 15px auto 0 auto;
+  padding: 10px;
+  font-family: Roboto sans-serif;
+}
+.textarea-regular:focus {
+  border: 3px solid #0074d9;
+}
+
+
+
+
+
+
 
 /*=====================================================================================*/
 

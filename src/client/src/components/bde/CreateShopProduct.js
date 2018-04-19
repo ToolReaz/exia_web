@@ -78,16 +78,20 @@ class CreateShopProduct extends Component {
             );
         });
         return (
-            <div>
-                <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="name" placeholder="Nom du produit" value={this.state.name} onChange={this.handleChange}/>
-                    <textarea name="description" placeholder="Description du produit" value={this.state.description} onChange={this.handleChange}/>
-                    <input type="integer" name="price" placeholder="Prix du produit" value={this.state.price} onChange={this.handleChange}/>
-                    <select name="category" onChange={this.handleChange}>
-                        {catSelector}
-                    </select>
-                    <input type="submit" value="Créer le produit"/>
-                </form>
+            <div className="grid-container">
+                <div className="row">
+                    <div className="col-12 center">
+                        <form onSubmit={this.handleSubmit}>
+                            <input className="input-regular" type="text" name="name" placeholder="Nom du produit" value={this.state.name} onChange={this.handleChange}/>
+                            <textarea className="textarea-regular" name="description" placeholder="Description du produit" value={this.state.description} onChange={this.handleChange}/>
+                            <input className="input-regular" type="integer" name="price" placeholder="Prix du produit" value={this.state.price} onChange={this.handleChange}/><br/>
+                            <select name="category" onChange={this.handleChange}>
+                                {catSelector}
+                            </select><br/><br/>
+                            <input className="btn-primary" type="submit" value="Créer le produit"/>
+                        </form>
+                    </div>
+                </div>
             </div>
         );
     }

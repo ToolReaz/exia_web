@@ -24,7 +24,7 @@ class UserRegister extends Component {
 
     checkValues() {
         if (this.state.firstname && this.state.lastname && this.state.email && this.state.password && this.state.password_bis) {
-            if (this.state.password === this.state.password_bis && /^.*([A-Z].*\d|\d.*[A-Z]).*$/.test(this.state.password)) {
+            if (this.state.password === this.state.password_bis && /(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/.test(this.state.password)) {
                 this.register();
                 return true;
             }
@@ -51,8 +51,9 @@ class UserRegister extends Component {
             });
             document.getElementById("register-form").reset();
             this.setState({finished: true});
+            this.props.alert.success('Inscription effectuée avec succès');
         }).catch(reason => {
-            this.props.alert.error(reason);
+            this.props.alert.error('Une erreur est survenue lors de l\'inscription');
         });
     }
 
@@ -62,7 +63,7 @@ class UserRegister extends Component {
         if (this.checkValues()) {
             this.register();
         } else {
-            alert('Erreur dans les données saisi !');
+            this.props.alert.error('Erreur dans les données saisies !');
         }
     }
 
@@ -101,17 +102,16 @@ class UserRegister extends Component {
                             <input className="input-regular" type="text" name="firstname" placeholder="Prenom" required
                                    onChange={this.handleChange}/>
                             <p>Nom</p>
-                            <input className="input-regular" type="text" name="lastname" placeholder="Nom" required
+                            <input className="input-regular" type="text" name="lastname" pattern="^(?!.*[- ]{2,}.*)[àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœA-Za-z- ]+$" placeholder="Nom" required
                                    onChange={this.handleChange}/>
                             <p>Adresse Email</p>
-                            <input className="input-regular" type="mail" name="email" placeholder="Email" required
+                            <input className="input-regular" type="mail" name="email" pattern="[A-Za-z0-9._+-]+@(via)?cesi.fr" placeholder="Email" required
                                    onChange={this.handleChange}/>
                             <p>Mot de passe</p>
-                            <input className="input-regular" type="password" name="password" placeholder="Mot de passe"
+                            <input className="input-regular" type="password" name="password" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Mot de passe"
                                    required onChange={this.handleChange}/>
                             <p>Confirmez le mot de passe</p>
-                            <input className="input-regular" type="password" name="password_bis"
-                                   placeholder="Retaper le mot de passe" required onChange={this.handleChange}/>
+                            <input className="input-regular" type="password" name="password_bis" pattern="(?=^.{6,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" placeholder="Retaper le mot de passe" required onChange={this.handleChange}/>
                             <input className="input-submit-regular" type="submit" value="Valider"/>
                             <div>
                                 <Link className="liendeja" from="/user/register" to="/user/connect">Déjà inscrit ?</Link>
