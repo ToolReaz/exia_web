@@ -68,11 +68,7 @@ class ManifestationPhoto extends Component {
     render() {
         let comments = [];
         this.state.comments.forEach((comment, index) => {
-            comments.push(
-                <div>
-                    <PhotoComment key={index} values={comment}/>
-                </div>
-            );
+            comments.push(<PhotoComment key={index} values={comment}/>);
         });
 
         console.log(this.state.isAdmin);
@@ -90,23 +86,28 @@ class ManifestationPhoto extends Component {
         }
 
         return (
-            <div className="row">
-                <div className="col-2">
-                    <img src={this.state.imagePath} alt={'image'+this.state.id.toString()}/>
+            <div>
+                <div className="row margTop center">
+                    <div className="col-12">
+                        <img className="manif-details-img" src={this.state.imagePath} alt={'image'+this.state.id.toString()}/>
+                    </div>
                 </div>
-                <div className="col-8 commentaire scrollbar">
-                    <h3>{this.state.title}</h3>
-                    <p>Chemin: {this.state.imagePath}</p>
-                    {reportBtn}
-                    <p>Commentaires</p>
-                    <div>{comments}</div>
-                    <CommentPhoto key={this.state.id} id={this.state.id}/>
-                </div>
-                <div className="col-1">
-                    <p>Nombre de like: {this.state.likes}</p>
-                    {likeBtn}
+                <div className="row margTop">
+                    <div className="col-11 commentaire scrollbar">
+                        <h3>{this.state.title}</h3>
+                        {reportBtn}
+                        <div className="margTop">
+                            <CommentPhoto key={this.state.id} id={this.state.id}/>
+                        </div>
+                        {comments}
+                    </div>
+                    <div className="col-1">
+                        <p>Nombre de like: {this.state.likes}</p>
+                        {likeBtn}
+                    </div>
                 </div>
             </div>
+
         );
     }
 }

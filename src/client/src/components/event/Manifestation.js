@@ -106,17 +106,17 @@ class Manifestation extends Component {
                         <div className="col-2">Date: {this.state.date}</div>
                         <div className="col-2">Intrevale: {this.state.interval} jour(s)</div>
                         <div className="col-2">Prix: {this.state.price}</div>
-                        <div className="row">
+                        <div className="row margTop">
                             <div className="col-12">
                                 <h2>Description</h2>
                                 <p>{this.state.description}</p>
                             </div>
                         </div>
-                        <div className="row">
+                        <div className="row margTop">
                             {subscribeBtn}
                         </div>
 
-                        <div className="row">
+                        <div className="row margTop">
                             {addPhoto}
                         </div>
 

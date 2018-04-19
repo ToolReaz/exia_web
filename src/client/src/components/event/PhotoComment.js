@@ -35,13 +35,13 @@ class PhotoComment extends Component {
 
     render() {
         let reportBtn = [];
-        if (this.state.isAdmin) {
-            reportBtn.push(<button onClick={this.report}>Signaler ce commentaire</button>)
+        if (this.state.isAdmin && this.state.isPublic) {
+            reportBtn.push(<button className="photo-comment-report" onClick={this.report}>Signaler ce commentaire</button>)
         }
         return (
-            <div>
-                {(this.state.isPublic)?<p>Message: {this.state.text}</p>:<p>Message: Ce message à été signalé !</p>}
+            <div className="photo-comment">
                 {reportBtn}
+                {(this.state.isPublic)?<p className="photo-comment-message">Message: {this.state.text}</p>:<p className="photo-comment-message-reported">Message: Ce message à été signalé !</p>}
             </div>
         );
     }

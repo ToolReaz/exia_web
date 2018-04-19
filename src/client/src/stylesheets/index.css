@@ -1109,13 +1109,12 @@ p.s:hover:after {
   cursor: pointer; }
 
 .commentaire {
-  height: 12em;
+  height: 400px;
   overflow: scroll;
   margin-bottom: 2%;
   overflow-x: hidden; }
 
 .commentaire p {
-  margin-bottom: 2%;
   text-align: justify; }
 
 .inputcom {
@@ -1124,14 +1123,14 @@ p.s:hover:after {
   max-width: 100%;
   min-height: 5em; }
 
-.commentaire button {
+.commentaire button, .commentaire input[type=submit] {
   background-color: #C2242A;
   color: white;
   border: none;
-  height: 2em;
-  width: 4em; }
+  height: 45px;
+  width: 120px; }
 
-.commentaire button:hover {
+.commentaire button:hover, .commentaire input[type=submit]:hover {
   background-color: #D7282F; }
 
 .commentaire h3 {
@@ -1155,6 +1154,10 @@ p.s:hover:after {
   background: #f0f0f0;
   border-radius: 10px; }
 
+.manif-details-img {
+  max-height: 500px;
+  width: auto; }
+
 .green {
   color: green; }
 
@@ -1166,6 +1169,24 @@ p.s:hover:after {
 
 .padTop {
   padding-top: 30px; }
+
+.photo-comment {
+  width: 100%;
+  display: block;
+  margin-top: 10px;
+  float: left; }
+
+.photo-comment-message {
+  width: 80%;
+  display: block; }
+
+.photo-comment-report {
+  width: 20%;
+  float: left;
+  display: block; }
+
+.photo-comment-message-reported {
+  display: none; }
 
 body {
   font-family: 'Roboto', serif;

@@ -38,11 +38,11 @@ class CommentPhoto extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input type="text" name="comment" placeholder="Commentaire" value={this.state.comment} onChange={this.handleChange}/>
-                    <input type="submit" value="Commenter"/>
+                    <textarea className="inputcom" name="comment" placeholder="Commentaire" value={this.state.comment} onChange={this.handleChange}/><br/><br/>
+                    <input type="submit" value="Commenter"/><br/>
                 </form>
             </div>
-        )
+        );
     }
 }
 
