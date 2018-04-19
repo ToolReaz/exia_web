@@ -12,10 +12,10 @@ class Event extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            error: null,
+            error: false,
             ideas: [],
             manifestations: [],
-            roles: []
+            roles: [],
         };
     }
 
@@ -24,6 +24,7 @@ class Event extends Component {
         getApi('/user/roles').then(res => {
             this.setState({roles: res});
         }).catch(reason => {
+            this.setState({error: reason});
             this.props.alert.error('Impossible de récupérer votre role');
         });
     }
@@ -37,6 +38,7 @@ class Event extends Component {
             });
             this.setState({ideas: tmp});
         }).catch(reason => {
+            this.setState({error: reason});
             this.props.alert.error('Impossible de récupérer les idées');
         });
     }
@@ -49,6 +51,7 @@ class Event extends Component {
             });
             this.setState({manifestations: tmp});
         }).catch(reason => {
+            this.setState({error: reason});
             this.props.alert.error('Impossible de récupérer les manifestations');
         });
     }
@@ -61,7 +64,7 @@ class Event extends Component {
 
 
     render() {
-        if (this.state.manifestations.length === 0 || this.state.ideas.length === 0 || this.state.roles.length === 0) {
+        if ((this.state.manifestations.length === 0 || this.state.ideas.length === 0 || this.state.roles.length === 0) && !this.state.error) {
             return (
                 <div id="preloader">
                     <div id="loader"></div>
