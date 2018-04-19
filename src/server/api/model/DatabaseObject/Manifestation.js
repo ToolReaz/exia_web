@@ -34,7 +34,7 @@ module.exports = (dataObject, permissions) => {
          */
         PostManifestation: async (idAccount, manifestation) => {
             if (await permissions.FilterPermission(idAccount, "P_VALID_MANIF")) {
-                var r = await dataObject.Manifestation.findOrCreate({where: manifestation});
+                let r = await dataObject.Manifestation.findOrCreate({where: manifestation});
                 return r.ID;
             } else {
                 return Promise.reject(new Error("The user with the following ID : #" + idAccount + " does not have the following permission : \"P_VALID_MANIF\""));
@@ -171,10 +171,22 @@ module.exports = (dataObject, permissions) => {
             return await dataObject.Manifestation.findAll();
         },
 
+        /**
+         * Get a manifestation by its ID
+         * @param idManifestation ID of the manifestation
+         * @returns {Promise<Model>}
+         * @constructor
+         */
         GetManifestationFromID : async(idManifestation) => {
             return await dataObject.Manifestation.findOne({where: {ID: idManifestation}});
         },
 
+        /**
+         * Get every photos from a manifestation
+         * @param idManifestation ID of the manifestation
+         * @returns {Promise<Array<Model>>}
+         * @constructor
+         */
         GetPhotos: async(idManifestation) => {
             return await dataObject.Account_Manifestation_Photo.findAll({where: {ID_Manifestation: idManifestation}});
         }

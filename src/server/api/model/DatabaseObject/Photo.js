@@ -39,14 +39,33 @@ module.exports = (dataObject, permissions) => {
             }
         },
 
+
+        /**
+         * Return a photo by its ID
+         * @param idPhoto The ID of the photo
+         * @returns {Promise<Model>}
+         * @constructor
+         */
         GetPhotoById: async (idPhoto) => {
             return await dataObject.Photo.findOne({where: {ID: idPhoto}});
         },
 
+        /**
+         * Return every comments of a photo
+         * @param idPhoto ID of the photo
+         * @returns {Promise<Array<Model>>}
+         * @constructor
+         */
         GetCommentsOfPhoto: async (idPhoto) => {
             return await dataObject.Comments_Account_Photo.findAll({where: {ID_Photo: idPhoto}});
         },
 
+        /**
+         * Return the content of a comment
+         * @param idComment ID of the comment
+         * @returns {Promise<Model>}
+         * @constructor
+         */
         GetCommentContent: async (idComment) => {
             return await dataObject.Comments.findOne({where: {ID: idComment }});
         },
@@ -95,6 +114,13 @@ module.exports = (dataObject, permissions) => {
             }
         },
 
+        /**
+         * Check if a user has already liked a photo
+         * @param idAccount ID of the account
+         * @param idPhoto ID of the photo
+         * @returns {Promise<boolean>}
+         * @constructor
+         */
         HasLiked: async(idAccount, idPhoto) => {
             return !!(await dataObject.Likes.findOne({where: {ID_Account: idAccount, ID_Photo: idPhoto}}));
         },
@@ -124,17 +150,30 @@ module.exports = (dataObject, permissions) => {
             }
         },
 
+        /**
+         * Get the content of every content of a photo
+         * @param idPhoto ID of the photo
+         * @returns {Promise<Array<String>>}
+         * @constructor
+         */
         GetAllCommentsTextFromPhoto: async (idPhoto) => {
-            var s = await here.GetCommentsOfPhoto(idPhoto);
-            var ret = [];
-            for (var i = 0; i < s.length; i++) {
-                var comment = s[i];
-                var commentText = await here.GetCommentContent(comment.ID_Comments);
+            let s = await here.GetCommentsOfPhoto(idPhoto);
+            let ret = [];
+            for (let i = 0; i < s.length; i++) {
+                let comment = s[i];
+                let commentText = await here.GetCommentContent(comment.ID_Comments);
                 ret.push(commentText);
             }
             return ret;
         },
 
+        /**
+         * Report a comment
+         * @param idAccount ID of the account reporting
+         * @param idComment ID of the comment involved
+         * @returns {Promise<void>}
+         * @constructor
+         */
         ReportComment: async(idAccount, idComment) => {
             if (await permissions.FilterPermission(idAccount, "P_REPORT")) {
                 await dataObject.Comments.update({Public: false}, {where: {ID: idComment}});

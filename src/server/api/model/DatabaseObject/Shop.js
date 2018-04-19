@@ -307,28 +307,29 @@ module.exports = (dataObject, permissions) => {
          * @constructor
          */
         GetTopThree: async() => {
-            var m = {};
-            var keys = [];
-            var allPurchases = await dataObject.Basket.findAll();
-            for (var i = 0; i < allPurchases.length; i++) {
-                var purchase = allPurchases[i];
+            let i;
+            let m = {};
+            let keys = [];
+            let allPurchases = await dataObject.Basket.findAll();
+            for (i = 0; i < allPurchases.length; i++) {
+                let purchase = allPurchases[i];
 
-                if (m[purchase.ID_Product.toString()] == 0 || m[purchase.ID_Product.toString()] == null) {
+                if (m[purchase.ID_Product.toString()] === 0 || m[purchase.ID_Product.toString()] == null) {
                     m[purchase.ID_Product.toString()] = purchase.Quantity;
                     keys.push(purchase.ID_Product.toString())
                 } else {
                     m[purchase.ID_Product.toString()] += purchase.Quantity;
                 }
             }
-            var first = '0';
-            var second = '0';
-            var third = '0';
-            for (var i = 0; i < keys.length; i++) {
-                var productKey = keys[i];
-                var quantity = m[productKey];
-                var oldQuantity1 = m[first] || 0;
-                var oldQuantity2 = m[second] || 0;
-                var oldQuantity3 = m[third] || 0;
+            let first = '0';
+            let second = '0';
+            let third = '0';
+            for (i = 0; i < keys.length; i++) {
+                let productKey = keys[i];
+                let quantity = m[productKey];
+                let oldQuantity1 = m[first] || 0;
+                let oldQuantity2 = m[second] || 0;
+                let oldQuantity3 = m[third] || 0;
 
                 if (quantity > oldQuantity1) {
                     third = second;
@@ -341,16 +342,16 @@ module.exports = (dataObject, permissions) => {
                     third = productKey;
                 }
             }
-            var ids = [parseInt(first), parseInt(second), parseInt(third)];
-            for (var i = 0; i < ids.length; i++) {
-                var element = ids[i];
-                if (element == 0) {
+            let ids = [parseInt(first), parseInt(second), parseInt(third)];
+            for (i = 0; i < ids.length; i++) {
+                let element = ids[i];
+                if (element === 0) {
                     ids[i] = 1;
                 }
             }
-            var firstProduct = await here.GetProductFromID(ids[0]);
-            var secondProduct = await here.GetProductFromID(ids[1]);
-            var thirdProduct = await here.GetProductFromID(ids[2]);
+            let firstProduct = await here.GetProductFromID(ids[0]);
+            let secondProduct = await here.GetProductFromID(ids[1]);
+            let thirdProduct = await here.GetProductFromID(ids[2]);
             return [firstProduct, secondProduct, thirdProduct];
         }
     };
