@@ -32,6 +32,7 @@ module.exports = {
 
         if (reqToken) {
             DB.Manifestation.GetManifestationFromID(reqID).then(manifestation => {
+                manifestation.formatedDate = new Date(manif.When).toDateString();
                 res.json({'error': null, 'content': manifestation});
             }).catch(reason => {
                 res.json({'error': reason.message, 'content': null});
