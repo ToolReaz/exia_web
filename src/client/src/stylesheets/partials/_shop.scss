@@ -1,0 +1,29 @@
+.shop-article {
+  width: 200px;
+  height: 170px;
+  border: 1px solid #4d4d4d;
+  border-radius: 4px;
+  margin: 20px;
+}
+.shop-article-title {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #ffffff;
+  width: 100%;
+  height: 50px;
+  line-height: 50px;
+  padding-left: 10px;
+  background-color: #C2242A;
+}
+
+.shop-article-description, .shop-article-price, .shop-article-quantity  {
+  width: 100%;
+  height: 40px;
+  padding: 5px;
+}
+
+.shop-article-price {
+}
+
+.shop-article-quantity {
+}

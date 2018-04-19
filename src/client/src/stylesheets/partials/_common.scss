@@ -405,3 +405,26 @@
   text-align: center;
   text-decoration: none;
 }
+
+
+
+
+
+
+/*=====================================================================================*/
+
+/*==================================TITLES===========================================*/
+.btn-primary {
+  height: 42px;
+  padding: 10px;
+  color: #ffffff;
+  font-size: 1.1em;
+  background-color: #0074d9;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 0 2px 1px rgba(50,50,50,0.2);
+}
+.btn-primary:hover {
+  background-color: #0064c3;
+  cursor: pointer;
+}

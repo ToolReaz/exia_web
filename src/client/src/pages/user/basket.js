@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from "../../components/Header";
 import {getApi} from "../../lib/api/requestApi";
 import {withAlert} from "react-alert";
+import Footer from "../../components/Footer";
 
 class Basket extends Component {
 
@@ -17,18 +18,23 @@ class Basket extends Component {
     componentDidMount() {
         getApi('/api/shop/basket').then(res => {
             console.log(res);
-            this.setState({products: res});
+            if (res.length !== 0) {
+                this.setState({products: res});
+            } else {
+                this.setState({products: null});
+            }
         }).catch(reason => {
-            console.error(reason);
+            this.props.alert.error('Impossible de récupérer le panier');
         });
     }
 
     order(e) {
         e.preventDefault();
         getApi('/api/shop/order').then(res => {
-            this.props.alert.error('Commande validée');
+            this.props.alert.success('Commande validée');
+            this.setState({products: null});
         }).catch(reason => {
-            alert(reason);
+            this.props.alert.error('Impossible de valider la commande');
         })
     }
 
@@ -48,10 +54,10 @@ class Basket extends Component {
                     console.log(product);
                     productsView.push(
                         <div key={index} className="shop-article">
-                            <h2>{product.Article.Name}</h2>
-                            <p>{product.Article.Description}</p>
-                            <p>{product.Article.Price} €</p>
-                            <p>{product.Quantity} €</p>
+                            <p className="shop-article-title">{product.Product.Name}</p>
+                            <p className="shop-article-description">Description: {product.Product.Description}</p>
+                            <p className="shop-article-price">Prix: {product.Product.Price} €</p>
+                            <p className="shop-article-quantity">Quantité: {product.Quantity}</p>
                         </div>
                     )
                 });
@@ -68,14 +74,16 @@ class Basket extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div>
-                                <button onClick={this.order}>Valider mes achats !</button>
+                            <div className="col-12 center">
+                                <button className="btn-primary" onClick={this.order}>Valider mes achats !</button>
                             </div>
                         </div>
+                        <div className="row-flex">
+                            {productsView}
+                        </div>
                     </div>
-                    <div className="row-flex">
-                        {productsView}
-                    </div>
+
+                    <Footer/>
                 </div>
             );
         }

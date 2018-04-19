@@ -117,15 +117,13 @@ class Shop extends Component {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="col-4">
+                            <div className="col-4 center">
                             {basketLink}
                         </div>
-                        <div className="col-4">
-                            <div>
-                                <button onClick={this.order}>Valider mes achats !</button>
-                            </div>
+                        <div className="col-4 center">
+                            <button className="btn-primary" onClick={this.order}>Valider mes achats !</button>
                         </div>
-                        <div className="col-4">
+                        <div className="col-4 center">
                             <div>
                                 <input type="text" name="search" placeholder="Filtrer" value={this.state.search}
                                        onChange={this.handleChange}/>
