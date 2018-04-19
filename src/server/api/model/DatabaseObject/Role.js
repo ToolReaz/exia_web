@@ -60,6 +60,13 @@ module.exports = (dataObject, permissions) => {
 
         // TESTED
 
+        /**
+         * Add a role to an account
+         * @param idAccount ID of the account
+         * @param idRole ID of the role
+         * @returns {Promise<void>}
+         * @constructor
+         */
         AddRole : async (idAccount, idRole) => {
             await dataObject.Account_Role.findOrCreate({where: {ID_Account: idAccount, ID_Role: idRole}});
         }
