@@ -67,9 +67,9 @@ class Manifestation extends Component {
 
         if (this.state.currentEvent) {
             if (this.state.isSubscribed) {
-                subscribeBtn.push(<button disabled onClick={this.subscribe}>Déja inscrit !</button>);
+                subscribeBtn.push(<button className="eventSubBtn" disabled onClick={this.subscribe}>Déja inscrit !</button>);
             } else {
-                subscribeBtn.push(<button onClick={this.subscribe}>S'inscrire</button>);
+                subscribeBtn.push(<button className="eventSubBtn" onClick={this.subscribe}>S'inscrire</button>);
             }
         }
 
@@ -118,14 +118,14 @@ class Manifestation extends Component {
                 <div className="event">
                     <h2 className="eventTitle">{this.state.name}</h2>
                     <img className="eventImg" src="https://picsum.photos/300/200" alt="imadadaage"/>
-                    <p>Description: {this.state.description}</p>
-                    <div>
-                        <span className="eventDate">Date: {this.state.date}</span>
-                        <span className="eventInter">Intreval: {this.state.interval}</span>
-                        <span className="eventPrix">Prix: {this.state.price}</span>
+                    <p className="eventDescription">Description: {this.state.description}</p>
+                    <div className="eventInfos">
+                        <p className="eventDate">Date: {this.state.date}</p>
+                        <p className="eventInterval">Intreval: {this.state.interval}</p>
+                        <p className="eventPrice">Prix: {this.state.price}</p>
+                        {subscribeBtn}
+                        <Link className="eventDetailsBtn" to={'/event/'+this.state.id}>Page détaillé</Link>
                     </div>
-                    {subscribeBtn}
-                    <Link to={'/event/'+this.state.id}>Page détaillé</Link>
                 </div>
             );
         }
