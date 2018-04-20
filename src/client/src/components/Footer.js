@@ -41,9 +41,9 @@ class Footer extends Component {
 
                     <div className="footer-icons">
 
-                        <a href=""><i className="fab fa-facebook"></i></a>
-                        <a href=""><i className="fab fa-twitter"></i></a>
-                        <a href=""><i className="fab fa-linkedin"></i></a>
+                        <a href="https://www.facebook.com/BdeExiaStrasbourg/?ref=br_rs" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook"></i></a>
+                        <a href="https://twitter.com/bdeexiastrg?lang=fr" target="_blank" rel="noopener noreferrer"><i className="fab fa-twitter"></i></a>
+                        <a href="https://www.linkedin.com/school/561843/" target="_blank" rel="noopener noreferrer"><i className="fab fa-linkedin"></i></a>
                         <a href=""><i className="fab fa-snapchat"></i></a>
 
                     </div>

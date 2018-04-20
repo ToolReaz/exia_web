@@ -104,7 +104,7 @@ class Shop extends Component {
 
             let basketLink = [];
             if (cookies.load('token')) {
-                basketLink.push(<Link to="/shop/basket">Mon panier</Link>);
+                basketLink.push(<Link className="link" to="/shop/basket">Mon panier</Link>);
             }
 
             return (

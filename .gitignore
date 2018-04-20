@@ -5,3 +5,4 @@ src/server/node_modules
 .TODO.txt
 src/server/package.json
 src/server/package-lock.json
+src/server/api/model/config.js
