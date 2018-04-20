@@ -1,6 +1,6 @@
 const sql = require('sequelize');
 
-const connection = new sql(require('config').DatabaseCred());
+const connection = new sql(require('./config').DatabaseCred());
 
 const database = {
     Purchase:                       require('./Tables/Purchase')                    (connection, sql),
