@@ -36,8 +36,8 @@ class ShowSubscribersManifestation extends Component {
             this.setState({
                 id: id,
                 subscribers: res,
-                pdfUrl: 'http://localhost:4000/api/manifestation/subscribers/pdf/' + id.toString(),
-                csvUrl: 'http://localhost:4000/api/manifestation/subscribers/csv/' + id.toString(),
+                pdfUrl: 'http://cctl.solutions/api/manifestation/subscribers/pdf/' + id.toString(),
+                csvUrl: 'http://cctl.solutions/api/manifestation/subscribers/csv/' + id.toString(),
             });
         }).catch(reason => {
             this.props.alert.error('Impossible de charger les inscrits à la manifestation');

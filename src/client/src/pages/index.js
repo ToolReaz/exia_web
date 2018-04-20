@@ -8,7 +8,7 @@ class Index extends Component {
         return (
             <div>
                 <Header/>
-                <div className="relative">
+                <div className="relative page-container">
                 <img className="divImgIndex" src='https://www.cesi-alternance.fr/wp-content/uploads/2015/02/photo-1.jpg' alt="" />
                 <div className="accueil">
                     <h1>Bienvenue sur le site du BDE</h1>
