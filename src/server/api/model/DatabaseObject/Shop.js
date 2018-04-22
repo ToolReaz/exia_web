@@ -303,6 +303,9 @@ module.exports = (dataObject, permissions) => {
 
         /**
          * Get the top 3 products in shop
+         * 
+         * TO REFACTOR ASAP
+         * IT MAKES MY EYES BLEED
          * @returns {Promise<Array<Model>>}
          * @constructor
          */
